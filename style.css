@@ -748,13 +748,24 @@ figcaption {
 
 .acc-desc { margin: 0; color: var(--muted); font-size: 1rem; line-height: 1.6; max-width: 72ch; }
 
-/* Schematic figures (diagrams/*.svg) — framed as editorial plates */
+/* Schematic figures (diagrams/*.svg) — framed as editorial plates.
+   On small screens the plate keeps a legible width and pans
+   horizontally instead of shrinking its type below ~9px. */
+.tip-diagram-scroll {
+  margin: 24px 0 8px;
+  border: 1px solid var(--hairline);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
 .tip-diagram {
   display: block;
   width: 100%;
   height: auto;
-  margin: 24px 0 8px;
-  border: 1px solid var(--hairline);
+}
+
+@media (max-width: 760px) {
+  .tip-diagram { min-width: 720px; }
 }
 
 /* Shared numbered steps (diagnose panel + accordion bodies) */
@@ -1155,6 +1166,10 @@ figcaption {
   body.printing-single .print-target .acc-icon { display: none !important; }
 
   .tip-steps li { page-break-inside: avoid; }
+
+  /* Figures print at full width — no panning on paper */
+  .tip-diagram-scroll { overflow: visible; margin: 12pt 0 4pt; border: none; }
+  .tip-diagram { min-width: 0; max-width: 100%; }
 }
 
 /* ============================================================
