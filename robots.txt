@@ -1,0 +1,6 @@
+# EmTech Media — robots.txt
+# Swap emtechmedia.example for your real domain when it exists.
+User-agent: *
+Allow: /
+
+Sitemap: https://www.emtechmedia.example/sitemap.xml

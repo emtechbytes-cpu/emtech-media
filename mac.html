@@ -6,6 +6,25 @@
   <meta name="theme-color" content="#F1EEE6" />
   <title>Mac Fixes — EmTech Media</title>
   <meta name="description" content="16 tested macOS fixes: frozen apps, slow Wi-Fi, battery health, Time Machine, FileVault, Gatekeeper, boot recovery and more. Intel + Apple Silicon, timed to the minute, written in plain English." />
+  <!-- SEO / social — swap emtechmedia.example for your real domain when it exists -->
+  <link rel="canonical" href="https://www.emtechmedia.example/mac.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="EmTech Media" />
+  <meta property="og:title" content="Mac Fixes — EmTech Media" />
+  <meta property="og:description" content="16 tested macOS fixes in plain English — speed, everyday fixes and security & backups. Intel + Apple Silicon." />
+  <meta property="og:url" content="https://www.emtechmedia.example/mac.html" />
+  <meta property="og:image" content="https://www.emtechmedia.example/og-image.png" />
+  <meta name="twitter:card" content="summary" />
+  <script>
+    // Apply the saved theme before first paint (avoids a flash of the wrong theme).
+    (function () {
+      try {
+        var t = localStorage.getItem("emtech-theme");
+        if (!t) t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.theme = t;
+      } catch (err) {}
+    })();
+  </script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23131210'/%3E%3Cpath d='M20 48V16h26v9H30v5h13v9H30v5z' fill='%23C8F03C'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -33,6 +52,18 @@
       </nav>
 
       <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false" aria-label="Toggle dark mode">
+          <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"/>
+            <line x1="12" y1="2.5" x2="12" y2="4.5"/><line x1="12" y1="19.5" x2="12" y2="21.5"/>
+            <line x1="2.5" y1="12" x2="4.5" y2="12"/><line x1="19.5" y1="12" x2="21.5" y2="12"/>
+            <line x1="5.3" y1="5.3" x2="6.7" y2="6.7"/><line x1="17.3" y1="17.3" x2="18.7" y2="18.7"/>
+            <line x1="5.3" y1="18.7" x2="6.7" y2="17.3"/><line x1="17.3" y1="6.7" x2="18.7" y2="5.3"/>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20.5 13.2A8.5 8.5 0 1 1 10.8 3.5a7 7 0 0 0 9.7 9.7z"/>
+          </svg>
+        </button>
         <a class="btn-link" href="index.html#contact">Get help <span aria-hidden="true">↗</span></a>
         <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle menu">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
@@ -83,10 +114,22 @@
     <section class="section" id="fixes">
       <div class="container">
         <header class="sec-head reveal">
-          <span class="sec-num">16 fixes · macOS</span>
+          <span class="sec-num">16 fixes · 3 groups</span>
           <h2>The full list</h2>
-          <p class="sec-sub">Tap any row to read the steps — no sign-up, no jargon. Intel and Apple Silicon both covered.</p>
+          <p class="sec-sub">Grouped into speed &amp; performance, everyday fixes and security &amp; backups. Search or tap any row to read the steps — no sign-up, no jargon.</p>
         </header>
+
+        <div class="fix-tools reveal">
+          <div class="fix-search-row">
+            <input type="search" id="fix-search" placeholder="Search the fixes… (press /)" aria-label="Search the Mac fixes" />
+            <span class="fix-count" id="fix-count" aria-live="polite"></span>
+          </div>
+          <div class="cat-chips" role="group" aria-label="Jump to a group">
+            <a class="cat-chip" href="#sub-speed">Speed &amp; performance</a>
+            <a class="cat-chip" href="#sub-fixes">Everyday fixes</a>
+            <a class="cat-chip" href="#sub-security">Security &amp; backups</a>
+          </div>
+        </div>
 
         <div class="acc-list" id="mac-acc">
           <noscript><p class="no-js-note">Enable JavaScript to expand the fixes.</p></noscript>
@@ -112,7 +155,7 @@
           <li><a class="index-row" href="windows.html">
             <span class="idx-num">02</span>
             <h3 class="idx-title">Windows fixes</h3>
-            <p class="idx-desc">Forty-four tested fixes for Windows 10 and 11, grouped by what they do.</p>
+            <p class="idx-desc">Forty-seven tested fixes for Windows 10 and 11, grouped by what they do.</p>
             <span class="idx-arrow" aria-hidden="true">↗</span>
           </a></li>
           <li><a class="index-row" href="index.html#routine">
@@ -166,6 +209,8 @@
       <p>Tested on real machines, written for humans.</p>
     </div>
   </footer>
+
+  <button class="to-top" id="to-top" type="button" aria-label="Back to top">↑</button>
 
   <script src="tips-data.js"></script>
   <script src="script.js"></script>

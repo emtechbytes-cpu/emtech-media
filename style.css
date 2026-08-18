@@ -395,6 +395,14 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 16px); }
 .work-meta { padding-top: 16px; }
 .work-meta h3 { font-size: clamp(1.05rem, 1.6vw, 1.25rem); margin-bottom: 8px; }
 
+.work-desc {
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0 0 12px;
+  max-width: 60ch;
+}
+
 .tags { display: flex; align-items: center; gap: 14px; margin: 0; flex-wrap: wrap; }
 .tags span {
   font-size: 0.72rem;
@@ -1030,6 +1038,9 @@ figcaption {
   color: var(--muted);
 }
 .acc-subgroup i { font-style: normal; }
+
+/* Category / group jump targets (chips) clear the sticky header */
+.acc-group, .acc-subgroup { scroll-margin-top: calc(var(--header-h) + 16px); }
 
 /* ---------- Related fixes ("Pairs well with") ---------- */
 .acc-related { border-top: 1px solid var(--hairline); padding-top: 16px; max-width: 72ch; }

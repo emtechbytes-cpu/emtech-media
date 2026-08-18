@@ -6,6 +6,25 @@
   <meta name="theme-color" content="#F1EEE6" />
   <title>EmTech Media — PC &amp; Mac Problems, Solved</title>
   <meta name="description" content="Tell us what's wrong and get the exact steps: slow PCs, overheating fans, update chaos, gaming stutter. Windows and macOS fixes in plain English, plus a monthly maintenance routine." />
+  <!-- SEO / social — swap emtechmedia.example for your real domain when it exists -->
+  <link rel="canonical" href="https://www.emtechmedia.example/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="EmTech Media" />
+  <meta property="og:title" content="EmTech Media — PC &amp; Mac Problems, Solved" />
+  <meta property="og:description" content="63 tested fixes for Windows and macOS in plain English. Tell us what's wrong and get the exact steps." />
+  <meta property="og:url" content="https://www.emtechmedia.example/" />
+  <meta property="og:image" content="https://www.emtechmedia.example/og-image.png" />
+  <meta name="twitter:card" content="summary" />
+  <script>
+    // Apply the saved theme before first paint (avoids a flash of the wrong theme).
+    (function () {
+      try {
+        var t = localStorage.getItem("emtech-theme");
+        if (!t) t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.theme = t;
+      } catch (err) {}
+    })();
+  </script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23131210'/%3E%3Cpath d='M20 48V16h26v9H30v5h13v9H30v5z' fill='%23C8F03C'/%3E%3C/svg%3E" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -33,6 +52,18 @@
       </nav>
 
       <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false" aria-label="Toggle dark mode">
+          <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"/>
+            <line x1="12" y1="2.5" x2="12" y2="4.5"/><line x1="12" y1="19.5" x2="12" y2="21.5"/>
+            <line x1="2.5" y1="12" x2="4.5" y2="12"/><line x1="19.5" y1="12" x2="21.5" y2="12"/>
+            <line x1="5.3" y1="5.3" x2="6.7" y2="6.7"/><line x1="17.3" y1="17.3" x2="18.7" y2="18.7"/>
+            <line x1="5.3" y1="18.7" x2="6.7" y2="17.3"/><line x1="17.3" y1="6.7" x2="18.7" y2="5.3"/>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20.5 13.2A8.5 8.5 0 1 1 10.8 3.5a7 7 0 0 0 9.7 9.7z"/>
+          </svg>
+        </button>
         <a class="btn-link" href="#contact">Get help <span aria-hidden="true">↗</span></a>
         <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle menu">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
@@ -63,7 +94,7 @@
             </div>
           </div>
           <ul class="hero-meta" aria-label="Library facts">
-            <li><span>Tested fixes</span> 60</li>
+            <li><span>Tested fixes</span> 63</li>
             <li><span>Coverage</span> Windows + macOS</li>
             <li><span>Jargon</span> None. Ever.</li>
           </ul>
@@ -99,7 +130,7 @@
     <!-- ============ STATS BAND ============ -->
     <section class="stats-band" aria-label="Library statistics">
       <ul class="container stats-list">
-        <li class="reveal"><span class="stat-num" data-count="60">0</span><span class="stat-label">Tested fixes</span></li>
+        <li class="reveal"><span class="stat-num" data-count="63">0</span><span class="stat-label">Tested fixes</span></li>
         <li class="reveal delay-1"><span class="stat-num">Win + Mac</span><span class="stat-label">Both platforms covered</span></li>
         <li class="reveal delay-2"><span class="stat-num" data-count="6">0</span><span class="stat-label">Step monthly routine</span></li>
         <li class="reveal delay-3"><span class="stat-num">1–60 min</span><span class="stat-label">Each fix, timed</span></li>
@@ -112,7 +143,7 @@
         <header class="sec-head reveal">
           <span class="sec-num">02</span>
           <h2>Windows fixes</h2>
-          <p class="sec-sub">Forty-four tested fixes for Windows 10 and 11, each on its own page. Start with one of these:</p>
+          <p class="sec-sub">Forty-seven tested fixes for Windows 10 and 11, each on its own page. Start with one of these:</p>
         </header>
 
         <ul class="index-list reveal delay-1">
@@ -197,42 +228,45 @@
       </div>
     </section>
 
-    <!-- ============ 05 LONG READS ============ -->
-    <section class="section" id="guides">
+    <!-- ============ 05 START HERE ============ -->
+    <section class="section" id="start-here">
       <div class="container">
         <header class="sec-head reveal">
           <span class="sec-num">05</span>
-          <h2>Long reads</h2>
-          <p class="sec-sub">When you want the whole picture, not just one fix.</p>
+          <h2>Start here</h2>
+          <p class="sec-sub">The three problems we see most often. Pick your machine — each one starts with the fix that actually works.</p>
         </header>
 
         <div class="work-grid">
           <article class="work-item wide reveal">
-            <a href="../EmTech%20pc%20tips/guide.html" target="_blank" rel="noopener" aria-label="Open The Complete PC Speed Guide (opens in a new tab)">
-              <div class="thumb" aria-hidden="true"><span>Speed</span><i></i></div>
+            <a href="windows.html#fix-my-pc-is-slow-all-of-a-sudden-the-order-of-attack" aria-label="Open the 'PC suddenly slow' fix on the Windows fixes page">
+              <div class="thumb" aria-hidden="true"><span>Slow</span><i></i></div>
               <div class="work-meta">
-                <h3>The Complete PC Speed Guide — long read</h3>
-                <p class="tags"><span>Guide</span><span>Windows</span><time datetime="2026">Updated 2026</time></p>
+                <h3>PC suddenly slow — the order of attack</h3>
+                <p class="work-desc">A fast machine crawling for no obvious reason? Work through these in this exact order.</p>
+                <p class="tags"><span>Windows</span><time datetime="2026">15 min</time></p>
               </div>
             </a>
           </article>
 
           <article class="work-item reveal delay-1">
-            <a href="windows.html#stop-games-stuttering-the-5-point-checklist" aria-label="Open the gaming performance checklist on the Windows fixes page">
-              <div class="thumb" aria-hidden="true"><span>FPS</span><i></i></div>
+            <a href="windows.html#fix-a-pc-that-overheats-and-fans-like-a-jet-engine" aria-label="Open the overheating fix on the Windows fixes page">
+              <div class="thumb" aria-hidden="true"><span>Heat</span><i></i></div>
               <div class="work-meta">
-                <h3>Gaming performance, sorted — 5-point checklist</h3>
-                <p class="tags"><span>Gaming</span><time datetime="2026">15 min</time></p>
+                <h3>Fans like a jet engine</h3>
+                <p class="work-desc">Loud fans usually mean dust, not a failing fan. A clean-out fixes half of all 'slow PC' tickets.</p>
+                <p class="tags"><span>Windows</span><time datetime="2026">45 min</time></p>
               </div>
             </a>
           </article>
 
           <article class="work-item reveal delay-2">
-            <a href="windows.html#hardening-accounts-updates-and-the-firewall" aria-label="Open the security hardening steps on the Windows fixes page">
-              <div class="thumb" aria-hidden="true"><span>Secure</span><i></i></div>
+            <a href="mac.html#speed-up-a-sluggish-macbook" aria-label="Open the 'sluggish MacBook' fix on the Mac fixes page">
+              <div class="thumb" aria-hidden="true"><span>Lag</span><i></i></div>
               <div class="work-meta">
-                <h3>Security hardening — accounts, updates, firewall</h3>
-                <p class="tags"><span>Security</span><time datetime="2026">20 min</time></p>
+                <h3>Mac sluggish</h3>
+                <p class="work-desc">Background apps and effects are usually the culprits — five minutes, no tools.</p>
+                <p class="tags"><span>macOS</span><time datetime="2026">5 min</time></p>
               </div>
             </a>
           </article>
@@ -315,6 +349,8 @@
       <p>Tested on real machines, written for humans.</p>
     </div>
   </footer>
+
+  <button class="to-top" id="to-top" type="button" aria-label="Back to top">↑</button>
 
   <script src="tips-data.js"></script>
   <script src="script.js"></script>
