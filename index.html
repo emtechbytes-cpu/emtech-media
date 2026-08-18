@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#F1EEE6" />
+  <title>EmTech Media — PC &amp; Mac Problems, Solved</title>
+  <meta name="description" content="Tell us what's wrong and get the exact steps: slow PCs, overheating fans, update chaos, gaming stutter. Windows and macOS fixes in plain English, plus a monthly maintenance routine." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23131210'/%3E%3Cpath d='M20 48V16h26v9H30v5h13v9H30v5z' fill='%23C8F03C'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@1&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header" id="top">
+    <div class="container nav-wrap">
+      <a class="brand" href="#top" aria-label="EmTech Media home">
+        <span class="brand-mark" aria-hidden="true"></span>
+        EmTech&nbsp;Media
+      </a>
+
+      <nav class="primary-nav" id="primary-nav" aria-label="Primary">
+        <ul>
+          <li><a href="#diagnose">Diagnose</a></li>
+          <li><a href="windows.html">Windows</a></li>
+          <li><a href="mac.html">Mac</a></li>
+          <li><a href="#routine">Routine</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <a class="btn-link" href="#contact">Get help <span aria-hidden="true">↗</span></a>
+        <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle menu">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <line class="icon-open" x1="3" y1="7" x2="21" y2="7"/>
+            <line class="icon-open" x1="3" y1="12" x2="21" y2="12"/>
+            <line class="icon-open" x1="3" y1="17" x2="21" y2="17"/>
+            <line class="icon-close" x1="5" y1="5" x2="19" y2="19"/>
+            <line class="icon-close" x1="19" y1="5" x2="5" y2="19"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <div class="container">
+        <p class="kicker reveal">PC &amp; Mac — problem solving, step by step</p>
+        <h1 class="reveal delay-1">Something broken? <em class="serif">We'll walk you through it.</em></h1>
+
+        <div class="hero-foot reveal delay-2">
+          <div class="hero-copy">
+            <p class="lede">Tell us what's happening and get the exact steps to fix it — tested on real machines, timed to the minute, written in plain English. Windows and Mac both covered.</p>
+            <div class="hero-cta">
+              <a class="btn btn-primary" href="#diagnose">Start diagnosing</a>
+              <a class="btn-link" href="windows.html">Browse all fixes <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+          <ul class="hero-meta" aria-label="Library facts">
+            <li><span>Tested fixes</span> 60</li>
+            <li><span>Coverage</span> Windows + macOS</li>
+            <li><span>Jargon</span> None. Ever.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PROBLEM TICKER ============ -->
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <span>Slow PC</span><i>✦</i><span>Overheating</span><i>✦</i><span>Update chaos</span><i>✦</i><span>Gaming stutter</span><i>✦</i><span>Disk full</span><i>✦</i><span>Ransomware-proofing</span><i>✦</i><span>Mac sluggishness</span><i>✦</i>
+        <span>Slow PC</span><i>✦</i><span>Overheating</span><i>✦</i><span>Update chaos</span><i>✦</i><span>Gaming stutter</span><i>✦</i><span>Disk full</span><i>✦</i><span>Ransomware-proofing</span><i>✦</i><span>Mac sluggishness</span><i>✦</i>
+      </div>
+    </div>
+
+    <!-- ============ 01 DIAGNOSE ============ -->
+    <section class="section" id="diagnose">
+      <div class="container">
+        <header class="sec-head reveal">
+          <span class="sec-num">01</span>
+          <h2>What's happening?</h2>
+          <p class="sec-sub">Pick the closest match to your problem — we'll point you at the fix that works, starting with the first three steps.</p>
+        </header>
+
+        <div class="symptom-grid reveal" id="symptom-grid" role="group" aria-label="Choose what's happening"></div>
+
+        <div class="diag-result reveal delay-1" id="diag-result" aria-live="polite">
+          <p class="diag-prompt">Select a symptom above to see the most likely fix.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STATS BAND ============ -->
+    <section class="stats-band" aria-label="Library statistics">
+      <ul class="container stats-list">
+        <li class="reveal"><span class="stat-num" data-count="60">0</span><span class="stat-label">Tested fixes</span></li>
+        <li class="reveal delay-1"><span class="stat-num">Win + Mac</span><span class="stat-label">Both platforms covered</span></li>
+        <li class="reveal delay-2"><span class="stat-num" data-count="6">0</span><span class="stat-label">Step monthly routine</span></li>
+        <li class="reveal delay-3"><span class="stat-num">1–60 min</span><span class="stat-label">Each fix, timed</span></li>
+      </ul>
+    </section>
+
+    <!-- ============ 02 WINDOWS FIXES (→ windows.html) ============ -->
+    <section class="section" id="windows">
+      <div class="container">
+        <header class="sec-head reveal">
+          <span class="sec-num">02</span>
+          <h2>Windows fixes</h2>
+          <p class="sec-sub">Forty-four tested fixes for Windows 10 and 11, each on its own page. Start with one of these:</p>
+        </header>
+
+        <ul class="index-list reveal delay-1">
+          <li><a class="index-row" href="windows.html#fix-my-pc-is-slow-all-of-a-sudden-the-order-of-attack">
+            <span class="idx-num">01</span>
+            <h3 class="idx-title">Fix 'My PC is slow all of a sudden'</h3>
+            <p class="idx-desc">The order of attack when a fast PC suddenly crawls · 15 min</p>
+            <span class="idx-arrow" aria-hidden="true">↗</span>
+          </a></li>
+          <li><a class="index-row" href="windows.html#stop-games-stuttering-the-5-point-checklist">
+            <span class="idx-num">02</span>
+            <h3 class="idx-title">Stop games stuttering — the 5-point checklist</h3>
+            <p class="idx-desc">Lag spikes usually trace back to one of five mundane causes · 15 min</p>
+            <span class="idx-arrow" aria-hidden="true">↗</span>
+          </a></li>
+          <li><a class="index-row" href="windows.html#protect-against-ransomware-before-it-s-too-late">
+            <span class="idx-num">03</span>
+            <h3 class="idx-title">Protect against ransomware before it's too late</h3>
+            <p class="idx-desc">Controlled folder access, memory integrity and a backup that actually saves you · 20 min</p>
+            <span class="idx-arrow" aria-hidden="true">↗</span>
+          </a></li>
+        </ul>
+
+        <div class="sec-cta reveal delay-2">
+          <a class="btn btn-primary" href="windows.html">Browse all Windows fixes <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 03 MAC FIXES (→ mac.html) ============ -->
+    <section class="section" id="mac">
+      <div class="container">
+        <header class="sec-head reveal">
+          <span class="sec-num">03</span>
+          <h2>Mac fixes</h2>
+          <p class="sec-sub">The macOS essentials, same standard: tested, timed, plain English. Start with one of these:</p>
+        </header>
+
+        <ul class="index-list reveal delay-1">
+          <li><a class="index-row" href="mac.html#speed-up-a-sluggish-macbook">
+            <span class="idx-num">01</span>
+            <h3 class="idx-title">Speed up a sluggish MacBook</h3>
+            <p class="idx-desc">Background apps and effects are usually the culprits · 5 min</p>
+            <span class="idx-arrow" aria-hidden="true">↗</span>
+          </a></li>
+          <li><a class="index-row" href="mac.html#free-up-disk-space-with-storage-management">
+            <span class="idx-num">02</span>
+            <h3 class="idx-title">Free up disk space with Storage Management</h3>
+            <p class="idx-desc">See what's eating your drive, then evict it automatically · 5 min</p>
+            <span class="idx-arrow" aria-hidden="true">↗</span>
+          </a></li>
+          <li><a class="index-row" href="mac.html#set-up-time-machine-properly">
+            <span class="idx-num">03</span>
+            <h3 class="idx-title">Set up Time Machine properly</h3>
+            <p class="idx-desc">Hourly, version-by-version backups of your whole Mac — and how to test a restore · 20 min</p>
+            <span class="idx-arrow" aria-hidden="true">↗</span>
+          </a></li>
+        </ul>
+
+        <div class="sec-cta reveal delay-2">
+          <a class="btn btn-primary" href="mac.html">Browse all Mac fixes <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 04 MONTHLY ROUTINE ============ -->
+    <section class="section" id="routine">
+      <div class="container">
+        <header class="sec-head reveal">
+          <span class="sec-num">04</span>
+          <h2>The monthly routine</h2>
+          <p class="sec-sub">Six things, once a month, about an hour total. Tick them off as you go — your progress is saved on this device.</p>
+        </header>
+
+        <div class="routine-head reveal">
+          <p class="routine-progress" id="routine-progress" role="status" aria-live="polite">0 of 6 done</p>
+          <button class="btn-link" id="routine-reset" type="button">Start a new month</button>
+        </div>
+        <div class="progress-bar reveal" aria-hidden="true"><span id="routine-fill"></span></div>
+
+        <ol class="checklist reveal delay-1" id="checklist"><!-- rendered from tips-data.js --></ol>
+      </div>
+    </section>
+
+    <!-- ============ 05 LONG READS ============ -->
+    <section class="section" id="guides">
+      <div class="container">
+        <header class="sec-head reveal">
+          <span class="sec-num">05</span>
+          <h2>Long reads</h2>
+          <p class="sec-sub">When you want the whole picture, not just one fix.</p>
+        </header>
+
+        <div class="work-grid">
+          <article class="work-item wide reveal">
+            <a href="../EmTech%20pc%20tips/guide.html" target="_blank" rel="noopener" aria-label="Open The Complete PC Speed Guide (opens in a new tab)">
+              <div class="thumb" aria-hidden="true"><span>Speed</span><i></i></div>
+              <div class="work-meta">
+                <h3>The Complete PC Speed Guide — long read</h3>
+                <p class="tags"><span>Guide</span><span>Windows</span><time datetime="2026">Updated 2026</time></p>
+              </div>
+            </a>
+          </article>
+
+          <article class="work-item reveal delay-1">
+            <a href="windows.html#stop-games-stuttering-the-5-point-checklist" aria-label="Open the gaming performance checklist on the Windows fixes page">
+              <div class="thumb" aria-hidden="true"><span>FPS</span><i></i></div>
+              <div class="work-meta">
+                <h3>Gaming performance, sorted — 5-point checklist</h3>
+                <p class="tags"><span>Gaming</span><time datetime="2026">15 min</time></p>
+              </div>
+            </a>
+          </article>
+
+          <article class="work-item reveal delay-2">
+            <a href="windows.html#hardening-accounts-updates-and-the-firewall" aria-label="Open the security hardening steps on the Windows fixes page">
+              <div class="thumb" aria-hidden="true"><span>Secure</span><i></i></div>
+              <div class="work-meta">
+                <h3>Security hardening — accounts, updates, firewall</h3>
+                <p class="tags"><span>Security</span><time datetime="2026">20 min</time></p>
+              </div>
+            </a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 06 GET HELP ============ -->
+    <section class="section contact" id="contact">
+      <div class="container">
+        <header class="sec-head reveal">
+          <span class="sec-num">06</span>
+          <h2 class="giant">Still stuck? <em class="serif">Tell us what's happening.</em></h2>
+        </header>
+
+        <a class="email-link reveal delay-1" href="mailto:hello@emtechmedia.example">hello@emtechmedia.example</a>
+
+        <div class="contact-grid">
+          <form class="contact-form reveal delay-2" id="contact-form" novalidate>
+            <div class="field">
+              <label for="name">Your name</label>
+              <input type="text" id="name" name="name" placeholder="Ada Lovelace" autocomplete="name" required />
+            </div>
+            <div class="field">
+              <label for="email">Email address</label>
+              <input type="email" id="email" name="email" placeholder="ada@company.com" autocomplete="email" required />
+            </div>
+            <div class="field">
+              <label for="platform">Platform <span class="optional">(helps us help you)</span></label>
+              <select id="platform" name="platform">
+                <option value="">Select…</option>
+                <option>Windows 10 / 11</option>
+                <option>macOS</option>
+                <option>Both / not sure</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="message">Describe the problem</label>
+              <textarea id="message" name="message" rows="3" placeholder="What's happening, when did it start, and what have you already tried?" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send message <span aria-hidden="true">↗</span></button>
+            <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+          </form>
+
+          <aside class="contact-aside reveal delay-3" aria-label="Contact details">
+            <dl>
+              <div><dt>Email</dt><dd><a href="mailto:hello@emtechmedia.example">hello@emtechmedia.example</a></dd></div>
+              <div><dt>Phone</dt><dd><a href="tel:+442079460000">+44 20 7946 0000</a></dd></div>
+              <div><dt>Covers</dt><dd>Windows · macOS · Hardware</dd></div>
+              <div><dt>Response time</dt><dd>Within one business day</dd></div>
+            </dl>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container footer-top">
+      <p class="footer-brand"><span class="brand-mark" aria-hidden="true"></span>EmTech Media — PC &amp; Mac problems, solved in plain English.</p>
+
+      <nav aria-label="Footer">
+        <a href="#diagnose">Diagnose</a>
+        <a href="windows.html">Windows fixes</a>
+        <a href="mac.html">Mac fixes</a>
+        <a href="#routine">Monthly routine</a>
+        <a href="#contact">Get help</a>
+      </nav>
+
+      <div class="footer-social" aria-label="Social links">
+        <a href="#">X</a><span aria-hidden="true">/</span>
+        <a href="#">YouTube</a><span aria-hidden="true">/</span>
+        <a href="#">LinkedIn</a>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <p>© <span id="year">2026</span> EmTech Media. All rights reserved.</p>
+      <p>Tested on real machines, written for humans.</p>
+    </div>
+  </footer>
+
+  <script src="tips-data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
