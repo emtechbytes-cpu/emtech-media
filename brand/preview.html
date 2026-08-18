@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EmTech Media — Logo concepts</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@1&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --paper: #f1eee6;
+      --paper-2: #e9e5d8;
+      --ink: #131210;
+      --muted: #5f5b50;
+      --accent: #c8f03c;
+      --hairline: rgba(19, 18, 16, 0.18);
+      --font-display: "Bricolage Grotesque", system-ui, sans-serif;
+      --font-body: "Inter", system-ui, -apple-system, sans-serif;
+      --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+      --font-serif: "Instrument Serif", Georgia, serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    figure { margin: 0; }
+    .container { max-width: 1080px; margin: 0 auto; padding-inline: clamp(20px, 4vw, 40px); }
+
+    header.page-head { border-bottom: 1px solid var(--ink); padding-block: clamp(32px, 6vw, 56px) clamp(24px, 4vw, 40px); }
+    .kicker { font-family: var(--font-mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.16em; color: var(--muted); margin: 0 0 18px; }
+    h1 { font-family: var(--font-display); font-weight: 800; font-size: clamp(2.4rem, 6vw, 4.2rem); line-height: 1.02; letter-spacing: -0.035em; margin: 0 0 14px; }
+    h1 em { font-family: var(--font-serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+    .lede { max-width: 62ch; color: var(--muted); margin: 0; }
+
+    section.concept { border-bottom: 1px solid var(--hairline); padding-block: clamp(32px, 5vw, 52px); }
+    .sec-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 8px; flex-wrap: wrap; }
+    .sec-num { font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); }
+    h2 { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.5rem, 3vw, 2rem); letter-spacing: -0.03em; margin: 0; }
+    .why { margin: 0 0 24px; max-width: 72ch; color: var(--muted); }
+
+    .plates { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+    .plate { border: 1px solid var(--ink); padding: clamp(20px, 3vw, 32px); display: flex; align-items: center; justify-content: center; min-height: 190px; background: var(--paper); }
+    .plate.ink { background: var(--ink); }
+    .plate img { max-width: 100%; height: auto; }
+    .p-mark-paper, .p-mark-ink { grid-column: span 3; }
+    .p-lockup { grid-column: span 6; }
+    @media (max-width: 720px) { .p-mark-paper, .p-mark-ink, .p-lockup { grid-column: span 12; } }
+
+    .fav-row { display: flex; align-items: flex-end; gap: clamp(18px, 3vw, 34px); margin-top: 16px; padding: 18px clamp(18px, 3vw, 28px); border: 1px solid var(--hairline); background: var(--paper-2); flex-wrap: wrap; }
+    .fav { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+    .fav span { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.08em; color: var(--muted); }
+
+    .ctx { margin-top: 16px; border: 1px solid var(--ink); }
+    .ctx-bar { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 14px clamp(16px, 3vw, 28px); background: var(--paper); }
+    .ctx-brand { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em; white-space: nowrap; }
+    .ctx-brand small { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.3em; color: var(--muted); }
+    .ctx-nav { display: flex; gap: 22px; font-family: var(--font-mono); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.1em; }
+    .ctx-cta { font-family: var(--font-mono); font-size: 0.78rem; border: 1px solid var(--ink); padding: 8px 14px; background: var(--accent); white-space: nowrap; }
+    @media (max-width: 720px) { .ctx-nav { display: none; } }
+    .ctx-note { margin: 0; padding: 10px clamp(16px, 3vw, 28px); font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.06em; color: var(--muted); border-top: 1px solid var(--hairline); }
+
+    section.adopt { padding-block: clamp(32px, 5vw, 52px); }
+    ol.adopt-list { margin: 18px 0 0; padding-left: 0; list-style: none; counter-reset: ad; max-width: 76ch; }
+    ol.adopt-list li { counter-increment: ad; display: flex; gap: 14px; margin-bottom: 14px; font-size: 0.95rem; line-height: 1.55; }
+    ol.adopt-list li::before { content: "0" counter(ad); font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); padding-top: 2px; }
+    code { font-family: var(--font-mono); font-size: 0.85em; background: var(--paper-2); border: 1px solid var(--hairline); padding: 1px 6px; }
+
+    footer { border-top: 1px solid var(--ink); margin-top: 24px; padding-block: 20px 36px; font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.08em; color: var(--muted); }
+  </style>
+</head>
+<body>
+
+  <header class="page-head">
+    <div class="container">
+      <p class="kicker">EmTech Media · Brand exploration</p>
+      <h1>Logo concepts — <em>three directions, one system.</em></h1>
+      <p class="lede">Each concept uses the site's existing tokens: warm paper, ink, acid lime, sharp corners and 2px strokes. Marks are single-glyph so they hold up at favicon size; lockups pair them with the Bricolage Grotesque wordmark and an IBM Plex Mono label.</p>
+    </div>
+  </header>
+
+  <!-- ============ 01 THE CURSOR ============ -->
+  <section class="concept" id="cursor">
+    <div class="container">
+      <div class="sec-head"><span class="sec-num">01</span><h2>The Cursor</h2></div>
+      <p class="why">A terminal prompt — the place where problems get fixed. The underscore can blink on hover, tying the mark into the site's existing motion language.</p>
+
+      <div class="plates">
+        <figure class="plate p-mark-paper"><img src="cursor-mark.svg" alt="Cursor mark on paper" width="120" height="120"></figure>
+        <figure class="plate ink p-mark-ink"><img src="cursor-mark.svg" alt="Cursor mark on ink background" width="120" height="120"></figure>
+        <figure class="plate p-lockup"><img src="cursor-lockup.svg" alt="EmTech Media lockup — Cursor concept" width="340"></figure>
+      </div>
+
+      <div class="fav-row" aria-label="Favicon sizes">
+        <div class="fav"><img src="cursor-favicon.svg" width="48" height="48" alt=""><span>48</span></div>
+        <div class="fav"><img src="cursor-favicon.svg" width="32" height="32" alt=""><span>32</span></div>
+        <div class="fav"><img src="cursor-favicon.svg" width="24" height="24" alt=""><span>24</span></div>
+        <div class="fav"><img src="cursor-favicon.svg" width="16" height="16" alt=""><span>16</span></div>
+      </div>
+
+      <div class="ctx">
+        <div class="ctx-bar">
+          <span class="ctx-brand"><img src="cursor-mark.svg" width="30" height="30" alt="">EmTech&nbsp;<small>MEDIA</small></span>
+          <nav class="ctx-nav" aria-label="Mock navigation"><a href="#cursor">Diagnose</a><a href="#cursor">Windows</a><a href="#cursor">Mac</a><a href="#cursor">Routine</a></nav>
+          <span class="ctx-cta">Get help ↗</span>
+        </div>
+        <p class="ctx-note">IN CONTEXT — SITE HEADER, 76PX · MARK AT 30PX</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 02 THE PLUS ============ -->
+  <section class="concept" id="plus">
+    <div class="container">
+      <div class="sec-head"><span class="sec-num">02</span><h2>The Plus</h2></div>
+      <p class="why">The same glyph your accordions already rotate from + to ×. The logo inherits that micro-interaction — hover the mark and it turns a quarter turn.</p>
+
+      <div class="plates">
+        <figure class="plate p-mark-paper"><img src="plus-mark.svg" alt="Plus mark on paper" width="120" height="120"></figure>
+        <figure class="plate ink p-mark-ink"><img src="plus-mark.svg" alt="Plus mark on ink background" width="120" height="120"></figure>
+        <figure class="plate p-lockup"><img src="plus-lockup.svg" alt="EmTech Media lockup — Plus concept" width="340"></figure>
+      </div>
+
+      <div class="fav-row" aria-label="Favicon sizes">
+        <div class="fav"><img src="plus-favicon.svg" width="48" height="48" alt=""><span>48</span></div>
+        <div class="fav"><img src="plus-favicon.svg" width="32" height="32" alt=""><span>32</span></div>
+        <div class="fav"><img src="plus-favicon.svg" width="24" height="24" alt=""><span>24</span></div>
+        <div class="fav"><img src="plus-favicon.svg" width="16" height="16" alt=""><span>16</span></div>
+      </div>
+
+      <div class="ctx">
+        <div class="ctx-bar">
+          <span class="ctx-brand"><img src="plus-mark.svg" width="30" height="30" alt="">EmTech&nbsp;<small>MEDIA</small></span>
+          <nav class="ctx-nav" aria-label="Mock navigation"><a href="#plus">Diagnose</a><a href="#plus">Windows</a><a href="#plus">Mac</a><a href="#plus">Routine</a></nav>
+          <span class="ctx-cta">Get help ↗</span>
+        </div>
+        <p class="ctx-note">IN CONTEXT — SITE HEADER, 76PX · MARK AT 30PX</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 03 THE CHECK ============ -->
+  <section class="concept" id="check">
+    <div class="container">
+      <div class="sec-head"><span class="sec-num">03</span><h2>The Check</h2></div>
+      <p class="why">"Tested on real machines," made literal. A verified-fix mark that reads as success at any size — the safest of the three, and the clearest in a browser tab.</p>
+
+      <div class="plates">
+        <figure class="plate p-mark-paper"><img src="check-mark.svg" alt="Check mark on paper" width="120" height="120"></figure>
+        <figure class="plate ink p-mark-ink"><img src="check-mark.svg" alt="Check mark on ink background" width="120" height="120"></figure>
+        <figure class="plate p-lockup"><img src="check-lockup.svg" alt="EmTech Media lockup — Check concept" width="340"></figure>
+      </div>
+
+      <div class="fav-row" aria-label="Favicon sizes">
+        <div class="fav"><img src="check-favicon.svg" width="48" height="48" alt=""><span>48</span></div>
+        <div class="fav"><img src="check-favicon.svg" width="32" height="32" alt=""><span>32</span></div>
+        <div class="fav"><img src="check-favicon.svg" width="24" height="24" alt=""><span>24</span></div>
+        <div class="fav"><img src="check-favicon.svg" width="16" height="16" alt=""><span>16</span></div>
+      </div>
+
+      <div class="ctx">
+        <div class="ctx-bar">
+          <span class="ctx-brand"><img src="check-mark.svg" width="30" height="30" alt="">EmTech&nbsp;<small>MEDIA</small></span>
+          <nav class="ctx-nav" aria-label="Mock navigation"><a href="#check">Diagnose</a><a href="#check">Windows</a><a href="#check">Mac</a><a href="#check">Routine</a></nav>
+          <span class="ctx-cta">Get help ↗</span>
+        </div>
+        <p class="ctx-note">IN CONTEXT — SITE HEADER, 76PX · MARK AT 30PX</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ADOPTION ============ -->
+  <section class="adopt" id="adopt">
+    <div class="container">
+      <div class="sec-head"><span class="sec-num">04</span><h2>Adopting a winner</h2></div>
+      <ol class="adopt-list">
+        <li>Header — swap the plain square in <code>.brand-mark</code> for an <code>&lt;img&gt;</code> of the chosen mark (e.g. <code>brand/cursor-mark.svg</code>) at 28–30px.</li>
+        <li>Favicon — replace the data-URI icon in all three pages with <code>&lt;link rel="icon" href="brand/&lt;concept&gt;-favicon.svg"&gt;</code>.</li>
+        <li>Social card — drop the chosen mark into the brand row of <code>og-image.svg</code>, then re-render to <code>og-image.png</code>.</li>
+      </ol>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">EmTech Media · Logo concepts — built from the site's brand tokens + ui-ux-pro-max skill data</div>
+  </footer>
+
+</body>
+</html>

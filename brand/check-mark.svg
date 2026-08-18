@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
+  <!-- EmTech Media — concept 03 "The Check": verified-fix mark -->
+  <rect x="4" y="4" width="88" height="88" fill="#C8F03C" stroke="#131210" stroke-width="4"/>
+  <polyline points="25,51 42,68 71,32" fill="none" stroke="#131210" stroke-width="11" stroke-linecap="square" stroke-linejoin="miter"/>
+</svg>

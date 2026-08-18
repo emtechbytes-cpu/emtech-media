@@ -3,8 +3,12 @@
   <rect width="1200" height="630" fill="#F1EEE6"/>
   <rect x="48" y="48" width="1104" height="534" fill="none" stroke="#131210" stroke-width="2"/>
 
-  <!-- Brand row -->
-  <rect x="96" y="104" width="26" height="26" fill="#C8F03C" stroke="#131210" stroke-width="2"/>
+  <!-- Brand row — "The Cursor" mark (brand/cursor-mark.svg) -->
+  <g transform="translate(96 104) scale(0.27083)">
+    <rect x="4" y="4" width="88" height="88" fill="#C8F03C" stroke="#131210" stroke-width="4"/>
+    <polyline points="26,27 52,48 26,69" fill="none" stroke="#131210" stroke-width="10" stroke-linecap="square"/>
+    <rect x="62" y="61" width="22" height="10" fill="#131210"/>
+  </g>
   <text x="140" y="125" font-family="'IBM Plex Mono','Courier New',monospace" font-size="23" letter-spacing="7" fill="#131210">EMTECH MEDIA</text>
 
   <!-- Headline -->

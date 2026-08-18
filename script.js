@@ -4,7 +4,7 @@
    02/03 Windows & Mac fixes as expandable accordion lists
    04 Monthly routine checklist (progress saved in localStorage)
    Deep-link openers · nav toggle · reveals · counters
-   Scrollspy · inline form validation · footer year
+   Scrollspy · footer year
    ============================================================ */
 
 (function () {
@@ -228,7 +228,11 @@
       })
       .join("");
 
+    // Re-trigger the entrance animation on every new diagnosis.
+    diagResult.classList.remove("diag-in");
+    void diagResult.offsetWidth;
     diagResult.innerHTML = blocks || "<p class=\"diag-prompt\">No fix matched that symptom yet — try the lists below.</p>";
+    diagResult.classList.add("diag-in");
   }
 
   renderSymptoms();
@@ -253,17 +257,21 @@
           <span class="acc-icon" aria-hidden="true">+</span>
         </button>
         <div class="acc-body" id="body-${esc(slug)}" hidden>
-          <p class="acc-desc">${esc(t.description)}</p>
-          <ol class="tip-steps">${t.steps.map((s) => `<li>${esc(s)}</li>`).join("")}</ol>
-          ${related.length ? `
-          <div class="acc-related">
-            <span class="rel-label">Pairs well with</span>
-            <ul>${related.map((r) => `<li><a href="#${esc(tipSlug(r.title))}">${esc(r.title)}</a></li>`).join("")}</ul>
-          </div>` : ""}
-          <div class="acc-actions">
-            <button class="done-btn" type="button" aria-pressed="false"><span class="tick" aria-hidden="true"></span><span class="lbl">Mark as done</span></button>
-            <button class="print-btn" type="button">Print this fix</button>
-          </div>`;
+          <div class="acc-inner">
+            <p class="acc-desc">${esc(t.description)}</p>
+            <ol class="tip-steps">${t.steps.map((s) => `<li>${esc(s)}</li>`).join("")}</ol>
+            ${related.length ? `
+            <div class="acc-related">
+              <span class="rel-label">Pairs well with</span>
+              <ul>${related.map((r) => `<li><a href="#${esc(tipSlug(r.title))}">${esc(r.title)}</a></li>`).join("")}</ul>
+            </div>` : ""}
+            <div class="acc-actions">
+              <button class="done-btn" type="button" aria-pressed="false"><span class="tick" aria-hidden="true"></span><span class="lbl">Mark as done</span></button>
+              <button class="print-btn" type="button">Print this fix</button>
+            </div>
+          </div>
+        </div>
+      </div>`;
   }
 
   const GROUP_LABELS = { speed: "Speed & performance", fixes: "Everyday fixes", security: "Security & backups" };
@@ -291,18 +299,40 @@
     el.innerHTML = html;
   }
 
-  function setAcc(item, open) {
+  /* Smooth expand/collapse: CSS animates the grid row (0fr ↔ 1fr), JS keeps
+     [hidden] in sync for accessibility and clears pending close timers so
+     rapid toggles stay interruptible. `instant` skips animation (search filter,
+     reduced motion). */
+  const ACC_CLOSE_MS = 360;
+
+  function setAcc(item, open, instant) {
     if (!item) return;
     const head = item.querySelector(".acc-head");
     const body = item.querySelector(".acc-body");
-    body.hidden = !open;
     head.setAttribute("aria-expanded", String(open));
-    item.classList.toggle("open", open);
+
+    if (body._closeTimer) { clearTimeout(body._closeTimer); body._closeTimer = null; }
+
+    if (open) {
+      body.hidden = false;
+      if (!item.classList.contains("open")) {
+        void body.offsetHeight; // commit the collapsed row so the transition runs
+        item.classList.add("open");
+      }
+      return;
+    }
+
+    item.classList.remove("open");
+    if (instant || prefersReducedMotion) { body.hidden = true; return; }
+    body._closeTimer = setTimeout(() => {
+      body._closeTimer = null;
+      if (!item.classList.contains("open")) body.hidden = true;
+    }, ACC_CLOSE_MS);
   }
 
   function toggleAcc(item, forceOpen) {
     if (!item) return;
-    setAcc(item, forceOpen === true ? true : item.querySelector(".acc-body").hidden);
+    setAcc(item, forceOpen === true ? true : !item.classList.contains("open"));
   }
 
   renderAccordion("win-acc", TIPS.filter((t) => t.cat !== "mac"), WIN_ORDER);
@@ -329,7 +359,7 @@
       const desc = (item.querySelector(".acc-desc") || {}).textContent || "";
       const match = !q || (title + " " + desc).toLowerCase().includes(q);
       item.classList.toggle("hidden-fix", !match);
-      if (q) setAcc(item, match); // while searching: open matches, close the rest
+      if (q) setAcc(item, match, true); // while searching: open matches, close the rest (instant)
       if (match) shown++;
     });
     // Hide group / subgroup headings that no longer have a visible fix under them
@@ -519,12 +549,12 @@
     const item = document.querySelector(`.acc-item[data-slug="${CSS.escape(slug)}"]`);
     if (!item) return;
     toggleAcc(item, true);
-    // Let the expanded body settle before scrolling + flashing.
+    // Let the expand animation settle before scrolling + flashing.
     setTimeout(() => {
       item.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "center" });
       item.classList.add("flash");
       setTimeout(() => item.classList.remove("flash"), 1400);
-    }, 80);
+    }, prefersReducedMotion ? 60 : ACC_CLOSE_MS + 80);
   }
 
   openHashedTip();
@@ -613,46 +643,6 @@
       { rootMargin: "-40% 0px -55% 0px" }
     );
     sectionToLink.forEach((_link, sec) => sio.observe(sec));
-  }
-
-  /* ---------- Contact form (placeholder behaviour) ---------- */
-  const form = document.getElementById("contact-form");
-  const status = document.getElementById("form-status");
-
-  if (form && status) {
-    ["name", "email", "message"].forEach((n) => {
-      form.elements[n].addEventListener("input", (e) =>
-        e.target.setAttribute("aria-invalid", "false")
-      );
-    });
-
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-
-      const name = form.elements.name.value.trim();
-      const email = form.elements.email.value.trim();
-      const message = form.elements.message.value.trim();
-      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-
-      const markInvalid = (el, bad) => el.setAttribute("aria-invalid", String(bad));
-
-      if (!name || !emailOk || !message) {
-        markInvalid(form.elements.name, !name);
-        markInvalid(form.elements.email, !emailOk);
-        markInvalid(form.elements.message, !message);
-        status.textContent = "Please add your name, a valid email and a short description of the problem.";
-        status.classList.add("error");
-        const firstBad = form.querySelector("[aria-invalid='true']");
-        if (firstBad) firstBad.focus();
-        return;
-      }
-
-      // Placeholder: no backend yet — show success feedback.
-      ["name", "email", "message"].forEach((n) => markInvalid(form.elements[n], false));
-      status.classList.remove("error");
-      status.textContent = "Thanks, " + name.split(" ")[0] + "! We'll get back to you within one business day.";
-      form.reset();
-    });
   }
 
   /* ---------- Footer year ---------- */

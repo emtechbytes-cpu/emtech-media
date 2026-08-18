@@ -91,8 +91,7 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 16px); }
   letter-spacing: -0.01em;
 }
 
-.kicker, .sec-num, .tags span, .hero-meta li, .idx-num, .step-num,
-.contact-aside dt, .form-status {
+.kicker, .sec-num, .tags span, .hero-meta li, .idx-num, .step-num {
   font-family: var(--font-mono);
 }
 
@@ -162,11 +161,10 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 16px); }
 }
 
 .brand-mark {
-  width: 14px; height: 14px;
-  background: var(--accent);
-  border: 1px solid var(--ink);
+  width: 30px; height: 30px;
   display: inline-block;
 }
+.footer-brand .brand-mark { width: 20px; height: 20px; }
 
 .primary-nav ul { display: flex; gap: 32px; }
 .primary-nav a {
@@ -380,9 +378,9 @@ section[id] { scroll-margin-top: calc(var(--header-h) + 16px); }
   font-size: clamp(3rem, 9vw, 7.5rem);
   color: transparent;
   -webkit-text-stroke: 1.5px rgba(19, 18, 16, 0.75);
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.work-item a:hover .thumb span { color: var(--ink); }
+.work-item a:hover .thumb span { color: var(--ink); transform: scale(1.02); }
 
 .thumb i {
   position: absolute;
@@ -465,80 +463,6 @@ figcaption {
 
 .sq { width: 10px; height: 10px; background: var(--accent); border: 1px solid var(--ink); flex-shrink: 0; }
 
-/* ---------- Contact ---------- */
-.contact .giant { font-size: clamp(2.4rem, 6.5vw, 5.2rem); max-width: 20ch; }
-
-.email-link {
-  display: inline-block;
-  font-family: var(--font-display);
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  font-size: clamp(1.4rem, 4vw, 2.8rem);
-  margin-bottom: clamp(48px, 6vw, 72px);
-  border-bottom: 2px solid var(--ink);
-  padding-bottom: 4px;
-  transition: background-color 0.2s ease, color 0.2s ease;
-}
-.email-link:hover { background: var(--accent); color: var(--on-accent); }
-
-.contact-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
-  gap: clamp(40px, 6vw, 80px);
-  align-items: start;
-}
-
-.field { margin-bottom: 26px; }
-
-.field label {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--muted);
-  margin-bottom: 6px;
-}
-.optional { opacity: 0.7; }
-
-.field input,
-.field select,
-.field textarea {
-  width: 100%;
-  padding: 12px 0;
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid rgba(19, 18, 16, 0.4);
-  color: var(--ink);
-  font-family: inherit;
-  font-size: 1.05rem;
-  transition: border-color 0.2s ease;
-}
-
-.field textarea { resize: vertical; min-height: 96px; line-height: 1.5; }
-.field input::placeholder, .field textarea::placeholder { color: rgba(95, 91, 80, 0.55); }
-
-.field select { appearance: none; -webkit-appearance: none; cursor: pointer; background-image: linear-gradient(45deg, transparent 50%, var(--ink) 50%), linear-gradient(135deg, var(--ink) 50%, transparent 50%); background-position: calc(100% - 16px) 55%, calc(100% - 10px) 55%; background-size: 6px 6px; background-repeat: no-repeat; }
-
-.field input:focus,
-.field select:focus,
-.field textarea:focus {
-  outline: none;
-  border-bottom-color: var(--ink);
-}
-
-/* Inline validation (error near the field) */
-.field input[aria-invalid="true"],
-.field textarea[aria-invalid="true"] { border-bottom-color: var(--error); }
-
-.form-status { min-height: 1.5em; margin: 16px 0 0; font-size: 0.8rem; letter-spacing: 0.04em; color: #2e7d32; }
-.form-status.error { color: var(--error); }
-
-.contact-aside dl div { padding: 14px 0; border-top: 1px solid var(--hairline); display: grid; gap: 4px; }
-.contact-aside dt { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); }
-.contact-aside dd { margin: 0; font-weight: 500; }
-.contact-aside a:hover { background: var(--accent); color: var(--on-accent); }
-
 /* ---------- Footer ---------- */
 .site-footer { border-top: 1px solid var(--ink); padding-top: clamp(40px, 6vw, 64px); }
 
@@ -598,7 +522,7 @@ figcaption {
   .stats-list li:nth-child(n + 3) { border-top: 1px solid var(--hairline); }
 
   .process-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .quote-grid, .contact-grid, .hero-foot { grid-template-columns: 1fr; }
+  .quote-grid, .hero-foot { grid-template-columns: 1fr; }
   .footer-top { grid-template-columns: 1fr; gap: 28px; }
   .footer-social { justify-content: flex-start; }
 }
@@ -620,7 +544,7 @@ figcaption {
   .primary-nav ul { flex-direction: column; gap: 2px; }
   .primary-nav a { display: block; padding: 13px 0; font-size: 0.9rem; border-bottom: 1px solid var(--hairline); }
 
-  .nav-actions .btn-link { display: none; } /* CTA lives in hero + contact */
+  .nav-actions .btn-link { display: none; } /* CTA lives in hero */
   .hero-cta .btn { width: 100%; justify-content: center; }
 }
 
@@ -800,11 +724,23 @@ figcaption {
 .acc-item.open .acc-icon { transform: rotate(45deg); }
 
 .acc-body {
-  padding: 4px 8px clamp(24px, 3.5vw, 36px);
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 340ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.acc-item.open .acc-body { grid-template-rows: 1fr; }
+
+/* Inner wrapper lets the row collapse to zero height (grid 0fr trick) */
+.acc-inner {
+  min-height: 0;
+  overflow: hidden;
   display: grid;
   gap: 18px;
   max-width: 900px;
+  padding-inline: 8px;
 }
+.acc-inner > :first-child { margin-top: 4px; }
+.acc-inner > :last-child { margin-bottom: clamp(24px, 3.5vw, 36px); }
 
 .acc-desc { margin: 0; color: var(--muted); font-size: 1rem; line-height: 1.6; max-width: 72ch; }
 
@@ -1165,12 +1101,6 @@ figcaption {
 
 /* Hardcoded light-theme values that need a dark counterpart */
 [data-theme="dark"] .work-item .thumb span { -webkit-text-stroke-color: rgba(241, 238, 230, 0.7); }
-[data-theme="dark"] .field input,
-[data-theme="dark"] .field select,
-[data-theme="dark"] .field textarea { border-bottom-color: rgba(241, 238, 230, 0.45); }
-[data-theme="dark"] .field input::placeholder,
-[data-theme="dark"] .field textarea::placeholder { color: rgba(164, 159, 144, 0.7); }
-[data-theme="dark"] .form-status { color: #6fbf73; } /* success green readable on dark paper */
 
 /* ============================================================
    Print — clean page + single-fix isolation ("Print this fix")
@@ -1191,7 +1121,7 @@ figcaption {
 
   .site-header, .ticker, .to-top, .skip-link, .nav-actions,
   .hero-cta, .btn, .btn-link, .sec-cta, .acc-actions, .fix-tools,
-  .symptom-grid, .diag-result, .contact-form, .footer-social { display: none !important; }
+  .symptom-grid, .diag-result, .footer-social { display: none !important; }
 
   section { border-top: none; padding: 0; }
   .reveal { opacity: 1 !important; transform: none !important; }
@@ -1202,8 +1132,29 @@ figcaption {
   body.printing-single .acc-list > :not(.print-keep):not(.print-target) { display: none !important; }
   body.printing-single .acc-item:not(.print-target) { display: none !important; }
   body.printing-single .acc-related, body.printing-single .acc-actions { display: none !important; }
-  body.printing-single .print-target .acc-body { display: grid !important; }
+  body.printing-single .print-target .acc-body { display: grid !important; grid-template-rows: 1fr !important; }
   body.printing-single .print-target .acc-icon { display: none !important; }
 
   .tip-steps li { page-break-inside: avoid; }
 }
+
+/* ============================================================
+   Animation pass — hero line-rise + diagnosis panel entrance.
+   (Accordion expand/collapse and the thumb hover polish are
+   defined in place above.) Everything here collapses to instant
+   under the global prefers-reduced-motion override.
+   ============================================================ */
+
+/* Hero headline: each line rises out of an overflow mask on load */
+.hero-title .line-mask { display: inline-block; overflow: hidden; vertical-align: bottom; }
+.hero-title .line-inner {
+  display: inline-block;
+  transform: translateY(110%);
+  animation: line-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+.hero-title .line-mask:nth-child(2) .line-inner { animation-delay: 0.12s; }
+@keyframes line-rise { to { transform: translateY(0); } }
+
+/* Diagnosis panel: rise-in on every new selection */
+.diag-result.diag-in { animation: rise-in 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
+@keyframes rise-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }

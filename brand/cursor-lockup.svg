@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 392 96">
+  <!-- EmTech Media — concept 01 "The Cursor": full lockup (mark + wordmark) -->
+  <rect x="4" y="4" width="88" height="88" fill="#C8F03C" stroke="#131210" stroke-width="4"/>
+  <polyline points="26,27 52,48 26,69" fill="none" stroke="#131210" stroke-width="10" stroke-linecap="square"/>
+  <rect x="62" y="61" width="22" height="10" fill="#131210"/>
+  <line x1="106" y1="22" x2="106" y2="74" stroke="#131210" stroke-opacity="0.25" stroke-width="2"/>
+  <text x="124" y="58" font-family="'Bricolage Grotesque','Arial Black',Arial,Helvetica,sans-serif" font-size="56" font-weight="800" letter-spacing="-1.5" fill="#131210">EmTech</text>
+  <text x="126" y="84" font-family="'IBM Plex Mono','Courier New',monospace" font-size="16" letter-spacing="9" fill="#131210">MEDIA</text>
+</svg>

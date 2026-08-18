@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- EmTech Media — concept 03 favicon (inverted: ink tile, lime glyph) -->
+  <rect x="1" y="1" width="30" height="30" fill="#131210"/>
+  <polyline points="7.5,17 13,22.5 24.5,9" fill="none" stroke="#C8F03C" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter"/>
+</svg>

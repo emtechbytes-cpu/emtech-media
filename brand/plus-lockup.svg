@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 392 96">
+  <!-- EmTech Media — concept 02 "The Plus": full lockup (mark + wordmark) -->
+  <rect x="4" y="4" width="88" height="88" fill="#C8F03C" stroke="#131210" stroke-width="4"/>
+  <rect x="41" y="20" width="14" height="56" fill="#131210"/>
+  <rect x="20" y="41" width="56" height="14" fill="#131210"/>
+  <line x1="106" y1="22" x2="106" y2="74" stroke="#131210" stroke-opacity="0.25" stroke-width="2"/>
+  <text x="124" y="58" font-family="'Bricolage Grotesque','Arial Black',Arial,Helvetica,sans-serif" font-size="56" font-weight="800" letter-spacing="-1.5" fill="#131210">EmTech</text>
+  <text x="126" y="84" font-family="'IBM Plex Mono','Courier New',monospace" font-size="16" letter-spacing="9" fill="#131210">MEDIA</text>
+</svg>
