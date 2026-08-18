@@ -176,6 +176,25 @@
         { slug: "speed-up-a-sluggish-macbook", tag: "Mac · also try" },
       ],
     },
+    {
+      id: "junk-apps",
+      label: "Pop-ups and junk apps",
+      blurb: "Bundleware, 'PC optimizers', and things you never installed.",
+      tips: [
+        { slug: "kill-shady-pc-optimizer-software", tag: "Windows" },
+        { slug: "dodge-bundleware-when-you-install-anything", tag: "Windows · also try" },
+        { slug: "uninstall-the-apps-you-never-use", tag: "Windows · also try" },
+      ],
+    },
+    {
+      id: "cant-find-files",
+      label: "Can't find my files",
+      blurb: "Search that returns nothing, or takes forever to answer.",
+      tips: [
+        { slug: "make-windows-search-actually-useful-again", tag: "Windows" },
+        { slug: "tame-spotlight-indexing-on-extra-drives", tag: "Mac" },
+      ],
+    },
   ];
 
   const symptomGrid = document.getElementById("symptom-grid");
@@ -454,8 +473,10 @@
   /* ---------- Theme toggle (light / dark) ---------- */
   const themeToggle = document.getElementById("theme-toggle");
   if (themeToggle) {
+    const themeColorMeta = document.getElementById("meta-theme-color");
     const setTheme = (t) => {
       document.documentElement.dataset.theme = t;
+      if (themeColorMeta) themeColorMeta.content = t === "dark" ? "#131210" : "#F1EEE6";
       try { localStorage.setItem("emtech-theme", t); } catch (err) {}
       themeToggle.setAttribute("aria-pressed", String(t === "dark"));
     };
@@ -508,6 +529,13 @@
         </li>`;
     }).join("");
 
+    updateProgress();
+  }
+
+  // Delegated, and bound exactly once. Binding this inside renderChecklist()
+  // meant a second render would stack a duplicate handler on the same
+  // container, and every tick would then be counted twice.
+  if (checklistEl) {
     checklistEl.addEventListener("change", (e) => {
       const input = e.target.closest('input[type="checkbox"]');
       if (!input) return;
@@ -517,8 +545,6 @@
       saveRoutine(current);
       updateProgress();
     });
-
-    updateProgress();
   }
 
   function updateProgress() {

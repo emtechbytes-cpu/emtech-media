@@ -7,9 +7,14 @@
 ---
 
 **Project:** EmTech Media
-**Generated:** 2026-08-18 16:38:19
-**Category:** Marketing Agency
-**Design Dials:** Variance 6/10 (Balanced / Modern) | Motion 5/10 (Standard) | Density 3/10 (Spacious)
+**Category:** Editorial / technical how-to library
+**Source of truth:** `style.css` — this file documents what ships. If the two
+disagree, `style.css` wins and this file is stale.
+**Last reconciled with code:** 2026-08-18
+
+> **Note:** this file previously described a generated pink/cyan Inter system with
+> glassmorphism, GSAP and a video hero. None of that was ever built. It has been
+> rewritten from the tokens actually in `style.css`.
 
 ---
 
@@ -17,55 +22,94 @@
 
 ### Color Palette
 
-| Role | Hex | CSS Variable |
-|------|-----|--------------|
-| Primary | `#EC4899` | `--color-primary` |
-| On Primary | `#FFFFFF` | `--color-on-primary` |
-| Secondary | `#F472B6` | `--color-secondary` |
-| Accent/CTA | `#0891B2` | `--color-accent` |
-| Background | `#FDF2F8` | `--color-background` |
-| Foreground | `#831843` | `--color-foreground` |
-| Muted | `#F1EEF5` | `--color-muted` |
-| Border | `#FBCFE8` | `--color-border` |
-| Destructive | `#DC2626` | `--color-destructive` |
-| Ring | `#EC4899` | `--color-ring` |
+Semantic, not literal — `--ink` is "the foreground" and `--paper` is "the surface",
+so the whole system inverts by swapping two variables. Never hardcode a hex in a
+component; always reach for the token.
 
-**Color Notes:** Bold pink + creative cyan [Accent adjusted from #06B6D4 for WCAG 3:1]
+| Role | Light (`:root`) | Dark (`[data-theme="dark"]`) | CSS Variable |
+|------|-----------------|------------------------------|--------------|
+| Surface | `#f1eee6` | `#131210` | `--paper` |
+| Raised surface | `#e9e5d8` | `#1e1d18` | `--paper-2` |
+| Foreground | `#131210` | `#f1eee6` | `--ink` |
+| Muted text | `#5f5b50` | `#a49f90` | `--muted` |
+| Accent | `#c8f03c` | `#c8f03c` *(unchanged)* | `--accent` |
+| Text on accent | `#131210` | `#131210` *(unchanged)* | `--on-accent` |
+| Muted on inverted | `rgba(241,238,230,.75)` | `rgba(19,18,16,.7)` | `--on-ink-muted` |
+| Hairline | `rgba(19,18,16,.18)` | `rgba(241,238,230,.2)` | `--hairline` |
+| Error | `#d93a2b` | `#d93a2b` | `--error` |
+
+**Notes:** The lime accent and its text colour deliberately do **not** flip between
+themes — lime is legible against dark text in both, and flipping it broke the
+ticker and button hovers. Dark mode also sets `color-scheme: dark` so form
+controls and scrollbars follow.
+
+**Theme switching:** `data-theme` on `<html>`, written pre-paint by an inline
+script in each page's `<head>` (avoids a flash of the wrong theme), persisted to
+`localStorage` under `emtech-theme`, and mirrored into
+`<meta name="theme-color" id="meta-theme-color">` so the mobile browser chrome
+matches. Any new page must copy that inline script block verbatim.
 
 ### Typography
 
-- **Heading Font:** Inter
-- **Body Font:** Inter
-- **Mood:** dark, cinematic, technical, precision, clean, premium, developer, professional, high-end utility
-- **Google Fonts:** [Inter + Inter](https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap)
+Four families, each with one job. Do not introduce a fifth.
 
-**CSS Import:**
-```css
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+| Token | Family | Used for |
+|-------|--------|----------|
+| `--font-display` | Bricolage Grotesque | All headings (`h1`–`h3`), buttons |
+| `--font-body` | Inter | Body copy, descriptions |
+| `--font-mono` | IBM Plex Mono | Kickers, section numbers, tags, metadata, `.btn-link` |
+| `--font-serif` | Instrument Serif *(italic only)* | The `.serif` accent phrase in a headline |
+
+**Google Fonts:**
+```
+https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@1&family=Inter:wght@400;500&display=swap
 ```
 
-### Spacing Variables
+**Headings** (`h1, h2, h3`): `--font-display`, `font-weight: 700`,
+`line-height: 1.02`, `letter-spacing: -0.035em`. Tight and large — that ratio is
+the whole look, don't loosen it.
 
-*Density: 3/10 — Spacious*
+**Body:** 16px base, `line-height: 1.6`, `-webkit-font-smoothing: antialiased`.
 
-| Token | Value | Usage |
-|-------|-------|-------|
-| `--space-xs` | `4px` / `0.25rem` | Tight gaps |
-| `--space-sm` | `8px` / `0.5rem` | Icon gaps, inline spacing |
-| `--space-md` | `24px` / `1.5rem` | Standard padding |
-| `--space-lg` | `32px` / `2rem` | Section padding |
-| `--space-xl` | `48px` / `3rem` | Large gaps |
-| `--space-2xl` | `64px` / `4rem` | Section margins |
-| `--space-3xl` | `96px` / `6rem` | Hero padding |
+**Type scale** — fluid via `clamp()`, never fixed:
 
-### Shadow Depths
+| Element | Size |
+|---------|------|
+| Hero `h1` | `clamp(2.9rem, 8.4vw, 7rem)` |
+| Section `h2` | `clamp(2.2rem, 5vw, 3.9rem)` |
+| Index row title | `clamp(1.4rem, 3vw, 2.3rem)` |
+| Diagnosis title | `clamp(1.5rem, 3vw, 2.2rem)` |
+| Lede | `clamp(1.05rem, 1.5vw, 1.2rem)` |
+| Kicker / section number | `0.8rem`, uppercase, `letter-spacing: 0.16em` |
 
-| Level | Value | Usage |
-|-------|-------|-------|
-| `--shadow-sm` | `0 1px 2px rgba(0,0,0,0.05)` | Subtle lift |
-| `--shadow-md` | `0 4px 6px rgba(0,0,0,0.1)` | Cards, buttons |
-| `--shadow-lg` | `0 10px 15px rgba(0,0,0,0.1)` | Modals, dropdowns |
-| `--shadow-xl` | `0 20px 25px rgba(0,0,0,0.15)` | Hero images, featured cards |
+**Measure:** cap running text — `.lede` at `52ch`, `.sec-sub` at `56ch`,
+`.diag-title` at `34ch`.
+
+### Layout
+
+- `--container: 1240px`, applied as `width: min(100% - 48px, var(--container))`
+  — the gutter is baked into the container, so never add page padding around it.
+  Drops to `100% - 28px` below 360px.
+- `--header-h: 76px`. Sections carry `scroll-margin-top: calc(var(--header-h) + 16px)`
+  so anchor links don't hide under the sticky header.
+- Section rhythm: `padding: clamp(72px, 10vw, 130px) 0` with a
+  `1px solid var(--hairline)` top border. Section headers get
+  `margin-bottom: clamp(40px, 6vw, 72px)`.
+- **Breakpoints:** 980px, 760px, 560px, 360px. Use these four; don't invent more.
+
+### Borders and Dividers
+
+There are no rounded corners and no shadows anywhere in this system. Structure is
+communicated with 1px lines only:
+
+- `1px solid var(--ink)` — the outer edge of a component (grid, card, button)
+- `1px solid var(--hairline)` — dividers *inside* a component, and between list rows
+
+**Draw interior dividers as borders on the child elements, never as a gap-and-
+background-bleed trick.** A grid using `gap: 1px` over a coloured container
+background will show that background as a solid slab wherever the final row is
+incomplete. Cells own their own right/bottom hairline, trimmed at the trailing
+edge per breakpoint.
 
 ---
 
@@ -74,154 +118,124 @@
 ### Buttons
 
 ```css
-/* Primary Button */
-.btn-primary {
-  background: #0891B2;
-  color: white;
-  padding: 12px 24px;
-  border-radius: 8px;
-  font-weight: 600;
-  transition: all 200ms ease;
-  cursor: pointer;
-}
-
-.btn-primary:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
-}
-
-/* Secondary Button */
-.btn-secondary {
+/* Base — square, bordered, display font */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 12px 26px;
+  border: 1px solid var(--ink);
   background: transparent;
-  color: #EC4899;
-  border: 2px solid #EC4899;
-  padding: 12px 24px;
-  border-radius: 8px;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
   font-weight: 600;
-  transition: all 200ms ease;
-  cursor: pointer;
-}
-```
-
-### Cards
-
-```css
-.card {
-  background: #FDF2F8;
-  border-radius: 12px;
-  padding: 24px;
-  box-shadow: var(--shadow-md);
-  transition: all 200ms ease;
-  cursor: pointer;
+  letter-spacing: 0.01em;
 }
 
-.card:hover {
-  box-shadow: var(--shadow-lg);
+/* Primary — solid ink, goes lime on hover */
+.btn-primary { background: var(--ink); color: var(--paper); }
+.btn-primary:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
   transform: translateY(-2px);
 }
+
+/* Tertiary — mono, uppercase, underlined; for "browse all" style links */
+.btn-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+.btn-link:hover { background: var(--accent); color: var(--on-accent); }
 ```
 
-### Inputs
+Every interactive element clears a 44px minimum touch target.
+
+### Focus
 
 ```css
-.input {
-  padding: 12px 16px;
-  border: 1px solid #E2E8F0;
-  border-radius: 8px;
-  font-size: 16px;
-  transition: border-color 200ms ease;
-}
-
-.input:focus {
-  border-color: #EC4899;
-  outline: none;
-  box-shadow: 0 0 0 3px #EC489920;
-}
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 ```
 
-### Modals
+Because the offset is positive, **never put `overflow: hidden` on a container
+whose children are focusable** — it clips the ring.
 
-```css
-.modal-overlay {
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(4px);
-}
+### Cards and Rows
 
-.modal {
-  background: white;
-  border-radius: 16px;
-  padding: 32px;
-  box-shadow: var(--shadow-xl);
-  max-width: 500px;
-  width: 90%;
-}
-```
+Cards are square-cornered, `1px solid var(--ink)`, `background: var(--paper)`,
+hovering to `var(--paper-2)`. Selected/pressed state inverts to
+`background: var(--ink); color: var(--paper)`, with muted text inside switching
+to `var(--on-ink-muted)`.
 
----
-
-## Style Guidelines
-
-**Style:** Modern Dark (Cinema Mobile)
-
-**Keywords:** dark mode, cinematic, ambient light, glassmorphism, deep black, indigo, glow, blur, atmospheric, reanimated, haptic, premium, layered, frosted glass, linear gradient
-
-**Best For:** Developer tools, pro productivity apps, fintech/trading dashboards, media/streaming platforms, AI tool interfaces, high-end gaming companion apps
-
-**Key Effects:** Expo.out Bezier(0.16,1,0.3,1) easing; spring modals (damping:20 stiffness:90); haptic-linked press (Impact Light/Medium); animated ambient light blobs (Reanimated translateX/Y slow oscillation); BlurView glassmorphism headers/nav (intensity 20); scale press 0.97 → 1.0; avoid pure #000000 (OLED smear)
-
-### Page Pattern
-
-**Pattern Name:** Video-First Hero
-
-- **Conversion Strategy:** 86% higher engagement with video. Add captions for accessibility. Compress video for performance.
-- **CTA Placement:** Overlay on video (center/bottom) + Bottom section
-- **Section Order:** 1. Hero with video background, 2. Key features overlay, 3. Benefits section, 4. CTA
+List rows (`.index-list`, `.acc-item`) are separated by
+`border-top: 1px solid var(--hairline)` on `li + li` — no card chrome at all.
 
 ---
 
 ## Motion
 
-**Stagger List** (Standard) — Trigger: load or scroll | Duration: 300-450ms | Easing: `back.out(1.4)`
+One easing curve, one philosophy: things rise and fade, nothing bounces.
 
-```js
-gsap.from('.grid-item', { opacity: 0, scale: 0.92, y: 16, duration: 0.4, stagger: { each: 0.06, from: 'start', grid: 'auto' }, ease: 'back.out(1.4)' });
-```
+**Easing:** `cubic-bezier(0.22, 1, 0.36, 1)` — the only curve in the system, used
+for every non-trivial transition. Plain `ease` is acceptable for simple colour
+changes.
 
-**Framework notes:** grid: 'auto' lets GSAP infer rows/columns from a CSS grid layout for a natural wave stagger
+**Durations:** `0.15s`/`0.2s` for hover colour, `0.25s` for transforms, `0.45s`
+for panel entrances, `0.5s` for scroll reveals, `0.9s` for the hero line-rise.
 
-- ✅ Combine with from: 'center' for a bento-grid layout to draw the eye inward first
-- ❌ Don't use back.out on dense data tables; the overshoot reads as sloppy on informational UI
-- ⚡ Group DOM writes; avoid interleaving layout reads (getBoundingClientRect) between staggered tweens
+**Patterns:**
+- *Scroll reveal* — `.reveal` starts at `opacity: 0; translateY(14px)`, gains
+  `.in-view` from an IntersectionObserver. Stagger with `.delay-1` … `.delay-5`
+  (70ms steps).
+- *Hero line-rise* — each headline line sits in an `overflow: hidden` mask and
+  animates `translateY(110%) → 0`, second line delayed 120ms.
+- *Panel entrance* — `rise-in`, opacity + 10px, 0.45s.
+
+**Reduced motion:** a global `@media (prefers-reduced-motion: reduce)` block
+collapses all animation and transition durations to `0.01ms` and forces
+`.reveal` visible. Any new animation must survive that override — never make
+content *only* reachable through a transition.
 
 ---
 
 ## Anti-Patterns (Do NOT Use)
 
-- ❌ Boring design
-- ❌ Hidden work
-
-### Additional Forbidden Patterns
-
-- ❌ **Emojis as icons** — Use SVG icons (Heroicons, Lucide, Simple Icons)
-- ❌ **Missing cursor:pointer** — All clickable elements must have cursor:pointer
-- ❌ **Layout-shifting hovers** — Avoid scale transforms that shift layout
-- ❌ **Low contrast text** — Maintain 4.5:1 minimum contrast ratio
-- ❌ **Instant state changes** — Always use transitions (150-300ms)
-- ❌ **Invisible focus states** — Focus states must be visible for a11y
+- ❌ **Rounded corners or box-shadows** — this system is flat and square. Depth
+  comes from inversion (ink on paper) and 1px rules, nothing else.
+- ❌ **Hardcoded hex values in components** — always use the tokens, or the page
+  breaks in dark mode.
+- ❌ **Flipping `--accent` or `--on-accent` per theme** — lime stays lime.
+- ❌ **Gap-bleed grid dividers** — see *Borders and Dividers* above.
+- ❌ **A fifth font family**, or a heading in anything but `--font-display`.
+- ❌ **Emojis as icons** — inline SVG with `stroke="currentColor"`,
+  `stroke-width="1.8"`, `stroke-linecap="round"`, marked `aria-hidden="true"`.
+- ❌ **`overflow: hidden` around focusable children** — clips the focus ring.
+- ❌ **Absolute URLs to a domain that isn't registered** — no canonical/og:url
+  until the real host exists.
+- ❌ **Placeholder `href="#"` links** — ship a real destination or no link.
 
 ---
 
 ## Pre-Delivery Checklist
 
-Before delivering any UI code, verify:
-
-- [ ] No emojis used as icons (use SVG instead)
-- [ ] All icons from consistent icon set (Heroicons/Lucide)
-- [ ] `cursor-pointer` on all clickable elements
-- [ ] Hover states with smooth transitions (150-300ms)
-- [ ] Light mode: text contrast 4.5:1 minimum
-- [ ] Focus states visible for keyboard navigation
-- [ ] `prefers-reduced-motion` respected
-- [ ] Responsive: 375px, 768px, 1024px, 1440px
-- [ ] No content hidden behind fixed navbars
-- [ ] No horizontal scroll on mobile
+- [ ] All colours come from tokens; page renders correctly in **both** themes
+- [ ] Inline pre-paint theme script present in `<head>`, `meta-theme-color` updated
+- [ ] Headings use `--font-display`; no fifth family introduced
+- [ ] No rounded corners, no shadows
+- [ ] Interior dividers drawn on children, and an incomplete final grid row leaves no slab
+- [ ] Focus states visible; no `overflow: hidden` clipping them
+- [ ] Text contrast ≥ 4.5:1 in both themes
+- [ ] `prefers-reduced-motion` respected by any new animation
+- [ ] No horizontal scroll at 320, 360, 390, 414, 768, 1024, 1440
+- [ ] Anchor targets clear the sticky header (`scroll-margin-top`)
+- [ ] Every `<img>` has `alt`; decorative ones `alt="" aria-hidden="true"`
+- [ ] One `<h1>` per page; heading levels not skipped
+- [ ] No dead `href="#"` links, no unregistered-domain URLs

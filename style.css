@@ -468,7 +468,7 @@ figcaption {
 
 .footer-top {
   display: grid;
-  grid-template-columns: minmax(0, 5fr) minmax(0, 3fr) minmax(0, 3fr);
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
   gap: 32px;
   align-items: start;
   padding-bottom: clamp(40px, 6vw, 64px);
@@ -477,16 +477,13 @@ figcaption {
 .footer-brand { display: flex; align-items: center; gap: 10px; font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; }
 
 .site-footer nav { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
-.site-footer nav a, .footer-social a {
+.site-footer nav a {
   font-family: var(--font-mono);
   font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 0.1em;
 }
-.site-footer nav a:hover, .footer-social a:hover { background: var(--accent); color: var(--on-accent); }
-
-.footer-social { display: flex; align-items: center; gap: 12px; justify-content: flex-end; }
-.footer-social span { color: var(--muted); font-size: 0.8rem; }
+.site-footer nav a:hover { background: var(--accent); color: var(--on-accent); }
 
 .footer-bottom {
   display: flex;
@@ -524,7 +521,6 @@ figcaption {
   .process-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .quote-grid, .hero-foot { grid-template-columns: 1fr; }
   .footer-top { grid-template-columns: 1fr; gap: 28px; }
-  .footer-social { justify-content: flex-start; }
 }
 
 @media (max-width: 760px) {
@@ -576,8 +572,10 @@ figcaption {
 .symptom-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 1px;
-  background: var(--hairline);
+  gap: 0;
+  /* Hairlines live on the cells (below), not on this background showing
+     through 1px gaps — an incomplete final row used to leave a grey slab. */
+  background: var(--paper);
   border: 1px solid var(--ink);
 }
 
@@ -591,10 +589,16 @@ figcaption {
   padding: 20px 18px 22px;
   background: var(--paper);
   border: 0;
+  border-right: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
   text-align: left;
   cursor: pointer;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
+
+/* Trim the trailing hairlines so they don't double up on the outer border. */
+.symptom-btn:nth-child(4n) { border-right: 0; }
+.symptom-btn:nth-last-child(-n + 4) { border-bottom: 0; }
 
 .symptom-btn:hover { background: var(--paper-2); }
 .symptom-btn[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
@@ -890,6 +894,10 @@ figcaption {
 /* ---------- New components responsive tweaks ---------- */
 @media (max-width: 980px) {
   .symptom-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .symptom-btn:nth-child(4n) { border-right: 1px solid var(--hairline); }
+  .symptom-btn:nth-last-child(-n + 4) { border-bottom: 1px solid var(--hairline); }
+  .symptom-btn:nth-child(2n) { border-right: 0; }
+  .symptom-btn:nth-last-child(-n + 2) { border-bottom: 0; }
 }
 
 @media (max-width: 760px) {
@@ -899,7 +907,9 @@ figcaption {
 
 @media (max-width: 560px) {
   .symptom-grid { grid-template-columns: 1fr; }
-  .symptom-btn { min-height: 0; padding: 18px 16px; gap: 6px; }
+  .symptom-btn { min-height: 0; padding: 18px 16px; gap: 6px; border-right: 0; }
+  .symptom-btn:nth-last-child(-n + 4) { border-bottom: 1px solid var(--hairline); }
+  .symptom-btn:last-child { border-bottom: 0; }
 }
 
 /* ============================================================
@@ -1121,7 +1131,7 @@ figcaption {
 
   .site-header, .ticker, .to-top, .skip-link, .nav-actions,
   .hero-cta, .btn, .btn-link, .sec-cta, .acc-actions, .fix-tools,
-  .symptom-grid, .diag-result, .footer-social { display: none !important; }
+  .symptom-grid, .diag-result { display: none !important; }
 
   section { border-top: none; padding: 0; }
   .reveal { opacity: 1 !important; transform: none !important; }
@@ -1158,3 +1168,15 @@ figcaption {
 /* Diagnosis panel: rise-in on every new selection */
 .diag-result.diag-in { animation: rise-in 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
 @keyframes rise-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+
+/* ============================================================
+   Very small screens (≤360px) — the header cluster overflowed by
+   ~13px at 320px wide. Tighten the gutter and the nav gaps.
+   ============================================================ */
+@media (max-width: 360px) {
+  .container { width: min(100% - 28px, var(--container)); }
+  .nav-wrap { gap: 12px; }
+  .nav-actions { gap: 8px; }
+  .brand { font-size: 1rem; }
+}

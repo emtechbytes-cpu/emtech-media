@@ -3,17 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#F1EEE6" />
+  <meta name="theme-color" id="meta-theme-color" content="#F1EEE6" />
   <title>EmTech Media — PC &amp; Mac Problems, Solved</title>
   <meta name="description" content="Tell us what's wrong and get the exact steps: slow PCs, overheating fans, update chaos, gaming stutter. Windows and macOS fixes in plain English, plus a monthly maintenance routine." />
-  <!-- SEO / social — swap emtechmedia.example for your real domain when it exists -->
-  <link rel="canonical" href="https://www.emtechmedia.example/" />
+  <!-- ============================================================
+       TODO BEFORE LAUNCH — absolute-URL tags omitted on purpose.
+       No domain is registered yet, and a canonical / og:url pointing
+       at a host that does not resolve is worse than having none.
+       When the real domain exists, add these back (replace DOMAIN):
+
+         <link rel="canonical" href="https://DOMAIN/" />
+         <meta property="og:url" content="https://DOMAIN/" />
+         <meta property="og:image" content="https://DOMAIN/og-image.png" />
+         <meta property="og:image:width" content="1200" />
+         <meta property="og:image:height" content="630" />
+         <meta property="og:image:alt" content="EmTech Media — PC &amp; Mac problems, solved in plain English" />
+         <meta name="twitter:image" content="https://DOMAIN/og-image.png" />
+
+       ...and change twitter:card below to "summary_large_image".
+       Then update sitemap.xml and robots.txt to match.
+       ============================================================ -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="EmTech Media" />
   <meta property="og:title" content="EmTech Media — PC &amp; Mac Problems, Solved" />
   <meta property="og:description" content="63 tested fixes for Windows and macOS in plain English. Tell us what's wrong and get the exact steps." />
-  <meta property="og:url" content="https://www.emtechmedia.example/" />
-  <meta property="og:image" content="https://www.emtechmedia.example/og-image.png" />
   <meta name="twitter:card" content="summary" />
   <script>
     // Apply the saved theme before first paint (avoids a flash of the wrong theme).
@@ -22,6 +35,8 @@
         var t = localStorage.getItem("emtech-theme");
         if (!t) t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
         document.documentElement.dataset.theme = t;
+        var m = document.getElementById("meta-theme-color");
+        if (m) m.content = t === "dark" ? "#131210" : "#F1EEE6";
       } catch (err) {}
     })();
   </script>
@@ -285,12 +300,6 @@
         <a href="mac.html">Mac fixes</a>
         <a href="#routine">Monthly routine</a>
       </nav>
-
-      <div class="footer-social" aria-label="Social links">
-        <a href="#">X</a><span aria-hidden="true">/</span>
-        <a href="#">YouTube</a><span aria-hidden="true">/</span>
-        <a href="#">LinkedIn</a>
-      </div>
     </div>
 
     <div class="container footer-bottom">
