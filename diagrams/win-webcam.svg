@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 540" role="img" aria-label="Schematic diagram: a blocked camera glyph beside three stacked checks — physical shutter and F-key, the privacy camera access toggle highlighted in lime, and another app holding the camera">
+  <title>Windows — fix a dead webcam</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=Instrument+Serif:ital@1&amp;display=swap');
+    .mono { font-family: "IBM Plex Mono", ui-monospace, Consolas, monospace; }
+    .serif { font-family: "Instrument Serif", Georgia, serif; font-style: italic; }
+  </style>
+
+  <rect x="0" y="0" width="800" height="540" fill="#f1eee6"/>
+
+  <text class="mono" x="48" y="52" font-size="11" letter-spacing="2" fill="#5f5b50">FIG. 20 — WINDOWS · CAMERA</text>
+  <text class="serif" x="48" y="88" font-size="30" fill="#131210">Blocked, not broken</text>
+  <text class="mono" x="752" y="52" font-size="11" letter-spacing="1.5" fill="#5f5b50" text-anchor="end">5 MIN · EASY</text>
+
+  <!-- camera glyph -->
+  <rect x="110" y="180" width="180" height="110" fill="#e9e5d8" stroke="#131210" stroke-width="2"/>
+  <circle cx="200" cy="235" r="34" fill="none" stroke="#131210" stroke-width="2"/>
+  <circle cx="200" cy="235" r="16" fill="#131210"/>
+  <line x1="172" y1="207" x2="228" y2="263" stroke="#131210" stroke-width="4"/>
+  <text class="mono" x="110" y="330" font-size="9.5" letter-spacing="1" fill="#5f5b50">CAMERA SHOWS A BLACK SQUARE</text>
+
+  <!-- check 1 -->
+  <rect x="380" y="126" width="350" height="76" fill="#e9e5d8" stroke="#131210" stroke-width="2"/>
+  <text class="mono" x="396" y="158" font-size="13" font-weight="600" fill="#131210">1</text>
+  <text class="mono" x="420" y="156" font-size="11" font-weight="600" fill="#131210">PHYSICAL FIRST</text>
+  <text class="mono" x="420" y="178" font-size="9.5" fill="#5f5b50">bezel shutter/slider · the camera F-key + its light</text>
+
+  <!-- check 2 — highlighted toggle -->
+  <rect x="380" y="222" width="350" height="76" fill="#e9e5d8" stroke="#131210" stroke-width="2"/>
+  <text class="mono" x="396" y="254" font-size="13" font-weight="600" fill="#131210">2</text>
+  <text class="mono" x="420" y="252" font-size="11" font-weight="600" fill="#131210">CAMERA ACCESS — ON</text>
+  <text class="mono" x="420" y="274" font-size="9.5" fill="#5f5b50">your app must be allowed further down the page</text>
+  <rect x="656" y="244" width="48" height="24" rx="12" fill="#c8f03c" stroke="#131210" stroke-width="2"/>
+  <circle cx="692" cy="256" r="9" fill="#131210"/>
+
+  <!-- check 3 -->
+  <rect x="380" y="318" width="350" height="76" fill="#e9e5d8" stroke="#131210" stroke-width="2"/>
+  <text class="mono" x="396" y="350" font-size="13" font-weight="600" fill="#131210">3</text>
+  <text class="mono" x="420" y="348" font-size="11" font-weight="600" fill="#131210">ONE APP AT A TIME</text>
+  <text class="mono" x="420" y="370" font-size="9.5" fill="#5f5b50">quit Teams/Zoom — Windows hands it to one at a time</text>
+
+  <!-- note -->
+  <text class="serif" x="70" y="446" font-size="17" fill="#5f5b50">Works in the Camera app? The fault is the other app's settings.</text>
+
+  <!-- caption strip -->
+  <line x1="70" y1="482" x2="730" y2="482" stroke="rgba(19,18,16,.18)" stroke-width="1"/>
+  <text class="mono" x="70" y="506" font-size="10.5" letter-spacing="1" fill="#5f5b50">PRIVACY &amp; SECURITY → CAMERA</text>
+  <text class="mono" x="730" y="506" font-size="10.5" letter-spacing="1" fill="#5f5b50" text-anchor="end">WIN 10 / 11</text>
+</svg>

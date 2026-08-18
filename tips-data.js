@@ -956,6 +956,7 @@ const TIPS = [
   },
   {
     title: "Check whether your PC can run Windows 11",
+    diagram: "diagrams/win-win11-check.svg",
     cat: "windows",
     difficulty: 2,
     time: "10 min",
@@ -971,6 +972,7 @@ const TIPS = [
   },
   {
     title: "Fix a printer that won't print",
+    diagram: "diagrams/win-printer.svg",
     cat: "windows",
     difficulty: 1,
     time: "10 min",
@@ -985,6 +987,7 @@ const TIPS = [
   },
   {
     title: "Fix a microphone no one can hear",
+    diagram: "diagrams/win-mic-input.svg",
     cat: "windows",
     difficulty: 1,
     time: "5 min",
@@ -999,6 +1002,7 @@ const TIPS = [
   },
   {
     title: "Fix a webcam that won't turn on",
+    diagram: "diagrams/win-webcam.svg",
     cat: "windows",
     difficulty: 1,
     time: "5 min",
@@ -1013,6 +1017,7 @@ const TIPS = [
   },
   {
     title: "Start Windows in Safe Mode",
+    diagram: "diagrams/win-safe-mode.svg",
     cat: "maintenance",
     difficulty: 1,
     time: "5 min",
@@ -1028,6 +1033,7 @@ const TIPS = [
   },
   {
     title: "Get back a file you deleted by mistake",
+    diagram: "diagrams/win-file-recovery.svg",
     cat: "maintenance",
     difficulty: 1,
     time: "10 min",
