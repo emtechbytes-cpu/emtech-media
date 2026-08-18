@@ -26,6 +26,32 @@
   );
   const findTip = (slug) => TIPS_BY_SLUG.get(slug);
 
+  /* ---------- Library counts ----------
+     TIPS is the single source of truth. Any element carrying
+     data-tip-count has its number filled from the data, so page copy
+     can't drift as the library grows. The markup keeps a correct value
+     inline as the no-JS fallback. Elements that also carry data-count
+     get their animation target set instead of their text. */
+  const TIP_COUNTS = (() => {
+    const all = typeof TIPS !== "undefined" ? TIPS : [];
+    const mac = all.filter((t) => t.cat === "mac");
+    const win = all.filter((t) => t.cat !== "mac");
+    return {
+      all: all.length,
+      win: win.length,
+      mac: mac.length,
+      "win-cats": new Set(win.map((t) => t.cat)).size,
+      "mac-groups": new Set(mac.map((t) => t.group).filter(Boolean)).size,
+    };
+  })();
+
+  document.querySelectorAll("[data-tip-count]").forEach((el) => {
+    const n = TIP_COUNTS[el.dataset.tipCount];
+    if (n === undefined) return;
+    if (el.hasAttribute("data-count")) el.dataset.count = String(n);
+    else el.textContent = String(n);
+  });
+
   /* ---------- Mobile navigation ---------- */
   const navToggle = document.getElementById("nav-toggle");
   const primaryNav = document.getElementById("primary-nav");
@@ -121,6 +147,7 @@
       blurb: "Glitches, failed updates, weird misbehaviour.",
       tips: [
         { slug: "repair-corrupted-system-files", tag: "Windows" },
+        { slug: "start-windows-in-safe-mode", tag: "Windows · also try" },
         { slug: "reset-nvram-when-things-misbehave", tag: "Mac" },
       ],
     },
@@ -157,6 +184,7 @@
       blurb: "Random crashes with a scary code on a blue background.",
       tips: [
         { slug: "fix-a-blue-screen-bsod-without-panicking", tag: "Windows" },
+        { slug: "start-windows-in-safe-mode", tag: "Windows · also try" },
       ],
     },
     {

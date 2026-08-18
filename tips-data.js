@@ -10,6 +10,19 @@
      win         "Win 10/11" | "All versions" etc. (shown in the card footer)
      description string  (the short pitch)
      steps       array of step strings (rendered as a list)
+     group       optional sub-grouping key (speed | fixes | security)
+
+   Routing is automatic: cat "mac" renders on mac.html, everything else on
+   windows.html. Category headings, counts, the search index and the jump
+   chips all derive from this array — visible counts in page copy are filled
+   from it at runtime via [data-tip-count].
+
+   THE ONE MANUAL STEP: <meta name="description"> and <meta
+   property="og:description"> are read by crawlers before JS runs, so their
+   numbers are hardcoded. After changing the number of tips, update:
+     index.html   og:description  ("73 tested fixes")
+     windows.html description + og:description  ("57 tested fixes")
+     mac.html     description + og:description  ("16 tested macOS fixes")
    ============================================================ */
 
 const TIPS = [
@@ -908,6 +921,151 @@ const TIPS = [
       "Keep 5–10 cm of clearance behind the case; a PC shoved against a wall re-inhales its own heat",
       "Clean the dust filters (front/bottom) every few months and route cables out of the front intake path",
       "Verify with HWiNFO64: idle CPU under 45°C and GPU under 50°C means the pass worked",
+    ],
+  },
+  {
+    title: "Windows 10 is past end of support — what to do now",
+    cat: "maintenance",
+    difficulty: 1,
+    time: "15 min",
+    win: "Win 10",
+    description: "Windows 10 stopped getting security updates on 14 October 2025. The PC still works — it just stops getting patched, and that gap widens every month.",
+    steps: [
+      "Check what you're actually on: Win + R → winver. If it says Windows 10, you're no longer receiving security fixes",
+      "Best option: upgrade to Windows 11, which is still free for qualifying PCs — run 'Check whether your PC can run Windows 11' first so you know what you're dealing with",
+      "If it doesn't qualify, enrol in consumer Extended Security Updates (Settings → Windows Update → Enrol now). It buys security-only patches through October 2026 — no new features, and it is a bridge, not a destination",
+      "If neither is possible, treat the machine as untrusted: keep it away from online banking, leave Defender on, and plan either a replacement or a move to a supported Linux desktop",
+    ],
+  },
+  {
+    title: "Check whether your PC can run Windows 11",
+    cat: "windows",
+    difficulty: 2,
+    time: "10 min",
+    win: "Win 10 / 11",
+    description: "Most machines from 2018 onward qualify. The two things that usually block the upgrade — TPM 2.0 and Secure Boot — are often already fitted and simply switched off in the BIOS.",
+    steps: [
+      "Run Microsoft's PC Health Check app — unlike the installer, it names the exact blocker instead of just refusing",
+      "Check the TPM: Win + R → tpm.msc. You want 'The TPM is ready for use' and Specification Version 2.0",
+      "Check Secure Boot: Win + R → msinfo32 → System Summary → Secure Boot State. 'Off' is a firmware setting, not a hardware limit",
+      "If either is off, reboot into BIOS/UEFI and look for TPM, PTT (Intel) or fTPM (AMD), plus Secure Boot — turning them on costs nothing",
+      "One caveat: if Windows was installed in legacy BIOS mode, convert the disk first with mbr2gpt or enabling Secure Boot will stop it booting",
+    ],
+  },
+  {
+    title: "Fix a printer that won't print",
+    cat: "windows",
+    difficulty: 1,
+    time: "10 min",
+    win: "Win 10 / 11",
+    description: "Nine times out of ten it's a stuck queue or the wrong default printer — not the printer. Work through these before you buy ink, a cable, or a new machine.",
+    steps: [
+      "Settings → Bluetooth & devices → Printers & scanners → your printer → Open print queue. Cancel every stuck job, then send one test page",
+      "Clear the spooler properly: Win + R → services.msc → stop Print Spooler, delete everything inside C:\\Windows\\System32\\spool\\PRINTERS, then start the service again",
+      "Turn off 'Let Windows manage my default printer' — it quietly reassigns the default to whatever you used last, which is rarely what you want",
+      "Still nothing? Remove the printer and re-add it. Windows 11 drives most modern printers driverless over IPP, so skip the manufacturer's software bundle unless you need the scanner",
+    ],
+  },
+  {
+    title: "Fix a microphone no one can hear",
+    cat: "windows",
+    difficulty: 1,
+    time: "5 min",
+    win: "Win 10 / 11",
+    description: "'You're on mute' is usually Windows listening to the wrong input, or a privacy setting silently blocking the app you're calling from.",
+    steps: [
+      "Settings → System → Sound → Input: select the right device and talk. The volume bar should move — if it doesn't, nothing further down the chain will help",
+      "Settings → Privacy & security → Microphone: confirm microphone access is on, then check your specific app is allowed in the list underneath",
+      "Check the app's own audio settings too. Teams, Zoom and Discord each remember a separate input device and don't follow the Windows default",
+      "Physical check: most headsets have an inline mute switch, and many laptops map mute to an F-key with its own indicator light",
+    ],
+  },
+  {
+    title: "Fix a webcam that won't turn on",
+    cat: "windows",
+    difficulty: 1,
+    time: "5 min",
+    win: "Win 10 / 11",
+    description: "A camera showing a black square is nearly always blocked rather than broken — by a privacy setting, a physical shutter, or another app that grabbed it first.",
+    steps: [
+      "Check the physical shutter or slider on the bezel, and the F-key that disables the camera on many laptops",
+      "Settings → Privacy & security → Camera: turn camera access on, then confirm your app is permitted further down the page",
+      "Quit every other app that might be holding the camera — Windows hands it to one at a time, and a backgrounded Teams or Zoom window is the usual culprit",
+      "Open the built-in Camera app. If the picture works there, the fault is in the other app's settings and not the hardware",
+    ],
+  },
+  {
+    title: "Start Windows in Safe Mode",
+    cat: "maintenance",
+    difficulty: 1,
+    time: "5 min",
+    win: "Win 10 / 11",
+    description: "Safe Mode loads Windows with only the drivers it cannot do without. If a problem disappears there, it's software — and knowing that one fact saves hours of guessing.",
+    steps: [
+      "From a working desktop: Settings → System → Recovery → Advanced startup → Restart now",
+      "From the sign-in screen: hold Shift while you click Restart",
+      "Then follow Troubleshoot → Advanced options → Startup Settings → Restart, and press 4 for Safe Mode or 5 if you need networking",
+      "If Windows won't boot at all, cut the power during startup three times running — the fourth attempt opens Recovery on its own",
+      "If it keeps booting into Safe Mode afterwards: Win + R → msconfig → Boot tab → untick Safe boot",
+    ],
+  },
+  {
+    title: "Get back a file you deleted by mistake",
+    cat: "maintenance",
+    difficulty: 1,
+    time: "10 min",
+    win: "Win 10 / 11",
+    description: "Deleted isn't gone — it's unlinked, and the space is merely marked reusable. Your odds are excellent in the first hour and fall away quickly, so stop writing to that drive now.",
+    steps: [
+      "Check the Recycle Bin and search it by name. Shift + Delete skips it, but an ordinary delete does not",
+      "Right-click the folder it lived in → Properties → Previous Versions. If File History or a restore point covered that folder, the file is one click away",
+      "Check OneDrive's online bin at onedrive.com → Recycle bin — it holds deleted files for 30 days even when they've vanished locally",
+      "Still missing? Stop saving anything to that drive and run Windows File Recovery (free, from the Microsoft Store): winfr C: D: /regular /n \\Users\\YourName\\Documents\\report.docx",
+      "Always recover to a different drive than the one you lost the file from — writing to it is what destroys the data for good",
+    ],
+  },
+  {
+    title: "Spot a phishing email before you click",
+    cat: "security",
+    difficulty: 1,
+    time: "10 min",
+    win: "Any",
+    description: "Modern phishing has no spelling mistakes and copies the real branding pixel for pixel. You beat it on process, not on how convincing the message looks.",
+    steps: [
+      "Read the sender's actual domain rather than the display name — 'Microsoft Support <billing@micros0ft-secure.com>' is the entire tell",
+      "Hover a link (long-press on a phone) and read where it truly goes before you click. On mobile that's the only reliable check you have",
+      "Treat urgency as the alarm bell: 'account closing in 24 hours', 'unusual sign-in detected', 'payment failed' all exist to stop you thinking",
+      "Never act from inside the message. Open a new tab, type the company's address yourself, and check your account there — if it's genuine, the notice will be waiting",
+      "Unexpected attachment? Don't open it. .zip, .html and macro-enabled Office documents are the usual carriers",
+    ],
+  },
+  {
+    title: "Move everything to a new PC",
+    cat: "windows",
+    difficulty: 2,
+    time: "60 min",
+    win: "Win 10 / 11",
+    description: "The files are the easy part. What catches people out is the browser profile, the licence keys and the two-factor codes — sort those before the old machine gets wiped.",
+    steps: [
+      "Sign in on the old PC with a Microsoft account and use Windows Backup (Settings → Accounts → Windows Backup) to carry settings and your app list across",
+      "Copy the actual data yourself over an external drive or the network — for large folders it's faster and far more predictable than any migration tool",
+      "Sign into your browser on the new PC to pull bookmarks, saved passwords and extensions, and confirm they've arrived before you wipe anything",
+      "Move your authenticator app across, or export the recovery codes first. Being locked out of your own 2FA is the one mistake here that's genuinely hard to undo",
+      "Keep the old drive intact for a month. Something always turns out to be missing in week three",
+    ],
+  },
+  {
+    title: "Tighten up Edge and Firefox",
+    cat: "security",
+    difficulty: 1,
+    time: "10 min",
+    win: "Any",
+    description: "The Chrome pass only covers one browser. Edge ships on every Windows PC whether you use it or not, and Firefox is the main alternative — both deserve the same ten minutes.",
+    steps: [
+      "Edge: Settings → Privacy, search and services → set Tracking prevention to Strict, and switch off 'Personalise your web experience'",
+      "Edge: further down that same page, turn off the shopping, sidebar and Rewards extras — they're the noisiest part of the browser and none of them are load-bearing",
+      "Firefox: Settings → Privacy & Security → Enhanced Tracking Protection → Strict, and tick 'Tell websites not to sell or share my data'",
+      "Both: enable HTTPS-Only Mode, then audit your extensions and remove anything you don't recognise or haven't used in a month",
     ],
   },
 ];
