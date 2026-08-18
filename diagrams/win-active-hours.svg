@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 540" role="img" aria-label="Schematic diagram: a 24 hour timeline with the active hours window from 9 am to 5 pm highlighted, where Windows updates are paused">
+  <title>Windows — set your active hours</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=Instrument+Serif:ital@1&amp;display=swap');
+    .mono { font-family: "IBM Plex Mono", ui-monospace, Consolas, monospace; }
+    .serif { font-family: "Instrument Serif", Georgia, serif; font-style: italic; }
+  </style>
+
+  <rect x="0" y="0" width="800" height="540" fill="#f1eee6"/>
+
+  <text class="mono" x="48" y="52" font-size="11" letter-spacing="2" fill="#5f5b50">FIG. 05 — WINDOWS · UPDATES</text>
+  <text class="serif" x="48" y="88" font-size="30" fill="#131210">Tell Windows when you're awake</text>
+  <text class="mono" x="752" y="52" font-size="11" letter-spacing="1.5" fill="#5f5b50" text-anchor="end">3 MIN · EASY</text>
+
+  <!-- settings window -->
+  <rect x="70" y="120" width="660" height="330" fill="#e9e5d8" stroke="#131210" stroke-width="2"/>
+  <line x1="70" y1="154" x2="730" y2="154" stroke="rgba(19,18,16,.18)" stroke-width="1"/>
+  <rect x="88" y="132" width="10" height="10" fill="#131210"/>
+  <text class="mono" x="106" y="141" font-size="11" fill="#5f5b50">Settings — Windows Update</text>
+  <line x1="668" y1="137" x2="682" y2="137" stroke="#131210" stroke-width="1.5"/>
+  <rect x="692" y="131" width="12" height="12" fill="none" stroke="#131210" stroke-width="1.5"/>
+  <line x1="714" y1="131" x2="726" y2="143" stroke="#131210" stroke-width="1.5"/>
+  <line x1="726" y1="131" x2="714" y2="143" stroke="#131210" stroke-width="1.5"/>
+
+  <!-- heading -->
+  <text class="serif" x="110" y="202" font-size="20" fill="#131210">Active hours</text>
+  <text class="mono" x="690" y="200" font-size="10.5" fill="#5f5b50" text-anchor="end">UPDATES PAUSED IN THIS WINDOW</text>
+
+  <!-- sun + moon -->
+  <circle cx="400" cy="238" r="9" fill="none" stroke="#131210" stroke-width="2"/>
+  <line x1="400" y1="224" x2="400" y2="219" stroke="#131210" stroke-width="1.5"/>
+  <line x1="400" y1="252" x2="400" y2="257" stroke="#131210" stroke-width="1.5"/>
+  <line x1="386" y1="238" x2="381" y2="238" stroke="#131210" stroke-width="1.5"/>
+  <line x1="414" y1="238" x2="419" y2="238" stroke="#131210" stroke-width="1.5"/>
+  <circle cx="170" cy="238" r="9" fill="none" stroke="#131210" stroke-width="2"/>
+  <circle cx="174" cy="235" r="7.5" fill="#e9e5d8"/>
+
+  <!-- timeline -->
+  <rect x="110" y="268" width="580" height="44" fill="rgba(19,18,16,.10)"/>
+  <rect x="328" y="268" width="145" height="44" fill="#c8f03c" stroke="#131210" stroke-width="2"/>
+
+  <!-- ticks -->
+  <line x1="110" y1="312" x2="110" y2="320" stroke="rgba(19,18,16,.4)" stroke-width="1.5"/>
+  <line x1="255" y1="312" x2="255" y2="320" stroke="rgba(19,18,16,.4)" stroke-width="1.5"/>
+  <line x1="400" y1="312" x2="400" y2="320" stroke="rgba(19,18,16,.4)" stroke-width="1.5"/>
+  <line x1="545" y1="312" x2="545" y2="320" stroke="rgba(19,18,16,.4)" stroke-width="1.5"/>
+  <line x1="690" y1="312" x2="690" y2="320" stroke="rgba(19,18,16,.4)" stroke-width="1.5"/>
+  <text class="mono" x="110" y="336" font-size="9.5" fill="#5f5b50" text-anchor="middle">12 AM</text>
+  <text class="mono" x="255" y="336" font-size="9.5" fill="#5f5b50" text-anchor="middle">6 AM</text>
+  <text class="mono" x="400" y="336" font-size="9.5" fill="#5f5b50" text-anchor="middle">NOON</text>
+  <text class="mono" x="545" y="336" font-size="9.5" fill="#5f5b50" text-anchor="middle">6 PM</text>
+  <text class="mono" x="690" y="336" font-size="9.5" fill="#5f5b50" text-anchor="middle">MIDNIGHT</text>
+
+  <!-- time chips -->
+  <rect x="328" y="356" width="110" height="26" fill="#f1eee6" stroke="#131210" stroke-width="1.5"/>
+  <text class="mono" x="383" y="374" font-size="10.5" fill="#131210" text-anchor="middle">FROM 9:00 AM</text>
+  <rect x="453" y="356" width="110" height="26" fill="#f1eee6" stroke="#131210" stroke-width="1.5"/>
+  <text class="mono" x="508" y="374" font-size="10.5" fill="#131210" text-anchor="middle">TO 5:00 PM</text>
+
+  <!-- note -->
+  <text class="serif" x="110" y="436" font-size="17" fill="#5f5b50">Mid-game restarts: solved.</text>
+
+  <!-- caption strip -->
+  <line x1="70" y1="482" x2="730" y2="482" stroke="rgba(19,18,16,.18)" stroke-width="1"/>
+  <text class="mono" x="70" y="506" font-size="10.5" letter-spacing="1" fill="#5f5b50">SETTINGS → WINDOWS UPDATE → ADVANCED</text>
+  <text class="mono" x="730" y="506" font-size="10.5" letter-spacing="1" fill="#5f5b50" text-anchor="end">WIN 10 / 11</text>
+</svg>

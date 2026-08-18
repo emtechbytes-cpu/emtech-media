@@ -306,6 +306,7 @@
         <div class="acc-body" id="body-${esc(slug)}" hidden>
           <div class="acc-inner">
             <p class="acc-desc">${esc(t.description)}</p>
+            ${t.diagram ? `<img class="tip-diagram" src="${esc(t.diagram)}" alt="${esc(t.title)} — schematic diagram" loading="lazy" width="800" height="540">` : ""}
             <ol class="tip-steps">${t.steps.map((s) => `<li>${esc(s)}</li>`).join("")}</ol>
             ${related.length ? `
             <div class="acc-related">

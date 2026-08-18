@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 540" role="img" aria-label="Schematic diagram: volume flyout with master slider and an output device list where the headphones option is highlighted">
+  <title>Windows — fix no sound</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=Instrument+Serif:ital@1&amp;display=swap');
+    .mono { font-family: "IBM Plex Mono", ui-monospace, Consolas, monospace; }
+    .serif { font-family: "Instrument Serif", Georgia, serif; font-style: italic; }
+  </style>
+
+  <rect x="0" y="0" width="800" height="540" fill="#f1eee6"/>
+
+  <text class="mono" x="48" y="52" font-size="11" letter-spacing="2" fill="#5f5b50">FIG. 08 — WINDOWS · AUDIO</text>
+  <text class="serif" x="48" y="88" font-size="30" fill="#131210">It's usually the wrong output</text>
+  <text class="mono" x="752" y="52" font-size="11" letter-spacing="1.5" fill="#5f5b50" text-anchor="end">4 MIN · EASY</text>
+
+  <!-- flyout window -->
+  <rect x="70" y="120" width="660" height="330" fill="#e9e5d8" stroke="#131210" stroke-width="2"/>
+  <line x1="70" y1="154" x2="730" y2="154" stroke="rgba(19,18,16,.18)" stroke-width="1"/>
+  <rect x="88" y="132" width="10" height="10" fill="#131210"/>
+  <text class="mono" x="106" y="141" font-size="11" fill="#5f5b50">Taskbar — Volume</text>
+
+  <!-- speaker glyph -->
+  <polygon points="128,238 148,226 148,270 128,258" fill="#131210"/>
+  <rect x="112" y="232" width="16" height="32" fill="#131210"/>
+  <path d="M 158 234 a 22 22 0 0 1 0 28" fill="none" stroke="#131210" stroke-width="2"/>
+  <path d="M 166 226 a 34 34 0 0 1 0 44" fill="none" stroke="rgba(19,18,16,.5)" stroke-width="2"/>
+
+  <!-- volume slider -->
+  <rect x="110" y="292" width="290" height="10" fill="rgba(19,18,16,.15)"/>
+  <rect x="110" y="292" width="203" height="10" fill="#131210"/>
+  <rect x="304" y="287" width="20" height="20" fill="#c8f03c" stroke="#131210" stroke-width="2"/>
+  <text class="mono" x="110" y="330" font-size="9.5" letter-spacing="1" fill="#5f5b50">MASTER VOLUME — NOT MUTED</text>
+
+  <!-- output list -->
+  <text class="mono" x="430" y="228" font-size="9" letter-spacing="1" fill="#5f5b50">OUTPUT DEVICE</text>
+  <line x1="430" y1="236" x2="710" y2="236" stroke="rgba(19,18,16,.18)" stroke-width="1"/>
+
+  <text class="mono" x="444" y="266" font-size="12" fill="#5f5b50">SPEAKERS — REALTEK</text>
+
+  <!-- highlighted device -->
+  <rect x="430" y="282" width="280" height="36" fill="#c8f03c"/>
+  <polygon points="424,295 414,289 414,301" fill="#131210"/>
+  <text class="mono" x="444" y="306" font-size="12" font-weight="600" fill="#131210">HEADPHONES — USB</text>
+
+  <text class="mono" x="444" y="348" font-size="12" fill="#5f5b50">HDMI — MONITOR</text>
+  <text class="mono" x="710" y="276" font-size="10" font-weight="600" fill="#131210" text-anchor="end">← pick where sound should go</text>
+
+  <!-- note -->
+  <text class="serif" x="110" y="436" font-size="17" fill="#5f5b50">One app silent? Check the per-app mixer next.</text>
+
+  <!-- caption strip -->
+  <line x1="70" y1="482" x2="730" y2="482" stroke="rgba(19,18,16,.18)" stroke-width="1"/>
+  <text class="mono" x="70" y="506" font-size="10.5" letter-spacing="1" fill="#5f5b50">TASKBAR → VOLUME → OUTPUT</text>
+  <text class="mono" x="730" y="506" font-size="10.5" letter-spacing="1" fill="#5f5b50" text-anchor="end">WIN 10 / 11</text>
+</svg>

@@ -748,6 +748,15 @@ figcaption {
 
 .acc-desc { margin: 0; color: var(--muted); font-size: 1rem; line-height: 1.6; max-width: 72ch; }
 
+/* Schematic figures (diagrams/*.svg) — framed as editorial plates */
+.tip-diagram {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 24px 0 8px;
+  border: 1px solid var(--hairline);
+}
+
 /* Shared numbered steps (diagnose panel + accordion bodies) */
 .tip-steps {
   margin: 4px 0 0;

@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 540" role="img" aria-label="Schematic diagram: Windows power mode settings list with Best performance highlighted">
+  <title>Windows — switch to best performance</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=Instrument+Serif:ital@1&amp;display=swap');
+    .mono { font-family: "IBM Plex Mono", ui-monospace, Consolas, monospace; }
+    .serif { font-family: "Instrument Serif", Georgia, serif; font-style: italic; }
+  </style>
+
+  <rect x="0" y="0" width="800" height="540" fill="#f1eee6"/>
+
+  <text class="mono" x="48" y="52" font-size="11" letter-spacing="2" fill="#5f5b50">FIG. 04 — WINDOWS · SPEED</text>
+  <text class="serif" x="48" y="88" font-size="30" fill="#131210">Stop the CPU holding back</text>
+  <text class="mono" x="752" y="52" font-size="11" letter-spacing="1.5" fill="#5f5b50" text-anchor="end">1 MIN · EASY</text>
+
+  <!-- settings window -->
+  <rect x="70" y="120" width="660" height="330" fill="#e9e5d8" stroke="#131210" stroke-width="2"/>
+  <line x1="70" y1="154" x2="730" y2="154" stroke="rgba(19,18,16,.18)" stroke-width="1"/>
+  <rect x="88" y="132" width="10" height="10" fill="#131210"/>
+  <text class="mono" x="106" y="141" font-size="11" fill="#5f5b50">Settings — Power</text>
+  <line x1="668" y1="137" x2="682" y2="137" stroke="#131210" stroke-width="1.5"/>
+  <rect x="692" y="131" width="12" height="12" fill="none" stroke="#131210" stroke-width="1.5"/>
+  <line x1="714" y1="131" x2="726" y2="143" stroke="#131210" stroke-width="1.5"/>
+  <line x1="726" y1="131" x2="714" y2="143" stroke="#131210" stroke-width="1.5"/>
+
+  <!-- heading -->
+  <text class="serif" x="110" y="202" font-size="20" fill="#131210">Power mode</text>
+  <text class="mono" x="690" y="200" font-size="10.5" fill="#5f5b50" text-anchor="end">DESKTOP · PLUGGED IN</text>
+
+  <!-- radio list -->
+  <rect x="110" y="242" width="16" height="16" fill="none" stroke="#131210" stroke-width="1.5"/>
+  <text class="mono" x="142" y="257" font-size="12.5" fill="#131210">Best energy efficiency</text>
+
+  <rect x="110" y="286" width="16" height="16" fill="none" stroke="#131210" stroke-width="1.5"/>
+  <rect x="114" y="290" width="8" height="8" fill="#131210"/>
+  <text class="mono" x="142" y="301" font-size="12.5" fill="#131210">Auto (recommended)</text>
+
+  <!-- highlighted option -->
+  <rect x="90" y="326" width="620" height="40" fill="#c8f03c"/>
+  <rect x="110" y="338" width="16" height="16" fill="none" stroke="#131210" stroke-width="2"/>
+  <rect x="114" y="342" width="8" height="8" fill="#131210"/>
+  <text class="mono" x="142" y="353" font-size="12.5" font-weight="600" fill="#131210">Best performance</text>
+
+  <rect x="110" y="382" width="16" height="16" fill="none" stroke="#131210" stroke-width="1.5"/>
+  <text class="mono" x="142" y="397" font-size="12.5" fill="#131210">Custom</text>
+
+  <!-- note -->
+  <text class="serif" x="110" y="436" font-size="17" fill="#5f5b50">On a plugged-in desktop, full performance costs nothing.</text>
+
+  <!-- caption strip -->
+  <line x1="70" y1="482" x2="730" y2="482" stroke="rgba(19,18,16,.18)" stroke-width="1"/>
+  <text class="mono" x="70" y="506" font-size="10.5" letter-spacing="1" fill="#5f5b50">SETTINGS → SYSTEM → POWER</text>
+  <text class="mono" x="730" y="506" font-size="10.5" letter-spacing="1" fill="#5f5b50" text-anchor="end">WIN 11</text>
+</svg>
