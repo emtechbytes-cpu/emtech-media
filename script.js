@@ -179,11 +179,37 @@
       ],
     },
     {
+      id: "mic-webcam",
+      label: "Mic or webcam not working",
+      blurb: "'You're on mute', black camera squares, calls that go one way.",
+      tips: [
+        { slug: "fix-a-microphone-no-one-can-hear", tag: "Windows" },
+        { slug: "fix-a-webcam-that-won-t-turn-on", tag: "Windows · also try" },
+      ],
+    },
+    {
+      id: "printer",
+      label: "Printer won't print",
+      blurb: "Stuck queues, missing pages, or the wrong default printer.",
+      tips: [
+        { slug: "fix-a-printer-that-won-t-print", tag: "Windows" },
+      ],
+    },
+    {
       id: "blue-screen",
       label: "Blue screen of death",
       blurb: "Random crashes with a scary code on a blue background.",
       tips: [
         { slug: "fix-a-blue-screen-bsod-without-panicking", tag: "Windows" },
+        { slug: "start-windows-in-safe-mode", tag: "Windows · also try" },
+      ],
+    },
+    {
+      id: "pc-wont-boot",
+      label: "PC won't start up",
+      blurb: "Dead screen at boot, or it spins on the logo and gives up.",
+      tips: [
+        { slug: "fix-a-pc-that-won-t-start-up", tag: "Windows" },
         { slug: "start-windows-in-safe-mode", tag: "Windows · also try" },
       ],
     },
@@ -205,6 +231,14 @@
       ],
     },
     {
+      id: "gatekeeper",
+      label: "Mac blocks an app I need",
+      blurb: "'Developer cannot be verified', or Gatekeeper saying no.",
+      tips: [
+        { slug: "open-apps-blocked-by-gatekeeper", tag: "Mac" },
+      ],
+    },
+    {
       id: "junk-apps",
       label: "Pop-ups and junk apps",
       blurb: "Bundleware, 'PC optimizers', and things you never installed.",
@@ -221,6 +255,14 @@
       tips: [
         { slug: "make-windows-search-actually-useful-again", tag: "Windows" },
         { slug: "tame-spotlight-indexing-on-extra-drives", tag: "Mac" },
+      ],
+    },
+    {
+      id: "deleted-file",
+      label: "Deleted a file by mistake",
+      blurb: "Gone from the folder — and probably not gone for good.",
+      tips: [
+        { slug: "get-back-a-file-you-deleted-by-mistake", tag: "Windows" },
       ],
     },
   ];

@@ -21,8 +21,8 @@
    THE ONE MANUAL STEP: <meta name="description"> and <meta
    property="og:description"> are read by crawlers before JS runs, so their
    numbers are hardcoded. After changing the number of tips, update:
-     index.html   og:description  ("73 tested fixes")
-     windows.html description + og:description  ("57 tested fixes")
+     index.html   og:description  ("74 tested fixes")
+     windows.html description + og:description  ("58 tested fixes")
      mac.html     description + og:description  ("16 tested macOS fixes")
    ============================================================ */
 
@@ -1045,6 +1045,22 @@ const TIPS = [
       "Check OneDrive's online bin at onedrive.com → Recycle bin — it holds deleted files for 30 days even when they've vanished locally",
       "Still missing? Stop saving anything to that drive and run Windows File Recovery (free, from the Microsoft Store): winfr C: D: /regular /n \\Users\\YourName\\Documents\\report.docx",
       "Always recover to a different drive than the one you lost the file from — writing to it is what destroys the data for good",
+    ],
+  },
+  {
+    title: "Fix a PC that won't start up",
+    diagram: "diagrams/win-boot-fail.svg",
+    cat: "maintenance",
+    difficulty: 2,
+    time: "15 min",
+    win: "Win 10 / 11",
+    description: "A dead screen at boot feels like a funeral for the machine, but most 'dead' PCs are one small thing away from life — and your files are still on the disk either way.",
+    steps: [
+      "Check the boring stuff first: wall socket, power cable, and that little O/I switch on the back of the PSU. Half of all 'dead PC' calls end here",
+      "Hard reset it: hold the power button for 10 seconds, unplug (or pull the battery if you can), wait 30 seconds, then try again — stuck electrical states look exactly like death and die with them",
+      "Fans spin but no display? Try another monitor or cable before touching the PC. On desktops make sure the screen is plugged into the graphics card, not the motherboard",
+      "Stuck on the Windows logo: force it off (hold power 10 seconds) three times in a row — the fourth attempt opens Automatic Repair → Advanced options → Startup Repair, then System Restore if that declines",
+      "Still dark? Boot Safe Mode from those same Advanced options and uninstall whatever changed — recent update first, new driver second. And before any reinstall: copy your files off the drive. Recovery is cheap; data loss isn't",
     ],
   },
   {

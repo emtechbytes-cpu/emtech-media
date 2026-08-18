@@ -600,6 +600,11 @@ figcaption {
 .symptom-btn:nth-child(4n) { border-right: 0; }
 .symptom-btn:nth-last-child(-n + 4) { border-bottom: 0; }
 
+/* A lone tile in an incomplete final row spans full width so the grid stays whole… */
+.symptom-btn:last-child:nth-child(4n + 1) { grid-column: 1 / -1; border-right: 0; }
+/* …and the tiles above it keep their bottom hairline, which the trim rule removed. */
+.symptom-grid:has(> .symptom-btn:last-child:nth-child(4n + 1)) > .symptom-btn:nth-last-child(-n + 4):not(:last-child) { border-bottom: 1px solid var(--hairline); }
+
 .symptom-btn:hover { background: var(--paper-2); }
 .symptom-btn[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
 
@@ -918,6 +923,10 @@ figcaption {
   .symptom-btn:nth-last-child(-n + 4) { border-bottom: 1px solid var(--hairline); }
   .symptom-btn:nth-child(2n) { border-right: 0; }
   .symptom-btn:nth-last-child(-n + 2) { border-bottom: 0; }
+
+  /* Same orphan treatment in the two-column layout. */
+  .symptom-btn:last-child:nth-child(odd) { grid-column: 1 / -1; border-right: 0; }
+  .symptom-grid:has(> .symptom-btn:last-child:nth-child(odd)) > .symptom-btn:nth-last-child(2) { border-bottom: 1px solid var(--hairline); }
 }
 
 @media (max-width: 760px) {
