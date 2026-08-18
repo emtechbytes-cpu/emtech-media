@@ -10,11 +10,13 @@
      win         "Win 10/11" | "All versions" etc. (shown in the card footer)
      description string  (the short pitch)
      steps       array of step strings (rendered as a list)
+     diagram     optional string — path to an SVG figure shown in the accordion body
    ============================================================ */
 
 const TIPS = [
   {
     title: "Disable startup bloat",
+    diagram: "diagrams/win-startup-bloat.svg",
     cat: "speed",
     difficulty: 1,
     time: "2 min",
@@ -29,6 +31,7 @@ const TIPS = [
   },
   {
     title: "Switch the power plan to Best Performance",
+    diagram: "diagrams/win-power-plan.svg",
     cat: "speed",
     difficulty: 1,
     time: "1 min",
@@ -71,6 +74,7 @@ const TIPS = [
   },
   {
     title: "Stop Windows updates at odd hours",
+    diagram: "diagrams/win-active-hours.svg",
     cat: "windows",
     difficulty: 1,
     time: "3 min",
@@ -84,6 +88,7 @@ const TIPS = [
   },
   {
     title: "Fix a PC that overheats and fans like a jet engine",
+    diagram: "diagrams/win-dust-cleanout.svg",
     cat: "maintenance",
     difficulty: 2,
     time: "45 min",
@@ -125,6 +130,7 @@ const TIPS = [
   },
   {
     title: "Let Windows' Storage Sense do the work for you",
+    diagram: "diagrams/win-storage-sense.svg",
     cat: "cleaning",
     difficulty: 1,
     time: "2 min",
@@ -371,6 +377,7 @@ const TIPS = [
   },
   {
     title: "Free up disk space with Storage Management",
+    diagram: "diagrams/mac-storage-manage.svg",
     cat: "mac",
     group: "speed",
     difficulty: 1,
@@ -386,6 +393,7 @@ const TIPS = [
   },
   {
     title: "Reset NVRAM when things misbehave",
+    diagram: "diagrams/mac-nvram-reset.svg",
     cat: "mac",
     group: "fixes",
     difficulty: 1,
@@ -637,6 +645,7 @@ const TIPS = [
   },
   {
     title: "Fix a blue screen (BSOD) without panicking",
+    diagram: "diagrams/win-bsod.svg",
     cat: "maintenance",
     difficulty: 2,
     time: "30 min",
@@ -651,6 +660,7 @@ const TIPS = [
   },
   {
     title: "No sound? The four-minute fix",
+    diagram: "diagrams/win-no-sound.svg",
     cat: "windows",
     difficulty: 1,
     time: "4 min",
@@ -679,6 +689,7 @@ const TIPS = [
   },
   {
     title: "Slow internet? Run the five-minute test",
+    diagram: "diagrams/win-network-test.svg",
     cat: "windows",
     difficulty: 1,
     time: "10 min",
@@ -694,6 +705,7 @@ const TIPS = [
   },
   {
     title: "Force-quit a frozen app",
+    diagram: "diagrams/mac-force-quit.svg",
     cat: "mac",
     group: "fixes",
     difficulty: 1,
@@ -708,6 +720,7 @@ const TIPS = [
   },
   {
     title: "Stop apps from launching at login",
+    diagram: "diagrams/mac-login-items.svg",
     cat: "mac",
     group: "speed",
     difficulty: 1,
@@ -722,6 +735,7 @@ const TIPS = [
   },
   {
     title: "Keep 10% of your disk free",
+    diagram: "diagrams/mac-free-space.svg",
     cat: "mac",
     group: "speed",
     difficulty: 1,
@@ -781,6 +795,7 @@ const TIPS = [
   },
   {
     title: "Keep your Mac battery healthy",
+    diagram: "diagrams/mac-battery-health.svg",
     cat: "mac",
     group: "fixes",
     difficulty: 1,
@@ -796,6 +811,7 @@ const TIPS = [
   },
   {
     title: "Set up Time Machine properly",
+    diagram: "diagrams/mac-time-machine.svg",
     cat: "mac",
     group: "security",
     difficulty: 1,
@@ -811,6 +827,7 @@ const TIPS = [
   },
   {
     title: "Turn on FileVault full-disk encryption",
+    diagram: "diagrams/mac-filevault.svg",
     cat: "mac",
     group: "security",
     difficulty: 1,

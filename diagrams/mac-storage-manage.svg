@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 540" role="img" aria-label="Schematic diagram: macOS storage bar broken into apps, documents, system data and free space, with system data highlighted">
+  <title>Mac — see what's eating the drive</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=Instrument+Serif:ital@1&amp;display=swap');
+    .mono { font-family: "IBM Plex Mono", ui-monospace, Consolas, monospace; }
+    .serif { font-family: "Instrument Serif", Georgia, serif; font-style: italic; }
+  </style>
+
+  <rect x="0" y="0" width="800" height="540" fill="#f1eee6"/>
+
+  <text class="mono" x="48" y="52" font-size="11" letter-spacing="2" fill="#5f5b50">FIG. 10 — MAC · STORAGE</text>
+  <text class="serif" x="48" y="88" font-size="30" fill="#131210">See what's eating the drive</text>
+  <text class="mono" x="752" y="52" font-size="11" letter-spacing="1.5" fill="#5f5b50" text-anchor="end">5 MIN · EASY</text>
+
+  <!-- mac window -->
+  <rect x="70" y="120" width="660" height="330" fill="#e9e5d8" stroke="#131210" stroke-width="2"/>
+  <line x1="70" y1="154" x2="730" y2="154" stroke="rgba(19,18,16,.18)" stroke-width="1"/>
+  <rect x="90" y="133" width="8" height="8" fill="none" stroke="rgba(19,18,16,.5)" stroke-width="1.5"/>
+  <rect x="104" y="133" width="8" height="8" fill="none" stroke="rgba(19,18,16,.5)" stroke-width="1.5"/>
+  <rect x="118" y="133" width="8" height="8" fill="none" stroke="rgba(19,18,16,.5)" stroke-width="1.5"/>
+  <text class="mono" x="400" y="142" font-size="11" fill="#5f5b50" text-anchor="middle">Storage</text>
+
+  <!-- heading -->
+  <text class="serif" x="110" y="202" font-size="20" fill="#131210">Macintosh HD — 512 GB</text>
+  <text class="mono" x="690" y="200" font-size="10.5" fill="#5f5b50" text-anchor="end">SORTED BY SIZE</text>
+
+  <!-- storage bar -->
+  <rect x="110" y="230" width="220" height="54" fill="#131210"/>
+  <rect x="330" y="230" width="128" height="54" fill="rgba(19,18,16,.55)"/>
+  <rect x="458" y="230" width="139" height="54" fill="#c8f03c" stroke="#131210" stroke-width="2"/>
+  <rect x="597" y="230" width="93" height="54" fill="#f1eee6" stroke="rgba(19,18,16,.4)" stroke-width="1.5"/>
+
+  <!-- labels -->
+  <text class="mono" x="220" y="306" font-size="10.5" fill="#5f5b50" text-anchor="middle">APPS</text>
+  <text class="mono" x="394" y="306" font-size="10.5" fill="#5f5b50" text-anchor="middle">DOCUMENTS</text>
+  <text class="mono" x="527" y="306" font-size="10.5" font-weight="600" fill="#131210" text-anchor="middle">SYSTEM DATA</text>
+  <text class="mono" x="643" y="306" font-size="10.5" fill="#5f5b50" text-anchor="middle">FREE</text>
+  <text class="serif" x="527" y="328" font-size="14" fill="#5f5b50" text-anchor="middle">the usual culprit</text>
+
+  <!-- buttons -->
+  <rect x="110" y="360" width="180" height="40" fill="#f1eee6" stroke="#131210" stroke-width="2"/>
+  <text class="mono" x="200" y="385" font-size="12" fill="#131210" text-anchor="middle">Optimise Storage…</text>
+  <rect x="306" y="360" width="120" height="40" fill="#131210"/>
+  <text class="mono" x="366" y="385" font-size="12" font-weight="600" fill="#f1eee6" text-anchor="middle">Manage…</text>
+
+  <!-- caption strip -->
+  <line x1="70" y1="482" x2="730" y2="482" stroke="rgba(19,18,16,.18)" stroke-width="1"/>
+  <text class="mono" x="70" y="506" font-size="10.5" letter-spacing="1" fill="#5f5b50">APPLE MENU → ABOUT THIS MAC → STORAGE</text>
+  <text class="mono" x="730" y="506" font-size="10.5" letter-spacing="1" fill="#5f5b50" text-anchor="end">MACOS</text>
+</svg>
