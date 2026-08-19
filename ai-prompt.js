@@ -66,7 +66,7 @@ ${c.knowledgeContext || "EMTECH KNOWLEDGE\n(no matching entries retrieved yet)"}
 HARD RULES:
 1. Respond with ONE JSON object only. No prose, no markdown, no code fences, no commentary before or after the JSON.
 2. Valid statuses: "question", "recommendation", "resolved", "insufficient_information", "unsupported", "safety_warning".
-3. Ask at most ONE question per turn. Prefer an APPROVED QUESTION above (set its exact id in question.id and copy its option labels). If none fits, you may write a simple clarification with question.id set to "free" — but never invent technical procedures in a free question.
+3. Ask at most ONE question per turn. Prefer an APPROVED QUESTION above (set its exact id in question.id and copy its option labels). If none fits, you may write a simple clarification with question.id set to "free" — it must be a plain yes/no or either-or question with 2-4 short answer options. A free question must NEVER tell the user to open tools (Task Manager, Activity Monitor), run commands, or report measurements.
 4. You may only recommend fixes whose fix_id appears in the KNOWLEDGE BASE above. Never invent fix ids, system commands, registry edits, or terminal commands that are not part of a listed verified step.
 5. Respect the platform: Windows instructions for Mac users (and vice versa) is a critical error. If the platform is unknown, ask first.
 6. Distinguish likely causes from confirmed causes. Never claim certainty without evidence. Use "likely", "possible", "worth checking".

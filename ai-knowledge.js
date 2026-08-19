@@ -135,6 +135,41 @@
     return hits.slice(0, o.limit || 6).map((h) => Object.assign({}, h, { slug: s ? s(h.tip.title) : null }));
   }
 
+  /* ---------- Session-aware retrieval (§8/§40) ----------
+     The current user message is often just an answer to a question
+     ("Not sure", "Yes") — ranked alone it retrieves nothing relevant, and
+     the model then has no valid fix ids in context for what it wants to say.
+     So rank by stable signals (problem summary + original description +
+     category vocabulary), then merge in the active topic from the most
+     recent AI question so fixes for where the conversation moved (e.g. heat)
+     are always visible. */
+  function searchForSession(o) {
+    const o2 = o || {};
+    const platform = o2.platform || null;
+    const limit = Math.max(3, Number(o2.limit) || 6);
+
+    const coreParts = [];
+    if (o2.summary) coreParts.push(String(o2.summary));
+    if (o2.description) coreParts.push(String(o2.description));
+    const cw = o2.category ? CATEGORY_WORDS[o2.category] : null;
+    if (Array.isArray(cw) && cw.length) coreParts.push(cw.join(" "));
+
+    let hits = [];
+    if (coreParts.length) {
+      try { hits = searchKnowledgeBase({ query: coreParts.join(" "), platform, limit }); } catch (err) {}
+    }
+
+    const topic = typeof o2.topic === "string" ? o2.topic.trim() : "";
+    if (topic.length >= 15) {
+      let topicHits = [];
+      try { topicHits = searchKnowledgeBase({ query: topic, platform, limit: 3 }); } catch (err) {}
+      const seen = new Set(hits.map((h) => h.tip.title));
+      for (const t of topicHits) if (!seen.has(t.tip.title)) hits.push(t);
+    }
+
+    return hits.slice(0, o2.topic ? limit + 3 : limit); // small context (§40)
+  }
+
   /* ---------- Local platform/category classification (deterministic) ---------- */
   const PLATFORM_WORDS = {
     mac: ["macbook", "imac", "macos", "osx", "apple silicon", "mac mini", "mac studio"],
@@ -267,6 +302,7 @@
     getFixBySlug,
     fixHref,
     searchKnowledgeBase,
+    searchForSession,
     classifyProblem,
     buildKnowledgeContext,
     approvedQuestions,

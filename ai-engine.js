@@ -435,9 +435,25 @@
     }
   }
 
-  function compactAiText(m) {
-    // Assistant turns are stored pre-rendered in m.text — use as-is.
-    return String(m.text || "");
+  /* Render a stored assistant turn back into the JSON contract for prompt
+     history. Stored text is compact ("message [question:id]" / "[fix:slug]")
+     — if we fed that shape back to the model, its own history would teach it
+     to answer in plain text instead of JSON (observed failure mode). */
+  function renderAssistantForPrompt(m) {
+    const raw = String((m && m.text) || "");
+    const message = raw.replace(/\s*\[(?:question|fix):[^\]]*\]\s*$/g, "").trim();
+    const obj = { status: (m && m.kind) || "resolved", message };
+    const qm = /\[question:([^\]]+)\]/.exec(raw);
+    if (qm) {
+      // Canonical text from the approved bank — keeps history examples
+      // schema-complete and aligned with the official wording.
+      let text = null;
+      try { text = (K.allApprovedQuestions() || []).find((q) => q.id === qm[1]); } catch (err) {}
+      obj.question = { id: qm[1], text: (text && text.text) || message };
+    }
+    const fm = /\[fix:([^\]]+)\]/.exec(raw);
+    if (fm) obj.recommended_fix = { fix_id: fm[1] };
+    return JSON.stringify(obj);
   }
 
   function buildMessages(session, knowledgeHits, retryErrors) {
@@ -467,7 +483,7 @@
     const messages = [{ role: "system", content: systemText }];
     for (const m of session.conversation.slice(-CONTEXT_MSGS)) {
       if (m.role === "user") messages.push({ role: "user", content: m.text });
-      else messages.push({ role: "assistant", content: compactAiText(m) });
+      else messages.push({ role: "assistant", content: renderAssistantForPrompt(m) });
     }
 
     if (retryErrors && PROMPT && typeof PROMPT.buildRetryInstruction === "function") {
@@ -520,9 +536,28 @@
     }
     inferLevel(session, o.text);
 
-    // Retrieve relevant knowledge only (§8/§40).
+    // Retrieve relevant knowledge only (§8/§40). The current message is often
+    // just an answer ("Not sure") — searchForSession ranks by stable signals
+    // plus the active topic so the model always sees valid fix ids for it.
     let hits = [];
-    try { hits = K.searchKnowledgeBase({ query: (o.text || "") + " " + (session.problemSummary || ""), platform: session.platform, limit: 6 }); } catch (err) {}
+    try {
+      const firstUser = (session.conversation || []).find((m) => m.role === "user");
+      let topic = null; // most recent AI question encodes where we're investigating
+      for (let i = session.conversation.length - 1; i >= 0 && !topic; i--) {
+        const m = session.conversation[i];
+        if (!m || m.role !== "ai") continue;
+        const t = String(m.text || "").replace(/\[question:[^\]]*\]/g, "").trim();
+        if (t.length >= 20) topic = t.slice(0, 300);
+      }
+      hits = K.searchForSession({
+        summary: session.problemSummary,
+        description: firstUser ? firstUser.text : (o.text || null),
+        category: session.category,
+        topic,
+        platform: session.platform,
+        limit: 6,
+      });
+    } catch (err) {}
 
     const cfg = CFG ? CFG.resolveConfig() : {};
     if (!PROVIDERS || !cfg.endpoint) {
