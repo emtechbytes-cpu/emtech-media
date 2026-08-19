@@ -19,7 +19,12 @@
      GET  /api/health → { "status": "ok" }          (no secrets, §42/§64)
      POST /api/ai     → EmTech AI turn. In: OpenAI-compatible body
                         ({model, messages, temperature, max_tokens}).
-                        Out: normalized envelope { ok, errors?, text }.
+                        Out: normalized envelope { ok, errors?, text }
+
+   Emergency switch (§38): set AI_ENABLED=false (wrangler.jsonc vars or a
+   secret) to shut down model calls without touching the website. Health
+   then reports "disabled" and /api/ai answers 503 — the frontend shows its
+   graceful offline state and Guided Diagnosis keeps working.
 
    Note on `ok:false` with HTTP 200: the model answered but its JSON failed
    knowledge-base validation. The frontend uses `errors` for its single
@@ -52,6 +57,11 @@ function corsHeaders(request, env) {
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type",
   };
+}
+
+/* Emergency switch (§38): default ON; only an explicit "false" disables. */
+function aiEnabled(env) {
+  return String((env && env.AI_ENABLED) || "true").trim().toLowerCase() !== "false";
 }
 
 function json(status, obj, request, env) {
@@ -135,11 +145,18 @@ export default {
 
     /* ---------- health (§42/§64): minimal, no secrets ---------- */
     if (request.method === "GET" && url.pathname === "/api/health") {
+      if (!aiEnabled(env)) return json(503, { status: "disabled" }, request, env);
       return json(200, { status: "ok" }, request, env);
     }
 
     if (request.method !== "POST" || url.pathname !== "/api/ai") {
       return json(404, { error: "not found" }, request, env);
+    }
+
+    /* ---------- emergency switch (§38): AI off → graceful 503, site stays up ---------- */
+    if (!aiEnabled(env)) {
+      console.log("[emtech-ai-api] 503 AI disabled by configuration");
+      return json(503, { error: "EmTech AI is temporarily unavailable" }, request, env);
     }
 
     /* ---------- CORS (§27) ---------- */

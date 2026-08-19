@@ -172,7 +172,7 @@
 
   /* ---------- Local platform/category classification (deterministic) ---------- */
   const PLATFORM_WORDS = {
-    mac: ["macbook", "imac", "macos", "osx", "apple silicon", "mac mini", "mac studio"],
+    mac: ["macbook", "imac", "macos", "osx", "apple silicon", "mac mini", "mac studio", "mac laptop", "mac desktop", "my mac ", "on my mac"],
     windows: ["windows", "win10", "win 10", "win11", "win 11", "task manager", "control panel"],
   };
 
@@ -180,18 +180,20 @@
     performance: ["slow", "sluggish", "laggy", "freezing", "frozen", "hangs", "takes forever", "unresponsive", "beachball"],
     overheating: ["hot", "overheat", "fan", "fans", "loud", "thermal", "throttl"],
     network: ["wifi", "wi-fi", "wireless", "internet", "disconnect", "drops", "buffering", "router", "ethernet"],
-    storage: ["storage", "disk space", "drive full", "not enough space", "running out of space", "temp files", "cache"],
+    storage: ["storage", "disk space", "drive full", "almost full", "not enough space", "not enough storage", "running out of space", "low on space", "no space left", "temp files", "cache"],
     audio: ["no sound", "silent", "microphone", "mic ", "webcam", "camera won't", "headphones"],
     updates: ["windows update", "update stuck", "updates failing", "restarts at 3am", "active hours", "macos update"],
-    crashes: ["blue screen", "bsod", "crash", "won't start", "wont start", "black screen", "random restarts", "gatekeeper"],
+    crashes: ["blue screen", "bsod", "crash", "won't start", "wont start", "black screen", "goes black", "screen goes dark", "random restarts", "gatekeeper"],
     gaming: ["game", "games", "fps", "stutter", "lag spike", "input lag", "framerate"],
-    security: ["virus", "malware", "ransomware", "phishing", "scam", "pop-up", "popup", "optimizer", "encrypt"],
-    hardware: ["ram", "ssd", "hard drive", "battery", "printer", "usb", "upgrade"],
+    security: ["virus", "malware", "ransomware", "phishing", "scam", "pop-up", "popup", "pop up", "popups", "optimizer", "encrypt"],
+    hardware: ["ram", "ssd", "hard drive", "battery", "printer", "usb", "keyboard", "trackpad", "touchpad", "upgrade"],
   };
 
   /* Best-effort local read of platform + category from free text.
      Used to (a) bias retrieval before the first AI call and (b) feed the
-     Phase 2 fallback engine when Qwen is unavailable (§57/§58). */
+     Phase 2 fallback engine when Qwen is unavailable (§57/§58).
+     Multi-word phrases weigh more than single words, so "running out of
+     space" beats a stray "slow" — the router picks the real branch. */
   function classifyProblem(text) {
     const q = " " + normalize(text) + " ";
     let platform = null;
@@ -201,8 +203,11 @@
 
     let category = null, best = 0;
     for (const catId of Object.keys(CATEGORY_WORDS)) {
-      const hits = CATEGORY_WORDS[catId].filter((w) => q.indexOf(w) !== -1).length;
-      if (hits > best) { best = hits; category = catId; }
+      let score = 0;
+      for (const w of CATEGORY_WORDS[catId]) {
+        if (q.indexOf(w) !== -1) score += w.split(" ").length; // phrase weight
+      }
+      if (score > best) { best = score; category = catId; }
     }
 
     return { platform, category: best >= 1 ? category : null };

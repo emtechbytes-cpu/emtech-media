@@ -128,6 +128,7 @@ npx wrangler kv namespace create RATE_LIMITS   # copy the id it prints
 
 | Variable | Default | Purpose |
 | --- | --- | --- |
+| `AI_ENABLED` | `true` | Emergency switch: set to `false` to shut down model calls without touching the website (§38). |
 | `QWEN_API_KEY` | — (required) | DashScope API key. **Secret.** Never logged, never returned (§5/§7). |
 | `QWEN_MODEL` | `qwen-plus` | Production model id. Change without touching the frontend (§38). |
 | `QWEN_BASE_URL` | `https://dashscope.aliyuncs.com/compatible-mode/v1` | OpenAI-compatible endpoint (rarely changes). |
@@ -137,6 +138,27 @@ npx wrangler kv namespace create RATE_LIMITS   # copy the id it prints
 | `MAX_BODY_BYTES` | `131072` | Max request body (system prompt + context can be ~40–60 KB). |
 | `UPSTREAM_TIMEOUT_MS` | `60000` | Hard ceiling per model call. |
 | `DEBUG_AI` | `false` | Dev-only: adds latency/usage/validation details to responses (§54). Keep off in production. |
+
+### Emergency switch (shut down AI without taking the site down)
+
+Set `AI_ENABLED=false` and redeploy:
+
+```bash
+# Option A — edit wrangler.jsonc vars, then:
+npx wrangler deploy
+
+# Option B — override with a secret (wins over vars):
+npx wrangler secret put AI_ENABLED   # type: false
+```
+
+While disabled:
+- `GET /api/health` → HTTP 503 `{ "status": "disabled" }`
+- `POST /api/ai`    → HTTP 503 `{ "error": "EmTech AI is temporarily unavailable" }`
+- The frontend shows its graceful offline state ("AI offline — guided
+diagnosis works") and Guided Diagnosis keeps working normally.
+
+Re-enable by setting it back to `true` and redeploying. No code change,
+no frontend impact, no key rotation needed.
 
 ## Testing
 

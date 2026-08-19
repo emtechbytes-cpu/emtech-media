@@ -6,6 +6,11 @@
 # In production, set these with `npx wrangler secret put ...` instead.
 # ============================================================
 
+# Emergency switch (§38): "false" shuts down model calls without touching
+# the website — health reports "disabled", /api/ai answers 503, and the
+# frontend falls back to Guided Diagnosis. Default is on.
+AI_ENABLED=true
+
 # DashScope (Qwen) API key — REQUIRED. Secret; never logged, never returned.
 QWEN_API_KEY=your_dashscope_api_key_here
 

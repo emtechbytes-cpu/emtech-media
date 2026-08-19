@@ -8,6 +8,10 @@
   // Lives here so every `wrangler deploy` carries it (§38: model/endpoint
   // configurable without touching the frontend).
   "vars": {
+    // Emergency switch (§38): set to "false" + redeploy to shut down model
+    // calls without touching the website (health → "disabled", /api/ai → 503).
+    "AI_ENABLED": "true",
+
     "QWEN_BASE_URL": "https://ws-lum9z1oqbnbg6tu2.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1",
 
     // CORS allow-list (§27): the public site + local dev server only.
