@@ -7,27 +7,36 @@
   <title>EmTech Media — PC &amp; Mac Problems, Solved</title>
   <meta name="description" content="Tell us what's wrong and get the exact steps: slow PCs, overheating fans, update chaos, gaming stutter. Windows and macOS fixes in plain English, plus a monthly maintenance routine." />
   <!-- ============================================================
-       TODO BEFORE LAUNCH — absolute-URL tags omitted on purpose.
-       No domain is registered yet, and a canonical / og:url pointing
-       at a host that does not resolve is worse than having none.
-       When the real domain exists, add these back (replace DOMAIN):
-
-         <link rel="canonical" href="https://DOMAIN/" />
-         <meta property="og:url" content="https://DOMAIN/" />
-         <meta property="og:image" content="https://DOMAIN/og-image.png" />
-         <meta property="og:image:width" content="1200" />
-         <meta property="og:image:height" content="630" />
-         <meta property="og:image:alt" content="EmTech Media — PC &amp; Mac problems, solved in plain English" />
-         <meta name="twitter:image" content="https://DOMAIN/og-image.png" />
-
-       ...and change twitter:card below to "summary_large_image".
-       Then update sitemap.xml and robots.txt to match.
+       Live preview host: GitHub Pages (resolvable today). When a custom
+       domain is registered, swap these absolute URLs — plus robots.txt
+       and sitemap.xml — to match it.
        ============================================================ -->
+  <link rel="canonical" href="https://emtechbytes-cpu.github.io/emtech-media/index.html" />
+  <meta property="og:url" content="https://emtechbytes-cpu.github.io/emtech-media/index.html" />
+  <meta property="og:image" content="https://emtechbytes-cpu.github.io/emtech-media/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="EmTech Media — PC &amp; Mac problems, solved in plain English" />
+  <meta name="twitter:image" content="https://emtechbytes-cpu.github.io/emtech-media/og-image.png" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="EmTech Media" />
   <meta property="og:title" content="EmTech Media — PC &amp; Mac Problems, Solved" />
   <meta property="og:description" content="74 tested fixes for Windows and macOS in plain English. Tell us what's wrong and get the exact steps." />
-  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "EmTech Media",
+    "url": "https://emtechbytes-cpu.github.io/emtech-media/",
+    "description": "PC & Mac problems, solved in plain English — tested fixes with step-by-step instructions.",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://emtechbytes-cpu.github.io/emtech-media/index.html#search",
+      "query-input": "required name=q"
+    }
+  }
+  </script>
   <script>
     // Apply the saved theme before first paint (avoids a flash of the wrong theme).
     (function () {
@@ -59,6 +68,7 @@
 
       <nav class="primary-nav" id="primary-nav" aria-label="Primary">
         <ul>
+          <li><a href="#search" data-focus-search>Search</a></li>
           <li><a href="#diagnose">Diagnose</a></li>
           <li><a href="windows.html">Windows</a></li>
           <li><a href="mac.html">Mac</a></li>
@@ -102,8 +112,20 @@
         <div class="hero-foot reveal delay-2">
           <div class="hero-copy">
             <p class="lede">Tell us what's happening and get the exact steps to fix it — tested on real machines, timed to the minute, written in plain English. Windows and Mac both covered.</p>
+
+            <!-- Global search: primary action -->
+            <div class="hero-search" id="search">
+              <label class="gs-label" for="global-search">Find a fix</label>
+              <input type="search" id="global-search" name="q" autocomplete="off" spellcheck="false"
+                     placeholder='Try "slow laptop", "wifi drops", "mac overheating"…'
+                     aria-describedby="gs-count gs-hint" />
+              <p class="gs-hint" id="gs-hint" aria-hidden="true">Searches every fix — Windows + Mac</p>
+              <div class="gs-results" id="gs-results" hidden></div>
+            </div>
+            <p class="gs-count" id="gs-count" role="status" aria-live="polite"></p>
+
             <div class="hero-cta">
-              <a class="btn btn-primary" href="#diagnose">Start diagnosing</a>
+              <a class="btn btn-primary" href="#diagnose">Diagnose my problem</a>
               <a class="btn-link" href="windows.html">Browse all fixes <span aria-hidden="true">↗</span></a>
             </div>
           </div>
@@ -124,13 +146,27 @@
       </div>
     </div>
 
-    <!-- ============ 01 DIAGNOSE ============ -->
-    <section class="section" id="diagnose">
+    <!-- ============ 01 MOST COMMON PROBLEMS ============ -->
+    <section class="section" id="popular">
       <div class="container">
         <header class="sec-head reveal">
           <span class="sec-num">01</span>
-          <h2>What's happening?</h2>
-          <p class="sec-sub">Pick the closest match to your problem — we'll point you at the fix that works, starting with the first three steps.</p>
+          <h2>Most common problems</h2>
+          <p class="sec-sub">The problems people bring us most often. Difficulty and time up front — every card starts with the fix that actually works.</p>
+        </header>
+
+        <div class="pop-grid reveal" id="popular-grid"><!-- rendered from tips-data.js --></div>
+        <noscript><p class="no-js-note">Enable JavaScript to browse the popular fixes, or go straight to the <a href="windows.html">Windows</a> and <a href="mac.html">Mac</a> lists.</p></noscript>
+      </div>
+    </section>
+
+    <!-- ============ 02 DIAGNOSE ============ -->
+    <section class="section" id="diagnose">
+      <div class="container">
+        <header class="sec-head reveal">
+          <span class="sec-num">02</span>
+          <h2>Not sure what's wrong?</h2>
+          <p class="sec-sub">Tell us what you're experiencing — pick the closest match and we'll point you at the fix that works, starting with the first three steps.</p>
         </header>
 
         <div class="symptom-grid reveal" id="symptom-grid" role="group" aria-label="Choose what's happening"></div>
@@ -141,141 +177,113 @@
       </div>
     </section>
 
-    <!-- ============ STATS BAND ============ -->
-    <section class="stats-band" aria-label="Library statistics">
-      <ul class="container stats-list">
-        <li class="reveal"><span class="stat-num" data-count="74" data-tip-count="all">0</span><span class="stat-label">Tested fixes</span></li>
-        <li class="reveal delay-1"><span class="stat-num">Win + Mac</span><span class="stat-label">Both platforms covered</span></li>
-        <li class="reveal delay-2"><span class="stat-num" data-count="6">0</span><span class="stat-label">Step monthly routine</span></li>
-        <li class="reveal delay-3"><span class="stat-num">1–60 min</span><span class="stat-label">Each fix, timed</span></li>
-      </ul>
-    </section>
-
-    <!-- ============ 02 START HERE ============ -->
-    <section class="section" id="start-here">
-      <div class="container">
-        <header class="sec-head reveal">
-          <span class="sec-num">02</span>
-          <h2>Start here</h2>
-          <p class="sec-sub">The three problems we see most often. Pick your machine — each one starts with the fix that actually works.</p>
-        </header>
-
-        <div class="work-grid">
-          <article class="work-item wide reveal">
-            <a href="windows.html#fix-my-pc-is-slow-all-of-a-sudden-the-order-of-attack" aria-label="Open the 'PC suddenly slow' fix on the Windows fixes page">
-              <div class="thumb" aria-hidden="true"><span>Slow</span><i></i></div>
-              <div class="work-meta">
-                <h3>PC suddenly slow — the order of attack</h3>
-                <p class="work-desc">A fast machine crawling for no obvious reason? Work through these in this exact order.</p>
-                <p class="tags"><span>Windows</span><time datetime="2026">15 min</time></p>
-              </div>
-            </a>
-          </article>
-
-          <article class="work-item reveal delay-1">
-            <a href="windows.html#fix-a-pc-that-overheats-and-fans-like-a-jet-engine" aria-label="Open the overheating fix on the Windows fixes page">
-              <div class="thumb" aria-hidden="true"><span>Heat</span><i></i></div>
-              <div class="work-meta">
-                <h3>Fans like a jet engine</h3>
-                <p class="work-desc">Loud fans usually mean dust, not a failing fan. A clean-out fixes half of all 'slow PC' tickets.</p>
-                <p class="tags"><span>Windows</span><time datetime="2026">45 min</time></p>
-              </div>
-            </a>
-          </article>
-
-          <article class="work-item reveal delay-2">
-            <a href="mac.html#speed-up-a-sluggish-macbook" aria-label="Open the 'sluggish MacBook' fix on the Mac fixes page">
-              <div class="thumb" aria-hidden="true"><span>Lag</span><i></i></div>
-              <div class="work-meta">
-                <h3>Mac sluggish</h3>
-                <p class="work-desc">Background apps and effects are usually the culprits — five minutes, no tools.</p>
-                <p class="tags"><span>macOS</span><time datetime="2026">5 min</time></p>
-              </div>
-            </a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ 03 WINDOWS FIXES (→ windows.html) ============ -->
-    <section class="section" id="windows">
+    <!-- ============ 03 CATEGORIES ============ -->
+    <section class="section" id="categories">
       <div class="container">
         <header class="sec-head reveal">
           <span class="sec-num">03</span>
-          <h2>Windows fixes</h2>
-          <p class="sec-sub"><span data-tip-count="win">58</span> tested fixes for Windows 10 and 11, each on its own page. Start with one of these:</p>
+          <h2>Browse by category</h2>
+          <p class="sec-sub">Every fix is grouped by what it does. Jump straight to a category — the counts are live from the library.</p>
         </header>
 
-        <ul class="index-list reveal delay-1">
-          <li><a class="index-row" href="windows.html#fix-my-pc-is-slow-all-of-a-sudden-the-order-of-attack">
-            <span class="idx-num">01</span>
-            <h3 class="idx-title">Fix 'My PC is slow all of a sudden'</h3>
-            <p class="idx-desc">The order of attack when a fast PC suddenly crawls · 15 min</p>
-            <span class="idx-arrow" aria-hidden="true">↗</span>
-          </a></li>
-          <li><a class="index-row" href="windows.html#stop-games-stuttering-the-5-point-checklist">
-            <span class="idx-num">02</span>
-            <h3 class="idx-title">Stop games stuttering — the 5-point checklist</h3>
-            <p class="idx-desc">Lag spikes usually trace back to one of five mundane causes · 15 min</p>
-            <span class="idx-arrow" aria-hidden="true">↗</span>
-          </a></li>
-          <li><a class="index-row" href="windows.html#protect-against-ransomware-before-it-s-too-late">
-            <span class="idx-num">03</span>
-            <h3 class="idx-title">Protect against ransomware before it's too late</h3>
-            <p class="idx-desc">Controlled folder access, memory integrity and a backup that actually saves you · 20 min</p>
-            <span class="idx-arrow" aria-hidden="true">↗</span>
-          </a></li>
-        </ul>
-
-        <div class="sec-cta reveal delay-2">
-          <a class="btn btn-primary" href="windows.html">Browse all Windows fixes <span aria-hidden="true">→</span></a>
+        <div class="cat-blocks reveal delay-1">
+          <div class="cat-block">
+            <p class="cat-block-label"><span data-tip-count="win">58</span>&nbsp;fixes · Windows 10 / 11</p>
+            <ul class="cat-grid" id="cat-win-grid"><!-- rendered from tips-data.js --></ul>
+          </div>
+          <div class="cat-block">
+            <p class="cat-block-label"><span data-tip-count="mac">16</span>&nbsp;fixes · macOS, Intel + Apple Silicon</p>
+            <ul class="cat-grid" id="cat-mac-grid"><!-- rendered from tips-data.js --></ul>
+          </div>
         </div>
+        <noscript><p class="no-js-note">Enable JavaScript for the category index, or browse the full lists: <a href="windows.html">Windows fixes</a> · <a href="mac.html">Mac fixes</a>.</p></noscript>
       </div>
     </section>
 
-    <!-- ============ 04 MAC FIXES (→ mac.html) ============ -->
-    <section class="section" id="mac">
+    <!-- ============ 04 FEATURED FIXES ============ -->
+    <section class="section" id="featured">
       <div class="container">
         <header class="sec-head reveal">
           <span class="sec-num">04</span>
-          <h2>Mac fixes</h2>
-          <p class="sec-sub">The macOS essentials, same standard: tested, timed, plain English. Start with one of these:</p>
+          <h2>Featured fixes</h2>
+          <p class="sec-sub">Tested step-by-step solutions, straight from the library. Pick your platform:</p>
         </header>
 
-        <ul class="index-list reveal delay-1">
-          <li><a class="index-row" href="mac.html#speed-up-a-sluggish-macbook">
-            <span class="idx-num">01</span>
-            <h3 class="idx-title">Speed up a sluggish MacBook</h3>
-            <p class="idx-desc">Background apps and effects are usually the culprits · 5 min</p>
-            <span class="idx-arrow" aria-hidden="true">↗</span>
-          </a></li>
-          <li><a class="index-row" href="mac.html#free-up-disk-space-with-storage-management">
-            <span class="idx-num">02</span>
-            <h3 class="idx-title">Free up disk space with Storage Management</h3>
-            <p class="idx-desc">See what's eating your drive, then evict it automatically · 5 min</p>
-            <span class="idx-arrow" aria-hidden="true">↗</span>
-          </a></li>
-          <li><a class="index-row" href="mac.html#set-up-time-machine-properly">
-            <span class="idx-num">03</span>
-            <h3 class="idx-title">Set up Time Machine properly</h3>
-            <p class="idx-desc">Hourly, version-by-version backups of your whole Mac — and how to test a restore · 20 min</p>
-            <span class="idx-arrow" aria-hidden="true">↗</span>
-          </a></li>
-        </ul>
+        <div class="featured-cols reveal delay-1">
+          <div class="featured-col" id="windows">
+            <h3 class="fc-label">Windows</h3>
+            <ul class="index-list">
+              <li><a class="index-row" href="windows.html#fix-my-pc-is-slow-all-of-a-sudden-the-order-of-attack">
+                <span class="idx-num">01</span>
+                <h4 class="idx-title">Fix 'My PC is slow all of a sudden'</h4>
+                <p class="idx-desc">The order of attack when a fast PC suddenly crawls · 15 min</p>
+                <span class="idx-arrow" aria-hidden="true">↗</span>
+              </a></li>
+              <li><a class="index-row" href="windows.html#stop-games-stuttering-the-5-point-checklist">
+                <span class="idx-num">02</span>
+                <h4 class="idx-title">Stop games stuttering — the 5-point checklist</h4>
+                <p class="idx-desc">Lag spikes usually trace back to one of five mundane causes · 15 min</p>
+                <span class="idx-arrow" aria-hidden="true">↗</span>
+              </a></li>
+              <li><a class="index-row" href="windows.html#protect-against-ransomware-before-it-s-too-late">
+                <span class="idx-num">03</span>
+                <h4 class="idx-title">Protect against ransomware before it's too late</h4>
+                <p class="idx-desc">Controlled folder access, memory integrity and a backup that actually saves you · 20 min</p>
+                <span class="idx-arrow" aria-hidden="true">↗</span>
+              </a></li>
+            </ul>
+            <div class="sec-cta"><a class="btn btn-primary" href="windows.html">Browse all Windows fixes <span aria-hidden="true">→</span></a></div>
+          </div>
 
-        <div class="sec-cta reveal delay-2">
-          <a class="btn btn-primary" href="mac.html">Browse all Mac fixes <span aria-hidden="true">→</span></a>
+          <div class="featured-col" id="mac">
+            <h3 class="fc-label">Mac</h3>
+            <ul class="index-list">
+              <li><a class="index-row" href="mac.html#speed-up-a-sluggish-macbook">
+                <span class="idx-num">01</span>
+                <h4 class="idx-title">Speed up a sluggish MacBook</h4>
+                <p class="idx-desc">Background apps and effects are usually the culprits · 5 min</p>
+                <span class="idx-arrow" aria-hidden="true">↗</span>
+              </a></li>
+              <li><a class="index-row" href="mac.html#free-up-disk-space-with-storage-management">
+                <span class="idx-num">02</span>
+                <h4 class="idx-title">Free up disk space with Storage Management</h4>
+                <p class="idx-desc">See what's eating your drive, then evict it automatically · 5 min</p>
+                <span class="idx-arrow" aria-hidden="true">↗</span>
+              </a></li>
+              <li><a class="index-row" href="mac.html#set-up-time-machine-properly">
+                <span class="idx-num">03</span>
+                <h4 class="idx-title">Set up Time Machine properly</h4>
+                <p class="idx-desc">Hourly, version-by-version backups of your whole Mac — and how to test a restore · 20 min</p>
+                <span class="idx-arrow" aria-hidden="true">↗</span>
+              </a></li>
+            </ul>
+            <div class="sec-cta"><a class="btn btn-primary" href="mac.html">Browse all Mac fixes <span aria-hidden="true">→</span></a></div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ============ 05 MONTHLY ROUTINE ============ -->
-    <section class="section" id="routine">
+    <!-- ============ 05 RECENTLY UPDATED ============ -->
+    <section class="section" id="recent">
       <div class="container">
         <header class="sec-head reveal">
           <span class="sec-num">05</span>
+          <h2>Recently updated</h2>
+          <p class="sec-sub">The guides we've touched most recently — current settings paths, refreshed steps.</p>
+        </header>
+
+        <div class="pop-grid reveal delay-1" id="recent-grid"><!-- rendered from tips-data.js --></div>
+        <noscript><p class="no-js-note">Enable JavaScript to see the recently updated guides, or browse the full lists: <a href="windows.html">Windows fixes</a> · <a href="mac.html">Mac fixes</a>.</p></noscript>
+      </div>
+    </section>
+
+    <!-- ============ 06 MONTHLY ROUTINE ============ -->
+    <section class="section" id="routine">
+      <div class="container">
+        <header class="sec-head reveal">
+          <span class="sec-num">06</span>
           <h2>The monthly routine</h2>
-          <p class="sec-sub">Six things, once a month, about an hour total. Tick them off as you go — your progress is saved on this device.</p>
+          <p class="sec-sub">Keep your computer healthy: six things, once a month, about an hour total. Tick them off as you go — your progress is saved on this device.</p>
         </header>
 
         <div class="routine-head reveal">
@@ -287,17 +295,47 @@
         <ol class="checklist reveal delay-1" id="checklist"><!-- rendered from tips-data.js --></ol>
       </div>
     </section>
+
+    <!-- ============ TRUST / STATS BAND ============ -->
+    <section class="stats-band" aria-label="Library statistics">
+      <ul class="container stats-list">
+        <li class="reveal"><span class="stat-num" data-count="74" data-tip-count="all">0</span><span class="stat-label">Tested fixes</span></li>
+        <li class="reveal delay-1"><span class="stat-num">Win + Mac</span><span class="stat-label">Both platforms covered</span></li>
+        <li class="reveal delay-2"><span class="stat-num" data-count="6">0</span><span class="stat-label">Step monthly routine</span></li>
+        <li class="reveal delay-3"><span class="stat-num">1–60 min</span><span class="stat-label">Each fix, timed</span></li>
+      </ul>
+    </section>
+
+    <!-- ============ FINAL CTA ============ -->
+    <section class="final-cta" aria-label="Still stuck?">
+      <div class="container">
+        <h2 class="reveal">Can't find your problem?</h2>
+        <p class="reveal delay-1">Tell us what's happening and we'll point you at the fix that works.</p>
+        <a class="btn btn-primary reveal delay-2" href="#diagnose">Start diagnosis <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
   </main>
 
   <!-- ============ FOOTER ============ -->
   <footer class="site-footer">
-    <div class="container footer-top">
-      <p class="footer-brand"><img class="brand-mark" src="brand/cursor-mark.svg" width="20" height="20" alt="" aria-hidden="true">EmTech Media — PC &amp; Mac problems, solved in plain English.</p>
+    <div class="container footer-cols">
+      <p class="footer-brand"><img class="brand-mark" src="brand/cursor-mark.svg" width="20" height="20" alt="" aria-hidden="true">EmTech Media<span>PC &amp; Mac problems, solved in plain English.</span></p>
 
-      <nav aria-label="Footer">
-        <a href="#diagnose">Diagnose</a>
+      <nav aria-label="Troubleshooting">
+        <p class="f-col-label">Troubleshooting</p>
         <a href="windows.html">Windows fixes</a>
         <a href="mac.html">Mac fixes</a>
+        <a href="windows.html#cat-gaming">Gaming</a>
+        <a href="windows.html#cat-hardware">Hardware</a>
+        <a href="windows.html#cat-security">Security</a>
+      </nav>
+
+      <nav aria-label="Resources">
+        <p class="f-col-label">Resources</p>
+        <a href="#diagnose">Diagnose a problem</a>
+        <a href="#popular">Most common problems</a>
+        <a href="#featured">Featured fixes</a>
+        <a href="#recent">Recently updated</a>
         <a href="#routine">Monthly routine</a>
       </nav>
     </div>

@@ -12,6 +12,8 @@
      steps       array of step strings (rendered as a list)
      group       optional sub-grouping key (speed | fixes | security)
      diagram     optional string — path to an SVG figure shown in the accordion body
+     updated     "YYYY-MM-DD" — last content revision. Bump it whenever you edit a tip;
+                 drives the homepage "Recently updated" section (real dates only)
 
    Routing is automatic: cat "mac" renders on mac.html, everything else on
    windows.html. Category headings, counts, the search index and the jump
@@ -29,6 +31,7 @@
 const TIPS = [
   {
     title: "Disable startup bloat",
+    updated: "2026-08-18",
     diagram: "diagrams/win-startup-bloat.svg",
     cat: "speed",
     difficulty: 1,
@@ -44,6 +47,7 @@ const TIPS = [
   },
   {
     title: "Switch the power plan to Best Performance",
+    updated: "2026-08-18",
     diagram: "diagrams/win-power-plan.svg",
     cat: "speed",
     difficulty: 1,
@@ -59,6 +63,7 @@ const TIPS = [
   },
   {
     title: "Move your OS or games to an SSD",
+    updated: "2026-08-18",
     cat: "hardware",
     difficulty: 2,
     time: "1 hr",
@@ -73,6 +78,7 @@ const TIPS = [
   },
   {
     title: "Upgrade your RAM (and match it)",
+    updated: "2026-08-18",
     cat: "hardware",
     difficulty: 2,
     time: "30 min",
@@ -87,6 +93,7 @@ const TIPS = [
   },
   {
     title: "Stop Windows updates at odd hours",
+    updated: "2026-08-18",
     diagram: "diagrams/win-active-hours.svg",
     cat: "windows",
     difficulty: 1,
@@ -101,6 +108,7 @@ const TIPS = [
   },
   {
     title: "Fix a PC that overheats and fans like a jet engine",
+    updated: "2026-08-18",
     diagram: "diagrams/win-dust-cleanout.svg",
     cat: "maintenance",
     difficulty: 2,
@@ -117,6 +125,7 @@ const TIPS = [
   },
   {
     title: "Lower Windows transparency and animation effects",
+    updated: "2026-08-18",
     cat: "windows",
     difficulty: 1,
     time: "2 min",
@@ -130,6 +139,7 @@ const TIPS = [
   },
   {
     title: "Clean up temp files and browser cache properly",
+    updated: "2026-08-18",
     cat: "cleaning",
     difficulty: 1,
     time: "5 min",
@@ -143,6 +153,7 @@ const TIPS = [
   },
   {
     title: "Let Windows' Storage Sense do the work for you",
+    updated: "2026-08-18",
     diagram: "diagrams/win-storage-sense.svg",
     cat: "cleaning",
     difficulty: 1,
@@ -157,6 +168,7 @@ const TIPS = [
   },
   {
     title: "Uninstall the apps you never use",
+    updated: "2026-08-18",
     cat: "cleaning",
     difficulty: 1,
     time: "10 min",
@@ -171,6 +183,7 @@ const TIPS = [
   },
   {
     title: "Check for driver updates (in the right order)",
+    updated: "2026-08-18",
     cat: "maintenance",
     difficulty: 1,
     time: "15 min",
@@ -184,6 +197,7 @@ const TIPS = [
   },
   {
     title: "Run a disk health check before it's too late",
+    updated: "2026-08-18",
     cat: "maintenance",
     difficulty: 2,
     time: "15 min",
@@ -198,6 +212,7 @@ const TIPS = [
   },
   {
     title: "Back up properly (3-2-1 rule)",
+    updated: "2026-08-18",
     cat: "security",
     difficulty: 2,
     time: "30 min",
@@ -212,6 +227,7 @@ const TIPS = [
   },
   {
     title: "Stop games stuttering — the 5-point checklist",
+    updated: "2026-08-18",
     cat: "gaming",
     difficulty: 1,
     time: "15 min",
@@ -227,6 +243,7 @@ const TIPS = [
   },
   {
     title: "Raise your effective FPS with Windows Game Mode",
+    updated: "2026-08-18",
     cat: "gaming",
     difficulty: 1,
     time: "1 min",
@@ -240,6 +257,7 @@ const TIPS = [
   },
   {
     title: "Reduce input lag in competitive games",
+    updated: "2026-08-18",
     cat: "gaming",
     difficulty: 2,
     time: "20 min",
@@ -254,6 +272,7 @@ const TIPS = [
   },
   {
     title: "Hardening: accounts, updates, and the firewall",
+    updated: "2026-08-18",
     cat: "security",
     difficulty: 1,
     time: "20 min",
@@ -268,6 +287,7 @@ const TIPS = [
   },
   {
     title: "Kill shady 'PC optimizer' software",
+    updated: "2026-08-18",
     cat: "security",
     difficulty: 1,
     time: "10 min",
@@ -281,6 +301,7 @@ const TIPS = [
   },
   {
     title: "Repair corrupted system files",
+    updated: "2026-08-18",
     cat: "maintenance",
     difficulty: 2,
     time: "30 min",
@@ -295,6 +316,7 @@ const TIPS = [
   },
   {
     title: "Stop your PC from sleep-glitching your network",
+    updated: "2026-08-18",
     cat: "windows",
     difficulty: 2,
     time: "10 min",
@@ -308,6 +330,7 @@ const TIPS = [
   },
   {
     title: "Know your BIOS settings (the 5 that matter)",
+    updated: "2026-08-18",
     cat: "hardware",
     difficulty: 3,
     time: "20 min",
@@ -323,6 +346,7 @@ const TIPS = [
   },
   {
     title: "Protect against ransomware before it's too late",
+    updated: "2026-08-18",
     cat: "security",
     difficulty: 2,
     time: "20 min",
@@ -336,6 +360,7 @@ const TIPS = [
   },
   {
     title: "Make Windows Search actually useful again",
+    updated: "2026-08-18",
     cat: "windows",
     difficulty: 1,
     time: "5 min",
@@ -349,6 +374,7 @@ const TIPS = [
   },
   {
     title: "Save your games the right way",
+    updated: "2026-08-18",
     cat: "gaming",
     difficulty: 1,
     time: "5 min",
@@ -362,6 +388,7 @@ const TIPS = [
   },
   {
     title: "Make your desktop feel like a Mac (without the price)",
+    updated: "2026-08-18",
     cat: "windows",
     difficulty: 1,
     time: "15 min",
@@ -376,6 +403,7 @@ const TIPS = [
   },
   {
     title: "Fix 'My PC is slow all of a sudden' — the order of attack",
+    updated: "2026-08-18",
     cat: "speed",
     difficulty: 1,
     time: "15 min",
@@ -390,6 +418,7 @@ const TIPS = [
   },
   {
     title: "Free up disk space with Storage Management",
+    updated: "2026-08-18",
     diagram: "diagrams/mac-storage-manage.svg",
     cat: "mac",
     group: "speed",
@@ -406,6 +435,7 @@ const TIPS = [
   },
   {
     title: "Reset NVRAM when things misbehave",
+    updated: "2026-08-18",
     diagram: "diagrams/mac-nvram-reset.svg",
     cat: "mac",
     group: "fixes",
@@ -422,6 +452,7 @@ const TIPS = [
   },
   {
     title: "Keep macOS updated the safe way",
+    updated: "2026-08-18",
     cat: "mac",
     group: "security",
     difficulty: 1,
@@ -437,6 +468,7 @@ const TIPS = [
   },
   {
     title: "Speed up a sluggish MacBook",
+    updated: "2026-08-18",
     cat: "mac",
     group: "speed",
     difficulty: 1,
@@ -452,6 +484,7 @@ const TIPS = [
   },
   {
     title: "Hunt down memory hogs",
+    updated: "2026-08-18",
     cat: "speed",
     difficulty: 2,
     time: "10 min",
@@ -467,6 +500,7 @@ const TIPS = [
   },
   {
     title: "Make big file transfers actually fast",
+    updated: "2026-08-18",
     cat: "windows",
     difficulty: 1,
     time: "5 min",
@@ -482,6 +516,7 @@ const TIPS = [
   },
   {
     title: "Stop Windows tracking your location",
+    updated: "2026-08-18",
     cat: "security",
     difficulty: 1,
     time: "5 min",
@@ -497,6 +532,7 @@ const TIPS = [
   },
   {
     title: "Create a local account that doesn't phone home",
+    updated: "2026-08-18",
     cat: "security",
     difficulty: 2,
     time: "10 min",
@@ -512,6 +548,7 @@ const TIPS = [
   },
   {
     title: "Tighten up Chrome — the 10-minute pass",
+    updated: "2026-08-18",
     cat: "security",
     difficulty: 1,
     time: "10 min",
@@ -527,6 +564,7 @@ const TIPS = [
   },
   {
     title: "Skip paid antivirus — and keep Defender sharp",
+    updated: "2026-08-18",
     cat: "security",
     difficulty: 1,
     time: "15 min",
@@ -542,6 +580,7 @@ const TIPS = [
   },
   {
     title: "Dodge bundleware when you install anything",
+    updated: "2026-08-18",
     cat: "cleaning",
     difficulty: 1,
     time: "5 min",
@@ -557,6 +596,7 @@ const TIPS = [
   },
   {
     title: "Run drive optimization the safe way",
+    updated: "2026-08-18",
     cat: "maintenance",
     difficulty: 1,
     time: "5 min",
@@ -571,6 +611,7 @@ const TIPS = [
   },
   {
     title: "Master the keyboard shortcuts that save hours",
+    updated: "2026-08-18",
     cat: "windows",
     difficulty: 1,
     time: "5 min",
@@ -586,6 +627,7 @@ const TIPS = [
   },
   {
     title: "Install PowerToys — Microsoft's free utility pack",
+    updated: "2026-08-18",
     cat: "windows",
     difficulty: 1,
     time: "10 min",
@@ -601,6 +643,7 @@ const TIPS = [
   },
   {
     title: "Lock down your home Wi-Fi properly",
+    updated: "2026-08-18",
     cat: "security",
     difficulty: 2,
     time: "15 min",
@@ -616,6 +659,7 @@ const TIPS = [
   },
   {
     title: "Stop emailing passwords and secrets",
+    updated: "2026-08-18",
     cat: "security",
     difficulty: 1,
     time: "10 min",
@@ -630,6 +674,7 @@ const TIPS = [
   },
   {
     title: "Turn on full-disk encryption (BitLocker)",
+    updated: "2026-08-18",
     cat: "security",
     difficulty: 1,
     time: "5 min",
@@ -644,6 +689,7 @@ const TIPS = [
   },
   {
     title: "Make your laptop battery last longer",
+    updated: "2026-08-18",
     cat: "maintenance",
     difficulty: 1,
     time: "10 min",
@@ -658,6 +704,7 @@ const TIPS = [
   },
   {
     title: "Fix a blue screen (BSOD) without panicking",
+    updated: "2026-08-18",
     diagram: "diagrams/win-bsod.svg",
     cat: "maintenance",
     difficulty: 2,
@@ -673,6 +720,7 @@ const TIPS = [
   },
   {
     title: "No sound? The four-minute fix",
+    updated: "2026-08-18",
     diagram: "diagrams/win-no-sound.svg",
     cat: "windows",
     difficulty: 1,
@@ -688,6 +736,7 @@ const TIPS = [
   },
   {
     title: "Organise your work with virtual desktops",
+    updated: "2026-08-18",
     cat: "windows",
     difficulty: 1,
     time: "5 min",
@@ -702,6 +751,7 @@ const TIPS = [
   },
   {
     title: "Slow internet? Run the five-minute test",
+    updated: "2026-08-18",
     diagram: "diagrams/win-network-test.svg",
     cat: "windows",
     difficulty: 1,
@@ -718,6 +768,7 @@ const TIPS = [
   },
   {
     title: "Force-quit a frozen app",
+    updated: "2026-08-18",
     diagram: "diagrams/mac-force-quit.svg",
     cat: "mac",
     group: "fixes",
@@ -733,6 +784,7 @@ const TIPS = [
   },
   {
     title: "Stop apps from launching at login",
+    updated: "2026-08-18",
     diagram: "diagrams/mac-login-items.svg",
     cat: "mac",
     group: "speed",
@@ -748,6 +800,7 @@ const TIPS = [
   },
   {
     title: "Keep 10% of your disk free",
+    updated: "2026-08-18",
     diagram: "diagrams/mac-free-space.svg",
     cat: "mac",
     group: "speed",
@@ -764,6 +817,7 @@ const TIPS = [
   },
   {
     title: "Tame Spotlight indexing on extra drives",
+    updated: "2026-08-18",
     cat: "mac",
     group: "speed",
     difficulty: 2,
@@ -778,6 +832,7 @@ const TIPS = [
   },
   {
     title: "Fix a Mac that won't start up",
+    updated: "2026-08-18",
     cat: "mac",
     group: "fixes",
     difficulty: 2,
@@ -793,6 +848,7 @@ const TIPS = [
   },
   {
     title: "Run First Aid on external drives",
+    updated: "2026-08-18",
     cat: "mac",
     group: "fixes",
     difficulty: 1,
@@ -808,6 +864,7 @@ const TIPS = [
   },
   {
     title: "Keep your Mac battery healthy",
+    updated: "2026-08-18",
     diagram: "diagrams/mac-battery-health.svg",
     cat: "mac",
     group: "fixes",
@@ -824,6 +881,7 @@ const TIPS = [
   },
   {
     title: "Set up Time Machine properly",
+    updated: "2026-08-18",
     diagram: "diagrams/mac-time-machine.svg",
     cat: "mac",
     group: "security",
@@ -840,6 +898,7 @@ const TIPS = [
   },
   {
     title: "Turn on FileVault full-disk encryption",
+    updated: "2026-08-18",
     diagram: "diagrams/mac-filevault.svg",
     cat: "mac",
     group: "security",
@@ -855,6 +914,7 @@ const TIPS = [
   },
   {
     title: "Open apps blocked by Gatekeeper",
+    updated: "2026-08-18",
     cat: "mac",
     group: "fixes",
     difficulty: 1,
@@ -869,6 +929,7 @@ const TIPS = [
   },
   {
     title: "Fix slow Wi-Fi on your Mac",
+    updated: "2026-08-18",
     cat: "mac",
     group: "fixes",
     difficulty: 1,
@@ -884,6 +945,7 @@ const TIPS = [
   },
   {
     title: "Give Safari a proper clean-out",
+    updated: "2026-08-18",
     cat: "mac",
     group: "speed",
     difficulty: 1,
@@ -899,6 +961,7 @@ const TIPS = [
   },
   {
     title: "Pick an SSD that's actually fast",
+    updated: "2026-08-18",
     cat: "hardware",
     difficulty: 1,
     time: "5 min",
@@ -913,6 +976,7 @@ const TIPS = [
   },
   {
     title: "Size your PSU before the next upgrade",
+    updated: "2026-08-18",
     cat: "hardware",
     difficulty: 2,
     time: "15 min",
@@ -927,6 +991,7 @@ const TIPS = [
   },
   {
     title: "Fix a hot PC for good: the airflow pass",
+    updated: "2026-08-18",
     cat: "hardware",
     difficulty: 2,
     time: "45 min",
@@ -942,6 +1007,7 @@ const TIPS = [
   },
   {
     title: "Windows 10 is past end of support — what to do now",
+    updated: "2026-08-18",
     cat: "maintenance",
     difficulty: 1,
     time: "15 min",
@@ -956,6 +1022,7 @@ const TIPS = [
   },
   {
     title: "Check whether your PC can run Windows 11",
+    updated: "2026-08-18",
     diagram: "diagrams/win-win11-check.svg",
     cat: "windows",
     difficulty: 2,
@@ -972,6 +1039,7 @@ const TIPS = [
   },
   {
     title: "Fix a printer that won't print",
+    updated: "2026-08-18",
     diagram: "diagrams/win-printer.svg",
     cat: "windows",
     difficulty: 1,
@@ -987,6 +1055,7 @@ const TIPS = [
   },
   {
     title: "Fix a microphone no one can hear",
+    updated: "2026-08-18",
     diagram: "diagrams/win-mic-input.svg",
     cat: "windows",
     difficulty: 1,
@@ -1002,6 +1071,7 @@ const TIPS = [
   },
   {
     title: "Fix a webcam that won't turn on",
+    updated: "2026-08-18",
     diagram: "diagrams/win-webcam.svg",
     cat: "windows",
     difficulty: 1,
@@ -1017,6 +1087,7 @@ const TIPS = [
   },
   {
     title: "Start Windows in Safe Mode",
+    updated: "2026-08-18",
     diagram: "diagrams/win-safe-mode.svg",
     cat: "maintenance",
     difficulty: 1,
@@ -1033,6 +1104,7 @@ const TIPS = [
   },
   {
     title: "Get back a file you deleted by mistake",
+    updated: "2026-08-18",
     diagram: "diagrams/win-file-recovery.svg",
     cat: "maintenance",
     difficulty: 1,
@@ -1049,6 +1121,7 @@ const TIPS = [
   },
   {
     title: "Fix a PC that won't start up",
+    updated: "2026-08-18",
     diagram: "diagrams/win-boot-fail.svg",
     cat: "maintenance",
     difficulty: 2,
@@ -1065,6 +1138,7 @@ const TIPS = [
   },
   {
     title: "Spot a phishing email before you click",
+    updated: "2026-08-18",
     cat: "security",
     difficulty: 1,
     time: "10 min",
@@ -1080,6 +1154,7 @@ const TIPS = [
   },
   {
     title: "Move everything to a new PC",
+    updated: "2026-08-18",
     cat: "windows",
     difficulty: 2,
     time: "60 min",
@@ -1095,6 +1170,7 @@ const TIPS = [
   },
   {
     title: "Tighten up Edge and Firefox",
+    updated: "2026-08-18",
     cat: "security",
     difficulty: 1,
     time: "10 min",

@@ -1160,7 +1160,7 @@ figcaption {
 
   .site-header, .ticker, .to-top, .skip-link, .nav-actions,
   .hero-cta, .btn, .btn-link, .sec-cta, .acc-actions, .fix-tools,
-  .symptom-grid, .diag-result { display: none !important; }
+  .symptom-grid, .diag-result, .fix-feedback { display: none !important; }
 
   section { border-top: none; padding: 0; }
   .reveal { opacity: 1 !important; transform: none !important; }
@@ -1202,6 +1202,402 @@ figcaption {
 .diag-result.diag-in { animation: rise-in 0.45s cubic-bezier(0.22, 1, 0.36, 1); }
 @keyframes rise-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 
+
+/* ============================================================
+   Phase 1 — global search · popular/recent cards · category blocks ·
+   featured columns · final CTA · footer columns · breadcrumbs ·
+   feedback widget · empty states. Same tokens, sharp corners,
+   hairlines and mono labels as the rest of the system.
+   ============================================================ */
+
+/* Anchor targets that aren't <section> still need to clear the sticky header */
+.acc-group, .acc-subgroup { scroll-margin-top: calc(var(--header-h) + 16px); }
+#search { scroll-margin-top: calc(var(--header-h) + 24px); }
+
+/* ---------- Hero: global fix search ---------- */
+.hero-search { margin-bottom: 28px; }
+
+.gs-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+#global-search {
+  width: 100%;
+  min-height: 56px; /* comfortable tap target */
+  padding: 14px 18px;
+  background: var(--paper);
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+}
+
+#global-search::placeholder { color: var(--muted); }
+#global-search:focus-visible { outline-color: var(--accent); outline-width: 3px; }
+
+.gs-hint {
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.gs-count {
+  min-height: 1.3em; /* reserve the line so results don't shift layout */
+  margin: 12px 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.gs-results { margin-top: 20px; border: 1px solid var(--ink); background: var(--paper); }
+
+.gs-list li + li { border-top: 1px solid var(--hairline); }
+
+.gs-item {
+  display: block;
+  padding: 16px 20px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.gs-item:hover { background: var(--ink); color: var(--paper); }
+
+.gs-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px 16px;
+  flex-wrap: wrap;
+}
+
+.gs-title { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em; font-size: 1.05rem; }
+
+.gs-meta {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.gs-desc { display: block; margin-top: 4px; font-size: 0.9rem; color: var(--muted); }
+
+.gs-go {
+  display: inline-block;
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.gs-item:hover .gs-meta, .gs-item:hover .gs-desc { color: var(--on-ink-muted); }
+.gs-item:hover .gs-go { color: var(--accent); }
+
+/* ---------- Popular problems / recently updated cards ---------- */
+.pop-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.pop-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--hairline);
+  background: var(--paper);
+  padding: 22px 20px 18px;
+  transition: border-color 0.25s ease, background-color 0.25s ease;
+}
+
+.pop-card:hover { border-color: var(--ink); background: var(--paper-2); }
+
+.pop-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.pop-title { font-size: 1.3rem; line-height: 1.15; margin-bottom: 8px; }
+.pop-title a { transition: background-color 0.15s ease, color 0.15s ease; }
+.pop-card:hover .pop-title a, .pop-title a:hover { background: var(--accent); color: var(--on-accent); }
+
+.pop-desc { font-size: 0.9rem; color: var(--muted); margin-bottom: 16px; }
+
+.pop-date {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+
+.pop-foot {
+  margin-top: auto; /* pin the footer row to the card bottom */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-top: 1px solid var(--hairline);
+  padding-top: 14px;
+}
+
+.pop-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.dot { width: 9px; height: 9px; flex-shrink: 0; border: 1px solid var(--ink); }
+.dot-1 { background: var(--accent); } /* easy */
+.dot-2 { background: var(--paper-2); } /* medium */
+.dot-3 { background: var(--error); } /* advanced */
+
+.pop-cta {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+  padding: 4px 0;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.pop-cta:hover { background: var(--accent); color: var(--on-accent); }
+
+/* ---------- Category blocks (homepage) ---------- */
+.cat-blocks {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(32px, 4vw, 56px);
+}
+
+.cat-block-label {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+
+.cat-grid { border-top: 1px solid var(--ink); }
+
+.cat-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 15px 8px;
+  border-bottom: 1px solid var(--hairline);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  transition: background-color 0.2s ease, color 0.2s ease, padding-left 0.2s ease;
+}
+
+.cat-link i {
+  font-style: normal;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+.cat-link:hover { background: var(--accent); color: var(--on-accent); padding-left: 14px; }
+.cat-link:hover i { color: var(--on-accent); }
+
+/* ---------- Featured fixes columns (homepage) ---------- */
+.featured-cols {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(32px, 4vw, 56px);
+  align-items: start;
+}
+
+.fc-label {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  margin-bottom: 14px;
+}
+
+/* ---------- Final CTA band (inverted) ---------- */
+.final-cta {
+  background: var(--ink);
+  color: var(--paper);
+  padding: clamp(64px, 9vw, 110px) 0;
+  text-align: center;
+}
+
+.final-cta h2 { font-size: clamp(2.2rem, 5vw, 3.8rem); margin-bottom: 12px; }
+.final-cta p {
+  color: var(--on-ink-muted);
+  max-width: 46ch;
+  margin-inline: auto;
+  margin-bottom: 32px;
+}
+
+.final-cta .btn-primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.final-cta .btn-primary:hover { background: var(--paper); border-color: var(--paper); color: var(--ink); transform: translateY(-2px); }
+
+/* ---------- Footer columns (homepage) ---------- */
+.footer-cols {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 4fr) minmax(0, 4fr);
+  gap: clamp(32px, 4vw, 64px);
+  align-items: start;
+  padding-bottom: clamp(40px, 6vw, 64px);
+}
+
+.footer-cols .footer-brand { display: block; }
+.footer-cols .footer-brand img { margin-bottom: 12px; }
+.footer-cols .footer-brand span {
+  display: block;
+  font-family: var(--font-body);
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin-top: 8px;
+  max-width: 32ch;
+}
+
+.f-col-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+/* ---------- Breadcrumbs (fix pages) ---------- */
+.breadcrumbs { margin-bottom: clamp(28px, 4vw, 40px); }
+
+.breadcrumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.breadcrumbs li {
+  display: flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+
+.breadcrumbs li + li::before { content: "→"; margin-right: 6px; opacity: 0.6; }
+
+.breadcrumbs a {
+  padding: 2px 0;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.breadcrumbs a:hover { background: var(--accent); color: var(--on-accent); }
+
+/* ---------- "Did this fix it?" feedback widget ---------- */
+.fix-feedback {
+  margin-top: 24px;
+  border: 1px solid var(--ink);
+  padding: 20px;
+}
+
+.ff-q {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-size: 1.1rem;
+  margin-bottom: 14px;
+}
+
+.ff-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.ff-btn {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px; /* tap target */
+  padding: 10px 18px;
+  border: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.ff-btn:hover { background: var(--paper-2); }
+.ff-mark { font-size: 0.95em; }
+
+.ff-yes[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); }
+.ff-no[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+
+.ff-state { margin-top: 14px; font-size: 0.95rem; }
+.ff-state:empty { display: none; }
+.ff-state a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.ff-state a:hover { background: var(--accent); color: var(--on-accent); }
+
+/* ---------- Empty states (search) ---------- */
+.search-empty {
+  padding: clamp(32px, 5vw, 48px) 24px;
+  text-align: center;
+}
+
+.search-empty h3 { font-size: clamp(1.4rem, 3vw, 1.9rem); margin-bottom: 8px; }
+.search-empty p {
+  color: var(--muted);
+  max-width: 46ch;
+  margin-inline: auto;
+  margin-bottom: 20px;
+}
+
+/* Standalone block on the fix pages (below the list) */
+.search-block { border-top: 1px solid var(--ink); margin-top: 32px; }
+
+/* ---------- Phase 1 responsive ---------- */
+@media (max-width: 980px) {
+  .pop-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cat-blocks { grid-template-columns: 1fr; }
+  .featured-cols { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 760px) {
+  .footer-cols { grid-template-columns: 1fr; gap: 32px; }
+}
+
+@media (max-width: 560px) {
+  .pop-grid { grid-template-columns: 1fr; }
+  .ff-actions .ff-btn { flex: 1 1 auto; justify-content: center; }
+}
 
 /* ============================================================
    Very small screens (≤360px) — the header cluster overflowed by

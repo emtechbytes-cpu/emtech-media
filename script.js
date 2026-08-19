@@ -350,6 +350,14 @@
             <p class="acc-desc">${esc(t.description)}</p>
             ${t.diagram ? `<div class="tip-diagram-scroll"><img class="tip-diagram" src="${esc(t.diagram)}" alt="${esc(t.title)} — schematic diagram" loading="lazy" width="800" height="540"></div>` : ""}
             <ol class="tip-steps">${t.steps.map((s) => `<li>${esc(s)}</li>`).join("")}</ol>
+            <div class="fix-feedback">
+              <p class="ff-q">Did this fix your problem?</p>
+              <div class="ff-actions">
+                <button class="ff-btn ff-yes" type="button" aria-pressed="false"><span class="ff-mark" aria-hidden="true">✓</span>Yes, it's fixed</button>
+                <button class="ff-btn ff-no" type="button" aria-pressed="false"><span class="ff-mark" aria-hidden="true">✕</span>No, I still need help</button>
+              </div>
+              <p class="ff-state" role="status"></p>
+            </div>
             ${related.length ? `
             <div class="acc-related">
               <span class="rel-label">Pairs well with</span>
@@ -428,11 +436,214 @@
   renderAccordion("win-acc", TIPS.filter((t) => t.cat !== "mac"), WIN_ORDER);
   renderAccordion("mac-acc", TIPS.filter((t) => t.cat === "mac"), ["mac"]);
 
+  /* Breadcrumb + <title> follow the fix that's open (fix pages only —
+     index.html has no #bc-tip, so this is a no-op there). */
+  function setCrumb(tip) {
+    const bcTip = document.getElementById("bc-tip");
+    if (!tip || !bcTip) return;
+    const bcPage = document.getElementById("bc-page");
+    bcTip.textContent = tip.title;
+    bcTip.hidden = false;
+    if (bcPage) bcPage.removeAttribute("aria-current");
+    bcTip.setAttribute("aria-current", "page");
+    document.title = `${tip.title} — ${tip.cat === "mac" ? "Mac" : "Windows"} Fixes · EmTech Media`;
+  }
+
   document.addEventListener("click", (e) => {
     const head = e.target.closest(".acc-head");
     if (!head) return;
-    toggleAcc(head.closest(".acc-item"));
+    const item = head.closest(".acc-item");
+    toggleAcc(item);
+    if (item && item.classList.contains("open")) setCrumb(findTip(item.dataset.slug));
   });
+
+  /* ---------- Homepage: popular problems · categories · recently updated ----------
+     All three derive from TIPS at render time, so counts and links stay
+     honest as the library grows. The slug lists are curated; every label,
+     time and difficulty shown comes straight from the data. */
+
+  const POPULAR_SLUGS = [
+    "fix-my-pc-is-slow-all-of-a-sudden-the-order-of-attack",
+    "fix-a-pc-that-overheats-and-fans-like-a-jet-engine",
+    "stop-your-pc-from-sleep-glitching-your-network",
+    "no-sound-the-four-minute-fix",
+    "speed-up-a-sluggish-macbook",
+    "stop-games-stuttering-the-5-point-checklist",
+    "clean-up-temp-files-and-browser-cache-properly",
+    "fix-a-blue-screen-bsod-without-panicking",
+  ];
+
+  const RECENT_SLUGS = [
+    "fix-a-pc-that-won-t-start-up",
+    "get-back-a-file-you-deleted-by-mistake",
+    "spot-a-phishing-email-before-you-click",
+    "windows-10-is-past-end-of-support-what-to-do-now",
+  ];
+
+  function tipHref(tip) {
+    return `${tip.cat === "mac" ? "mac.html" : "windows.html"}#${esc(tipSlug(tip.title))}`;
+  }
+
+  function fmtUpdated(iso) {
+    if (!iso) return "";
+    const d = new Date(iso + "T00:00:00");
+    if (isNaN(d.getTime())) return "";
+    try {
+      return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+    } catch (err) { return iso; }
+  }
+
+  function popCard(tip, opts) {
+    const o = opts || {};
+    let dateLine = "";
+    if (o.date) {
+      const label = fmtUpdated(tip.updated);
+      if (label) dateLine = `<time class="pop-date" datetime="${esc(tip.updated)}">Updated ${esc(label)}</time>`;
+    }
+    return `
+      <li class="pop-card">
+        <p class="pop-kicker">${esc(tip.win || (tip.cat === "mac" ? "macOS" : "Windows"))} · ${esc(CAT_LABELS[tip.cat] || tip.cat)}</p>
+        <h3 class="pop-title"><a href="${tipHref(tip)}">${esc(tip.title)}</a></h3>
+        <p class="pop-desc">${esc(tip.description)}</p>
+        ${dateLine}
+        <div class="pop-foot">
+          <span class="pop-meta"><i class="dot dot-${tip.difficulty}" aria-hidden="true"></i>${LEVELS[tip.difficulty] || ""} · ${esc(tip.time)}</span>
+          <a class="pop-cta" href="${tipHref(tip)}">${o.cta || "Fix this problem"}<span aria-hidden="true"> →</span></a>
+        </div>
+      </li>`;
+  }
+
+  function renderPopGrid(elId, slugs, opts) {
+    const el = document.getElementById(elId);
+    if (!el) return;
+    el.innerHTML = slugs.map((s) => (findTip(s) ? popCard(findTip(s), opts) : "")).join("");
+  }
+
+  renderPopGrid("popular-grid", POPULAR_SLUGS, {});
+  renderPopGrid("recent-grid", RECENT_SLUGS, { cta: "Start fix", date: true });
+
+  function renderCatGrid(elId, entries) {
+    const el = document.getElementById(elId);
+    if (!el || !entries.length) return;
+    el.innerHTML = entries.map((c) => `
+      <li><a class="cat-link" href="${esc(c.href)}"><span>${esc(c.label)}</span><i aria-hidden="true">${c.count}</i></a></li>`).join("");
+  }
+
+  const winTipsAll = TIPS.filter((t) => t.cat !== "mac");
+  renderCatGrid("cat-win-grid", WIN_ORDER.map((c) => ({
+    label: CAT_LABELS[c] || c,
+    count: winTipsAll.filter((t) => t.cat === c).length,
+    href: `windows.html#cat-${c}`,
+  })).filter((e) => e.count > 0));
+
+  const macTipsAll = TIPS.filter((t) => t.cat === "mac");
+  renderCatGrid("cat-mac-grid", ["speed", "fixes", "security"].map((g) => ({
+    label: GROUP_LABELS[g] || g,
+    count: macTipsAll.filter((t) => t.group === g).length,
+    href: `mac.html#sub-${g}`,
+  })).filter((e) => e.count > 0));
+
+  /* ---------- Homepage: global fix search (static, no backend) ---------- */
+  const gsInput = document.getElementById("global-search");
+  const gsResults = document.getElementById("gs-results");
+  const gsCount = document.getElementById("gs-count");
+
+  function scoreTip(tip, tokens, phrase) {
+    const title = tip.title.toLowerCase();
+    const desc = (tip.description || "").toLowerCase();
+    const catLabel = ((CAT_LABELS[tip.cat] || "") + " " + (tip.win || "")).toLowerCase();
+    let score = 0;
+
+    for (const tok of tokens) {
+      if (title.includes(tok)) score += 3;
+      else if (desc.includes(tok)) score += 2;
+      else if (catLabel.includes(tok)) score += 1.5;
+      // Platform words rank the right OS higher, even on their own.
+      if (/^mac/.test(tok) && tip.cat === "mac") score += 2;
+      if ((tok === "windows" || tok === "win") && tip.cat !== "mac") score += 2;
+    }
+
+    // Whole-phrase bonus: "slow laptop" beats scattered single-word hits.
+    if (phrase.length > 3) {
+      if (title.includes(phrase)) score += 4;
+      else if (desc.includes(phrase)) score += 2;
+    }
+    return score;
+  }
+
+  function gsItem(tip) {
+    const os = tip.cat === "mac" ? "macOS" : esc(tip.win || "Windows");
+    return `
+      <li>
+        <a class="gs-item" href="${tipHref(tip)}">
+          <span class="gs-top"><span class="gs-title">${esc(tip.title)}</span><span class="gs-meta">${os} · ${LEVELS[tip.difficulty] || ""} · ${esc(tip.time)}</span></span>
+          <span class="gs-desc">${esc(tip.description)}</span>
+          <span class="gs-go">View fix →</span>
+        </a>
+      </li>`;
+  }
+
+  function runGlobalSearch() {
+    if (!gsInput || !gsResults) return;
+    const q = gsInput.value.trim();
+
+    if (!q) {
+      gsResults.hidden = true;
+      gsResults.innerHTML = "";
+      if (gsCount) gsCount.textContent = "";
+      return;
+    }
+
+    const tokens = q.toLowerCase().split(/[^a-z0-9]+/).filter(Boolean);
+    const phrase = q.toLowerCase();
+    const hits = TIPS
+      .map((tip) => ({ tip, score: scoreTip(tip, tokens, phrase) }))
+      .filter((h) => h.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 8);
+
+    if (hits.length) {
+      gsResults.innerHTML = `<ul class="gs-list">${hits.map((h) => gsItem(h.tip)).join("")}</ul>`;
+      if (gsCount) gsCount.textContent = `${hits.length} fix${hits.length > 1 ? "es" : ""} found — best matches first`;
+    } else {
+      gsResults.innerHTML = `
+        <div class="search-empty">
+          <h3>We couldn't find that problem.</h3>
+          <p>Try describing it differently — e.g. "my laptop is overheating" instead of "computer broken".</p>
+          <a class="btn btn-primary" href="#diagnose">Start diagnosis<span aria-hidden="true"> →</span></a>
+        </div>`;
+      if (gsCount) gsCount.textContent = "No matches — try the diagnosis instead";
+    }
+    gsResults.hidden = false;
+  }
+
+  if (gsInput && gsResults) {
+    let debounce;
+    gsInput.addEventListener("input", () => {
+      clearTimeout(debounce);
+      debounce = setTimeout(runGlobalSearch, 120);
+    });
+    gsInput.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        gsInput.value = "";
+        runGlobalSearch();
+      }
+    });
+
+    /* Nav "Search" item → focus the box instead of a dead anchor scroll. */
+    document.querySelectorAll("[data-focus-search]").forEach((a) => {
+      a.addEventListener("click", (e) => {
+        e.preventDefault();
+        gsInput.focus({ preventScroll: false });
+        if (gsInput.select) gsInput.select();
+      });
+    });
+
+    /* Landing on index.html#search (from the fix pages' nav) → focus it. */
+    if (location.hash === "#search") {
+      gsInput.focus({ preventScroll: true });
+    }
+  }
 
   /* ---------- Fix list: live search + category jumps ---------- */
   const fixSearch = document.getElementById("fix-search");
@@ -463,6 +674,8 @@
       el.classList.toggle("hidden-fix", !hasVisible);
     });
     if (fixCount) fixCount.textContent = q ? `${shown} of ${items.length} fixes match` : "";
+    const emptyEl = document.getElementById("fix-search-empty");
+    if (emptyEl) emptyEl.hidden = !(q && shown === 0);
   }
 
   if (fixSearch && accListEl) {
@@ -493,6 +706,46 @@
   document.querySelectorAll(".acc-item").forEach((item) => {
     if (doneSet.has(item.dataset.slug)) item.classList.add("done");
     syncDoneBtn(item);
+  });
+
+  /* ---------- "Did this fix it?" feedback (saved on this device) ---------- */
+  const FEEDBACK_KEY = "emtech-feedback-v1";
+  function loadFeedback() {
+    try { return JSON.parse(localStorage.getItem(FEEDBACK_KEY) || "{}") || {}; }
+    catch (err) { return {}; }
+  }
+  function saveFeedback(map) {
+    try { localStorage.setItem(FEEDBACK_KEY, JSON.stringify(map)); } catch (err) {}
+  }
+
+  const feedback = loadFeedback();
+
+  function applyFeedbackState(item) {
+    const box = item.querySelector(".fix-feedback");
+    if (!box) return;
+    const val = feedback[item.dataset.slug];
+    box.querySelector(".ff-yes").setAttribute("aria-pressed", String(val === "yes"));
+    box.querySelector(".ff-no").setAttribute("aria-pressed", String(val === "no"));
+    const state = box.querySelector(".ff-state");
+    if (val === "yes") {
+      state.innerHTML = `<strong>Great — problem solved.</strong> Glad we could help. <a href="index.html#routine">Keep it that way with the monthly routine →</a>`;
+    } else if (val === "no") {
+      state.innerHTML = `<strong>Let's try another approach.</strong> The related fixes below are a good next stop, or <a href="index.html#diagnose">start a diagnosis →</a>`;
+    } else {
+      state.textContent = "";
+    }
+  }
+
+  document.querySelectorAll(".acc-item").forEach(applyFeedbackState);
+
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest(".ff-btn");
+    if (!btn) return;
+    const item = btn.closest(".acc-item");
+    if (!item) return;
+    feedback[item.dataset.slug] = btn.classList.contains("ff-yes") ? "yes" : "no";
+    saveFeedback(feedback);
+    applyFeedbackState(item);
   });
 
   document.addEventListener("click", (e) => {
@@ -644,14 +897,21 @@
     const slug = location.hash.slice(1);
     if (!slug) return;
     const item = document.querySelector(`.acc-item[data-slug="${CSS.escape(slug)}"]`);
-    if (!item) return;
-    toggleAcc(item, true);
-    // Let the expand animation settle before scrolling + flashing.
-    setTimeout(() => {
-      item.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "center" });
-      item.classList.add("flash");
-      setTimeout(() => item.classList.remove("flash"), 1400);
-    }, prefersReducedMotion ? 60 : ACC_CLOSE_MS + 80);
+    if (item) {
+      toggleAcc(item, true);
+      setCrumb(findTip(slug));
+      // Let the expand animation settle before scrolling + flashing.
+      setTimeout(() => {
+        item.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "center" });
+        item.classList.add("flash");
+        setTimeout(() => item.classList.remove("flash"), 1400);
+      }, prefersReducedMotion ? 60 : ACC_CLOSE_MS + 80);
+      return;
+    }
+    // Category / group anchors (#cat-speed, #sub-fixes) — scroll to the heading.
+    const target = document.getElementById(slug);
+    if (!target) return;
+    target.scrollIntoView({ behavior: prefersReducedMotion ? "auto" : "smooth", block: "start" });
   }
 
   openHashedTip();

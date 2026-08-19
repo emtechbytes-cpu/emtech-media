@@ -2,6 +2,6 @@
 User-agent: *
 Allow: /
 
-# TODO BEFORE LAUNCH: no domain registered yet. Replace DOMAIN, fill in
-# sitemap.xml, and uncomment the line below.
-# Sitemap: https://DOMAIN/sitemap.xml
+# Live preview host (GitHub Pages). When a custom domain is registered,
+# swap this URL to match it.
+Sitemap: https://emtechbytes-cpu.github.io/emtech-media/sitemap.xml

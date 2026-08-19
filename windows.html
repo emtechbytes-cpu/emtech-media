@@ -7,27 +7,32 @@
   <title>Windows Fixes — EmTech Media</title>
   <meta name="description" content="58 tested fixes for Windows 10 and 11: slow PCs, blue screens, no sound, update chaos, gaming stutter, disk bloat, Wi-Fi lock-down, BitLocker and more. Grouped by what they do, timed to the minute, written in plain English." />
   <!-- ============================================================
-       TODO BEFORE LAUNCH — absolute-URL tags omitted on purpose.
-       No domain is registered yet, and a canonical / og:url pointing
-       at a host that does not resolve is worse than having none.
-       When the real domain exists, add these back (replace DOMAIN):
-
-         <link rel="canonical" href="https://DOMAIN/windows.html" />
-         <meta property="og:url" content="https://DOMAIN/windows.html" />
-         <meta property="og:image" content="https://DOMAIN/og-image.png" />
-         <meta property="og:image:width" content="1200" />
-         <meta property="og:image:height" content="630" />
-         <meta property="og:image:alt" content="EmTech Media — PC &amp; Mac problems, solved in plain English" />
-         <meta name="twitter:image" content="https://DOMAIN/og-image.png" />
-
-       ...and change twitter:card below to "summary_large_image".
-       Then update sitemap.xml and robots.txt to match.
+       Live preview host: GitHub Pages (resolvable today). When a custom
+       domain is registered, swap these absolute URLs — plus robots.txt
+       and sitemap.xml — to match it.
        ============================================================ -->
+  <link rel="canonical" href="https://emtechbytes-cpu.github.io/emtech-media/windows.html" />
+  <meta property="og:url" content="https://emtechbytes-cpu.github.io/emtech-media/windows.html" />
+  <meta property="og:image" content="https://emtechbytes-cpu.github.io/emtech-media/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="EmTech Media — PC &amp; Mac problems, solved in plain English" />
+  <meta name="twitter:image" content="https://emtechbytes-cpu.github.io/emtech-media/og-image.png" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="EmTech Media" />
   <meta property="og:title" content="Windows Fixes — EmTech Media" />
   <meta property="og:description" content="58 tested fixes for Windows 10 and 11 in plain English. Grouped by what they do, timed to the minute." />
-  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://emtechbytes-cpu.github.io/emtech-media/index.html" },
+      { "@type": "ListItem", "position": 2, "name": "Windows fixes", "item": "https://emtechbytes-cpu.github.io/emtech-media/windows.html" }
+    ]
+  }
+  </script>
   <script>
     // Apply the saved theme before first paint (avoids a flash of the wrong theme).
     (function () {
@@ -59,6 +64,7 @@
 
       <nav class="primary-nav" id="primary-nav" aria-label="Primary">
         <ul>
+          <li><a href="index.html#search">Search</a></li>
           <li><a href="index.html#diagnose">Diagnose</a></li>
           <li><a href="#fixes" class="active" aria-current="page">Windows</a></li>
           <li><a href="mac.html">Mac</a></li>
@@ -133,6 +139,14 @@
           <p class="sec-sub">Grouped by what they fix. Search, jump to a category, or tap any row to read the steps — no sign-up, no jargon.</p>
         </header>
 
+        <nav class="breadcrumbs reveal" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            <li id="bc-page" aria-current="page">Windows fixes</li>
+            <li id="bc-tip" hidden></li>
+          </ol>
+        </nav>
+
         <div class="fix-tools reveal">
           <div class="fix-search-row">
             <input type="search" id="fix-search" placeholder="Search the fixes… (press /)" aria-label="Search the Windows fixes" />
@@ -151,6 +165,12 @@
 
         <div class="acc-list" id="win-acc">
           <noscript><p class="no-js-note">Enable JavaScript to expand the fixes, or open the EmTech PC Tips folder for the static pages.</p></noscript>
+        </div>
+
+        <div class="search-empty search-block" id="fix-search-empty" hidden>
+          <h3>We couldn't find that problem.</h3>
+          <p>Try describing it differently — e.g. "my laptop is overheating" instead of "computer broken".</p>
+          <a class="btn btn-primary" href="index.html#diagnose">Start diagnosis<span aria-hidden="true"> →</span></a>
         </div>
       </div>
     </section>
