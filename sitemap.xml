@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- EmTech Media — sitemap. Swap emtechmedia.example for your real domain when it exists. -->
+<!--
+  EmTech Media — sitemap.
+
+  Live preview host: GitHub Pages (resolvable today). When a custom domain
+  is registered, swap every URL below to match it and update robots.txt.
+-->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.emtechmedia.example/</loc>
+    <loc>https://emtechbytes-cpu.github.io/emtech-media/index.html</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.emtechmedia.example/windows.html</loc>
+    <loc>https://emtechbytes-cpu.github.io/emtech-media/windows.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.emtechmedia.example/mac.html</loc>
+    <loc>https://emtechbytes-cpu.github.io/emtech-media/mac.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://emtechbytes-cpu.github.io/emtech-media/diagnose.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>

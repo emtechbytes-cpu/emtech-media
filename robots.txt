@@ -1,6 +1,7 @@
 # EmTech Media — robots.txt
-# Swap emtechmedia.example for your real domain when it exists.
 User-agent: *
 Allow: /
 
-Sitemap: https://www.emtechmedia.example/sitemap.xml
+# Live preview host (GitHub Pages). When a custom domain is registered,
+# swap this URL to match it.
+Sitemap: https://emtechbytes-cpu.github.io/emtech-media/sitemap.xml

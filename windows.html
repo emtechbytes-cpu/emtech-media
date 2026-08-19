@@ -3,18 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#F1EEE6" />
+  <meta name="theme-color" id="meta-theme-color" content="#F1EEE6" />
   <title>Windows Fixes — EmTech Media</title>
-  <meta name="description" content="47 tested fixes for Windows 10 and 11: slow PCs, blue screens, no sound, update chaos, gaming stutter, disk bloat, Wi-Fi lock-down, BitLocker and more. Grouped by what they do, timed to the minute, written in plain English." />
-  <!-- SEO / social — swap emtechmedia.example for your real domain when it exists -->
-  <link rel="canonical" href="https://www.emtechmedia.example/windows.html" />
+  <meta name="description" content="58 tested fixes for Windows 10 and 11: slow PCs, blue screens, no sound, update chaos, gaming stutter, disk bloat, Wi-Fi lock-down, BitLocker and more. Grouped by what they do, timed to the minute, written in plain English." />
+  <!-- ============================================================
+       Live preview host: GitHub Pages (resolvable today). When a custom
+       domain is registered, swap these absolute URLs — plus robots.txt
+       and sitemap.xml — to match it.
+       ============================================================ -->
+  <link rel="canonical" href="https://emtechbytes-cpu.github.io/emtech-media/windows.html" />
+  <meta property="og:url" content="https://emtechbytes-cpu.github.io/emtech-media/windows.html" />
+  <meta property="og:image" content="https://emtechbytes-cpu.github.io/emtech-media/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="EmTech Media — PC &amp; Mac problems, solved in plain English" />
+  <meta name="twitter:image" content="https://emtechbytes-cpu.github.io/emtech-media/og-image.png" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="EmTech Media" />
   <meta property="og:title" content="Windows Fixes — EmTech Media" />
-  <meta property="og:description" content="47 tested fixes for Windows 10 and 11 in plain English. Grouped by what they do, timed to the minute." />
-  <meta property="og:url" content="https://www.emtechmedia.example/windows.html" />
-  <meta property="og:image" content="https://www.emtechmedia.example/og-image.png" />
-  <meta name="twitter:card" content="summary" />
+  <meta property="og:description" content="58 tested fixes for Windows 10 and 11 in plain English. Grouped by what they do, timed to the minute." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://emtechbytes-cpu.github.io/emtech-media/index.html" },
+      { "@type": "ListItem", "position": 2, "name": "Windows fixes", "item": "https://emtechbytes-cpu.github.io/emtech-media/windows.html" }
+    ]
+  }
+  </script>
   <script>
     // Apply the saved theme before first paint (avoids a flash of the wrong theme).
     (function () {
@@ -22,6 +40,8 @@
         var t = localStorage.getItem("emtech-theme");
         if (!t) t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
         document.documentElement.dataset.theme = t;
+        var m = document.getElementById("meta-theme-color");
+        if (m) m.content = t === "dark" ? "#131210" : "#F1EEE6";
       } catch (err) {}
     })();
   </script>
@@ -44,7 +64,9 @@
 
       <nav class="primary-nav" id="primary-nav" aria-label="Primary">
         <ul>
-          <li><a href="index.html#diagnose">Diagnose</a></li>
+          <li><a href="index.html#search">Search</a></li>
+          <li><a href="ai.html">EmTech AI</a></li>
+          <li><a href="diagnose.html">Diagnose</a></li>
           <li><a href="#fixes" class="active" aria-current="page">Windows</a></li>
           <li><a href="mac.html">Mac</a></li>
           <li><a href="index.html#routine">Routine</a></li>
@@ -86,15 +108,15 @@
 
         <div class="hero-foot reveal delay-2">
           <div class="hero-copy">
-            <p class="lede">Forty-seven tested fixes grouped by what they do — speed, updates, gaming, cleaning, maintenance, hardware and security. Each one timed to the minute and written in plain English.</p>
+            <p class="lede"><span data-tip-count="win">58</span> tested fixes grouped by what they do — speed, updates, gaming, cleaning, maintenance, hardware and security. Each one timed to the minute and written in plain English.</p>
             <div class="hero-cta">
               <a class="btn btn-primary" href="#fixes">Jump to the list</a>
-              <a class="btn-link" href="index.html#diagnose">Not sure where to start? Diagnose <span aria-hidden="true">↗</span></a>
+              <a class="btn-link" href="diagnose.html">Not sure where to start? Diagnose <span aria-hidden="true">↗</span></a>
             </div>
           </div>
           <ul class="hero-meta" aria-label="Library facts">
-            <li><span>Tested fixes</span> 47</li>
-            <li><span>Categories</span> 7</li>
+            <li><span>Tested fixes</span> <span data-tip-count="win">58</span></li>
+            <li><span>Categories</span> <span data-tip-count="win-cats">7</span></li>
             <li><span>Jargon</span> None. Ever.</li>
           </ul>
         </div>
@@ -113,10 +135,18 @@
     <section class="section" id="fixes">
       <div class="container">
         <header class="sec-head reveal">
-          <span class="sec-num">47 fixes · 7 categories</span>
+          <span class="sec-num"><span data-tip-count="win">58</span> fixes · <span data-tip-count="win-cats">7</span> categories</span>
           <h2>The full list</h2>
           <p class="sec-sub">Grouped by what they fix. Search, jump to a category, or tap any row to read the steps — no sign-up, no jargon.</p>
         </header>
+
+        <nav class="breadcrumbs reveal" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            <li id="bc-page" aria-current="page">Windows fixes</li>
+            <li id="bc-tip" hidden></li>
+          </ol>
+        </nav>
 
         <div class="fix-tools reveal">
           <div class="fix-search-row">
@@ -137,6 +167,12 @@
         <div class="acc-list" id="win-acc">
           <noscript><p class="no-js-note">Enable JavaScript to expand the fixes, or open the EmTech PC Tips folder for the static pages.</p></noscript>
         </div>
+
+        <div class="search-empty search-block" id="fix-search-empty" hidden>
+          <h3>We couldn't find that problem.</h3>
+          <p>Try describing it differently — e.g. "my laptop is overheating" instead of "computer broken".</p>
+          <a class="btn btn-primary" href="diagnose.html">Start diagnosis<span aria-hidden="true"> →</span></a>
+        </div>
       </div>
     </section>
 
@@ -149,7 +185,7 @@
         </header>
 
         <ul class="index-list reveal delay-1">
-          <li><a class="index-row" href="index.html#diagnose">
+          <li><a class="index-row" href="diagnose.html">
             <span class="idx-num">01</span>
             <h3 class="idx-title">Diagnose your problem</h3>
             <p class="idx-desc">Tell us what's happening and get the fix that works, starting with the first three steps.</p>
@@ -178,17 +214,11 @@
       <p class="footer-brand"><img class="brand-mark" src="brand/cursor-mark.svg" width="20" height="20" alt="" aria-hidden="true">EmTech Media — PC &amp; Mac problems, solved in plain English.</p>
 
       <nav aria-label="Footer">
-        <a href="index.html#diagnose">Diagnose</a>
+        <a href="diagnose.html">Diagnose</a>
         <a href="windows.html">Windows fixes</a>
         <a href="mac.html">Mac fixes</a>
         <a href="index.html#routine">Monthly routine</a>
       </nav>
-
-      <div class="footer-social" aria-label="Social links">
-        <a href="#">X</a><span aria-hidden="true">/</span>
-        <a href="#">YouTube</a><span aria-hidden="true">/</span>
-        <a href="#">LinkedIn</a>
-      </div>
     </div>
 
     <div class="container footer-bottom">
@@ -200,6 +230,9 @@
   <button class="to-top" id="to-top" type="button" aria-label="Back to top">↑</button>
 
   <script src="tips-data.js"></script>
+  <script src="diag-data.js"></script>
+  <script src="diag-engine.js"></script>
   <script src="script.js"></script>
+  <script src="diag-feedback.js"></script>
 </body>
 </html>

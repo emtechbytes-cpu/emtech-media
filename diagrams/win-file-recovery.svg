@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 540" role="img" aria-label="Schematic diagram: a four-rung recovery ladder from Recycle Bin to Windows File Recovery, with falling odds on the right and a warning bar about recovering to a different drive">
+  <title>Windows — recover a deleted file</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=Instrument+Serif:ital@1&amp;display=swap');
+    .mono { font-family: "IBM Plex Mono", ui-monospace, Consolas, monospace; }
+    .serif { font-family: "Instrument Serif", Georgia, serif; font-style: italic; }
+  </style>
+
+  <rect x="0" y="0" width="800" height="540" fill="#f1eee6"/>
+
+  <text class="mono" x="48" y="52" font-size="11" letter-spacing="2" fill="#5f5b50">FIG. 17 — WINDOWS · RECOVERY</text>
+  <text class="serif" x="48" y="88" font-size="30" fill="#131210">Deleted isn't gone</text>
+  <text class="mono" x="752" y="52" font-size="11" letter-spacing="1.5" fill="#5f5b50" text-anchor="end">10 MIN · EASY</text>
+
+  <!-- rung 1 — highlighted -->
+  <rect x="70" y="126" width="430" height="58" fill="#c8f03c" stroke="#131210" stroke-width="2"/>
+  <text class="mono" x="90" y="161" font-size="13" font-weight="600" fill="#131210">1</text>
+  <text class="mono" x="116" y="150" font-size="12" font-weight="600" fill="#131210">RECYCLE BIN</text>
+  <text class="mono" x="116" y="170" font-size="9.5" fill="#131210">search it by name first — an ordinary delete lands here</text>
+
+  <!-- rung 2 -->
+  <rect x="70" y="202" width="430" height="58" fill="#e9e5d8" stroke="#131210" stroke-width="2"/>
+  <text class="mono" x="90" y="237" font-size="13" font-weight="600" fill="#131210">2</text>
+  <text class="mono" x="116" y="226" font-size="12" font-weight="600" fill="#131210">PREVIOUS VERSIONS</text>
+  <text class="mono" x="116" y="246" font-size="9.5" fill="#5f5b50">Properties → Previous Versions — if File History covered it</text>
+
+  <!-- rung 3 -->
+  <rect x="70" y="278" width="430" height="58" fill="#e9e5d8" stroke="#131210" stroke-width="2"/>
+  <text class="mono" x="90" y="313" font-size="13" font-weight="600" fill="#131210">3</text>
+  <text class="mono" x="116" y="302" font-size="12" font-weight="600" fill="#131210">ONEDRIVE BIN</text>
+  <text class="mono" x="116" y="322" font-size="9.5" fill="#5f5b50">onedrive.com → Recycle bin — holds deleted files for 30 days</text>
+
+  <!-- rung 4 -->
+  <rect x="70" y="354" width="430" height="58" fill="#e9e5d8" stroke="#131210" stroke-width="2"/>
+  <text class="mono" x="90" y="389" font-size="13" font-weight="600" fill="#131210">4</text>
+  <text class="mono" x="116" y="378" font-size="12" font-weight="600" fill="#131210">WINFR — FILE RECOVERY</text>
+  <text class="mono" x="116" y="398" font-size="9.5" fill="#5f5b50">free from the Store: winfr C: D: /regular /n \path\to\file</text>
+
+  <!-- falling odds -->
+  <line x1="524" y1="155" x2="524" y2="383" stroke="rgba(19,18,16,.18)" stroke-width="1"/>
+  <line x1="518" y1="155" x2="530" y2="155" stroke="#131210" stroke-width="2"/>
+  <text class="mono" x="540" y="159" font-size="9.5" letter-spacing="1" fill="#5f5b50">BEST ODDS</text>
+  <line x1="518" y1="231" x2="530" y2="231" stroke="#131210" stroke-width="2"/>
+  <text class="mono" x="540" y="235" font-size="9.5" letter-spacing="1" fill="#5f5b50">IF IT RAN</text>
+  <line x1="518" y1="307" x2="530" y2="307" stroke="#131210" stroke-width="2"/>
+  <text class="mono" x="540" y="311" font-size="9.5" letter-spacing="1" fill="#5f5b50">30-DAY WINDOW</text>
+  <line x1="518" y1="383" x2="530" y2="383" stroke="#131210" stroke-width="2"/>
+  <text class="mono" x="540" y="387" font-size="9.5" letter-spacing="1" fill="#5f5b50">LAST RESORT</text>
+
+  <!-- warning bar -->
+  <rect x="70" y="436" width="660" height="32" fill="#131210"/>
+  <text class="mono" x="90" y="457" font-size="10.5" letter-spacing="1" font-weight="600" fill="#f1eee6">RECOVER TO A DIFFERENT DRIVE — WRITING TO THE SAME ONE IS WHAT DESTROYS IT FOR GOOD</text>
+
+  <!-- caption strip -->
+  <line x1="70" y1="482" x2="730" y2="482" stroke="rgba(19,18,16,.18)" stroke-width="1"/>
+  <text class="mono" x="70" y="506" font-size="10.5" letter-spacing="1" fill="#5f5b50">BIN → PREVIOUS VERSIONS → ONEDRIVE → WINFR</text>
+  <text class="mono" x="730" y="506" font-size="10.5" letter-spacing="1" fill="#5f5b50" text-anchor="end">WIN 10 / 11</text>
+</svg>

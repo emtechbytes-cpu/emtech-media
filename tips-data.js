@@ -10,12 +10,28 @@
      win         "Win 10/11" | "All versions" etc. (shown in the card footer)
      description string  (the short pitch)
      steps       array of step strings (rendered as a list)
+     group       optional sub-grouping key (speed | fixes | security)
      diagram     optional string — path to an SVG figure shown in the accordion body
+     updated     "YYYY-MM-DD" — last content revision. Bump it whenever you edit a tip;
+                 drives the homepage "Recently updated" section (real dates only)
+
+   Routing is automatic: cat "mac" renders on mac.html, everything else on
+   windows.html. Category headings, counts, the search index and the jump
+   chips all derive from this array — visible counts in page copy are filled
+   from it at runtime via [data-tip-count].
+
+   THE ONE MANUAL STEP: <meta name="description"> and <meta
+   property="og:description"> are read by crawlers before JS runs, so their
+   numbers are hardcoded. After changing the number of tips, update:
+     index.html   og:description  ("74 tested fixes")
+     windows.html description + og:description  ("58 tested fixes")
+     mac.html     description + og:description  ("16 tested macOS fixes")
    ============================================================ */
 
 const TIPS = [
   {
     title: "Disable startup bloat",
+    updated: "2026-08-18",
     diagram: "diagrams/win-startup-bloat.svg",
     cat: "speed",
     difficulty: 1,
@@ -31,6 +47,7 @@ const TIPS = [
   },
   {
     title: "Switch the power plan to Best Performance",
+    updated: "2026-08-18",
     diagram: "diagrams/win-power-plan.svg",
     cat: "speed",
     difficulty: 1,
@@ -46,6 +63,7 @@ const TIPS = [
   },
   {
     title: "Move your OS or games to an SSD",
+    updated: "2026-08-18",
     cat: "hardware",
     difficulty: 2,
     time: "1 hr",
@@ -60,6 +78,7 @@ const TIPS = [
   },
   {
     title: "Upgrade your RAM (and match it)",
+    updated: "2026-08-18",
     cat: "hardware",
     difficulty: 2,
     time: "30 min",
@@ -74,6 +93,7 @@ const TIPS = [
   },
   {
     title: "Stop Windows updates at odd hours",
+    updated: "2026-08-18",
     diagram: "diagrams/win-active-hours.svg",
     cat: "windows",
     difficulty: 1,
@@ -88,6 +108,7 @@ const TIPS = [
   },
   {
     title: "Fix a PC that overheats and fans like a jet engine",
+    updated: "2026-08-18",
     diagram: "diagrams/win-dust-cleanout.svg",
     cat: "maintenance",
     difficulty: 2,
@@ -104,6 +125,7 @@ const TIPS = [
   },
   {
     title: "Lower Windows transparency and animation effects",
+    updated: "2026-08-18",
     cat: "windows",
     difficulty: 1,
     time: "2 min",
@@ -117,6 +139,7 @@ const TIPS = [
   },
   {
     title: "Clean up temp files and browser cache properly",
+    updated: "2026-08-18",
     cat: "cleaning",
     difficulty: 1,
     time: "5 min",
@@ -130,6 +153,7 @@ const TIPS = [
   },
   {
     title: "Let Windows' Storage Sense do the work for you",
+    updated: "2026-08-18",
     diagram: "diagrams/win-storage-sense.svg",
     cat: "cleaning",
     difficulty: 1,
@@ -144,6 +168,7 @@ const TIPS = [
   },
   {
     title: "Uninstall the apps you never use",
+    updated: "2026-08-18",
     cat: "cleaning",
     difficulty: 1,
     time: "10 min",
@@ -158,6 +183,7 @@ const TIPS = [
   },
   {
     title: "Check for driver updates (in the right order)",
+    updated: "2026-08-18",
     cat: "maintenance",
     difficulty: 1,
     time: "15 min",
@@ -171,6 +197,7 @@ const TIPS = [
   },
   {
     title: "Run a disk health check before it's too late",
+    updated: "2026-08-18",
     cat: "maintenance",
     difficulty: 2,
     time: "15 min",
@@ -185,6 +212,7 @@ const TIPS = [
   },
   {
     title: "Back up properly (3-2-1 rule)",
+    updated: "2026-08-18",
     cat: "security",
     difficulty: 2,
     time: "30 min",
@@ -199,6 +227,7 @@ const TIPS = [
   },
   {
     title: "Stop games stuttering — the 5-point checklist",
+    updated: "2026-08-18",
     cat: "gaming",
     difficulty: 1,
     time: "15 min",
@@ -214,6 +243,7 @@ const TIPS = [
   },
   {
     title: "Raise your effective FPS with Windows Game Mode",
+    updated: "2026-08-18",
     cat: "gaming",
     difficulty: 1,
     time: "1 min",
@@ -227,6 +257,7 @@ const TIPS = [
   },
   {
     title: "Reduce input lag in competitive games",
+    updated: "2026-08-18",
     cat: "gaming",
     difficulty: 2,
     time: "20 min",
@@ -241,6 +272,7 @@ const TIPS = [
   },
   {
     title: "Hardening: accounts, updates, and the firewall",
+    updated: "2026-08-18",
     cat: "security",
     difficulty: 1,
     time: "20 min",
@@ -255,6 +287,7 @@ const TIPS = [
   },
   {
     title: "Kill shady 'PC optimizer' software",
+    updated: "2026-08-18",
     cat: "security",
     difficulty: 1,
     time: "10 min",
@@ -268,6 +301,7 @@ const TIPS = [
   },
   {
     title: "Repair corrupted system files",
+    updated: "2026-08-18",
     cat: "maintenance",
     difficulty: 2,
     time: "30 min",
@@ -282,6 +316,7 @@ const TIPS = [
   },
   {
     title: "Stop your PC from sleep-glitching your network",
+    updated: "2026-08-18",
     cat: "windows",
     difficulty: 2,
     time: "10 min",
@@ -295,6 +330,7 @@ const TIPS = [
   },
   {
     title: "Know your BIOS settings (the 5 that matter)",
+    updated: "2026-08-18",
     cat: "hardware",
     difficulty: 3,
     time: "20 min",
@@ -310,6 +346,7 @@ const TIPS = [
   },
   {
     title: "Protect against ransomware before it's too late",
+    updated: "2026-08-18",
     cat: "security",
     difficulty: 2,
     time: "20 min",
@@ -323,6 +360,7 @@ const TIPS = [
   },
   {
     title: "Make Windows Search actually useful again",
+    updated: "2026-08-18",
     cat: "windows",
     difficulty: 1,
     time: "5 min",
@@ -336,6 +374,7 @@ const TIPS = [
   },
   {
     title: "Save your games the right way",
+    updated: "2026-08-18",
     cat: "gaming",
     difficulty: 1,
     time: "5 min",
@@ -349,6 +388,7 @@ const TIPS = [
   },
   {
     title: "Make your desktop feel like a Mac (without the price)",
+    updated: "2026-08-18",
     cat: "windows",
     difficulty: 1,
     time: "15 min",
@@ -363,6 +403,7 @@ const TIPS = [
   },
   {
     title: "Fix 'My PC is slow all of a sudden' — the order of attack",
+    updated: "2026-08-18",
     cat: "speed",
     difficulty: 1,
     time: "15 min",
@@ -377,6 +418,7 @@ const TIPS = [
   },
   {
     title: "Free up disk space with Storage Management",
+    updated: "2026-08-18",
     diagram: "diagrams/mac-storage-manage.svg",
     cat: "mac",
     group: "speed",
@@ -393,6 +435,7 @@ const TIPS = [
   },
   {
     title: "Reset NVRAM when things misbehave",
+    updated: "2026-08-18",
     diagram: "diagrams/mac-nvram-reset.svg",
     cat: "mac",
     group: "fixes",
@@ -409,6 +452,7 @@ const TIPS = [
   },
   {
     title: "Keep macOS updated the safe way",
+    updated: "2026-08-18",
     cat: "mac",
     group: "security",
     difficulty: 1,
@@ -424,6 +468,7 @@ const TIPS = [
   },
   {
     title: "Speed up a sluggish MacBook",
+    updated: "2026-08-18",
     cat: "mac",
     group: "speed",
     difficulty: 1,
@@ -439,6 +484,7 @@ const TIPS = [
   },
   {
     title: "Hunt down memory hogs",
+    updated: "2026-08-18",
     cat: "speed",
     difficulty: 2,
     time: "10 min",
@@ -454,6 +500,7 @@ const TIPS = [
   },
   {
     title: "Make big file transfers actually fast",
+    updated: "2026-08-18",
     cat: "windows",
     difficulty: 1,
     time: "5 min",
@@ -469,6 +516,7 @@ const TIPS = [
   },
   {
     title: "Stop Windows tracking your location",
+    updated: "2026-08-18",
     cat: "security",
     difficulty: 1,
     time: "5 min",
@@ -484,6 +532,7 @@ const TIPS = [
   },
   {
     title: "Create a local account that doesn't phone home",
+    updated: "2026-08-18",
     cat: "security",
     difficulty: 2,
     time: "10 min",
@@ -499,6 +548,7 @@ const TIPS = [
   },
   {
     title: "Tighten up Chrome — the 10-minute pass",
+    updated: "2026-08-18",
     cat: "security",
     difficulty: 1,
     time: "10 min",
@@ -514,6 +564,7 @@ const TIPS = [
   },
   {
     title: "Skip paid antivirus — and keep Defender sharp",
+    updated: "2026-08-18",
     cat: "security",
     difficulty: 1,
     time: "15 min",
@@ -529,6 +580,7 @@ const TIPS = [
   },
   {
     title: "Dodge bundleware when you install anything",
+    updated: "2026-08-18",
     cat: "cleaning",
     difficulty: 1,
     time: "5 min",
@@ -544,6 +596,7 @@ const TIPS = [
   },
   {
     title: "Run drive optimization the safe way",
+    updated: "2026-08-18",
     cat: "maintenance",
     difficulty: 1,
     time: "5 min",
@@ -558,6 +611,7 @@ const TIPS = [
   },
   {
     title: "Master the keyboard shortcuts that save hours",
+    updated: "2026-08-18",
     cat: "windows",
     difficulty: 1,
     time: "5 min",
@@ -573,6 +627,7 @@ const TIPS = [
   },
   {
     title: "Install PowerToys — Microsoft's free utility pack",
+    updated: "2026-08-18",
     cat: "windows",
     difficulty: 1,
     time: "10 min",
@@ -588,6 +643,7 @@ const TIPS = [
   },
   {
     title: "Lock down your home Wi-Fi properly",
+    updated: "2026-08-18",
     cat: "security",
     difficulty: 2,
     time: "15 min",
@@ -603,6 +659,7 @@ const TIPS = [
   },
   {
     title: "Stop emailing passwords and secrets",
+    updated: "2026-08-18",
     cat: "security",
     difficulty: 1,
     time: "10 min",
@@ -617,6 +674,7 @@ const TIPS = [
   },
   {
     title: "Turn on full-disk encryption (BitLocker)",
+    updated: "2026-08-18",
     cat: "security",
     difficulty: 1,
     time: "5 min",
@@ -631,6 +689,7 @@ const TIPS = [
   },
   {
     title: "Make your laptop battery last longer",
+    updated: "2026-08-18",
     cat: "maintenance",
     difficulty: 1,
     time: "10 min",
@@ -645,6 +704,7 @@ const TIPS = [
   },
   {
     title: "Fix a blue screen (BSOD) without panicking",
+    updated: "2026-08-18",
     diagram: "diagrams/win-bsod.svg",
     cat: "maintenance",
     difficulty: 2,
@@ -660,6 +720,7 @@ const TIPS = [
   },
   {
     title: "No sound? The four-minute fix",
+    updated: "2026-08-18",
     diagram: "diagrams/win-no-sound.svg",
     cat: "windows",
     difficulty: 1,
@@ -675,6 +736,7 @@ const TIPS = [
   },
   {
     title: "Organise your work with virtual desktops",
+    updated: "2026-08-18",
     cat: "windows",
     difficulty: 1,
     time: "5 min",
@@ -689,6 +751,7 @@ const TIPS = [
   },
   {
     title: "Slow internet? Run the five-minute test",
+    updated: "2026-08-18",
     diagram: "diagrams/win-network-test.svg",
     cat: "windows",
     difficulty: 1,
@@ -705,6 +768,7 @@ const TIPS = [
   },
   {
     title: "Force-quit a frozen app",
+    updated: "2026-08-18",
     diagram: "diagrams/mac-force-quit.svg",
     cat: "mac",
     group: "fixes",
@@ -720,6 +784,7 @@ const TIPS = [
   },
   {
     title: "Stop apps from launching at login",
+    updated: "2026-08-18",
     diagram: "diagrams/mac-login-items.svg",
     cat: "mac",
     group: "speed",
@@ -735,6 +800,7 @@ const TIPS = [
   },
   {
     title: "Keep 10% of your disk free",
+    updated: "2026-08-18",
     diagram: "diagrams/mac-free-space.svg",
     cat: "mac",
     group: "speed",
@@ -751,6 +817,7 @@ const TIPS = [
   },
   {
     title: "Tame Spotlight indexing on extra drives",
+    updated: "2026-08-18",
     cat: "mac",
     group: "speed",
     difficulty: 2,
@@ -765,6 +832,7 @@ const TIPS = [
   },
   {
     title: "Fix a Mac that won't start up",
+    updated: "2026-08-18",
     cat: "mac",
     group: "fixes",
     difficulty: 2,
@@ -780,6 +848,7 @@ const TIPS = [
   },
   {
     title: "Run First Aid on external drives",
+    updated: "2026-08-18",
     cat: "mac",
     group: "fixes",
     difficulty: 1,
@@ -795,6 +864,7 @@ const TIPS = [
   },
   {
     title: "Keep your Mac battery healthy",
+    updated: "2026-08-18",
     diagram: "diagrams/mac-battery-health.svg",
     cat: "mac",
     group: "fixes",
@@ -811,6 +881,7 @@ const TIPS = [
   },
   {
     title: "Set up Time Machine properly",
+    updated: "2026-08-18",
     diagram: "diagrams/mac-time-machine.svg",
     cat: "mac",
     group: "security",
@@ -827,6 +898,7 @@ const TIPS = [
   },
   {
     title: "Turn on FileVault full-disk encryption",
+    updated: "2026-08-18",
     diagram: "diagrams/mac-filevault.svg",
     cat: "mac",
     group: "security",
@@ -842,6 +914,7 @@ const TIPS = [
   },
   {
     title: "Open apps blocked by Gatekeeper",
+    updated: "2026-08-18",
     cat: "mac",
     group: "fixes",
     difficulty: 1,
@@ -856,6 +929,7 @@ const TIPS = [
   },
   {
     title: "Fix slow Wi-Fi on your Mac",
+    updated: "2026-08-18",
     cat: "mac",
     group: "fixes",
     difficulty: 1,
@@ -871,6 +945,7 @@ const TIPS = [
   },
   {
     title: "Give Safari a proper clean-out",
+    updated: "2026-08-18",
     cat: "mac",
     group: "speed",
     difficulty: 1,
@@ -886,6 +961,7 @@ const TIPS = [
   },
   {
     title: "Pick an SSD that's actually fast",
+    updated: "2026-08-18",
     cat: "hardware",
     difficulty: 1,
     time: "5 min",
@@ -900,6 +976,7 @@ const TIPS = [
   },
   {
     title: "Size your PSU before the next upgrade",
+    updated: "2026-08-18",
     cat: "hardware",
     difficulty: 2,
     time: "15 min",
@@ -914,6 +991,7 @@ const TIPS = [
   },
   {
     title: "Fix a hot PC for good: the airflow pass",
+    updated: "2026-08-18",
     cat: "hardware",
     difficulty: 2,
     time: "45 min",
@@ -925,6 +1003,184 @@ const TIPS = [
       "Keep 5–10 cm of clearance behind the case; a PC shoved against a wall re-inhales its own heat",
       "Clean the dust filters (front/bottom) every few months and route cables out of the front intake path",
       "Verify with HWiNFO64: idle CPU under 45°C and GPU under 50°C means the pass worked",
+    ],
+  },
+  {
+    title: "Windows 10 is past end of support — what to do now",
+    updated: "2026-08-18",
+    cat: "maintenance",
+    difficulty: 1,
+    time: "15 min",
+    win: "Win 10",
+    description: "Windows 10 stopped getting security updates on 14 October 2025. The PC still works — it just stops getting patched, and that gap widens every month.",
+    steps: [
+      "Check what you're actually on: Win + R → winver. If it says Windows 10, you're no longer receiving security fixes",
+      "Best option: upgrade to Windows 11, which is still free for qualifying PCs — run 'Check whether your PC can run Windows 11' first so you know what you're dealing with",
+      "If it doesn't qualify, enrol in consumer Extended Security Updates (Settings → Windows Update → Enrol now). It buys security-only patches through October 2026 — no new features, and it is a bridge, not a destination",
+      "If neither is possible, treat the machine as untrusted: keep it away from online banking, leave Defender on, and plan either a replacement or a move to a supported Linux desktop",
+    ],
+  },
+  {
+    title: "Check whether your PC can run Windows 11",
+    updated: "2026-08-18",
+    diagram: "diagrams/win-win11-check.svg",
+    cat: "windows",
+    difficulty: 2,
+    time: "10 min",
+    win: "Win 10 / 11",
+    description: "Most machines from 2018 onward qualify. The two things that usually block the upgrade — TPM 2.0 and Secure Boot — are often already fitted and simply switched off in the BIOS.",
+    steps: [
+      "Run Microsoft's PC Health Check app — unlike the installer, it names the exact blocker instead of just refusing",
+      "Check the TPM: Win + R → tpm.msc. You want 'The TPM is ready for use' and Specification Version 2.0",
+      "Check Secure Boot: Win + R → msinfo32 → System Summary → Secure Boot State. 'Off' is a firmware setting, not a hardware limit",
+      "If either is off, reboot into BIOS/UEFI and look for TPM, PTT (Intel) or fTPM (AMD), plus Secure Boot — turning them on costs nothing",
+      "One caveat: if Windows was installed in legacy BIOS mode, convert the disk first with mbr2gpt or enabling Secure Boot will stop it booting",
+    ],
+  },
+  {
+    title: "Fix a printer that won't print",
+    updated: "2026-08-18",
+    diagram: "diagrams/win-printer.svg",
+    cat: "windows",
+    difficulty: 1,
+    time: "10 min",
+    win: "Win 10 / 11",
+    description: "Nine times out of ten it's a stuck queue or the wrong default printer — not the printer. Work through these before you buy ink, a cable, or a new machine.",
+    steps: [
+      "Settings → Bluetooth & devices → Printers & scanners → your printer → Open print queue. Cancel every stuck job, then send one test page",
+      "Clear the spooler properly: Win + R → services.msc → stop Print Spooler, delete everything inside C:\\Windows\\System32\\spool\\PRINTERS, then start the service again",
+      "Turn off 'Let Windows manage my default printer' — it quietly reassigns the default to whatever you used last, which is rarely what you want",
+      "Still nothing? Remove the printer and re-add it. Windows 11 drives most modern printers driverless over IPP, so skip the manufacturer's software bundle unless you need the scanner",
+    ],
+  },
+  {
+    title: "Fix a microphone no one can hear",
+    updated: "2026-08-18",
+    diagram: "diagrams/win-mic-input.svg",
+    cat: "windows",
+    difficulty: 1,
+    time: "5 min",
+    win: "Win 10 / 11",
+    description: "'You're on mute' is usually Windows listening to the wrong input, or a privacy setting silently blocking the app you're calling from.",
+    steps: [
+      "Settings → System → Sound → Input: select the right device and talk. The volume bar should move — if it doesn't, nothing further down the chain will help",
+      "Settings → Privacy & security → Microphone: confirm microphone access is on, then check your specific app is allowed in the list underneath",
+      "Check the app's own audio settings too. Teams, Zoom and Discord each remember a separate input device and don't follow the Windows default",
+      "Physical check: most headsets have an inline mute switch, and many laptops map mute to an F-key with its own indicator light",
+    ],
+  },
+  {
+    title: "Fix a webcam that won't turn on",
+    updated: "2026-08-18",
+    diagram: "diagrams/win-webcam.svg",
+    cat: "windows",
+    difficulty: 1,
+    time: "5 min",
+    win: "Win 10 / 11",
+    description: "A camera showing a black square is nearly always blocked rather than broken — by a privacy setting, a physical shutter, or another app that grabbed it first.",
+    steps: [
+      "Check the physical shutter or slider on the bezel, and the F-key that disables the camera on many laptops",
+      "Settings → Privacy & security → Camera: turn camera access on, then confirm your app is permitted further down the page",
+      "Quit every other app that might be holding the camera — Windows hands it to one at a time, and a backgrounded Teams or Zoom window is the usual culprit",
+      "Open the built-in Camera app. If the picture works there, the fault is in the other app's settings and not the hardware",
+    ],
+  },
+  {
+    title: "Start Windows in Safe Mode",
+    updated: "2026-08-18",
+    diagram: "diagrams/win-safe-mode.svg",
+    cat: "maintenance",
+    difficulty: 1,
+    time: "5 min",
+    win: "Win 10 / 11",
+    description: "Safe Mode loads Windows with only the drivers it cannot do without. If a problem disappears there, it's software — and knowing that one fact saves hours of guessing.",
+    steps: [
+      "From a working desktop: Settings → System → Recovery → Advanced startup → Restart now",
+      "From the sign-in screen: hold Shift while you click Restart",
+      "Then follow Troubleshoot → Advanced options → Startup Settings → Restart, and press 4 for Safe Mode or 5 if you need networking",
+      "If Windows won't boot at all, cut the power during startup three times running — the fourth attempt opens Recovery on its own",
+      "If it keeps booting into Safe Mode afterwards: Win + R → msconfig → Boot tab → untick Safe boot",
+    ],
+  },
+  {
+    title: "Get back a file you deleted by mistake",
+    updated: "2026-08-18",
+    diagram: "diagrams/win-file-recovery.svg",
+    cat: "maintenance",
+    difficulty: 1,
+    time: "10 min",
+    win: "Win 10 / 11",
+    description: "Deleted isn't gone — it's unlinked, and the space is merely marked reusable. Your odds are excellent in the first hour and fall away quickly, so stop writing to that drive now.",
+    steps: [
+      "Check the Recycle Bin and search it by name. Shift + Delete skips it, but an ordinary delete does not",
+      "Right-click the folder it lived in → Properties → Previous Versions. If File History or a restore point covered that folder, the file is one click away",
+      "Check OneDrive's online bin at onedrive.com → Recycle bin — it holds deleted files for 30 days even when they've vanished locally",
+      "Still missing? Stop saving anything to that drive and run Windows File Recovery (free, from the Microsoft Store): winfr C: D: /regular /n \\Users\\YourName\\Documents\\report.docx",
+      "Always recover to a different drive than the one you lost the file from — writing to it is what destroys the data for good",
+    ],
+  },
+  {
+    title: "Fix a PC that won't start up",
+    updated: "2026-08-18",
+    diagram: "diagrams/win-boot-fail.svg",
+    cat: "maintenance",
+    difficulty: 2,
+    time: "15 min",
+    win: "Win 10 / 11",
+    description: "A dead screen at boot feels like a funeral for the machine, but most 'dead' PCs are one small thing away from life — and your files are still on the disk either way.",
+    steps: [
+      "Check the boring stuff first: wall socket, power cable, and that little O/I switch on the back of the PSU. Half of all 'dead PC' calls end here",
+      "Hard reset it: hold the power button for 10 seconds, unplug (or pull the battery if you can), wait 30 seconds, then try again — stuck electrical states look exactly like death and die with them",
+      "Fans spin but no display? Try another monitor or cable before touching the PC. On desktops make sure the screen is plugged into the graphics card, not the motherboard",
+      "Stuck on the Windows logo: force it off (hold power 10 seconds) three times in a row — the fourth attempt opens Automatic Repair → Advanced options → Startup Repair, then System Restore if that declines",
+      "Still dark? Boot Safe Mode from those same Advanced options and uninstall whatever changed — recent update first, new driver second. And before any reinstall: copy your files off the drive. Recovery is cheap; data loss isn't",
+    ],
+  },
+  {
+    title: "Spot a phishing email before you click",
+    updated: "2026-08-18",
+    cat: "security",
+    difficulty: 1,
+    time: "10 min",
+    win: "Any",
+    description: "Modern phishing has no spelling mistakes and copies the real branding pixel for pixel. You beat it on process, not on how convincing the message looks.",
+    steps: [
+      "Read the sender's actual domain rather than the display name — 'Microsoft Support <billing@micros0ft-secure.com>' is the entire tell",
+      "Hover a link (long-press on a phone) and read where it truly goes before you click. On mobile that's the only reliable check you have",
+      "Treat urgency as the alarm bell: 'account closing in 24 hours', 'unusual sign-in detected', 'payment failed' all exist to stop you thinking",
+      "Never act from inside the message. Open a new tab, type the company's address yourself, and check your account there — if it's genuine, the notice will be waiting",
+      "Unexpected attachment? Don't open it. .zip, .html and macro-enabled Office documents are the usual carriers",
+    ],
+  },
+  {
+    title: "Move everything to a new PC",
+    updated: "2026-08-18",
+    cat: "windows",
+    difficulty: 2,
+    time: "60 min",
+    win: "Win 10 / 11",
+    description: "The files are the easy part. What catches people out is the browser profile, the licence keys and the two-factor codes — sort those before the old machine gets wiped.",
+    steps: [
+      "Sign in on the old PC with a Microsoft account and use Windows Backup (Settings → Accounts → Windows Backup) to carry settings and your app list across",
+      "Copy the actual data yourself over an external drive or the network — for large folders it's faster and far more predictable than any migration tool",
+      "Sign into your browser on the new PC to pull bookmarks, saved passwords and extensions, and confirm they've arrived before you wipe anything",
+      "Move your authenticator app across, or export the recovery codes first. Being locked out of your own 2FA is the one mistake here that's genuinely hard to undo",
+      "Keep the old drive intact for a month. Something always turns out to be missing in week three",
+    ],
+  },
+  {
+    title: "Tighten up Edge and Firefox",
+    updated: "2026-08-18",
+    cat: "security",
+    difficulty: 1,
+    time: "10 min",
+    win: "Any",
+    description: "The Chrome pass only covers one browser. Edge ships on every Windows PC whether you use it or not, and Firefox is the main alternative — both deserve the same ten minutes.",
+    steps: [
+      "Edge: Settings → Privacy, search and services → set Tracking prevention to Strict, and switch off 'Personalise your web experience'",
+      "Edge: further down that same page, turn off the shopping, sidebar and Rewards extras — they're the noisiest part of the browser and none of them are load-bearing",
+      "Firefox: Settings → Privacy & Security → Enhanced Tracking Protection → Strict, and tick 'Tell websites not to sell or share my data'",
+      "Both: enable HTTPS-Only Mode, then audit your extensions and remove anything you don't recognise or haven't used in a month",
     ],
   },
 ];
