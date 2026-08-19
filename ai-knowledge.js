@@ -2,8 +2,11 @@
    EmTech Media — Phase 3 KNOWLEDGE BASE LAYER (no DOM, no logic)
 
    One knowledge base for search AND AI (§10): everything here reads
-   from tips-data.js (TIPS + tipSlug) and diag-data.js
-   (window.EMTECH_DIAG_DATA). Load order: tips-data → diag-data → this.
+   from tips-data.js (TIPS + tipSlug), diag-data.js
+   (window.EMTECH_DIAG_DATA) and classification-words.js
+   (window.EmTechClassificationWords — shared with the worker's pre-AI
+   router, Phase 3.2.1 §15). Load order: tips-data → diag-data →
+   classification-words → this.
 
    Responsibilities:
      * normalize user text + expand common synonyms (§42)
@@ -170,24 +173,20 @@
     return hits.slice(0, o2.topic ? limit + 3 : limit); // small context (§40)
   }
 
-  /* ---------- Local platform/category classification (deterministic) ---------- */
-  const PLATFORM_WORDS = {
-    mac: ["macbook", "imac", "macos", "osx", "apple silicon", "mac mini", "mac studio", "mac laptop", "mac desktop", "my mac ", "on my mac"],
-    windows: ["windows", "win10", "win 10", "win11", "win 11", "task manager", "control panel"],
-  };
+  /* ---------- Local platform/category classification (deterministic) ----------
+     The word lists live in classification-words.js — ONE canonical source
+     shared with the worker's pre-AI router (Phase 3.2.1 §15). If that file
+     is missing, classification degrades to "unknown" instead of forking a
+     second copy: the Qwen path still works and the worker keeps its own.
+     Add/fix words in classification-words.js, never here. */
+  function sharedWords() {
+    try { if (window && window.EmTechClassificationWords) return window.EmTechClassificationWords; } catch (err) {}
+    return null;
+  }
 
-  const CATEGORY_WORDS = {
-    performance: ["slow", "sluggish", "laggy", "freezing", "frozen", "hangs", "takes forever", "unresponsive", "beachball"],
-    overheating: ["hot", "overheat", "fan", "fans", "loud", "thermal", "throttl"],
-    network: ["wifi", "wi-fi", "wireless", "internet", "disconnect", "drops", "buffering", "router", "ethernet"],
-    storage: ["storage", "disk space", "drive full", "almost full", "not enough space", "not enough storage", "running out of space", "low on space", "no space left", "temp files", "cache"],
-    audio: ["no sound", "silent", "microphone", "mic ", "webcam", "camera won't", "headphones"],
-    updates: ["windows update", "update stuck", "updates failing", "restarts at 3am", "active hours", "macos update"],
-    crashes: ["blue screen", "bsod", "crash", "won't start", "wont start", "black screen", "goes black", "screen goes dark", "random restarts", "gatekeeper"],
-    gaming: ["game", "games", "fps", "stutter", "lag spike", "input lag", "framerate"],
-    security: ["virus", "malware", "ransomware", "phishing", "scam", "pop-up", "popup", "pop up", "popups", "optimizer", "encrypt"],
-    hardware: ["ram", "ssd", "hard drive", "battery", "printer", "usb", "keyboard", "trackpad", "touchpad", "upgrade"],
-  };
+  const W = sharedWords();
+  const PLATFORM_WORDS = (W && W.PLATFORM_WORDS) || {};
+  const CATEGORY_WORDS = (W && W.CATEGORY_WORDS) || {};
 
   /* Best-effort local read of platform + category from free text.
      Used to (a) bias retrieval before the first AI call and (b) feed the
@@ -198,7 +197,7 @@
     const q = " " + normalize(text) + " ";
     let platform = null;
     for (const p of ["mac", "windows"]) {
-      if (PLATFORM_WORDS[p].some((w) => q.indexOf(w) !== -1)) { platform = p; break; }
+      if ((PLATFORM_WORDS[p] || []).some((w) => q.indexOf(w) !== -1)) { platform = p; break; }
     }
 
     let category = null, best = 0;
@@ -230,6 +229,12 @@
       if (Array.isArray(t.steps) && t.steps.length) {
         out += "Verified steps:\n" + t.steps.map((s, i) => `${i + 1}. ${s}`).join("\n") + "\n";
       }
+      /* Phase 3.2.1 safety metadata (optional per tip; server-owned data —
+         Qwen may reference it, never invent it). Labels deliberately do not
+         collide with policy.js extractClientContext fact lines. */
+      if (t.risk_level) out += `Safety risk:\n${t.risk_level}\n`;
+      if (t.verification) out += `How to verify it worked:\n- ${t.verification}\n`;
+      if (t.failure_conditions) out += `If it does not work:\n- ${t.failure_conditions}\n`;
       out += `\n`;
     }
     return out;

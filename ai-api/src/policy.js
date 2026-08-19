@@ -29,6 +29,7 @@
    file — the client's own prompt still goes straight to the local model.
    ============================================================ */
 import { approvedQuestionIds, allApprovedQuestions, firstBranchQuestion } from "./knowledge.js";
+import wordsModule from "../../classification-words.js";
 
 /* ================= authoritative contract (server-owned) =================
    Rule text is ported from ai-prompt.js (the frontend's single source of
@@ -214,23 +215,16 @@ function buildServerPrompt(ctx) {
    question so those turns never burn a Qwen call. Anything ambiguous → null
    (the normal Qwen path handles it). */
 
-const ROUTER_PLATFORM_WORDS = { // mirrors ai-knowledge.js PLATFORM_WORDS (cost routing only)
-  mac: ["macbook", "imac", "macos", "osx", "apple silicon", "mac mini", "mac studio", "mac laptop", "mac desktop", "my mac ", "on my mac"],
-  windows: ["windows", "win10", "win 10", "win11", "win 11", "task manager", "control panel"],
-};
-
-const ROUTER_CATEGORY_WORDS = { // mirrors ai-knowledge.js CATEGORY_WORDS (cost routing only)
-  performance: ["slow", "sluggish", "laggy", "freezing", "frozen", "hangs", "takes forever", "unresponsive", "beachball"],
-  overheating: ["hot", "overheat", "fan", "fans", "loud", "thermal", "throttl"],
-  network: ["wifi", "wi-fi", "wireless", "internet", "disconnect", "drops", "buffering", "router", "ethernet"],
-  storage: ["storage", "disk space", "drive full", "almost full", "not enough space", "not enough storage", "running out of space", "low on space", "no space left", "temp files", "cache"],
-  audio: ["no sound", "silent", "microphone", "mic ", "webcam", "camera won't", "headphones"],
-  updates: ["windows update", "update stuck", "updates failing", "restarts at 3am", "active hours", "macos update"],
-  crashes: ["blue screen", "bsod", "crash", "won't start", "wont start", "black screen", "goes black", "screen goes dark", "random restarts", "gatekeeper"],
-  gaming: ["game", "games", "fps", "stutter", "lag spike", "input lag", "framerate"],
-  security: ["virus", "malware", "ransomware", "phishing", "scam", "pop-up", "popup", "pop up", "popups", "optimizer", "encrypt"],
-  hardware: ["ram", "ssd", "hard drive", "battery", "printer", "usb", "keyboard", "trackpad", "touchpad", "upgrade"],
-};
+/* Canonical word lists — ONE source shared with the browser's classifier
+   (classification-words.js, Phase 3.2.1 §15). Interop-safe access: the file
+   is CJS with a browser-global export; depending on the runtime we may
+   receive module.exports directly or wrapped as { default } (same pattern
+   knowledge.js uses for tips-data.js / diag-data.js). */
+const WORDS = (wordsModule && typeof wordsModule === "object")
+  ? (wordsModule.PLATFORM_WORDS ? wordsModule : (wordsModule.default || {}))
+  : {};
+const ROUTER_PLATFORM_WORDS = WORDS.PLATFORM_WORDS || {}; // cost routing only
+const ROUTER_CATEGORY_WORDS = WORDS.CATEGORY_WORDS || {};   // cost routing only
 
 function classifyText(text) {
   const q = " " + String(text == null ? "" : text).toLowerCase().replace(/\s+/g, " ").trim() + " ";
@@ -301,4 +295,10 @@ function outgoingScanOk(text) {
   return !CREDENTIAL_PATTERNS.some((re) => re.test(t));
 }
 
-export { emptyContext, extractClientContext, sanitizeMessages, boundHistory, buildServerPrompt, classifyText, clearWinner, deterministicRoute, outgoingScanOk };
+/* Exposed for tests: proves the worker's router vocabulary is the shared
+   canonical list (drift check in ai-api/test/schema.test.mjs). */
+function routerVocabulary() {
+  return { platform: ROUTER_PLATFORM_WORDS, category: ROUTER_CATEGORY_WORDS };
+}
+
+export { emptyContext, extractClientContext, sanitizeMessages, boundHistory, buildServerPrompt, classifyText, clearWinner, deterministicRoute, outgoingScanOk, routerVocabulary };

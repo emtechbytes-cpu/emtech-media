@@ -15,6 +15,21 @@
      updated     "YYYY-MM-DD" — last content revision. Bump it whenever you edit a tip;
                  drives the homepage "Recently updated" section (real dates only)
 
+   Phase 3.2.1 safety metadata (optional per tip, but present on all current tips —
+   enforced by ai-api/test/schema.test.mjs; add new tips with these fields or list
+   them in that test's REVIEW_QUEUE):
+     risk_level         "low" | "medium" | "high"
+                        low = settings/restarts/reconnects/diagnostics/app-level ops;
+                        medium = driver, service or system-configuration changes;
+                        high = data-destructive actions or BIOS/UEFI changes
+     reversible         boolean — can the user return to the prior state without
+                        professional help or data loss?
+     verification       how the user confirms THIS fix worked (specific, not "check if it works")
+     failure_conditions what indicates it did NOT work / when to stop and move on
+   These are rendered into the AI knowledge context (ai-knowledge.js) so Qwen can
+   reference — never invent — them. Assign only from the tip's own content; where
+   evidence is insufficient, leave the field out and add a REVIEW_QUEUE entry.
+
    Routing is automatic: cat "mac" renders on mac.html, everything else on
    windows.html. Category headings, counts, the search index and the jump
    chips all derive from this array — visible counts in page copy are filled
@@ -31,6 +46,10 @@
 const TIPS = [
   {
     title: "Disable startup bloat",
+    risk_level: "low",
+    reversible: true,
+    verification: "Restart the PC and confirm boot is faster and the disabled apps no longer launch at startup.",
+    failure_conditions: "Boot speed hasn't improved, or an app you need stopped starting — re-enable it in Task Manager → Startup apps.",
     updated: "2026-08-18",
     diagram: "diagrams/win-startup-bloat.svg",
     cat: "speed",
@@ -47,6 +66,10 @@ const TIPS = [
   },
   {
     title: "Switch the power plan to Best Performance",
+    risk_level: "low",
+    reversible: true,
+    verification: "Run a task that felt sluggish before and confirm the PC responds faster with no new overheating or loud fans.",
+    failure_conditions: "No noticeable change, or the PC runs hotter and louder — switch back to Balanced in Control Panel → Power Options.",
     updated: "2026-08-18",
     diagram: "diagrams/win-power-plan.svg",
     cat: "speed",
@@ -63,6 +86,10 @@ const TIPS = [
   },
   {
     title: "Move your OS or games to an SSD",
+    risk_level: "high",
+    reversible: false,
+    verification: "Windows boots from the SSD in seconds and games load faster than on the old drive.",
+    failure_conditions: "The PC won't boot from the new drive, or speed didn't improve — restore the old drive as the first boot device before doing anything else.",
     updated: "2026-08-18",
     cat: "hardware",
     difficulty: 2,
@@ -78,6 +105,10 @@ const TIPS = [
   },
   {
     title: "Upgrade your RAM (and match it)",
+    risk_level: "low",
+    reversible: true,
+    verification: "Task Manager → Performance → Memory shows the new total capacity and dual-channel is active.",
+    failure_conditions: "Capacity hasn't changed after reseating, or the PC won't post — remove the new stick and re-check type/speed compatibility.",
     updated: "2026-08-18",
     cat: "hardware",
     difficulty: 2,
@@ -93,6 +124,10 @@ const TIPS = [
   },
   {
     title: "Stop Windows updates at odd hours",
+    risk_level: "low",
+    reversible: true,
+    verification: "The PC no longer restarts for updates during your set active hours window.",
+    failure_conditions: "Unexpected restarts continue — widen the active hours range or check that another scheduled task is restarting it.",
     updated: "2026-08-18",
     diagram: "diagrams/win-active-hours.svg",
     cat: "windows",
@@ -108,6 +143,10 @@ const TIPS = [
   },
   {
     title: "Fix a PC that overheats and fans like a jet engine",
+    risk_level: "low",
+    reversible: true,
+    verification: "Fans are quieter under normal use and HWiNFO64 shows lower CPU/GPU temperatures than before cleaning.",
+    failure_conditions: "Temps and fan noise are unchanged after a clean-out — the cause is likely thermal paste, a failing fan, or blocked airflow elsewhere.",
     updated: "2026-08-18",
     diagram: "diagrams/win-dust-cleanout.svg",
     cat: "maintenance",
@@ -125,6 +164,10 @@ const TIPS = [
   },
   {
     title: "Lower Windows transparency and animation effects",
+    risk_level: "low",
+    reversible: true,
+    verification: "Transparency and animations are visibly off in Settings, and the UI feels snappier on modest hardware.",
+    failure_conditions: "No perceptible speed change — turn the effects back on if you prefer the look (Settings → Personalisation).",
     updated: "2026-08-18",
     cat: "windows",
     difficulty: 1,
@@ -139,6 +182,10 @@ const TIPS = [
   },
   {
     title: "Clean up temp files and browser cache properly",
+    risk_level: "low",
+    reversible: true,
+    verification: "Storage shows freed space, and browsers and apps still work normally after clearing caches.",
+    failure_conditions: "Apps misbehave or logins drop after a cache clear — re-sign in; if little space was freed, the big files are elsewhere on disk.",
     updated: "2026-08-18",
     cat: "cleaning",
     difficulty: 1,
@@ -153,6 +200,10 @@ const TIPS = [
   },
   {
     title: "Let Windows' Storage Sense do the work for you",
+    risk_level: "low",
+    reversible: true,
+    verification: "Storage Sense runs on its schedule and temp files, Recycle Bin and Downloads clutter are removed automatically over time.",
+    failure_conditions: "The drive fills up again quickly — Storage Sense isn't covering the real space hogs; check large folders manually.",
     updated: "2026-08-18",
     diagram: "diagrams/win-storage-sense.svg",
     cat: "cleaning",
@@ -168,6 +219,10 @@ const TIPS = [
   },
   {
     title: "Uninstall the apps you never use",
+    risk_level: "low",
+    reversible: true,
+    verification: "Uninstalled apps no longer appear in Installed apps, and background overhead (services, update checks) is reduced.",
+    failure_conditions: "An app you still need is gone or a shortcut breaks — reinstall it from its official source.",
     updated: "2026-08-18",
     cat: "cleaning",
     difficulty: 1,
@@ -183,6 +238,10 @@ const TIPS = [
   },
   {
     title: "Check for driver updates (in the right order)",
+    risk_level: "medium",
+    reversible: true,
+    verification: "Crashes, audio glitches and odd lag stop after the GPU + chipset updates, and Device Manager shows no yellow warnings.",
+    failure_conditions: "Problems continue or new glitches appear — roll back the most recent driver update on the affected device.",
     updated: "2026-08-18",
     cat: "maintenance",
     difficulty: 1,
@@ -197,6 +256,10 @@ const TIPS = [
   },
   {
     title: "Run a disk health check before it's too late",
+    risk_level: "medium",
+    reversible: true,
+    verification: "S.M.A.R.T. health reads Good with no re-allocated, pending or bad sectors, and chkdsk completes without unfixable errors.",
+    failure_conditions: "Any bad/re-allocated sectors or failing S.M.A.R.T. attributes — back everything up immediately and plan a drive replacement.",
     updated: "2026-08-18",
     cat: "maintenance",
     difficulty: 2,
@@ -212,6 +275,10 @@ const TIPS = [
   },
   {
     title: "Back up properly (3-2-1 rule)",
+    risk_level: "low",
+    reversible: true,
+    verification: "You can restore a test file from at least two different copies, including the off-site one.",
+    failure_conditions: "A restore attempt fails or you have fewer than three copies on two media — finish setting up the missing copy before trusting the backup.",
     updated: "2026-08-18",
     cat: "security",
     difficulty: 2,
@@ -227,6 +294,10 @@ const TIPS = [
   },
   {
     title: "Stop games stuttering — the 5-point checklist",
+    risk_level: "medium",
+    reversible: true,
+    verification: "Play a session that previously stuttered and confirm lag spikes are gone with stable frame times.",
+    failure_conditions: "Stutter persists after all five points — the cause is likely hardware (thermals, RAM) or a background process you haven't found yet.",
     updated: "2026-08-18",
     cat: "gaming",
     difficulty: 1,
@@ -243,6 +314,10 @@ const TIPS = [
   },
   {
     title: "Raise your effective FPS with Windows Game Mode",
+    risk_level: "low",
+    reversible: true,
+    verification: "In-game FPS is stable and notifications no longer interrupt gameplay while Game Mode stays on.",
+    failure_conditions: "No FPS improvement — check the GPU driver and in-game settings before blaming Game Mode.",
     updated: "2026-08-18",
     cat: "gaming",
     difficulty: 1,
@@ -257,6 +332,10 @@ const TIPS = [
   },
   {
     title: "Reduce input lag in competitive games",
+    risk_level: "low",
+    reversible: true,
+    verification: "The monitor runs at its native refresh rate (Advanced display) and input feels tighter in competitive play.",
+    failure_conditions: "Refresh rate still shows 60 Hz or lag persists — the monitor, cable or GPU output may not support a higher rate.",
     updated: "2026-08-18",
     cat: "gaming",
     difficulty: 2,
@@ -272,6 +351,10 @@ const TIPS = [
   },
   {
     title: "Hardening: accounts, updates, and the firewall",
+    risk_level: "low",
+    reversible: true,
+    verification: "Windows Hello signs you in daily, each critical account has its own password in your manager, and Windows Update stays on Automatic.",
+    failure_conditions: "You can't sign in with your PIN or updates paused themselves — re-check Sign-in options and the update settings.",
     updated: "2026-08-18",
     cat: "security",
     difficulty: 1,
@@ -287,6 +370,10 @@ const TIPS = [
   },
   {
     title: "Kill shady 'PC optimizer' software",
+    risk_level: "low",
+    reversible: true,
+    verification: "The optimizer is gone from Installed apps and no more registry-problem or RAM-issue pop-ups appear.",
+    failure_conditions: "It keeps coming back after uninstall — it may be bundled with other software; run a full Defender scan.",
     updated: "2026-08-18",
     cat: "security",
     difficulty: 1,
@@ -301,6 +388,10 @@ const TIPS = [
   },
   {
     title: "Repair corrupted system files",
+    risk_level: "medium",
+    reversible: true,
+    verification: "sfc /scannow reports repaired files (or nothing to fix) and the slowness or glitches improve after restart.",
+    failure_conditions: "sfc repeatedly reports files it couldn't fix, or problems continue — try a Windows in-place repair before considering a reinstall.",
     updated: "2026-08-18",
     cat: "maintenance",
     difficulty: 2,
@@ -316,6 +407,10 @@ const TIPS = [
   },
   {
     title: "Stop your PC from sleep-glitching your network",
+    risk_level: "low",
+    reversible: true,
+    verification: "After wake-from-sleep, Ethernet/Wi-Fi stays connected without a manual reconnect.",
+    failure_conditions: "The connection still drops after sleep — the NIC driver itself may need updating from the laptop/motherboard maker's site.",
     updated: "2026-08-18",
     cat: "windows",
     difficulty: 2,
@@ -330,6 +425,10 @@ const TIPS = [
   },
   {
     title: "Know your BIOS settings (the 5 that matter)",
+    risk_level: "high",
+    reversible: true,
+    verification: "The PC boots normally, RAM runs at its rated speed (Task Manager → Memory), and the UEFI settings persist across reboots.",
+    failure_conditions: "The PC fails to post or is unstable after a change — enter UEFI again and reset that setting (or load optimized defaults).",
     updated: "2026-08-18",
     cat: "hardware",
     difficulty: 3,
@@ -346,6 +445,10 @@ const TIPS = [
   },
   {
     title: "Protect against ransomware before it's too late",
+    risk_level: "medium",
+    reversible: true,
+    verification: "Controlled folder access and Memory integrity both show On in Windows Security, and your 3-2-1 backup is current.",
+    failure_conditions: "An app or game breaks after enabling Memory integrity — note which one and weigh the trade-off, or disable that single setting.",
     updated: "2026-08-18",
     cat: "security",
     difficulty: 2,
@@ -360,6 +463,10 @@ const TIPS = [
   },
   {
     title: "Make Windows Search actually useful again",
+    risk_level: "low",
+    reversible: true,
+    verification: "Start menu search returns fast, relevant results for files you know exist on this PC.",
+    failure_conditions: "Search is still slow or empty after the index rebuild — check your exclusions and run a disk health check.",
     updated: "2026-08-18",
     cat: "windows",
     difficulty: 1,
@@ -374,6 +481,10 @@ const TIPS = [
   },
   {
     title: "Save your games the right way",
+    risk_level: "low",
+    reversible: true,
+    verification: "A copy of your save folder exists on an external drive (or Steam Cloud shows synced) from within the last month.",
+    failure_conditions: "You can't find where a game stores saves, or cloud sync never appears — that game needs manual backup each session.",
     updated: "2026-08-18",
     cat: "gaming",
     difficulty: 1,
@@ -388,6 +499,10 @@ const TIPS = [
   },
   {
     title: "Make your desktop feel like a Mac (without the price)",
+    risk_level: "low",
+    reversible: true,
+    verification: "Transparency is off, the accent colour applies across the UI, and the taskbar sits centred as configured.",
+    failure_conditions: "A setting reverts after a Windows update — re-apply it; some personalisation resets on major updates.",
     updated: "2026-08-18",
     cat: "windows",
     difficulty: 1,
@@ -403,6 +518,10 @@ const TIPS = [
   },
   {
     title: "Fix 'My PC is slow all of a sudden' — the order of attack",
+    risk_level: "medium",
+    reversible: true,
+    verification: "Disk usage is no longer pinned at 100%, the culprit process or update is identified, and overall responsiveness returns.",
+    failure_conditions: "Disk still pegged at 100% or slowness continues after all four checks — the drive may be failing; run a disk health check.",
     updated: "2026-08-18",
     cat: "speed",
     difficulty: 1,
@@ -418,6 +537,10 @@ const TIPS = [
   },
   {
     title: "Free up disk space with Storage Management",
+    risk_level: "low",
+    reversible: true,
+    verification: "About This Mac → Storage shows meaningful free space and Optimise Storage is switched on.",
+    failure_conditions: "Storage still nearly full after cleanup — the large items are in apps or iCloud you haven't reviewed yet.",
     updated: "2026-08-18",
     diagram: "diagrams/mac-storage-manage.svg",
     cat: "mac",
@@ -435,6 +558,10 @@ const TIPS = [
   },
   {
     title: "Reset NVRAM when things misbehave",
+    risk_level: "low",
+    reversible: true,
+    verification: "The Mac boots normally and the resolution/audio glitches that prompted the reset are gone.",
+    failure_conditions: "Glitches return after a normal boot — NVRAM wasn't the cause; check display settings and audio output next.",
     updated: "2026-08-18",
     diagram: "diagrams/mac-nvram-reset.svg",
     cat: "mac",
@@ -452,6 +579,10 @@ const TIPS = [
   },
   {
     title: "Keep macOS updated the safe way",
+    risk_level: "low",
+    reversible: true,
+    verification: "The update installs, your daily apps still behave, and a fresh Time Machine backup exists from before the update.",
+    failure_conditions: "Something breaks after a major update — restore from the pre-update Time Machine backup rather than reinstalling.",
     updated: "2026-08-18",
     cat: "mac",
     group: "security",
@@ -468,6 +599,10 @@ const TIPS = [
   },
   {
     title: "Speed up a sluggish MacBook",
+    risk_level: "low",
+    reversible: true,
+    verification: "Activity Monitor shows no runaway CPU processes, and the Mac feels responsive with Reduce motion on.",
+    failure_conditions: "The MacBook is still sluggish after quitting hogs — check storage headroom (keep about 10% free) before assuming hardware failure.",
     updated: "2026-08-18",
     cat: "mac",
     group: "speed",
@@ -484,6 +619,10 @@ const TIPS = [
   },
   {
     title: "Hunt down memory hogs",
+    risk_level: "medium",
+    reversible: true,
+    verification: "Memory usage stays below the ceiling you set, and no process's private bytes climb forever in Performance Monitor.",
+    failure_conditions: "RAM pressure returns within days — the leak is back or another app is hogging memory; re-run the scan.",
     updated: "2026-08-18",
     cat: "speed",
     difficulty: 2,
@@ -500,6 +639,10 @@ const TIPS = [
   },
   {
     title: "Make big file transfers actually fast",
+    risk_level: "medium",
+    reversible: true,
+    verification: "The same transfer that took minutes now completes in a fraction of the time, and Robocopy reports no copy errors.",
+    failure_conditions: "Speeds are still slow on USB 3.x with an SSD at both ends — the drive or cable may be faulty; test another port/cable.",
     updated: "2026-08-18",
     cat: "windows",
     difficulty: 1,
@@ -516,6 +659,10 @@ const TIPS = [
   },
   {
     title: "Stop Windows tracking your location",
+    risk_level: "low",
+    reversible: true,
+    verification: "Location services show off (or per-app off) in Settings, and apps no longer prompt for your location.",
+    failure_conditions: "An app still asks for location after you toggled it off — check the per-app list under Let apps access your location.",
     updated: "2026-08-18",
     cat: "security",
     difficulty: 1,
@@ -532,6 +679,10 @@ const TIPS = [
   },
   {
     title: "Create a local account that doesn't phone home",
+    risk_level: "low",
+    reversible: true,
+    verification: "You can sign in as the new local user and its files stay isolated from your own profile.",
+    failure_conditions: "The account syncs to a Microsoft account anyway, or you can't sign in — remove it and re-add via I don't have this person's sign-in info.",
     updated: "2026-08-18",
     cat: "security",
     difficulty: 2,
@@ -548,6 +699,10 @@ const TIPS = [
   },
   {
     title: "Tighten up Chrome — the 10-minute pass",
+    risk_level: "low",
+    reversible: true,
+    verification: "Third-party cookies are blocked, Enhanced Safe Browsing is on, and Chrome no longer runs background apps after you close it.",
+    failure_conditions: "A site breaks after the cookie block — allow that specific site's cookies in Site Settings rather than reverting everything.",
     updated: "2026-08-18",
     cat: "security",
     difficulty: 1,
@@ -564,6 +719,10 @@ const TIPS = [
   },
   {
     title: "Skip paid antivirus — and keep Defender sharp",
+    risk_level: "medium",
+    reversible: true,
+    verification: "Defender shows Real-time protection On with no third-party AV installed, and a full scan completes clean.",
+    failure_conditions: "Apps or games break after enabling Memory integrity — note which ones; disable that single setting if the conflict is unacceptable.",
     updated: "2026-08-18",
     cat: "security",
     difficulty: 1,
@@ -580,6 +739,10 @@ const TIPS = [
   },
   {
     title: "Dodge bundleware when you install anything",
+    risk_level: "low",
+    reversible: true,
+    verification: "New installs finish without extra toolbars/bundles, and Installed apps shows only what you intended to add.",
+    failure_conditions: "Unexpected extras appear after an install — uninstall them immediately and use Custom install next time.",
     updated: "2026-08-18",
     cat: "cleaning",
     difficulty: 1,
@@ -596,6 +759,10 @@ const TIPS = [
   },
   {
     title: "Run drive optimization the safe way",
+    risk_level: "low",
+    reversible: true,
+    verification: "The optimization schedule runs overnight without errors, and each drive gets its correct operation (defrag for HDDs, TRIM for SSDs).",
+    failure_conditions: "Optimization fails or the drive is still slow — check free space (keep 10–20% free) and run a disk health check.",
     updated: "2026-08-18",
     cat: "maintenance",
     difficulty: 1,
@@ -611,6 +778,10 @@ const TIPS = [
   },
   {
     title: "Master the keyboard shortcuts that save hours",
+    risk_level: "low",
+    reversible: true,
+    verification: "Win + V, Win + Shift + S and Alt + Tab work as described in your daily workflow without hunting for menus.",
+    failure_conditions: "A shortcut does nothing — enable clipboard history on first use of Win + V, or check that a game overlay isn't capturing the key.",
     updated: "2026-08-18",
     cat: "windows",
     difficulty: 1,
@@ -627,6 +798,10 @@ const TIPS = [
   },
   {
     title: "Install PowerToys — Microsoft's free utility pack",
+    risk_level: "low",
+    reversible: true,
+    verification: "PowerToys Run (Alt + Space), FancyZones and Text Extractor all respond as described after installing from the Store/GitHub.",
+    failure_conditions: "A PowerToys utility crashes or doesn't appear — update it via the app's updater; avoid third-party download sites entirely.",
     updated: "2026-08-18",
     cat: "windows",
     difficulty: 1,
@@ -643,6 +818,10 @@ const TIPS = [
   },
   {
     title: "Lock down your home Wi-Fi properly",
+    risk_level: "medium",
+    reversible: true,
+    verification: "The router admin login uses your new password, devices reconnect on the renamed SSID with WPA2/WPA3, and a guest network is active.",
+    failure_conditions: "You lose access to the router or devices can't reconnect — use the physical reset only as a last resort; it restores factory defaults.",
     updated: "2026-08-18",
     cat: "security",
     difficulty: 2,
@@ -659,6 +838,10 @@ const TIPS = [
   },
   {
     title: "Stop emailing passwords and secrets",
+    risk_level: "low",
+    reversible: true,
+    verification: "Your password manager holds the moved credentials, 2FA is on for critical accounts, and old password email threads are deleted.",
+    failure_conditions: "You can't access a service after moving its password — recover it via that provider's account-recovery flow before deleting anything else.",
     updated: "2026-08-18",
     cat: "security",
     difficulty: 1,
@@ -674,6 +857,10 @@ const TIPS = [
   },
   {
     title: "Turn on full-disk encryption (BitLocker)",
+    risk_level: "medium",
+    reversible: true,
+    verification: "Device encryption shows On, and you have the recovery key stored somewhere other than this PC.",
+    failure_conditions: "Encryption stalls or a drive becomes unreadable without the key — losing the recovery key can lock you out permanently; keep it safe.",
     updated: "2026-08-18",
     cat: "security",
     difficulty: 1,
@@ -689,6 +876,10 @@ const TIPS = [
   },
   {
     title: "Make your laptop battery last longer",
+    risk_level: "low",
+    reversible: true,
+    verification: "Battery saver kicks in below your threshold, Optimised charging is on, and Task Manager → Battery shows wear level.",
+    failure_conditions: "Runtime still drops fast — check for a background app draining power (Task Manager) before assuming battery failure.",
     updated: "2026-08-18",
     cat: "maintenance",
     difficulty: 1,
@@ -704,6 +895,10 @@ const TIPS = [
   },
   {
     title: "Fix a blue screen (BSOD) without panicking",
+    risk_level: "medium",
+    reversible: true,
+    verification: "No new BSODs after the rollback/driver change, and Event Viewer shows no red errors in the minutes before past crashes.",
+    failure_conditions: "BSODs continue with different stop codes — bad RAM is likely; run Windows Memory Diagnostic and test sticks one at a time.",
     updated: "2026-08-18",
     diagram: "diagrams/win-bsod.svg",
     cat: "maintenance",
@@ -720,6 +915,10 @@ const TIPS = [
   },
   {
     title: "No sound? The four-minute fix",
+    risk_level: "medium",
+    reversible: true,
+    verification: "Audio plays from the correct output device, and the volume mixer shows no app stuck at zero.",
+    failure_conditions: "Still silent after restarting the audio services — roll back or update the audio driver; if that fails, test another headset/port to isolate hardware.",
     updated: "2026-08-18",
     diagram: "diagrams/win-no-sound.svg",
     cat: "windows",
@@ -736,6 +935,10 @@ const TIPS = [
   },
   {
     title: "Organise your work with virtual desktops",
+    risk_level: "low",
+    reversible: true,
+    verification: "Win + Ctrl + D creates a new desktop and Win + Ctrl + Left/Right switches between them without closing apps.",
+    failure_conditions: "Shortcuts do nothing — check that a game overlay or remote session isn't capturing the keys, and try Task View (Win + Tab) instead.",
     updated: "2026-08-18",
     cat: "windows",
     difficulty: 1,
@@ -751,6 +954,10 @@ const TIPS = [
   },
   {
     title: "Slow internet? Run the five-minute test",
+    risk_level: "low",
+    reversible: true,
+    verification: "You have wired vs Wi-Fi speed numbers, and the slower path is identified (router/placement vs ISP line).",
+    failure_conditions: "Both wired and Wi-Fi are slow — that's the ISP; quote them your recorded download/upload/ping figures.",
     updated: "2026-08-18",
     diagram: "diagrams/win-network-test.svg",
     cat: "windows",
@@ -768,6 +975,10 @@ const TIPS = [
   },
   {
     title: "Force-quit a frozen app",
+    risk_level: "low",
+    reversible: true,
+    verification: "The frozen app closes without a full Mac restart, and other apps keep running normally.",
+    failure_conditions: "The app respawns or freezes again immediately — quit it from Activity Monitor; if Finder itself froze, relaunch it via the X button there.",
     updated: "2026-08-18",
     diagram: "diagrams/mac-force-quit.svg",
     cat: "mac",
@@ -784,6 +995,10 @@ const TIPS = [
   },
   {
     title: "Stop apps from launching at login",
+    risk_level: "low",
+    reversible: true,
+    verification: "Login Items shows only apps you consciously want at startup, and boot feels faster with less background RAM use.",
+    failure_conditions: "An app sneaks back into login — check its own Launch-at-login toggle inside the app's settings.",
     updated: "2026-08-18",
     diagram: "diagrams/mac-login-items.svg",
     cat: "mac",
@@ -800,6 +1015,10 @@ const TIPS = [
   },
   {
     title: "Keep 10% of your disk free",
+    risk_level: "low",
+    reversible: true,
+    verification: "About This Mac → Storage shows about 10% or more free space, and Time Machine backups run without warnings.",
+    failure_conditions: "Free space drops below 10% again within days — a single app or cache is regrowing; sort by size to find it.",
     updated: "2026-08-18",
     diagram: "diagrams/mac-free-space.svg",
     cat: "mac",
@@ -817,6 +1036,10 @@ const TIPS = [
   },
   {
     title: "Tame Spotlight indexing on extra drives",
+    risk_level: "low",
+    reversible: true,
+    verification: "The disk activity light goes quiet on the excluded drives, and Spotlight still finds files on your main drive instantly.",
+    failure_conditions: "Search results feel stale or missing — re-add the main drive to Spotlight Privacy to force a clean rebuild.",
     updated: "2026-08-18",
     cat: "mac",
     group: "speed",
@@ -832,6 +1055,10 @@ const TIPS = [
   },
   {
     title: "Fix a Mac that won't start up",
+    risk_level: "medium",
+    reversible: true,
+    verification: "The Mac boots normally after First Aid (or a reinstall), and your files are intact.",
+    failure_conditions: "First Aid reports unrepairable errors, or the Mac still won't boot — back up what you can before any erase/reinstall step.",
     updated: "2026-08-18",
     cat: "mac",
     group: "fixes",
@@ -848,6 +1075,10 @@ const TIPS = [
   },
   {
     title: "Run First Aid on external drives",
+    risk_level: "low",
+    reversible: true,
+    verification: "First Aid completes with The volume appears to be OK (or repairs reported), and files copy without stalling.",
+    failure_conditions: "First Aid reports errors it can't repair — back up what you can immediately; that drive is on borrowed time.",
     updated: "2026-08-18",
     cat: "mac",
     group: "fixes",
@@ -864,6 +1095,10 @@ const TIPS = [
   },
   {
     title: "Keep your Mac battery healthy",
+    risk_level: "low",
+    reversible: true,
+    verification: "Optimised Battery Charging is on, and Battery Health shows Normal with a good maximum capacity.",
+    failure_conditions: "Health drops below about 80% max capacity — consider Apple service; no setting will reverse that ageing.",
     updated: "2026-08-18",
     diagram: "diagrams/mac-battery-health.svg",
     cat: "mac",
@@ -881,6 +1116,10 @@ const TIPS = [
   },
   {
     title: "Set up Time Machine properly",
+    risk_level: "low",
+    reversible: true,
+    verification: "The first full backup completes, hourly backups run automatically, and you've successfully restored one test folder.",
+    failure_conditions: "A restore attempt fails or the backup never finishes — check the drive's connection/format (APFS) before trusting Time Machine.",
     updated: "2026-08-18",
     diagram: "diagrams/mac-time-machine.svg",
     cat: "mac",
@@ -898,6 +1137,10 @@ const TIPS = [
   },
   {
     title: "Turn on FileVault full-disk encryption",
+    risk_level: "medium",
+    reversible: true,
+    verification: "FileVault shows On in Privacy & Security, and your recovery key (or iCloud unlock choice) is stored safely off this Mac.",
+    failure_conditions: "Encryption stalls or you can't find the recovery key — losing it can lock you out permanently; keep it somewhere safe.",
     updated: "2026-08-18",
     diagram: "diagrams/mac-filevault.svg",
     cat: "mac",
@@ -914,6 +1157,10 @@ const TIPS = [
   },
   {
     title: "Open apps blocked by Gatekeeper",
+    risk_level: "low",
+    reversible: true,
+    verification: "The app opens on first launch via right-click → Open (or Open Anyway), and runs normally afterwards.",
+    failure_conditions: "The app still won't open or behaves oddly — don't force it; an untrusted source is exactly where malware hides.",
     updated: "2026-08-18",
     cat: "mac",
     group: "fixes",
@@ -929,6 +1176,10 @@ const TIPS = [
   },
   {
     title: "Fix slow Wi-Fi on your Mac",
+    risk_level: "low",
+    reversible: true,
+    verification: "Wi-Fi speed matches your wired test (or the gap is explained by placement), and the connection stays stable on 5 GHz if available.",
+    failure_conditions: "Wired is fast but Wi-Fi still slow after forgetting/reconnecting — it's placement or interference; move closer or switch bands.",
     updated: "2026-08-18",
     cat: "mac",
     group: "fixes",
@@ -945,6 +1196,10 @@ const TIPS = [
   },
   {
     title: "Give Safari a proper clean-out",
+    risk_level: "low",
+    reversible: true,
+    verification: "Safari loads pages at its old speed, and website data/extensions you removed no longer appear in Settings.",
+    failure_conditions: "Safari is still sluggish after the clean-out — close hoarded tabs (each runs a live process) before assuming hardware limits.",
     updated: "2026-08-18",
     cat: "mac",
     group: "speed",
@@ -961,6 +1216,10 @@ const TIPS = [
   },
   {
     title: "Pick an SSD that's actually fast",
+    risk_level: "low",
+    reversible: true,
+    verification: "The drive you buy matches the interface your case supports (NVMe M.2, SATA or 2.5-inch), and its sustained write speed suits your workloads.",
+    failure_conditions: "A bought drive is far slower than expected — check it's seated in the right slot/interface; QLC drives slow down badly once full.",
     updated: "2026-08-18",
     cat: "hardware",
     difficulty: 1,
@@ -976,6 +1235,10 @@ const TIPS = [
   },
   {
     title: "Size your PSU before the next upgrade",
+    risk_level: "low",
+    reversible: true,
+    verification: "Your calculated draw plus about 30% headroom matches the PSU you choose, and native cables (no daisy-chained adapters) are available for your GPU.",
+    failure_conditions: "Random shutdowns under load continue after the upgrade — the PSU was still undersized or a cable is faulty; re-check the calculation.",
     updated: "2026-08-18",
     cat: "hardware",
     difficulty: 2,
@@ -991,6 +1254,10 @@ const TIPS = [
   },
   {
     title: "Fix a hot PC for good: the airflow pass",
+    risk_level: "low",
+    reversible: true,
+    verification: "HWiNFO64 shows idle CPU under 45C and GPU under 50C, with cool air in one side and hot air out the other.",
+    failure_conditions: "Temps stay high after the airflow pass — dust filters are blocked or a fan is failing; clean filters and test each fan.",
     updated: "2026-08-18",
     cat: "hardware",
     difficulty: 2,
@@ -1007,6 +1274,10 @@ const TIPS = [
   },
   {
     title: "Windows 10 is past end of support — what to do now",
+    risk_level: "medium",
+    reversible: true,
+    verification: "winver shows Windows 11 (or ESU enrolment confirmed), and your daily apps still work after the change.",
+    failure_conditions: "The PC doesn't qualify for Win11 and ESU isn't available — treat it as untrusted: no online banking, Defender on, plan a replacement.",
     updated: "2026-08-18",
     cat: "maintenance",
     difficulty: 1,
@@ -1022,6 +1293,10 @@ const TIPS = [
   },
   {
     title: "Check whether your PC can run Windows 11",
+    risk_level: "medium",
+    reversible: true,
+    verification: "PC Health Check names no blockers (or TPM 2.0 + Secure Boot are confirmed ready), and the PC still boots normally after any BIOS change.",
+    failure_conditions: "The PC fails to boot after enabling Secure Boot — it was installed in legacy mode; revert in UEFI and convert with mbr2gpt first if you proceed.",
     updated: "2026-08-18",
     diagram: "diagrams/win-win11-check.svg",
     cat: "windows",
@@ -1039,6 +1314,10 @@ const TIPS = [
   },
   {
     title: "Fix a printer that won't print",
+    risk_level: "medium",
+    reversible: true,
+    verification: "A test page prints from the queue, and the default printer stays set to the one you want.",
+    failure_conditions: "The queue is clear but nothing prints after re-adding — try a different USB port/cable before blaming the driver.",
     updated: "2026-08-18",
     diagram: "diagrams/win-printer.svg",
     cat: "windows",
@@ -1055,6 +1334,10 @@ const TIPS = [
   },
   {
     title: "Fix a microphone no one can hear",
+    risk_level: "low",
+    reversible: true,
+    verification: "The input volume bar moves while you talk, and the other party can hear you in your calling app.",
+    failure_conditions: "The level bar doesn't move at all — check the inline mute switch/F-key first; if it still fails, test another mic to isolate hardware.",
     updated: "2026-08-18",
     diagram: "diagrams/win-mic-input.svg",
     cat: "windows",
@@ -1071,6 +1354,10 @@ const TIPS = [
   },
   {
     title: "Fix a webcam that won't turn on",
+    risk_level: "low",
+    reversible: true,
+    verification: "The built-in Camera app shows a live picture, and your calling app can access the camera afterwards.",
+    failure_conditions: "Camera works in the Camera app but not your app — the fault is that app's settings; if it fails everywhere, check the privacy toggle and physical shutter.",
     updated: "2026-08-18",
     diagram: "diagrams/win-webcam.svg",
     cat: "windows",
@@ -1087,6 +1374,10 @@ const TIPS = [
   },
   {
     title: "Start Windows in Safe Mode",
+    risk_level: "low",
+    reversible: true,
+    verification: "Windows boots into Safe Mode (option 4/5), and you can confirm whether the problem disappears there.",
+    failure_conditions: "It keeps booting into Safe Mode afterwards — untick Safe boot in msconfig → Boot tab to return to normal startup.",
     updated: "2026-08-18",
     diagram: "diagrams/win-safe-mode.svg",
     cat: "maintenance",
@@ -1104,6 +1395,10 @@ const TIPS = [
   },
   {
     title: "Get back a file you deleted by mistake",
+    risk_level: "low",
+    reversible: true,
+    verification: "The recovered file opens and its contents are intact, saved to a different drive than the one it was lost from.",
+    failure_conditions: "The file isn't in Recycle Bin/Previous Versions/OneDrive bin — stop writing to that drive immediately; recovery odds fall quickly with time.",
     updated: "2026-08-18",
     diagram: "diagrams/win-file-recovery.svg",
     cat: "maintenance",
@@ -1121,6 +1416,10 @@ const TIPS = [
   },
   {
     title: "Fix a PC that won't start up",
+    risk_level: "medium",
+    reversible: true,
+    verification: "The PC powers on and reaches the desktop (or Automatic Repair completes), with your files still accessible on the disk.",
+    failure_conditions: "Still dark after power checks, hard reset and monitor/cable swap — copy your files off before any reinstall; recovery is cheap, data loss isn't.",
     updated: "2026-08-18",
     diagram: "diagrams/win-boot-fail.svg",
     cat: "maintenance",
@@ -1138,6 +1437,10 @@ const TIPS = [
   },
   {
     title: "Spot a phishing email before you click",
+    risk_level: "low",
+    reversible: true,
+    verification: "You can read the sender's real domain, hover-check a link's destination, and verify notices by typing the address yourself.",
+    failure_conditions: "You're unsure whether an email is genuine — don't act from inside it; open a new tab, type the site yourself, and check there.",
     updated: "2026-08-18",
     cat: "security",
     difficulty: 1,
@@ -1154,6 +1457,10 @@ const TIPS = [
   },
   {
     title: "Move everything to a new PC",
+    risk_level: "medium",
+    reversible: true,
+    verification: "Bookmarks, passwords, extensions and 2FA codes all work on the new PC, confirmed before the old machine is wiped.",
+    failure_conditions: "Something is missing after the switch — the old drive was kept intact for a month; recover from it rather than re-doing the migration.",
     updated: "2026-08-18",
     cat: "windows",
     difficulty: 2,
@@ -1170,6 +1477,10 @@ const TIPS = [
   },
   {
     title: "Tighten up Edge and Firefox",
+    risk_level: "low",
+    reversible: true,
+    verification: "Tracking prevention shows Strict, HTTPS-Only Mode is on, and only extensions you recognise remain installed.",
+    failure_conditions: "A site breaks under Strict protection — lower that one site's tracking level in settings rather than reverting everything.",
     updated: "2026-08-18",
     cat: "security",
     difficulty: 1,

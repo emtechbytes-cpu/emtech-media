@@ -23,9 +23,10 @@ import { fileURLToPath } from "node:url";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "..");
 
 /* Load the frontend knowledge modules exactly as the browser does
-   (tips-data → diag-data → ai-knowledge), with a window shim. */
+   (tips-data → diag-data → classification-words → ai-knowledge), with a
+   window shim. */
 globalThis.window = globalThis;
-for (const f of ["tips-data.js", "diag-data.js", "ai-knowledge.js"]) {
+for (const f of ["tips-data.js", "diag-data.js", "classification-words.js", "ai-knowledge.js"]) {
   vm.runInThisContext(fs.readFileSync(path.join(root, f), "utf8"), { filename: f });
 }
 
