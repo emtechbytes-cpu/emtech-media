@@ -389,9 +389,11 @@ test("regression: all pre-Phase-3.2.3 Mac fix ids still resolve", () => {
   const missing = ORIGINAL_MAC_16.filter((s) => !getFixBySlug(s));
   assert.deepEqual(missing, [], "pre-existing Mac fix ids no longer resolve: " + missing.join(", "));
 
-  // Library totals after Phase 3.2.3 (82 baseline + 4 new).
+  // Library totals after Phase 3.2.3 (82 baseline + 4 new), then Phase 3.3
+  // adds 3 more Mac tips (trackpad/mouse restart pass + two microphone
+  // procedures) → 89.
   const TIPS = vm.runInThisContext("TIPS");
-  assert.equal(TIPS.length, 86, `expected 86 tips (got ${TIPS.length})`);
+  assert.equal(TIPS.length, 89, `expected 89 tips (got ${TIPS.length})`);
   const slugs = TIPS.map((t) => String(t.title).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, ""));
   assert.equal(new Set(slugs).size, slugs.length, "fix ids (slugs) must stay unique");
 });

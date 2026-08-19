@@ -184,8 +184,15 @@
         { id: "mac-perf-login", label: "Apps launching at login adding up", fix: "stop-apps-from-launching-at-login", alt: ["speed-up-a-sluggish-macbook"], keywords: ["login", "startup", "boot"] },
         { id: "mac-perf-disk", label: "The drive is nearly full", fix: "free-up-disk-space-with-storage-management", alt: ["keep-10-of-your-disk-free"], keywords: ["storage", "space", "disk", "full"] },
         { id: "mac-perf-index", label: "Spotlight or background indexing working hard", fix: "tame-spotlight-indexing-on-extra-drives", alt: [], keywords: ["spotlight", "search", "external drive"] },
+        /* Phase 3.3 — Mac freeze/hang pathway (Part 3). All three causes REUSE
+           existing approved Mac fixes — no new tip is created for freezing:
+           one-app hang → force-quit (already the mac-crashes answer), whole-Mac
+           lockup → speed-up pass, repeated freezes → login-item cleanup. */
+        { id: "mac-perf-apphang", label: "One application is frozen while the Mac keeps running", fix: "force-quit-a-frozen-app", alt: [], keywords: ["frozen app", "beachball", "not responding"] },
+        { id: "mac-perf-freeze", label: "Whole-Mac lockups from system load or a struggling drive", fix: "speed-up-a-sluggish-macbook", alt: ["free-up-disk-space-with-storage-management", "stop-apps-from-launching-at-login"], keywords: ["whole mac frozen", "locks up", "everything freezes"] },
+        { id: "mac-perf-repeat", label: "Repeated freezes from background load or login items", fix: "stop-apps-from-launching-at-login", alt: [], keywords: ["keeps freezing", "freezes again and again", "repeated freezes"] },
       ],
-      questions: ["perf-when", "perf-scope", "mac-space"],
+      questions: ["perf-when", "mac-freeze", "perf-scope", "mac-space"],
     },
     {
       id: "mac-network", devices: ["mac"], category: "network",
@@ -251,6 +258,10 @@
         { id: "mac-hw-display", label: "An external monitor or second screen isn't detected", fix: "external-monitor-not-detected-on-your-mac", alt: ["reset-nvram-when-things-misbehave"], keywords: ["external monitor", "second screen", "monitor not detected"] },
         { id: "mac-hw-nvram", label: "A display/audio/boot glitch an NVRAM reset clears (Intel Macs)", fix: "reset-nvram-when-things-misbehave", alt: [], keywords: ["nvram", "weird glitch"] },
         { id: "mac-hw-bluetooth", label: "Bluetooth won't pair or keeps dropping", fix: "bluetooth-won-t-pair-on-your-mac-reset-it-properly", alt: [], keywords: ["bluetooth", "pairing", "won't pair"] },
+        /* Phase 3.3 — trackpad/mouse pathway (Part 2). New safe restart pass
+           tip; NVRAM reset (existing) is the escalation step, same pattern as
+           the display branch above. */
+        { id: "mac-hw-input", label: "Trackpad or mouse not responding", fix: "trackpad-or-mouse-not-working-on-your-mac-the-safe-restart-pass", alt: ["reset-nvram-when-things-misbehave"], keywords: ["trackpad", "mouse", "cursor stuck", "input dead"] },
       ],
       questions: ["hw-mac-what"],
     },
@@ -608,13 +619,35 @@
         /* Phase 3.2.3 — display + Bluetooth branches (additive; existing options untouched) */
         { label: "An external monitor isn't detected", value: "display", score: { "mac-hw-display": 4, "mac-hw-nvram": 3 }, reason: "A second screen macOS refuses to see is usually cable, adapter or port — and an NVRAM reset is the next safe step if those check out." },
         { label: "Bluetooth won't pair or keeps dropping", value: "bluetooth", score: { "mac-hw-bluetooth": 3 } },
+        /* Phase 3.3 — input branch (Part 2). Scores the new cause plus the
+           existing NVRAM cause so a failed restart pass escalates to the
+           reset, exactly like the display branch above. */
+        { label: "Trackpad or mouse isn't responding", value: "input", score: { "mac-hw-input": 4, "mac-hw-nvram": 3 }, reason: "Dead input is usually a stuck process, a bad port or cable, or the device itself — a clean restart isolates all three." },
         { label: "Both, honestly", value: "both", score: { "mac-hw-battery": 2, "mac-hw-drives": 2 } },
+      ],
+    },
+
+    /* Phase 3.3 — Mac freeze/hang question (Part 3).
+       Mirrors the Windows perf-freeze shape from Phase 3.2.2B, including the
+       "no-freeze" escape hatch: a pure-slowness user answers it and continues
+       down the original slow path untouched. Each freezing branch maps to an
+       EXISTING approved Mac fix (force-quit / speed-up pass / login cleanup). */
+    "mac-freeze": {
+      q: "When it freezes, what can you still do?",
+      desc: "This separates one stuck app from a whole-Mac lockup — they need different fixes.",
+      options: [
+        { label: "One app is frozen (beachballing) but everything else works", value: "app-only", score: { "mac-perf-apphang": 3 }, reason: "A single hung app is a different (and safer) problem than a frozen Mac." },
+        { label: "Everything freezes — mouse and keyboard stop for a while, then it recovers", value: "whole-system", score: { "mac-perf-freeze": 3 }, reason: "Whole-Mac lockups that recover point at system load or the drive working overtime." },
+        { label: "It keeps freezing with one particular app, or after updates", value: "specific", score: { "mac-perf-repeat": 3 }, reason: "Repeated freezes tied to an app or a recent change usually trace back to background load and login items." },
+        { label: "It doesn't really freeze — it's just slow", value: "no-freeze" },
       ],
     },
 
     /* Phase 3.2.3 — macOS audio questions.
        mac-audio-where is showIf-gated to output-silence answers: after a mic or
-       one-app answer it must NOT appear (there is no approved Mac fix behind it). */
+       one-app answer it must NOT appear (there is no approved Mac fix behind it).
+       Phase 3.3 note: the microphone stays on this honest branch by design —
+       see the Phase 3.2.3 comment above and the Phase 3.3 report (Part G). */
     "mac-audio-what": {
       q: "What exactly isn't working?",
       desc: "This splits silent output from microphone and single-app problems.",

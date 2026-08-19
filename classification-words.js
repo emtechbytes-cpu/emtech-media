@@ -14,7 +14,7 @@
    ai-api/test/schema.test.mjs fails if the two runtimes drift apart.
    ============================================================ */
 const EMTECH_CLASSIFICATION_WORDS = {
-  version: "1.2.0", // bump when a word is added/removed (stamped for debugging)
+  version: "1.3.0", // bump when a word is added/removed (stamped for debugging)
 
   PLATFORM_WORDS: {
     mac: ["macbook", "imac", "macos", "osx", "apple silicon", "mac mini", "mac studio", "mac laptop", "mac desktop", "my mac ", "on my mac"],
@@ -31,7 +31,15 @@ const EMTECH_CLASSIFICATION_WORDS = {
     crashes: ["blue screen", "bsod", "crash", "won't start", "wont start", "black screen", "goes black", "screen goes dark", "random restarts", "gatekeeper", "no signal", "won't turn on", "wont turn on", "no power"],
     gaming: ["game", "games", "fps", "stutter", "lag spike", "input lag", "framerate"],
     security: ["virus", "malware", "ransomware", "phishing", "scam", "pop-up", "popup", "pop up", "popups", "optimizer", "encrypt"],
-    hardware: ["ram", "ssd", "hard drive", "battery", "printer", "usb", "keyboard", "trackpad", "touchpad", "upgrade", "bluetooth", "external monitor", "second screen", "mouse"],
+    /* Phase 3.3 — Bluetooth/headphones intent precision (Part 1).
+       Pairing/connect phrases are hardware intent even when a headphone
+       word is present: "headphones won't connect/pair" is a pairing problem,
+       while "no sound" / "silent" stay audio. Phrase weight keeps these from
+       hijacking plain Wi-Fi or audio phrasing (no bare "pair"/"connect"). */
+    hardware: ["ram", "ssd", "hard drive", "battery", "printer", "usb", "keyboard", "trackpad", "touchpad", "upgrade", "bluetooth", "external monitor", "second screen", "mouse",
+      "won't pair", "wont pair", "can't pair", "cant pair", "not pairing", "failed to pair",
+      "headphones won't connect", "headphones wont connect", "earbuds won't connect",
+      "bluetooth won't connect", "bluetooth wont connect"],
   },
 };
 

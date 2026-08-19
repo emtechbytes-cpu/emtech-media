@@ -147,8 +147,8 @@ const ORIGINAL_74 = [
 ];
 
 /* ---------- 1. fixes: count, unique ids, accessibility (§21.1/§21.11) ---- */
-test("all 86 fixes remain accessible with unique fix ids (74 original + 6 P0 + 2 Phase 3.2.2B + 4 Phase 3.2.3 macOS)", () => {
-  assert.equal(TIPS.length, 86, `Phase 3.2.3 baseline is 86 tips (got ${TIPS.length})`);
+test("all 89 fixes remain accessible with unique fix ids (74 original + 6 P0 + 2 Phase 3.2.2B + 4 Phase 3.2.3 macOS + 3 Phase 3.3)", () => {
+  assert.equal(TIPS.length, 89, `Phase 3.3 baseline is 89 tips (got ${TIPS.length})`);
   const slugs = TIPS.map((t) => tipSlug(t.title));
   assert.equal(new Set(slugs).size, slugs.length, "fix ids (slugs) must be unique");
   for (const s of slugs) {

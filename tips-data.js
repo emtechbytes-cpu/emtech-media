@@ -1733,6 +1733,77 @@ const TIPS = [
       "Restart both devices — power-cycle the accessory too, not just the Mac",
     ],
   },
+
+  /* ============ Phase 3.3 — macOS diagnostic quality (Parts 2–4) ============
+     Three new Mac tips.
+     * trackpad/mouse: backs the mac-hardware "input" branch (restart pass +
+       port/cable isolation; NVRAM reset reused as the escalation step).
+     * microphone x2: safe first-principles procedures for the two common mic
+       failures. Deliberately NOT wired into the mac-audio profile — that
+       profile is single-pathway by design (Phase 3.2.3), and adding causes
+       there would make failed-fix escalation cross-recommend output fixes to
+       mic users and vice versa. These stay reachable via free-text search
+       and browsing; see Phase 3.3 report, Part G + known limitations. */
+  {
+    title: "Trackpad or mouse not working on your Mac? The safe restart pass",
+    risk_level: "low",
+    reversible: true,
+    verification: "After the reboot the cursor moves when you use the trackpad (or an external mouse in a different port), and clicks register normally in any app.",
+    failure_conditions: "Still dead after a clean restart — for the built-in trackpad, try the NVRAM reset next; for an external mouse or trackpad that also fails on another Mac or port, the device itself is likely faulty rather than your Mac.",
+    updated: "2026-08-19",
+    cat: "mac",
+    group: "fixes",
+    difficulty: 1,
+    time: "5 min",
+    win: "macOS",
+    description: "A dead trackpad or mouse is usually a stuck process, a bad port or cable, or the device itself — not a broken Mac. A clean restart plus simple isolation finds which one it is.",
+    steps: [
+      "Restart your Mac (Apple menu → Restart) — a clean boot clears most input glitches caused by a stuck process",
+      "External mouse/trackpad? Try a different USB-C or USB port, bypass any hub or dock and connect directly, then test the device on another computer to isolate whether it's the device or the Mac",
+      "Built-in trackpad? Check for physical damage, liquid spills or debris under the surface, and confirm 'Tap to click' isn't switched off (System Settings → Trackpad)",
+      "After the reboot, open System Settings → Mouse & Trackpad and confirm your device is listed with its settings intact",
+    ],
+  },
+  {
+    title: "No microphone on your Mac? Check the input device first",
+    risk_level: "low",
+    reversible: true,
+    verification: "The input level meter moves as you speak, and a test recording in Voice Memos plays back with your voice.",
+    failure_conditions: "No input device appears at all — likely a hardware fault; stop cycling settings and try an external USB microphone to confirm before assuming the built-in mic is dead.",
+    updated: "2026-08-19",
+    cat: "mac",
+    group: "fixes",
+    difficulty: 1,
+    time: "5 min",
+    win: "macOS",
+    description: "Most 'my Mac can't hear me' problems are the wrong input device selected after a call, a headset pairing or an external display was plugged in. The fix is a settings check with a live level meter, not a reset.",
+    steps: [
+      "Open System Settings → Sound → Input and select 'MacBook Microphone' (or the mic you expect to use)",
+      "Speak normally and watch the input level meter — it should move as you talk; if it doesn't, pick a different input device from the same list",
+      "Make sure the input volume slider isn't at zero (it sits under the device picker on some macOS versions)",
+      "Record 10 seconds in Voice Memos and play it back — that's your proof the mic is live before you trust it in a call app",
+    ],
+  },
+  {
+    title: "Microphone permission on your Mac? Let the app use it",
+    risk_level: "low",
+    reversible: true,
+    verification: "After re-enabling access and relaunching the app, its microphone test (or a new recording) picks up your voice.",
+    failure_conditions: "Still blocked after toggling — quit the app fully with Cmd+Q, toggle the switch off and on again; if it persists the issue is app-specific or system-level and needs Apple Support rather than more resets.",
+    updated: "2026-08-19",
+    cat: "mac",
+    group: "fixes",
+    difficulty: 1,
+    time: "5 min",
+    win: "macOS",
+    description: "macOS blocks each app from the microphone until you allow it — one denied prompt and that app is silent forever, even though every other app hears you fine. The switch lives in Privacy & Security.",
+    steps: [
+      "Open System Settings → Privacy & Security → Microphone",
+      "Find the affected app in the list and make sure its switch is ON; if it's missing, use the mic inside that app once to trigger the permission prompt, then allow it",
+      "If you just flipped a switch: quit the app fully with Cmd+Q (not just closing the window) and launch it again — permissions apply at launch",
+      "Run the app's own microphone test or start a recording to confirm your voice comes through",
+    ],
+  },
 ];
 
 // Category display names used in the card badge
