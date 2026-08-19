@@ -93,7 +93,21 @@ Then set the secret (stored encrypted on Cloudflare — never in this repo):
 ```bash
 npx wrangler secret put QWEN_API_KEY   # paste when prompted
 npx wrangler secret put QWEN_MODEL     # optional, default qwen-plus
-# optional: npx wrangler secret put ALLOWED_ORIGINS  (default is the Pages origin)
+```
+
+`ALLOWED_ORIGINS` is a regular **var** (not a secret) and lives in the `vars`
+block of `wrangler.jsonc`. After any deploy that changes config vars, verify
+they actually took effect with a CORS probe:
+
+```bash
+curl -sS -D - -o /dev/null "https://<your-worker>/api/health" -H "Origin: http://localhost:8123" | grep -i access-control
+```
+
+If the `Access-Control-Allow-Origin` header is missing, redeploy with an
+explicit flag:
+
+```bash
+npx wrangler deploy --var "ALLOWED_ORIGINS=https://emtechbytes-cpu.github.io,http://localhost:8123,http://127.0.0.1:8123"
 ```
 
 If your worker URL differs from `CLOUD_ENDPOINT_DEFAULT` in `ai-config.js`,

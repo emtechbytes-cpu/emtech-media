@@ -8,7 +8,10 @@
   // Lives here so every `wrangler deploy` carries it (§38: model/endpoint
   // configurable without touching the frontend).
   "vars": {
-    "QWEN_BASE_URL": "https://ws-lum9z1oqbnbg6tu2.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1"
+    "QWEN_BASE_URL": "https://ws-lum9z1oqbnbg6tu2.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1",
+
+    // CORS allow-list (§27): the public site + local dev server only.
+    "ALLOWED_ORIGINS": "https://emtechbytes-cpu.github.io,http://localhost:8123,http://127.0.0.1:8123"
   }
 
   // Optional: global rate-limit store (see README → "Rate limiting").
