@@ -34,7 +34,7 @@
     { id: "overheating", label: "Overheating", icon: "🔥", platforms: ["windows"] },
     { id: "network", label: "Internet / Wi-Fi", icon: "📶", platforms: ["windows", "mac", "other"] },
     { id: "storage", label: "Storage", icon: "💾", platforms: ["windows", "mac", "other"] },
-    { id: "audio", label: "Audio & camera", icon: "🔊", platforms: ["windows"] },
+    { id: "audio", label: "Audio & camera", icon: "🔊", platforms: ["windows", "mac"] },
     { id: "updates", label: "Updates", icon: "🔄", platforms: ["windows", "mac"] },
     { id: "crashes", label: "Crashes / Errors", icon: "💥", platforms: ["windows", "mac", "other"] },
     { id: "gaming", label: "Gaming", icon: "🎮", platforms: ["windows"] },
@@ -191,8 +191,21 @@
       id: "mac-network", devices: ["mac"], category: "network",
       causes: [
         { id: "mac-net-wifi", label: "Wi-Fi performance on this Mac", fix: "fix-slow-wi-fi-on-your-mac", alt: [], keywords: ["wifi", "wi-fi", "disconnect", "slow internet"] },
+        /* Phase 3.2.3 — Wi-Fi won't-connect pathway (safe toggle first, network reset escalates after failure) */
+        { id: "mac-net-off", label: "Wi-Fi switched off or the option missing", fix: "fix-slow-wi-fi-on-your-mac", alt: [], keywords: ["wifi is off", "no wi-fi option", "airplane mode"] },
+        { id: "mac-net-dns", label: "Connected but no internet — DNS or network stack", fix: "connected-but-no-internet-on-your-mac-the-safe-network-reset", alt: [], keywords: ["connected but no internet", "pages won't load", "globe with a slash"] },
       ],
-      questions: ["net-when", "net-scope"],
+      questions: ["net-state", "net-when", "net-scope"],
+    },
+    /* Phase 3.2.3 — macOS audio pathway (audio category was Windows-only before this).
+       Single approved cause on purpose: there is no verified Mac mic fix in the
+       library, so mic answers stay honestly 'insufficient' instead of inventing one. */
+    {
+      id: "mac-audio", devices: ["mac"], category: "audio",
+      causes: [
+        { id: "mac-aud-output", label: "Wrong output device selected — muted or Bluetooth-routed audio", fix: "no-sound-on-your-mac-check-the-output-device-first", alt: [], keywords: ["no sound", "silent", "mute", "output"] },
+      ],
+      questions: ["mac-audio-what", "mac-audio-where"],
     },
     {
       id: "mac-storage", devices: ["mac"], category: "storage",
@@ -234,6 +247,10 @@
       causes: [
         { id: "mac-hw-battery", label: "Battery health and longevity", fix: "keep-your-mac-battery-healthy", alt: [], keywords: ["battery", "charge"] },
         { id: "mac-hw-drives", label: "External drives — First Aid and setup", fix: "run-first-aid-on-external-drives", alt: [], keywords: ["external drive", "usb", "time machine disk"] },
+        /* Phase 3.2.3 — external display + Bluetooth pathways (NVRAM reset reused as the escalation step) */
+        { id: "mac-hw-display", label: "An external monitor or second screen isn't detected", fix: "external-monitor-not-detected-on-your-mac", alt: ["reset-nvram-when-things-misbehave"], keywords: ["external monitor", "second screen", "monitor not detected"] },
+        { id: "mac-hw-nvram", label: "A display/audio/boot glitch an NVRAM reset clears (Intel Macs)", fix: "reset-nvram-when-things-misbehave", alt: [], keywords: ["nvram", "weird glitch"] },
+        { id: "mac-hw-bluetooth", label: "Bluetooth won't pair or keeps dropping", fix: "bluetooth-won-t-pair-on-your-mac-reset-it-properly", alt: [], keywords: ["bluetooth", "pairing", "won't pair"] },
       ],
       questions: ["hw-mac-what"],
     },
@@ -371,9 +388,9 @@
       q: "Is Wi-Fi completely off or missing — or are you connected but can't get online?",
       desc: "This splits 'no Wi-Fi at all' from 'connected but no internet'.",
       options: [
-        { label: "Wi-Fi is off / the option is missing", value: "off", score: { "win-net-off": 3 }, reason: "A switched-off or vanished adapter has three usual culprits — and they're all quick to check." },
-        { label: "I'm connected, but pages won't load", value: "connected-nointernet", score: { "win-net-dns": 3 }, reason: "Connected-but-no-internet usually means DNS or the network stack needs a safe reset." },
-        { label: "It drops in and out", value: "drops", score: { "win-net-sleep": 2, "win-net-speed": 1 } },
+        { label: "Wi-Fi is off / the option is missing", value: "off", score: { "win-net-off": 3, "mac-net-off": 4, "mac-net-dns": 3 }, reason: "A switched-off or vanished adapter has three usual culprits — and they're all quick to check." },
+        { label: "I'm connected, but pages won't load", value: "connected-nointernet", score: { "win-net-dns": 3, "mac-net-wifi": 4, "mac-net-dns": 3 }, reason: "Connected-but-no-internet usually means DNS or the network stack needs a safe reset." },
+        { label: "It drops in and out", value: "drops", score: { "win-net-sleep": 2, "win-net-speed": 1, "mac-net-wifi": 3 } },
         { label: "Not sure", value: "unsure" },
       ],
     },
@@ -588,7 +605,34 @@
       options: [
         { label: "Battery life has dropped off", value: "battery", score: { "mac-hw-battery": 3 } },
         { label: "An external drive is acting up", value: "drives", score: { "mac-hw-drives": 3 } },
+        /* Phase 3.2.3 — display + Bluetooth branches (additive; existing options untouched) */
+        { label: "An external monitor isn't detected", value: "display", score: { "mac-hw-display": 4, "mac-hw-nvram": 3 }, reason: "A second screen macOS refuses to see is usually cable, adapter or port — and an NVRAM reset is the next safe step if those check out." },
+        { label: "Bluetooth won't pair or keeps dropping", value: "bluetooth", score: { "mac-hw-bluetooth": 3 } },
         { label: "Both, honestly", value: "both", score: { "mac-hw-battery": 2, "mac-hw-drives": 2 } },
+      ],
+    },
+
+    /* Phase 3.2.3 — macOS audio questions.
+       mac-audio-where is showIf-gated to output-silence answers: after a mic or
+       one-app answer it must NOT appear (there is no approved Mac fix behind it). */
+    "mac-audio-what": {
+      q: "What exactly isn't working?",
+      desc: "This splits silent output from microphone and single-app problems.",
+      options: [
+        { label: "Speakers or headphones are silent", value: "speakers", score: { "mac-aud-output": 3 }, reason: "Silent output on a Mac is usually the wrong device selected, not broken hardware." },
+        { label: "Both — no sound and the mic isn't heard either", value: "both", score: { "mac-aud-output": 2 } },
+        { label: "Only one app has no sound", value: "oneapp" },
+        { label: "My microphone isn't being heard", value: "mic" },
+      ],
+    },
+    "mac-audio-where": {
+      q: "Where does the silence happen?",
+      desc: "This separates routing problems from a failing speaker.",
+      showIf: { q: "mac-audio-what", is: ["speakers", "both"] },
+      options: [
+        { label: "Nothing works — speakers, headphones, everything", value: "nothing-works", score: { "mac-aud-output": 3 }, reason: "Silence on every output points at routing or the audio system, not one device." },
+        { label: "Headphones work but the built-in speakers don't", value: "headphones-ok" },
+        { label: "Not sure", value: "unsure" },
       ],
     },
 

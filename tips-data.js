@@ -1647,6 +1647,92 @@ const TIPS = [
       "If the top entry is svchost.exe or something system-looking: note its name, then open Task Manager → Startup apps and disable anything you don't need at boot — that's where silent CPU hogs usually live",
     ],
   },
+
+  /* ============ Phase 3.2.3 — macOS P1 diagnostic expansion ============
+     Four new Mac tips backing the mac-network / mac-audio / mac-hardware
+     pathways in diag-data.js. Existing fixes are reused where they already
+     solve a branch (fix-slow-wi-fi-on-your-mac, reset-nvram-when-things-
+     misbehave); these cover the gaps that had no approved fix at all. */
+  {
+    title: "Connected but no internet on your Mac? The safe network reset",
+    risk_level: "medium",
+    reversible: true,
+    verification: "Two different websites load fully in Safari or another browser, and a new tab opens without the 'can't connect' error.",
+    failure_conditions: "Still offline after the reset — if other devices on this network work fine, the problem is this Mac's radio or hardware, not the router; stop repeating resets and check the Wi-Fi adapter state before assuming an ISP outage.",
+    updated: "2026-08-19",
+    cat: "mac",
+    group: "fixes",
+    difficulty: 2,
+    time: "10 min",
+    win: "macOS",
+    description: "Wi-Fi connected, little globe with a slash — the link is up but the path to the internet isn't. A safe, fully reversible reset of the lease and DNS cache fixes most of it.",
+    steps: [
+      "Isolate first: do other devices on this network have internet? If not, reboot the router and check with your ISP before touching this Mac",
+      "System Settings → Network → select your active connection → Details… → TCP/IP tab → click 'Renew DHCP Lease' for a fresh address from the router",
+      "Flush the DNS cache in Terminal: sudo dscacheutil -flushcache && sudo killall -HUP mDNSResponder (you'll be asked for your password — nothing is deleted)",
+      "Toggle Wi-Fi off and back on to force a fresh link, then open two different websites to confirm",
+    ],
+  },
+  {
+    title: "No sound on your Mac? Check the output device first",
+    risk_level: "low",
+    reversible: true,
+    verification: "A video plays at a usable volume from the speaker or headphones you expect, and the output picker shows that device selected.",
+    failure_conditions: "Silence on every output including wired headphones — likely hardware; stop resetting settings and check for a loose jack or a failed audio board before deeper work.",
+    updated: "2026-08-19",
+    cat: "mac",
+    group: "fixes",
+    difficulty: 1,
+    time: "5 min",
+    win: "macOS",
+    description: "Most 'my Mac has no audio' tickets are the wrong output device selected after a Bluetooth pairing or an external display was plugged in. The fix is a settings check, not a reset.",
+    steps: [
+      "Click the volume control in the menu bar (or press F12) and make sure it's not muted and the slider is up",
+      "In that same menu, check 'Output' — if audio is routed to a Bluetooth speaker or an external display with speakers, select your Mac's built-in output instead",
+      "Open System Settings → Sound → Output and pick 'MacBook Speakers' (or your expected device), then play a test clip",
+      "If you use Bluetooth headphones: disconnect them in the Bluetooth menu and confirm sound returns to the speakers — that proves the routing was the problem",
+    ],
+  },
+  {
+    title: "External monitor not detected on your Mac?",
+    risk_level: "low",
+    reversible: true,
+    verification: "The second display appears in System Settings → Displays and accepts a dragged window after you replug it.",
+    failure_conditions: "A known-good cable into a direct port still shows nothing — the adapter or the panel itself may be failing; on Intel Macs an NVRAM reset is the next safe step before assuming hardware death.",
+    updated: "2026-08-19",
+    cat: "mac",
+    group: "fixes",
+    difficulty: 1,
+    time: "5 min",
+    win: "macOS",
+    description: "A second screen that macOS refuses to see is usually the cable, the adapter or a dead port — not the Mac. Rotate through them in order and it almost always shows up.",
+    steps: [
+      "Check the cable at both ends, then try a different port on the Mac — some ports are data-only",
+      "If you use an adapter or dock, bypass it first: connect the monitor directly with a known-good cable to rule out the adapter",
+      "Replug the monitor and wait about 10 seconds — macOS usually re-detects on reconnect",
+      "Open System Settings → Displays: a detected second screen appears here as an extra display you can arrange; drag a window across to confirm it's live",
+    ],
+  },
+  {
+    title: "Bluetooth won't pair on your Mac? Reset it properly",
+    risk_level: "low",
+    reversible: true,
+    verification: "The device reconnects automatically after sleep and stays connected for 10+ minutes of normal use.",
+    failure_conditions: "It drops again immediately — try a different Bluetooth device to isolate whether the problem is this one accessory or the Mac's radio before deeper resets.",
+    updated: "2026-08-19",
+    cat: "mac",
+    group: "fixes",
+    difficulty: 1,
+    time: "5 min",
+    win: "macOS",
+    description: "Pairing failures are usually a stale pairing record, a device stuck in the wrong mode, or another device stealing the connection. A clean re-pair fixes most of it.",
+    steps: [
+      "Turn Bluetooth off and back on again: System Settings → Bluetooth",
+      "If the device was paired before, click 'X' / 'Forget This Device', wait a few seconds, then re-pair from scratch with the accessory in pairing mode",
+      "Bring the two within about a metre and keep other devices (phones, another Mac) away while pairing — they often steal the connection",
+      "Restart both devices — power-cycle the accessory too, not just the Mac",
+    ],
+  },
 ];
 
 // Category display names used in the card badge
