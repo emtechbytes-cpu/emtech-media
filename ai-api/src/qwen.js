@@ -50,6 +50,18 @@ export async function generateQwen({ messages, temperature, maxTokens }, env) {
     });
 
     if (!res.ok) {
+      // Server-side observability only (§53): log status + short error snippet
+      // so failures are diagnosable without ever exposing details to the client.
+      let detail = "";
+      try { detail = (await res.text() || "").slice(0, 300); } catch (err) { /* ignore */ }
+      console.log(`[emtech-ai-api] upstream HTTP ${res.status}: ${detail}`);
+      if (res.status === 401) {
+        // Key diagnostics — safe metadata only, never the key itself (§53).
+        console.log(
+          `[emtech-ai-api] key check: len=${apiKey.length} head=${JSON.stringify(apiKey.slice(0, 3))}` +
+          ` tail=${JSON.stringify(apiKey.slice(-2))} whitespace=${/\s/.test(apiKey)}`
+        );
+      }
       // Never echo upstream details (endpoint, provider errors) to the client (§23).
       throw httpError(502, "qwen-upstream-" + res.status);
     }

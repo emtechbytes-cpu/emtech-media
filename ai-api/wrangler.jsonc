@@ -2,7 +2,14 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "emtech-ai-api",
   "main": "src/index.js",
-  "compatibility_date": "2025-06-01"
+  "compatibility_date": "2025-06-01",
+
+  // Qwen endpoint (Singapore workspace — not a secret, safe in config).
+  // Lives here so every `wrangler deploy` carries it (§38: model/endpoint
+  // configurable without touching the frontend).
+  "vars": {
+    "QWEN_BASE_URL": "https://ws-lum9z1oqbnbg6tu2.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1"
+  }
 
   // Optional: global rate-limit store (see README → "Rate limiting").
   // Create it with `npx wrangler kv namespace create RATE_LIMITS`, then
