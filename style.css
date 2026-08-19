@@ -1609,3 +1609,319 @@ figcaption {
   .nav-actions { gap: 8px; }
   .brand { font-size: 1rem; }
 }
+
+/* ============================================================
+   Phase 2 — EmTech Troubleshooter (diagnose.html + fix-page loop)
+   Same editorial system: hairlines, sharp corners, mono labels.
+   Token-only colors → the dark theme comes for free.
+   ============================================================ */
+
+/* ---------- Shell & screens ---------- */
+.dz-shell { padding: clamp(56px, 8vw, 96px) 0 clamp(72px, 10vw, 120px); }
+
+.dz-screen { max-width: 840px; animation: dz-in 0.3s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.dz-landing { max-width: 920px; }
+
+@keyframes dz-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.dz-screen h1 { font-size: clamp(2.1rem, 5vw, 3.4rem); font-weight: 800; margin-bottom: 18px; }
+.dz-sub { color: var(--muted); max-width: 56ch; font-size: 1.05rem; margin-bottom: 36px; }
+
+/* ---------- Landing: resume card ---------- */
+.dz-resume {
+  border: 1px solid var(--ink);
+  background: var(--paper-2);
+  padding: 24px 28px;
+  margin-bottom: 44px;
+}
+.dz-resume-title { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 6px; }
+.dz-resume-sub { color: var(--muted); font-size: 0.95rem; margin-bottom: 18px; }
+.dz-resume-actions { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+
+/* ---------- Landing: popular problem starters ---------- */
+.dz-starters { margin: 44px 0; }
+.dz-starters-label, .dz-field-label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--muted);
+}
+.dz-starters-label { margin-bottom: 14px; }
+
+.dz-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.dz-chip {
+  appearance: none;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  padding: 12px 16px;
+  border: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.dz-chip:hover { background: var(--accent); color: var(--on-accent); }
+
+/* ---------- Landing: recent troubleshooting history ---------- */
+.dz-history { margin-top: 56px; }
+.dz-history h2 { font-size: clamp(1.4rem, 3vw, 1.9rem); margin-bottom: 8px; }
+.dz-history-empty { color: var(--muted); font-size: 0.95rem; padding-top: 8px; }
+
+.dz-hist-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 4px;
+  border-top: 1px solid var(--hairline);
+}
+.dz-history ul li:last-child .dz-hist-row { border-bottom: 1px solid var(--hairline); }
+
+.dz-hist-title { font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 2px; }
+.dz-hist-desc { color: var(--muted); font-size: 0.9rem; margin-bottom: 4px; }
+.dz-hist-meta { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); }
+
+.dz-dot { width: 9px; height: 9px; flex-shrink: 0; border: 1px solid var(--ink); }
+.dz-dot-ok { background: var(--accent); }
+.dz-dot-open { background: transparent; }
+
+.dz-hist-act {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+  padding: 8px 2px;
+  border-bottom: 1px solid var(--ink);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.dz-hist-act:hover { background: var(--accent); color: var(--on-accent); }
+button.dz-hist-act { appearance: none; background: transparent; border-top: 0; border-left: 0; border-right: 0; cursor: pointer; }
+
+/* ---------- Step 1: device cards ---------- */
+.dz-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--hairline);
+  border: 1px solid var(--ink);
+}
+
+.dz-card {
+  appearance: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 28px;
+  min-height: 168px;
+  padding: 24px;
+  background: var(--paper);
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.dz-card:hover { background: var(--paper-2); }
+
+.dz-card-num { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.14em; color: var(--muted); }
+.dz-card-body strong { display: block; font-family: var(--font-display); font-size: 1.35rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 6px; }
+.dz-card-body small { color: var(--muted); font-size: 0.85rem; line-height: 1.45; }
+.dz-card-go { font-family: var(--font-display); font-size: 1.2rem; transition: transform 0.2s ease; }
+.dz-card:hover .dz-card-go { transform: translateX(6px); }
+
+/* ---------- Step 2: category grid ---------- */
+.dz-catgrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--hairline);
+  border: 1px solid var(--ink);
+}
+
+.dz-cat {
+  appearance: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 20px;
+  background: var(--paper);
+  border: 0;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.dz-cat:hover { background: var(--paper-2); }
+.dz-cat-icon { font-size: 1.5rem; line-height: 1; }
+.dz-cat strong { font-family: var(--font-display); font-size: 1rem; font-weight: 600; letter-spacing: -0.01em; }
+
+/* ---------- Step 3: description field ---------- */
+#dz-desc {
+  width: 100%;
+  min-height: 128px;
+  margin-top: 10px;
+  padding: 16px;
+  border: 1px solid var(--ink);
+  color: inherit;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.55;
+  resize: vertical;
+}
+
+/* Landing CTA (Start diagnosis) */
+.dz-start { margin-top: 30px; }
+
+/* ---------- Action rows (Back / Continue) ---------- */
+.dz-actions { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 40px; }
+.dz-actions-right { display: inline-flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+
+/* ---------- Question options ---------- */
+.dz-opts { display: grid; gap: 10px; }
+
+.dz-opt {
+  appearance: none;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 18px 20px;
+  border: 1px solid var(--hairline);
+  background: transparent;
+  color: inherit;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.dz-opt:hover { background: var(--paper-2); }
+
+.dz-opt-dot { width: 14px; height: 14px; flex-shrink: 0; border: 1px solid var(--ink); transition: background-color 0.2s ease, border-color 0.2s ease; }
+.dz-opt[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.dz-opt[aria-pressed="true"] .dz-opt-dot { background: var(--accent); border-color: var(--accent); }
+
+/* ---------- Analyzing screen ---------- */
+.dz-checklist li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 0;
+  border-top: 1px solid var(--hairline);
+  color: var(--muted);
+  transition: color 0.25s ease, opacity 0.25s ease;
+}
+.dz-checklist li:last-child { border-bottom: 1px solid var(--hairline); }
+
+.dz-check-mark { width: 12px; height: 12px; flex-shrink: 0; border: 1px solid var(--ink); transition: background-color 0.25s ease, border-color 0.25s ease; }
+.dz-checklist li.done { color: inherit; }
+.dz-checklist li.done .dz-check-mark { background: var(--accent); border-color: var(--ink); }
+
+.dz-analyze-done { font-family: var(--font-mono); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.16em; margin-top: 24px; }
+
+/* ---------- Result screens ---------- */
+.dz-conf {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 10px 16px;
+  border: 1px solid var(--ink);
+  margin-bottom: 24px;
+}
+.dz-conf-high { background: var(--accent); color: var(--on-accent); }
+
+.dz-cause { font-family: var(--font-display); font-size: clamp(1.35rem, 2.8vw, 1.75rem); font-weight: 600; letter-spacing: -0.02em; margin-bottom: 8px; }
+
+.dz-why, .dz-reco, .dz-alts { margin-top: 44px; padding-top: 32px; border-top: 1px solid var(--hairline); }
+.dz-why h2, .dz-reco h2, .dz-alts h2 { font-size: clamp(1.3rem, 2.6vw, 1.7rem); margin-bottom: 18px; }
+
+.dz-why li { position: relative; padding-left: 24px; margin-bottom: 10px; font-size: 0.95rem; color: var(--muted); }
+.dz-why li::before { content: ""; position: absolute; left: 0; top: 0.55em; width: 8px; height: 8px; background: var(--accent); border: 1px solid var(--ink); }
+
+/* Recommended fix card */
+.dz-fixcard { border: 1px solid var(--ink); background: var(--paper-2); padding: 28px; }
+.dz-fixcard-kicker { font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 12px; }
+.dz-fixcard h3 { font-size: clamp(1.3rem, 2.6vw, 1.6rem); margin-bottom: 8px; }
+.dz-fixcard-desc { color: var(--muted); font-size: 0.95rem; max-width: 56ch; margin-bottom: 22px; }
+
+/* Alternative fixes list */
+.dz-alts li .dz-alt { display: flex; align-items: baseline; justify-content: space-between; gap: 18px; padding: 16px 4px; border-top: 1px solid var(--hairline); transition: background-color 0.2s ease; }
+.dz-alts li:last-child .dz-alt { border-bottom: 1px solid var(--hairline); }
+a.dz-alt:hover { background: var(--paper-2); }
+.dz-alt-title { font-size: 0.95rem; font-weight: 500; }
+.dz-alt-meta { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.06em; color: var(--muted); white-space: nowrap; }
+
+/* Honest disclaimer under results */
+.dz-honest { font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.6; color: var(--muted); max-width: 62ch; margin-top: 32px; }
+
+/* Result action rows */
+.dz-result-actions { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; margin-top: 40px; }
+.dz-result-actions-col { flex-direction: column; align-items: flex-start; gap: 18px; }
+
+/* ---------- Solved state ---------- */
+.dz-solved-card { border: 1px solid var(--ink); padding: 6px 28px; margin: 32px 0; max-width: 560px; }
+.dz-solved-row { display: flex; align-items: baseline; justify-content: space-between; gap: 20px; padding: 14px 0; border-top: 1px solid var(--hairline); font-size: 0.95rem; }
+.dz-solved-card .dz-solved-row:first-child { border-top: 0; }
+.dz-solved-card .dz-solved-row:last-child { border-bottom: 0; }
+.dz-solved-row span { font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); white-space: nowrap; }
+.dz-solved-row strong small { font-weight: 400; color: var(--muted); }
+
+/* ---------- Exit / fine print ---------- */
+.dz-exit { margin-top: 44px; }
+.dz-fineprint { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.06em; color: var(--muted); margin-top: 52px; }
+
+/* ---------- Inline confirm panel (exit / restart) ---------- */
+.dz-confirm { border: 1px solid var(--ink); background: var(--paper-2); padding: 24px 28px; margin-top: 36px; }
+.dz-confirm p { font-size: 0.95rem; margin-bottom: 18px; }
+.dz-confirm-actions { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+.dz-confirm-danger:hover { background: var(--error); border-color: var(--error); color: #fff; }
+
+/* ============================================================
+   Fix-page feedback loop (windows.html / mac.html)
+   Shown inside the accordion item when a diagnostic session is
+   waiting on this exact fix. Hides the generic Phase 1 widget so
+   the user isn't asked twice.
+   ============================================================ */
+.acc-item.dz-loop-active .fix-feedback { display: none; }
+
+.dz-fb { border: 1px solid var(--ink); background: var(--paper-2); padding: 22px 24px; margin-bottom: 26px; }
+.dz-fb-kicker { font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); margin-bottom: 8px; }
+.dz-fb-q { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 16px; }
+.dz-fb-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 14px; }
+.dz-fb-alt { margin-bottom: 0; }
+
+/* Success variant (replaces the banner after "Yes — it's fixed") */
+.dz-fb-solved h3 { font-size: clamp(1.4rem, 2.8vw, 1.7rem); margin-bottom: 6px; }
+.dz-fb-solved > p { color: var(--muted); margin-bottom: 0; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 980px) {
+  .dz-catgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 700px) {
+  .dz-cards { grid-template-columns: 1fr; }
+  .dz-card { min-height: 0; flex-direction: row; align-items: center; padding: 20px; }
+  .dz-card-body { flex: 1; }
+
+  .dz-actions, .dz-actions-right { flex-direction: column; align-items: stretch; gap: 14px; }
+  .dz-actions .btn-link, .dz-actions-right .btn-link { justify-content: center; }
+  .dz-actions .btn, .dz-actions-right .btn { justify-content: center; width: 100%; }
+
+  .dz-hist-row { flex-direction: column; align-items: flex-start; gap: 12px; }
+}
+
+@media (max-width: 560px) {
+  .dz-fixcard { padding: 22px 18px; }
+  .dz-alts li .dz-alt { flex-direction: column; align-items: flex-start; gap: 6px; }
+}

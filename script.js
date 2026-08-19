@@ -610,7 +610,7 @@
         <div class="search-empty">
           <h3>We couldn't find that problem.</h3>
           <p>Try describing it differently — e.g. "my laptop is overheating" instead of "computer broken".</p>
-          <a class="btn btn-primary" href="#diagnose">Start diagnosis<span aria-hidden="true"> →</span></a>
+          <a class="btn btn-primary" href="diagnose.html">Start diagnosis<span aria-hidden="true"> →</span></a>
         </div>`;
       if (gsCount) gsCount.textContent = "No matches — try the diagnosis instead";
     }
@@ -730,7 +730,7 @@
     if (val === "yes") {
       state.innerHTML = `<strong>Great — problem solved.</strong> Glad we could help. <a href="index.html#routine">Keep it that way with the monthly routine →</a>`;
     } else if (val === "no") {
-      state.innerHTML = `<strong>Let's try another approach.</strong> The related fixes below are a good next stop, or <a href="index.html#diagnose">start a diagnosis →</a>`;
+      state.innerHTML = `<strong>Let's try another approach.</strong> The related fixes below are a good next stop, or <a href="diagnose.html">start a diagnosis →</a>`;
     } else {
       state.textContent = "";
     }

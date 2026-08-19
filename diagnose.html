@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" id="meta-theme-color" content="#F1EEE6" />
+  <title>Diagnose your problem — EmTech Media</title>
+  <meta name="description" content="Tell us what's wrong and we'll walk you through it. A guided diagnosis for Windows and Mac problems — slow PCs, overheating, Wi-Fi drops, crashes, storage — ending in the exact fix from our library." />
+  <!-- ============================================================
+       Live preview host: GitHub Pages (resolvable today). When a custom
+       domain is registered, swap these absolute URLs — plus robots.txt
+       and sitemap.xml — to match it.
+       ============================================================ -->
+  <link rel="canonical" href="https://emtechbytes-cpu.github.io/emtech-media/diagnose.html" />
+  <meta property="og:url" content="https://emtechbytes-cpu.github.io/emtech-media/diagnose.html" />
+  <meta property="og:image" content="https://emtechbytes-cpu.github.io/emtech-media/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="EmTech Media — PC &amp; Mac problems, solved in plain English" />
+  <meta name="twitter:image" content="https://emtechbytes-cpu.github.io/emtech-media/og-image.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="EmTech Media" />
+  <meta property="og:title" content="Diagnose your problem — EmTech Media" />
+  <meta property="og:description" content="A guided diagnosis for Windows and Mac problems. A few plain-English questions, then the exact fix from our library." />
+  <meta name="twitter:card" content="summary_large_image" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Diagnose your problem — EmTech Media",
+    "url": "https://emtechbytes-cpu.github.io/emtech-media/diagnose.html",
+    "description": "A guided diagnosis for Windows and Mac computer problems. Answer a few plain-English questions and get the exact fix from the EmTech library."
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://emtechbytes-cpu.github.io/emtech-media/index.html" },
+      { "@type": "ListItem", "position": 2, "name": "Diagnose your problem", "item": "https://emtechbytes-cpu.github.io/emtech-media/diagnose.html" }
+    ]
+  }
+  </script>
+  <script>
+    // Apply the saved theme before first paint (avoids a flash of the wrong theme).
+    (function () {
+      try {
+        var t = localStorage.getItem("emtech-theme");
+        if (!t) t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.theme = t;
+        var m = document.getElementById("meta-theme-color");
+        if (m) m.content = t === "dark" ? "#131210" : "#F1EEE6";
+      } catch (err) {}
+    })();
+  </script>
+  <link rel="icon" type="image/svg+xml" href="brand/cursor-favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@1&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header" id="top">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html" aria-label="EmTech Media home">
+        <img class="brand-mark" src="brand/cursor-mark.svg" width="30" height="30" alt="" aria-hidden="true">
+        EmTech&nbsp;Media
+      </a>
+
+      <nav class="primary-nav" id="primary-nav" aria-label="Primary">
+        <ul>
+          <li><a href="index.html#search">Search</a></li>
+          <li><a href="diagnose.html" class="active" aria-current="page">Diagnose</a></li>
+          <li><a href="windows.html">Windows</a></li>
+          <li><a href="mac.html">Mac</a></li>
+          <li><a href="index.html#routine">Routine</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false" aria-label="Toggle dark mode">
+          <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"/>
+            <line x1="12" y1="2.5" x2="12" y2="4.5"/><line x1="12" y1="19.5" x2="12" y2="21.5"/>
+            <line x1="2.5" y1="12" x2="4.5" y2="12"/><line x1="19.5" y1="12" x2="21.5" y2="12"/>
+            <line x1="5.3" y1="5.3" x2="6.7" y2="6.7"/><line x1="17.3" y1="17.3" x2="18.7" y2="18.7"/>
+            <line x1="5.3" y1="18.7" x2="6.7" y2="17.3"/><line x1="17.3" y1="6.7" x2="18.7" y2="5.3"/>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20.5 13.2A8.5 8.5 0 1 1 10.8 3.5a7 7 0 0 0 9.7 9.7z"/>
+          </svg>
+        </button>
+        <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle menu">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <line class="icon-open" x1="3" y1="7" x2="21" y2="7"/>
+            <line class="icon-open" x1="3" y1="12" x2="21" y2="12"/>
+            <line class="icon-open" x1="3" y1="17" x2="21" y2="17"/>
+            <line class="icon-close" x1="5" y1="5" x2="19" y2="19"/>
+            <line class="icon-close" x1="19" y1="5" x2="5" y2="19"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ============ TROUBLESHOOTER STAGE ============ -->
+    <!-- All screens (landing, device, category, description, questions,
+         analysis, results) render into #diag-stage by diag-ui.js. The
+         stage owns the page's headings so there is exactly one h1. -->
+    <section class="dz-shell" aria-label="EmTech Troubleshooter">
+      <div class="container">
+        <div id="diag-stage"></div>
+        <noscript>
+          <p class="no-js-note">The troubleshooter needs JavaScript to ask its questions. In the meantime, browse the full fix lists: <a href="windows.html">Windows fixes</a> · <a href="mac.html">Mac fixes</a>.</p>
+        </noscript>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container footer-top">
+      <p class="footer-brand"><img class="brand-mark" src="brand/cursor-mark.svg" width="20" height="20" alt="" aria-hidden="true">EmTech Media — PC &amp; Mac problems, solved in plain English.</p>
+
+      <nav aria-label="Footer">
+        <a href="diagnose.html">Diagnose</a>
+        <a href="windows.html">Windows fixes</a>
+        <a href="mac.html">Mac fixes</a>
+        <a href="index.html#routine">Monthly routine</a>
+      </nav>
+    </div>
+
+    <div class="container footer-bottom">
+      <p>© <span id="year">2026</span> EmTech Media. All rights reserved.</p>
+      <p>Tested on real machines, written for humans.</p>
+    </div>
+  </footer>
+
+  <button class="to-top" id="to-top" type="button" aria-label="Back to top">↑</button>
+
+  <!-- Phase 2: data → engine → (Phase 1 page logic) → diagnostic UI.
+       script.js is safe here — every initializer null-guards its targets,
+       and it provides the nav toggle, theme switch and back-to-top. -->
+  <script src="tips-data.js"></script>
+  <script src="diag-data.js"></script>
+  <script src="diag-engine.js"></script>
+  <script src="script.js"></script>
+  <script src="diag-ui.js"></script>
+</body>
+</html>
