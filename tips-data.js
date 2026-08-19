@@ -1205,3 +1205,11 @@ function tipSlug(title) {
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 }
+
+/* Server-side export for the EmTech AI API worker (ai-api/). The worker
+   bundles this file and validates every fix id a model recommends against
+   this exact array, so an invented or stale slug can never reach a user.
+   In the browser `module` is undefined — this block is a no-op there. */
+if (typeof module !== "undefined") {
+  module.exports = { TIPS, tipSlug };
+}

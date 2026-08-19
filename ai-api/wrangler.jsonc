@@ -1,0 +1,13 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "emtech-ai-api",
+  "main": "src/index.js",
+  "compatibility_date": "2025-06-01"
+
+  // Optional: global rate-limit store (see README → "Rate limiting").
+  // Create it with `npx wrangler kv namespace create RATE_LIMITS`, then
+  // uncomment and fill in the id. Without it, a per-isolate in-memory
+  // limiter is used automatically — deploy works either way.
+  //
+  // "kv_namespaces": [{ "binding": "RATE_LIMITS", "id": "<namespace-id>" }]
+}

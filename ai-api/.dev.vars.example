@@ -1,0 +1,35 @@
+# ============================================================
+# EmTech AI API — local development variables (wrangler dev)
+#
+# Copy this file to `.dev.vars` and fill in real values.
+# `.dev.vars` is git-ignored — NEVER commit a real key (§29).
+# In production, set these with `npx wrangler secret put ...` instead.
+# ============================================================
+
+# DashScope (Qwen) API key — REQUIRED. Secret; never logged, never returned.
+QWEN_API_KEY=your_dashscope_api_key_here
+
+# Production model. Change without touching the frontend (§38).
+# Options include qwen-plus, qwen-max, qwen-turbo, or a Qwen3 id your
+# DashScope account can access.
+QWEN_MODEL=qwen-plus
+
+# OpenAI-compatible endpoint (rarely needs changing).
+QWEN_BASE_URL=https://dashscope.aliyuncs.com/compatible-mode/v1
+
+# CORS: comma-separated origins allowed to call this API (§27).
+# Production should list only the GitHub Pages origin.
+ALLOWED_ORIGINS=https://emtechbytes-cpu.github.io,http://localhost:8123,http://127.0.0.1:8123
+
+# Rate limiting per IP (§25) — keep generous enough for real troubleshooting.
+RATE_LIMIT_MAX=30
+RATE_LIMIT_WINDOW_S=60
+
+# Request body cap in bytes (system prompt + context can be ~40–60 KB).
+MAX_BODY_BYTES=131072
+
+# Hard ceiling per upstream model call, ms.
+UPSTREAM_TIMEOUT_MS=60000
+
+# Dev-only: include latency/usage/validation details in responses (§54).
+DEBUG_AI=false

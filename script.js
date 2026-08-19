@@ -821,6 +821,14 @@
     "fix-a-pc-that-overheats-and-fans-like-a-jet-engine",
   ];
 
+  /* Bind the homepage "Step monthly routine" stat to the actual routine
+     length — same data-driven pattern as [data-tip-count] above, so the
+     number can't drift if steps are added or removed. */
+  document.querySelectorAll("[data-routine-count]").forEach((el) => {
+    if (el.hasAttribute("data-count")) el.dataset.count = String(ROUTINE.length);
+    else el.textContent = String(ROUTINE.length);
+  });
+
   const checklistEl = document.getElementById("checklist");
   const progressEl = document.getElementById("routine-progress");
   const fillEl = document.getElementById("routine-fill");
@@ -878,7 +886,7 @@
     const n = Array.from(boxes).filter((b) => b.checked).length;
     const total = boxes.length;
     progressEl.textContent = n === total && total > 0
-      ? "All six done — nice work. See you next month."
+      ? `All ${ROUTINE.length} done — nice work. See you next month.`
       : `${n} of ${total} done`;
     if (fillEl) fillEl.style.width = total ? ((n / total) * 100).toFixed(1) + "%" : "0%";
   }

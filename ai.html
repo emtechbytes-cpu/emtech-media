@@ -131,13 +131,19 @@
               </button>
             </div>
 
-            <!-- Settings popover (gateway URL + model) — hidden by default -->
+            <!-- Settings popover (mode + endpoint) — hidden by default -->
             <form class="ai-settings" id="ai-settings" hidden aria-label="AI connection settings">
-              <p class="ai-settings-note">EmTech AI runs on your own machine. Point this at the local AI gateway (<code>node ai-gateway/server.mjs</code>) — or any OpenAI-compatible Qwen endpoint.</p>
-              <label>Gateway URL
-                <input type="url" id="ai-set-url" placeholder="http://localhost:8787/v1/chat/completions" autocomplete="off" spellcheck="false" />
+              <p class="ai-settings-note">Production uses the EmTech AI API, where the Qwen key stays on our server. For local development, switch to Local mode and point at your gateway (<code>node ai-gateway/server.mjs</code>).</p>
+              <label>Mode
+                <select id="ai-set-mode">
+                  <option value="cloud">Cloud (EmTech AI API)</option>
+                  <option value="local">Local (dev gateway)</option>
+                </select>
               </label>
-              <label>Model name
+              <label><span id="ai-set-url-label">Cloud endpoint</span>
+                <input type="url" id="ai-set-url" placeholder="https://…workers.dev/api/ai" autocomplete="off" spellcheck="false" />
+              </label>
+              <label id="ai-set-model-wrap">Model name (local mode)
                 <input type="text" id="ai-set-model" placeholder="ollama/qwen3.8-27b" autocomplete="off" spellcheck="false" />
               </label>
               <div class="ai-settings-actions">

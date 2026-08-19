@@ -525,7 +525,7 @@
     try { hits = K.searchKnowledgeBase({ query: (o.text || "") + " " + (session.problemSummary || ""), platform: session.platform, limit: 6 }); } catch (err) {}
 
     const cfg = CFG ? CFG.resolveConfig() : {};
-    if (!PROVIDERS || !cfg.gatewayUrl) {
+    if (!PROVIDERS || !cfg.endpoint) {
       // No provider configured at all — straight to the deterministic path.
       return fallbackDiagnosis(session, "EmTech AI is not configured on this device") || errorTurn("ai-not-configured");
     }
@@ -656,23 +656,18 @@
     return freshSession();
   }
 
-  /* Preflight connectivity check (§32) — short timeout, never blocks. */
+  /* Preflight connectivity check (§32/§43) — short timeout, never blocks.
+     Works for both modes: local gateway exposes /healthz, the cloud worker
+     exposes /api/health (cfg.healthUrl is derived in ai-config.js). */
   function healthCheck() {
     const cfg = CFG ? CFG.resolveConfig() : {};
-    if (!cfg.gatewayUrl) return Promise.resolve({ ok: false, reason: "not-configured" });
-    let base;
-    try {
-      const u = new URL(cfg.gatewayUrl);
-      base = u.origin + "/healthz";
-    } catch (err) {
-      return Promise.resolve({ ok: false, reason: "bad-url" });
-    }
+    if (!cfg.healthUrl) return Promise.resolve({ ok: false, reason: "not-configured" });
 
     const ctrl = typeof AbortController !== "undefined" ? new AbortController() : null;
     const timer = ctrl ? setTimeout(() => { try { ctrl.abort(); } catch (e) {} }, cfg.healthTimeoutMs || 2500) : null;
 
-    return fetch(base, { method: "GET", signal: ctrl ? ctrl.signal : undefined })
-      .then((res) => ({ ok: res.ok || res.status === 404, reason: res.ok ? "connected" : "reachable" })) // 404 = server up but no /healthz (e.g. direct LM Studio)
+    return fetch(cfg.healthUrl, { method: "GET", signal: ctrl ? ctrl.signal : undefined })
+      .then((res) => ({ ok: res.ok || res.status === 404, reason: res.ok ? "connected" : "reachable" })) // 404 = server up but no health route (e.g. direct LM Studio)
       .catch(() => ({ ok: false, reason: "offline" }))
       .finally(() => { if (timer) clearTimeout(timer); });
   }

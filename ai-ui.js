@@ -30,6 +30,9 @@
   const chip = document.getElementById("ai-chip");
   const settingsForm = document.getElementById("ai-settings");
   const settingsBtn = document.getElementById("ai-settings-btn");
+  const setMode = document.getElementById("ai-set-mode");
+  const setUrlLabel = document.getElementById("ai-set-url-label");
+  const setModelWrap = document.getElementById("ai-set-model-wrap");
   const setUrl = document.getElementById("ai-set-url");
   const setModel = document.getElementById("ai-set-model");
   const setReset = document.getElementById("ai-set-reset");
@@ -439,12 +442,27 @@
     }
   }
 
+  /* Mode switch (§30): cloud is the production default; local points at the
+     dev gateway. The URL field's meaning follows the mode, and in cloud mode
+     the model name is hidden — it's configured server-side (§38). */
+  function applyModeUi() {
+    if (!setMode) return;
+    const cloud = setMode.value !== "local";
+    if (setUrlLabel) setUrlLabel.textContent = cloud ? "Cloud endpoint" : "Gateway URL";
+    if (setUrl) setUrl.placeholder = cloud
+      ? "https://…workers.dev/api/ai"
+      : "http://localhost:8787/v1/chat/completions";
+    if (setModelWrap) setModelWrap.hidden = cloud;
+  }
+
   function openSettings(open) {
     if (!settingsForm || !settingsBtn) return;
     settingsForm.hidden = !open;
     settingsBtn.setAttribute("aria-expanded", String(open));
     const cfg = window.EmTechAIConfig ? window.EmTechAIConfig.resolveConfig() : {};
-    if (setUrl) setUrl.value = cfg.gatewayUrl || "";
+    if (setMode) setMode.value = cfg.mode === "local" ? "local" : "cloud";
+    applyModeUi();
+    if (setUrl) setUrl.value = (cfg.mode === "local" ? cfg.gatewayUrl : cfg.cloudEndpoint) || "";
     if (setModel) setModel.value = cfg.model || "";
   }
 
@@ -571,14 +589,16 @@
 
   // Settings popover.
   settingsBtn && settingsBtn.addEventListener("click", () => openSettings(settingsForm.hidden));
+  setMode && setMode.addEventListener("change", applyModeUi);
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && settingsForm && !settingsForm.hidden) openSettings(false);
   });
   settingsForm && settingsForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    const patch = {};
-    if (setUrl && setUrl.value.trim()) patch.gatewayUrl = setUrl.value.trim();
-    if (setModel && setModel.value.trim()) patch.model = setModel.value.trim();
+    const mode = setMode ? setMode.value : "cloud";
+    const patch = { mode };
+    if (setUrl && setUrl.value.trim()) patch[mode === "local" ? "gatewayUrl" : "cloudEndpoint"] = setUrl.value.trim();
+    if (mode === "local" && setModel && setModel.value.trim()) patch.model = setModel.value.trim();
     window.EmTechAIConfig.saveSettings(patch);
     openSettings(false);
     refreshHealth();

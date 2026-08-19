@@ -1,0 +1,13 @@
+# Secrets — never commit real keys (§29)
+ai-api/.dev.vars
+*.env
+.env.*
+
+# Dependencies / build output
+node_modules/
+dist/
+
+# OS + editor noise
+.DS_Store
+Thumbs.db
+*.log

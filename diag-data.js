@@ -16,7 +16,7 @@
    step in diag-engine.js — this data shape is what it would consume.
    ============================================================ */
 
-window.EMTECH_DIAG_DATA = {
+(typeof window !== "undefined" ? window : globalThis).EMTECH_DIAG_DATA = {
   version: "2026-08",
 
   /* ---------- Step 1: device ---------- */
@@ -515,3 +515,10 @@ window.EMTECH_DIAG_DATA = {
   /* ---------- Confidence thresholds (spec §17/§30) ---------- */
   confidence: { highMin: 6, highMargin: 2, mediumMin: 3 },
 };
+
+/* Server-side export for the EmTech AI API worker (ai-api/), which validates
+   question ids against this exact bank. No-op in the browser, where `module`
+   is undefined. */
+if (typeof module !== "undefined") {
+  module.exports = (typeof window !== "undefined" ? window : globalThis).EMTECH_DIAG_DATA;
+}
