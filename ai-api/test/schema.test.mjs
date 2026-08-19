@@ -9,7 +9,9 @@
 
    Covers §21 items 1–12 (unique fix ids, cause→fix references, valid
    platforms/categories/risk levels/difficulty/time, boolean reversible,
-   verification + failure conditions, all 74 fixes accessible) plus the
+   verification + failure conditions, all 80 fixes accessible — Phase 3.2.2A
+   baseline: the original 74 plus 6 new Windows P0 tips) plus a regression
+   guard that every one of the ORIGINAL 74 fix ids still resolves, and
    Phase 3.2.1 §15 router-vocabulary drift check: the worker's pre-AI
    router and the browser classifier must share ONE canonical word list
    (classification-words.js), not two drifting copies.
@@ -62,15 +64,103 @@ const VALID_CATS = new Set(["mac", "speed", "windows", "gaming", "cleaning", "ma
 const VALID_RISK = new Set(["low", "medium", "high"]);
 const REQUIRED_FIELDS = ["risk_level", "reversible", "verification", "failure_conditions"];
 
+/* ---------- Phase 3.2.2A regression guard -------------------------------
+   The 74 fix ids that existed before the Windows P0 expansion (Phase 3.2.1
+   baseline). A title change silently changes a tip's slug — this list pins
+   every pre-existing id so any accidental rename fails loudly here instead
+   of breaking live links, worker validation or saved sessions. */
+const ORIGINAL_74 = [
+    "back-up-properly-3-2-1-rule",
+    "check-for-driver-updates-in-the-right-order",
+    "check-whether-your-pc-can-run-windows-11",
+    "clean-up-temp-files-and-browser-cache-properly",
+    "create-a-local-account-that-doesn-t-phone-home",
+    "disable-startup-bloat",
+    "dodge-bundleware-when-you-install-anything",
+    "fix-a-blue-screen-bsod-without-panicking",
+    "fix-a-hot-pc-for-good-the-airflow-pass",
+    "fix-a-mac-that-won-t-start-up",
+    "fix-a-microphone-no-one-can-hear",
+    "fix-a-pc-that-overheats-and-fans-like-a-jet-engine",
+    "fix-a-pc-that-won-t-start-up",
+    "fix-a-printer-that-won-t-print",
+    "fix-a-webcam-that-won-t-turn-on",
+    "fix-my-pc-is-slow-all-of-a-sudden-the-order-of-attack",
+    "fix-slow-wi-fi-on-your-mac",
+    "force-quit-a-frozen-app",
+    "free-up-disk-space-with-storage-management",
+    "get-back-a-file-you-deleted-by-mistake",
+    "give-safari-a-proper-clean-out",
+    "hardening-accounts-updates-and-the-firewall",
+    "hunt-down-memory-hogs",
+    "install-powertoys-microsoft-s-free-utility-pack",
+    "keep-10-of-your-disk-free",
+    "keep-macos-updated-the-safe-way",
+    "keep-your-mac-battery-healthy",
+    "kill-shady-pc-optimizer-software",
+    "know-your-bios-settings-the-5-that-matter",
+    "let-windows-storage-sense-do-the-work-for-you",
+    "lock-down-your-home-wi-fi-properly",
+    "lower-windows-transparency-and-animation-effects",
+    "make-big-file-transfers-actually-fast",
+    "make-windows-search-actually-useful-again",
+    "make-your-desktop-feel-like-a-mac-without-the-price",
+    "make-your-laptop-battery-last-longer",
+    "master-the-keyboard-shortcuts-that-save-hours",
+    "move-everything-to-a-new-pc",
+    "move-your-os-or-games-to-an-ssd",
+    "no-sound-the-four-minute-fix",
+    "open-apps-blocked-by-gatekeeper",
+    "organise-your-work-with-virtual-desktops",
+    "pick-an-ssd-that-s-actually-fast",
+    "protect-against-ransomware-before-it-s-too-late",
+    "raise-your-effective-fps-with-windows-game-mode",
+    "reduce-input-lag-in-competitive-games",
+    "repair-corrupted-system-files",
+    "reset-nvram-when-things-misbehave",
+    "run-a-disk-health-check-before-it-s-too-late",
+    "run-drive-optimization-the-safe-way",
+    "run-first-aid-on-external-drives",
+    "save-your-games-the-right-way",
+    "set-up-time-machine-properly",
+    "size-your-psu-before-the-next-upgrade",
+    "skip-paid-antivirus-and-keep-defender-sharp",
+    "slow-internet-run-the-five-minute-test",
+    "speed-up-a-sluggish-macbook",
+    "spot-a-phishing-email-before-you-click",
+    "start-windows-in-safe-mode",
+    "stop-apps-from-launching-at-login",
+    "stop-emailing-passwords-and-secrets",
+    "stop-games-stuttering-the-5-point-checklist",
+    "stop-windows-tracking-your-location",
+    "stop-windows-updates-at-odd-hours",
+    "stop-your-pc-from-sleep-glitching-your-network",
+    "switch-the-power-plan-to-best-performance",
+    "tame-spotlight-indexing-on-extra-drives",
+    "tighten-up-chrome-the-10-minute-pass",
+    "tighten-up-edge-and-firefox",
+    "turn-on-filevault-full-disk-encryption",
+    "turn-on-full-disk-encryption-bitlocker",
+    "uninstall-the-apps-you-never-use",
+    "upgrade-your-ram-and-match-it",
+    "windows-10-is-past-end-of-support-what-to-do-now",
+];
+
 /* ---------- 1. fixes: count, unique ids, accessibility (§21.1/§21.11) ---- */
-test("all 74 existing fixes remain accessible with unique fix ids", () => {
-  assert.equal(TIPS.length, 74, `baseline library is 74 tips (got ${TIPS.length})`);
+test("all 80 fixes remain accessible with unique fix ids (74 original + 6 new P0)", () => {
+  assert.equal(TIPS.length, 80, `Phase 3.2.2A baseline is 80 tips (got ${TIPS.length})`);
   const slugs = TIPS.map((t) => tipSlug(t.title));
   assert.equal(new Set(slugs).size, slugs.length, "fix ids (slugs) must be unique");
   for (const s of slugs) {
     const t = getFixBySlug(s);
     assert.ok(t && typeof t.title === "string", `getFixBySlug("${s}") must resolve`);
   }
+});
+
+/* ---------- 1b. Phase 3.2.2A regression guard: original 74 ids intact ---- */
+test("every one of the original 74 fix ids still resolves (no silent renames)", () => {
+  const missing = ORIGINAL_74.filter((s) => !getFixBySlug(s));
+  assert.deepEqual(missing, [], "original fix ids no longer resolve: " + missing.join(", "));
 });
 
 /* ---------- 2. cause → fix references: zero broken (§21.2/§12) ---------- */

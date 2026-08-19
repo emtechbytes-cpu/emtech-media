@@ -83,11 +83,13 @@
     {
       id: "win-network", devices: ["windows"], category: "network",
       causes: [
+        { id: "win-net-off", label: "Wi-Fi is switched off or the adapter is disabled", fix: "wi-fi-off-or-missing-the-three-switches-that-disable-it", alt: ["slow-internet-run-the-five-minute-test"], keywords: ["wifi off", "no wifi", "wireless missing", "adapter disabled"] },
+        { id: "win-net-dns", label: "Connected to Wi-Fi but no internet — DNS or network stack", fix: "connected-but-no-internet-the-safe-dns-and-stack-reset", alt: ["slow-internet-run-the-five-minute-test"], keywords: ["no internet", "connected but", "dns", "pages won't load"] },
         { id: "win-net-sleep", label: "Sleep/wake is glitching the network adapter", fix: "stop-your-pc-from-sleep-glitching-your-network", alt: ["slow-internet-run-the-five-minute-test"], keywords: ["disconnect", "drops", "after sleep", "wake"] },
         { id: "win-net-speed", label: "The connection itself is slow or unstable", fix: "slow-internet-run-the-five-minute-test", alt: [], keywords: ["slow internet", "speed", "buffering", "streaming"] },
         { id: "win-net-router", label: "Router or Wi-Fi setup affecting several devices", fix: "lock-down-your-home-wi-fi-properly", alt: ["slow-internet-run-the-five-minute-test"], keywords: ["router", "all devices", "whole house"] },
       ],
-      questions: ["net-when", "net-scope", "net-wired"],
+      questions: ["net-state", "net-when", "net-scope", "net-wired"],
     },
     {
       id: "win-storage", devices: ["windows"], category: "storage",
@@ -96,6 +98,7 @@
         { id: "win-store-sense", label: "No automatic cleanup running at all", fix: "let-windows-storage-sense-do-the-work-for-you", alt: ["run-drive-optimization-the-safe-way"], keywords: ["storage sense", "cleanup", "clean up"] },
         { id: "win-store-apps", label: "Apps you never use taking the space", fix: "uninstall-the-apps-you-never-use", alt: [], keywords: ["apps", "programs", "bloatware"] },
         { id: "win-store-recover", label: "A deleted file you want back", fix: "get-back-a-file-you-deleted-by-mistake", alt: [], keywords: ["deleted", "lost a file", "recycle bin"] },
+        { id: "win-store-fail", label: "The drive itself is failing or acting up", fix: "run-a-disk-health-check-before-it-s-too-late", alt: ["back-up-properly-3-2-1-rule"], keywords: ["clicking", "drive failing", "disk errors", "slow reads"] },
       ],
       questions: ["store-space", "store-what", "store-lost"],
     },
@@ -120,11 +123,14 @@
     {
       id: "win-crashes", devices: ["windows"], category: "crashes",
       causes: [
+        { id: "win-crash-power", label: "No power at all — the PC isn't even trying to start", fix: "pc-won-t-turn-on-run-the-five-minute-power-check", alt: ["fix-a-pc-that-won-t-start-up"], keywords: ["won't turn on", "no power", "dead pc", "no lights", "no fans"] },
+        { id: "win-crash-signal", label: "The display signal path — cable, input source or projection mode", fix: "black-screen-check-the-display-signal-path-first", alt: ["check-for-driver-updates-in-the-right-order"], keywords: ["no signal", "external monitor", "second screen"] },
+        { id: "win-crash-gpu", label: "A GPU or display driver fault, often after an update", fix: "check-for-driver-updates-in-the-right-order", alt: ["start-windows-in-safe-mode"], keywords: ["after update", "gpu", "graphics driver"] },
         { id: "win-crash-bsod", label: "Blue screens (BSOD) — a driver or memory issue", fix: "fix-a-blue-screen-bsod-without-panicking", alt: ["start-windows-in-safe-mode"], keywords: ["blue screen", "bsod", "crash code"] },
         { id: "win-crash-boot", label: "The PC won't get past startup", fix: "fix-a-pc-that-won-t-start-up", alt: ["start-windows-in-safe-mode"], keywords: ["won't start", "black screen", "logo", "spinning"] },
         { id: "win-corrupt-files", label: "Corrupted system files causing glitches", fix: "repair-corrupted-system-files", alt: ["start-windows-in-safe-mode"], keywords: ["glitch", "corrupt", "weird", "misbehav"] },
       ],
-      questions: ["crash-what", "crash-when"],
+      questions: ["crash-power", "crash-screen", "crash-what", "crash-when"],
     },
     {
       id: "win-gaming", devices: ["windows"], category: "gaming",
@@ -151,6 +157,9 @@
         { id: "win-hw-ssd", label: "A slow hard drive holding everything back", fix: "move-your-os-or-games-to-an-ssd", alt: ["pick-an-ssd-that-s-actually-fast"], keywords: ["ssd", "hard drive", "slow loading"] },
         { id: "win-hw-battery", label: "Battery life has dropped off", fix: "make-your-laptop-battery-last-longer", alt: [], keywords: ["battery", "charge", "laptop"] },
         { id: "win-hw-device", label: "A peripheral (printer, mic, camera) not working", fix: "fix-a-printer-that-won-t-print", alt: ["fix-a-microphone-no-one-can-hear", "fix-a-webcam-that-won-t-turn-on"], keywords: ["printer", "usb", "device"] },
+        { id: "win-hw-bt", label: "A Bluetooth device won't pair or keeps dropping", fix: "bluetooth-won-t-connect-the-pairing-reset-that-works", alt: ["check-for-driver-updates-in-the-right-order"], keywords: ["bluetooth", "headset", "earbuds"] },
+        { id: "win-hw-monitor", label: "An external monitor isn't detected or shows no signal", fix: "black-screen-check-the-display-signal-path-first", alt: ["check-for-driver-updates-in-the-right-order"], keywords: ["external monitor", "second screen", "monitor not detected"] },
+        { id: "win-hw-usb", label: "A USB device (keyboard, mouse, drive) isn't recognised", fix: "usb-device-not-recognised-the-device-manager-pass", alt: [], keywords: ["not recognised", "keyboard stopped", "mouse stopped"] },
       ],
       questions: ["hw-what"],
     },
@@ -325,6 +334,16 @@
       ],
     },
 
+    "net-state": {
+      q: "Is Wi-Fi completely off or missing — or are you connected but can't get online?",
+      desc: "This splits 'no Wi-Fi at all' from 'connected but no internet'.",
+      options: [
+        { label: "Wi-Fi is off / the option is missing", value: "off", score: { "win-net-off": 3 }, reason: "A switched-off or vanished adapter has three usual culprits — and they're all quick to check." },
+        { label: "I'm connected, but pages won't load", value: "connected-nointernet", score: { "win-net-dns": 3 }, reason: "Connected-but-no-internet usually means DNS or the network stack needs a safe reset." },
+        { label: "It drops in and out", value: "drops", score: { "win-net-sleep": 2, "win-net-speed": 1 } },
+        { label: "Not sure", value: "unsure" },
+      ],
+    },
     "net-when": {
       q: "When does the connection drop or slow down?",
       desc: "",
@@ -370,6 +389,7 @@
         { label: "'Not enough space' warnings everywhere", value: "warnings", score: { "win-store-temp": 2, "mac-store-space": 1 } },
         { label: "Apps complaining or refusing to save", value: "apps", score: { "win-store-apps": 2, "mac-store-safari": 1 } },
         { label: "An external drive acting up", value: "external", score: { "mac-store-drives": 3 } },
+        { label: "The drive is slow, clicking or throwing errors", value: "failing", score: { "win-store-fail": 3 } },
       ],
     },
     "store-lost": {
@@ -421,6 +441,28 @@
       ],
     },
 
+    "crash-power": {
+      q: "Is there any sign the PC is powered on?",
+      desc: "This splits 'no power at all' from problems that happen after it starts.",
+      options: [
+        { label: "No — no lights, no fans, nothing at all", value: "dead", score: { "win-crash-power": 3 }, reason: "No sign of life points at the power path first — and that has a short, safe check list." },
+        { label: "Yes — it powers on but the screen stays black", value: "black", score: { "win-crash-signal": 2, "win-crash-gpu": 1 }, reason: "Power is fine, so this is about getting an image to the display." },
+        { label: "It gets partway (logo or spinner) then stops", value: "partway", score: { "win-crash-boot": 3 }, reason: "Getting stuck at startup has its own well-tested fix path." },
+        { label: "It reaches the desktop and then crashes or blue-screens", value: "desktop-crash", score: { "win-crash-bsod": 2, "win-corrupt-files": 1 } },
+        { label: "Not sure what I'm seeing", value: "unsure" },
+      ],
+    },
+    "crash-screen": {
+      q: "What does the monitor itself show?",
+      desc: "",
+      showIf: { q: "crash-power", is: ["black"] },
+      options: [
+        { label: "'No signal' or a similar message", value: "nosignal", score: { "win-crash-signal": 3 }, reason: "'No signal' means the display isn't receiving a picture — cable, port and input source are the usual culprits." },
+        { label: "I can see a cursor but nothing else", value: "cursor", score: { "win-crash-gpu": 2, "win-corrupt-files": 1 }, reason: "A visible cursor means Windows is running — this points at the display driver or shell." },
+        { label: "It's an external monitor that won't show up", value: "external", score: { "win-crash-signal": 3 } },
+        { label: "Just black — no message, no cursor", value: "pureblack" },
+      ],
+    },
     "crash-what": {
       q: "What exactly happens when it crashes?",
       desc: "",
@@ -487,6 +529,9 @@
         { label: "Slow loading and saving", value: "storage", score: { "win-hw-ssd": 3 }, reason: "A slow drive is the single biggest upgrade most PCs can get." },
         { label: "Battery life has dropped off", value: "battery", score: { "win-hw-battery": 3 } },
         { label: "A device (printer, mic, camera) isn't working", value: "device", score: { "win-hw-device": 3 } },
+        { label: "Bluetooth won't connect or keeps dropping", value: "bluetooth", score: { "win-hw-bt": 3 } },
+        { label: "An external monitor isn't detected", value: "monitor", score: { "win-hw-monitor": 3 } },
+        { label: "A USB keyboard, mouse or drive isn't recognised", value: "usb", score: { "win-hw-usb": 3 } },
       ],
     },
 

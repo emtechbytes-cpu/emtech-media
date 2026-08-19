@@ -14,7 +14,7 @@
    ai-api/test/schema.test.mjs fails if the two runtimes drift apart.
    ============================================================ */
 const EMTECH_CLASSIFICATION_WORDS = {
-  version: "1.0.0", // bump when a word is added/removed (stamped for debugging)
+  version: "1.1.0", // bump when a word is added/removed (stamped for debugging)
 
   PLATFORM_WORDS: {
     mac: ["macbook", "imac", "macos", "osx", "apple silicon", "mac mini", "mac studio", "mac laptop", "mac desktop", "my mac ", "on my mac"],
@@ -28,10 +28,10 @@ const EMTECH_CLASSIFICATION_WORDS = {
     storage: ["storage", "disk space", "drive full", "almost full", "not enough space", "not enough storage", "running out of space", "low on space", "no space left", "temp files", "cache"],
     audio: ["no sound", "silent", "microphone", "mic ", "webcam", "camera won't", "headphones"],
     updates: ["windows update", "update stuck", "updates failing", "restarts at 3am", "active hours", "macos update"],
-    crashes: ["blue screen", "bsod", "crash", "won't start", "wont start", "black screen", "goes black", "screen goes dark", "random restarts", "gatekeeper"],
+    crashes: ["blue screen", "bsod", "crash", "won't start", "wont start", "black screen", "goes black", "screen goes dark", "random restarts", "gatekeeper", "no signal", "won't turn on", "wont turn on", "no power"],
     gaming: ["game", "games", "fps", "stutter", "lag spike", "input lag", "framerate"],
     security: ["virus", "malware", "ransomware", "phishing", "scam", "pop-up", "popup", "pop up", "popups", "optimizer", "encrypt"],
-    hardware: ["ram", "ssd", "hard drive", "battery", "printer", "usb", "keyboard", "trackpad", "touchpad", "upgrade"],
+    hardware: ["ram", "ssd", "hard drive", "battery", "printer", "usb", "keyboard", "trackpad", "touchpad", "upgrade", "bluetooth", "external monitor", "second screen", "mouse"],
   },
 };
 
