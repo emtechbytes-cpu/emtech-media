@@ -445,14 +445,38 @@
   /* Mode switch (§30): cloud is the production default; local points at the
      dev gateway. The URL field's meaning follows the mode, and in cloud mode
      the model name is hidden — it's configured server-side (§38). */
+  const setWarn = document.getElementById("ai-set-warn");
+
+  /* Local mode means "the dev gateway on this machine" — a non-local URL in
+     that slot is almost always a copy-paste of the cloud endpoint. */
+  function looksLocal(u) {
+    return /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?([/?#]|$)/i.test(String(u || ""));
+  }
+
+  function showSetWarn(msg) { if (setWarn) { setWarn.textContent = msg; setWarn.hidden = false; } }
+  function hideSetWarn() { if (setWarn) { setWarn.hidden = true; setWarn.textContent = ""; } }
+
   function applyModeUi() {
     if (!setMode) return;
     const cloud = setMode.value !== "local";
     if (setUrlLabel) setUrlLabel.textContent = cloud ? "Cloud endpoint" : "Gateway URL";
-    if (setUrl) setUrl.placeholder = cloud
-      ? "https://…workers.dev/api/ai"
-      : "http://localhost:8787/v1/chat/completions";
+    if (setUrl) {
+      setUrl.placeholder = cloud
+        ? "https://…workers.dev/api/ai"
+        : "http://localhost:8787/v1/chat/completions";
+      // Re-populate with this mode's saved value or its default, so switching
+      // modes never leaves the other mode's URL in the field. A non-local
+      // gatewayUrl is stale (e.g. a pasted cloud endpoint) → local default.
+      const C = window.EmTechAIConfig;
+      if (C) {
+        const saved = C.loadSettings();
+        setUrl.value = cloud
+          ? (saved.cloudEndpoint || C.defaults.cloudEndpoint)
+          : (looksLocal(saved.gatewayUrl) ? saved.gatewayUrl : C.defaults.gatewayUrl);
+      }
+    }
     if (setModelWrap) setModelWrap.hidden = cloud;
+    hideSetWarn();
   }
 
   function openSettings(open) {
@@ -461,8 +485,7 @@
     settingsBtn.setAttribute("aria-expanded", String(open));
     const cfg = window.EmTechAIConfig ? window.EmTechAIConfig.resolveConfig() : {};
     if (setMode) setMode.value = cfg.mode === "local" ? "local" : "cloud";
-    applyModeUi();
-    if (setUrl) setUrl.value = (cfg.mode === "local" ? cfg.gatewayUrl : cfg.cloudEndpoint) || "";
+    applyModeUi(); // label + placeholder + URL value for the active mode
     if (setModel) setModel.value = cfg.model || "";
   }
 
@@ -590,14 +613,22 @@
   // Settings popover.
   settingsBtn && settingsBtn.addEventListener("click", () => openSettings(settingsForm.hidden));
   setMode && setMode.addEventListener("change", applyModeUi);
+  setUrl && setUrl.addEventListener("input", hideSetWarn);
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && settingsForm && !settingsForm.hidden) openSettings(false);
   });
   settingsForm && settingsForm.addEventListener("submit", (e) => {
     e.preventDefault();
     const mode = setMode ? setMode.value : "cloud";
+    const url = setUrl ? setUrl.value.trim() : "";
+    if (mode === "local" && url && !looksLocal(url)) {
+      // Don't persist a broken combination — Local mode must point at this machine (§30).
+      showSetWarn("Local mode expects your dev gateway on this machine, e.g. http://localhost:8787/v1/chat/completions");
+      return;
+    }
+    hideSetWarn();
     const patch = { mode };
-    if (setUrl && setUrl.value.trim()) patch[mode === "local" ? "gatewayUrl" : "cloudEndpoint"] = setUrl.value.trim();
+    if (url) patch[mode === "local" ? "gatewayUrl" : "cloudEndpoint"] = url;
     if (mode === "local" && setModel && setModel.value.trim()) patch.model = setModel.value.trim();
     window.EmTechAIConfig.saveSettings(patch);
     openSettings(false);

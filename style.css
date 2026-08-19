@@ -2016,6 +2016,7 @@ a.dz-alt:hover { background: var(--paper-2); }
   gap: 14px;
 }
 .ai-settings-note { font-size: 0.9rem; color: var(--muted); margin: 0; max-width: 68ch; }
+.ai-settings-warn { font-size: 0.85rem; color: var(--error); margin: -6px 0 0; }
 .ai-settings label {
   display: grid;
   gap: 7px;
