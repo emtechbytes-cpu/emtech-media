@@ -57,4 +57,47 @@ function approvedQuestionIds() {
   return ids;
 }
 
-export { TIPS, tipSlugFn as tipSlug, getFixBySlug, isMacTip, approvedQuestionIds };
+/* Ordered union of every approved question with canonical text/options.
+   policy.js uses this as the fallback question list when a client sends no
+   usable branch questions. */
+function allApprovedQuestions() {
+  const out = [];
+  if (!DIAG || !Array.isArray(DIAG.profiles) || !DIAG.questions) return out;
+  const seen = new Set();
+  for (const p of DIAG.profiles) {
+    for (const qid of p.questions || []) {
+      if (seen.has(qid)) continue;
+      const q = DIAG.questions[qid];
+      // diag-data.js stores the question text in `q` (frontend reads q.q);
+      // accept .text too so a future data rename can't silently empty this.
+      const text = typeof q && (typeof q.q === "string" ? q.q : typeof q.text === "string" ? q.text : null);
+      if (!text) continue;
+      seen.add(qid);
+      out.push({ id: qid, text, options: ((q.options || [])).map((o) => ({ label: o.label, value: o.value })) });
+    }
+  }
+  return out;
+}
+
+/* First unasked approved question for a platform+category branch — mirrors
+   the frontend's ai-knowledge.approvedQuestions() (same data, same lookup).
+   Used by the pre-AI router so obvious turns never need a Qwen call. */
+function firstBranchQuestion(platform, category, excludeIds) {
+  if (!DIAG || !Array.isArray(DIAG.profiles)) return null;
+  const device = platform === "mac" ? "mac" : platform === "windows" ? "windows" : null;
+  if (!device || !category) return null;
+  const profile = DIAG.profiles.find((p) => p.category === category && Array.isArray(p.devices) && p.devices.indexOf(device) !== -1);
+  if (!profile) return null;
+  const skip = new Set(excludeIds || []);
+  for (const qid of profile.questions || []) {
+    if (skip.has(qid)) continue;
+    const q = DIAG.questions[qid];
+    // diag-data.js stores the question text in `q` (frontend reads q.q).
+    const text = typeof q && (typeof q.q === "string" ? q.q : typeof q.text === "string" ? q.text : null);
+    if (!text) continue;
+    return { id: qid, text, options: ((q.options || [])).map((o) => ({ label: o.label, value: o.value })) };
+  }
+  return null;
+}
+
+export { TIPS, tipSlugFn as tipSlug, getFixBySlug, isMacTip, approvedQuestionIds, allApprovedQuestions, firstBranchQuestion };

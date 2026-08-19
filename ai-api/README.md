@@ -1,4 +1,4 @@
-# EmTech AI API (Phase 3.1)
+# EmTech AI API (Phase 3.1 + 3.1.1)
 
 Secure backend for **EmTech AI** — the bridge between the public GitHub Pages
 frontend and the Qwen cloud API. The browser never sees an API key, a model
@@ -31,26 +31,50 @@ Server-side guarantees:
 
 - **CORS** locked to the origins in `ALLOWED_ORIGINS` (default: the GitHub
   Pages origin only — no `*` in production, §27)
-- **Rate limiting** per IP (`RATE_LIMIT_MAX` / `RATE_LIMIT_WINDOW_S`)
+- **Rate limiting** per IP (`AI_RATE_LIMIT` / `AI_RATE_WINDOW_S`, aliases
+  `RATE_LIMIT_MAX` / `RATE_LIMIT_WINDOW_S`) + a **daily usage ceiling**
+  (`AI_DAILY_LIMIT`) as the second cost-protection layer (§16/§17)
 - **Body caps**: max request bytes, message count, content length (§25/§65)
 - **Request validation** before anything reaches Qwen (§26)
+- **Server-owned AI contract (Phase 3.1.1)**: the worker builds its own
+  system prompt. Client-supplied `system` messages are parsed for session
+  facts (platform, category, asked questions, attempted fixes) and then
+  discarded — a visitor cannot redefine EmTech AI's behavior, ship their own
+  instructions, or turn this into a generic Qwen proxy (§5–§12). The client's
+  `model` field is ignored; `temperature`/`max_tokens` are clamped to safe
+  ranges. Only user/assistant turns survive as conversation history.
+- **Conversation bounding**: history is trimmed to the most recent messages
+  within a message-count + character budget (`MAX_CONTEXT_MESSAGES`,
+  `MAX_CONTEXT_CHARS`) — long sessions can't balloon token cost (§20)
+- **Pre-AI router (cost control)**: when platform + category are obvious,
+  the turn is answered with an approved EmTech question from `diag-data.js`
+  without calling Qwen at all. Ambiguous input, topic pivots and unknown
+  platforms always go to the model (§22/§23)
 - **Response validation against the real knowledge base**: fix ids must exist
   in `tips-data.js`, question ids must be approved by `diag-data.js`, and a
   Windows session can't receive a Mac fix (or vice versa) (§14–17, §47). The
   worker bundles the site's own data files — one knowledge base, two runtimes.
+- **Outgoing safety scan**: model output containing credential-shaped text
+  (`sk-…`, `Bearer …`) is rejected before it reaches the browser
+- **Request ids**: every response carries an `X-Request-ID` header (echoed in
+  error payloads) so support issues can be correlated with worker logs (§32)
 
 ## Files
 
 ```
 ai-api/
-├── wrangler.jsonc        Worker config (name, entry point)
+├── wrangler.jsonc        Worker config (vars + KV rate-limit binding)
 ├── .dev.vars.example     Local-dev env template → copy to .dev.vars (git-ignored)
 ├── src/
-│   ├── index.js          Routes, CORS, rate limit, request validation
+│   ├── index.js          Routes, CORS, rate/daily limits, request validation
+│   ├── policy.js         Server-owned contract, context extraction, bounding,
+│   │                     pre-AI router, outgoing safety scan (Phase 3.1.1)
 │   ├── qwen.js           Qwen cloud provider (key + model live here only)
 │   ├── knowledge.js      Bundled tips-data.js / diag-data.js access
 │   └── validate.js       Model-response validation against the KB
-└── test/validate.test.mjs  Node unit tests (no network, no deps)
+└── test/
+    ├── security.test.mjs Phase 3.1.1 hardening suite (23 tests, no network)
+    └── validate.test.mjs Knowledge + validation unit tests (no network)
 ```
 
 ## Local development (with your RTX 5090 + LM Studio)
@@ -114,14 +138,26 @@ If your worker URL differs from `CLOUD_ENDPOINT_DEFAULT` in `ai-config.js`,
 either update that one line **or** — without touching code — save it once via
 the AI page's ⚙ settings panel (Cloud endpoint field).
 
-### Rate limiting (optional, recommended for public use)
+### Rate limiting (KV-backed, already configured)
 
-Without extra setup the worker uses a per-isolate in-memory limiter. For a
-global counter across all isolates:
+`wrangler.jsonc` binds a Cloudflare KV namespace (`RATE_LIMITS`) that holds the
+authoritative per-IP counters — shared across all isolates in production. The
+daily ceiling uses the same store with `dly:<ip>:<utc-day>` keys (self-cleaning
+TTL). If the binding is missing or KV hiccups, the worker automatically falls
+back to a per-isolate in-memory limiter so local dev and deploys keep working.
+
+Consistency note: Cloudflare KV is eventually consistent, so under extreme
+burst traffic (many requests from one IP within milliseconds) the per-minute
+counter can briefly under-count — inherent to KV read-modify-write and
+consistent with Cloudflare's own guidance that this is acceptable for abuse
+prevention. The daily ceiling (`dly:*`) provides a second, longer-lived cost
+layer, and the in-memory fallback keeps development working.
+
+To set up your own namespace:
 
 ```bash
 npx wrangler kv namespace create RATE_LIMITS   # copy the id it prints
-# then uncomment + fill in "kv_namespaces" in wrangler.jsonc and redeploy
+# then fill in "kv_namespaces" in wrangler.jsonc and redeploy
 ```
 
 ## Configuration reference
@@ -133,9 +169,13 @@ npx wrangler kv namespace create RATE_LIMITS   # copy the id it prints
 | `QWEN_MODEL` | `qwen-plus` | Production model id. Change without touching the frontend (§38). |
 | `QWEN_BASE_URL` | `https://dashscope.aliyuncs.com/compatible-mode/v1` | OpenAI-compatible endpoint (rarely changes). |
 | `ALLOWED_ORIGINS` | `https://emtechbytes-cpu.github.io` | Comma-separated CORS origins (§27). |
-| `RATE_LIMIT_MAX` | `30` | Requests per window per IP. |
-| `RATE_LIMIT_WINDOW_S` | `60` | Window length, seconds. |
+| `AI_RATE_LIMIT` | `30` | Requests per window per IP (alias: `RATE_LIMIT_MAX`). |
+| `AI_RATE_WINDOW_S` | `60` | Window length, seconds (alias: `RATE_LIMIT_WINDOW_S`). |
+| `AI_DAILY_LIMIT` | `100` | Anonymous daily usage ceiling per IP — second cost-protection layer (§17). |
 | `MAX_BODY_BYTES` | `131072` | Max request body (system prompt + context can be ~40–60 KB). |
+| `MAX_CONTEXT_MESSAGES` | `32` | Conversation history trimmed to the most recent N messages (§20). |
+| `MAX_CONTEXT_CHARS` | `48000` | Total character budget for conversation history sent upstream (§20). |
+| `MAX_SYSTEM_CHARS` | `64000` | Cap on a client system message (carries KB context); user/assistant turns stay capped at 20000. |
 | `UPSTREAM_TIMEOUT_MS` | `60000` | Hard ceiling per model call. |
 | `DEBUG_AI` | `false` | Dev-only: adds latency/usage/validation details to responses (§54). Keep off in production. |
 
@@ -163,7 +203,13 @@ no frontend impact, no key rotation needed.
 ## Testing
 
 ```bash
-# Server-side unit tests (knowledge + validation, no network):
+# Phase 3.1.1 security hardening suite (23 tests — runs the real worker entry
+# point in Node with a stubbed upstream; asserts server-owned prompt, model/
+# provider protection, rate + daily limits, bounding, router, validation,
+# outgoing scan, CORS, request ids):
+node --test ai-api/test/security.test.mjs
+
+# Knowledge + response-validation unit tests (no network):
 node --test ai-api/test/validate.test.mjs
 
 # Full site regression incl. live local Qwen E2E (gateway must be running):

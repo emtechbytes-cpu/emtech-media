@@ -26,12 +26,26 @@ QWEN_BASE_URL=https://dashscope.aliyuncs.com/compatible-mode/v1
 # Production should list only the GitHub Pages origin.
 ALLOWED_ORIGINS=https://emtechbytes-cpu.github.io,http://localhost:8123,http://127.0.0.1:8123
 
-# Rate limiting per IP (§25) — keep generous enough for real troubleshooting.
-RATE_LIMIT_MAX=30
-RATE_LIMIT_WINDOW_S=60
+# Rate limiting per IP (Phase 3.1.1 §16/§17) — keep generous enough for real
+# troubleshooting. AI_RATE_* are the canonical names; RATE_LIMIT_* still work.
+AI_RATE_LIMIT=30
+AI_RATE_WINDOW_S=60
+
+# Anonymous daily usage ceiling per IP — second cost-protection layer on top
+# of the per-minute window (§17). Raise/lower as needed.
+AI_DAILY_LIMIT=100
 
 # Request body cap in bytes (system prompt + context can be ~40–60 KB).
 MAX_BODY_BYTES=131072
+
+# Conversation bounding (§20): history sent upstream is trimmed to the most
+# recent N messages within a total character budget.
+MAX_CONTEXT_MESSAGES=32
+MAX_CONTEXT_CHARS=48000
+
+# Cap on a client system message (it carries the KB context). User/assistant
+# turns stay capped at 20000 chars regardless.
+MAX_SYSTEM_CHARS=64000
 
 # Hard ceiling per upstream model call, ms.
 UPSTREAM_TIMEOUT_MS=60000

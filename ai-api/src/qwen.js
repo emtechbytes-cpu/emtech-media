@@ -23,6 +23,13 @@ function httpError(status, message) {
   return e;
 }
 
+/* Belt-and-braces: strip credential-shaped tokens from anything we log. */
+function redactSecrets(s) {
+  return String(s == null ? "" : s)
+    .replace(/\bBearer[ ]+[A-Za-z0-9._\-]{8,}/gi, "Bearer [redacted]")
+    .replace(/\bsk-[A-Za-z0-9_-]{8,}/g, "sk-[redacted]");
+}
+
 export async function generateQwen({ messages, temperature, maxTokens }, env) {
   const baseUrl = String((env && env.QWEN_BASE_URL) || DEFAULT_BASE).replace(/\/+$/, "");
   const model = String((env && env.QWEN_MODEL) || "qwen-plus").slice(0, 120);
@@ -50,17 +57,15 @@ export async function generateQwen({ messages, temperature, maxTokens }, env) {
     });
 
     if (!res.ok) {
-      // Server-side observability only (§53): log status + short error snippet
-      // so failures are diagnosable without ever exposing details to the client.
-      let detail = "";
-      try { detail = (await res.text() || "").slice(0, 300); } catch (err) { /* ignore */ }
-      console.log(`[emtech-ai-api] upstream HTTP ${res.status}: ${detail}`);
-      if (res.status === 401) {
-        // Key diagnostics — safe metadata only, never the key itself (§53).
-        console.log(
-          `[emtech-ai-api] key check: len=${apiKey.length} head=${JSON.stringify(apiKey.slice(0, 3))}` +
-          ` tail=${JSON.stringify(apiKey.slice(-2))} whitespace=${/\s/.test(apiKey)}`
-        );
+      // Server-side observability only — status/category, NEVER secret material
+      // (Phase 3.1.1 §4/§30). Auth failures get a fixed message with no body:
+      // some providers echo the offending credential back in error responses.
+      if (res.status === 401 || res.status === 403) {
+        console.log(`[emtech-ai-api] Qwen ${res.status === 401 ? "authentication failed" : "access denied"} (HTTP ${res.status})`);
+      } else {
+        let detail = "";
+        try { detail = redactSecrets((await res.text() || "").slice(0, 300)); } catch (err) { /* ignore */ }
+        console.log(`[emtech-ai-api] upstream HTTP ${res.status}: ${detail}`);
       }
       // Never echo upstream details (endpoint, provider errors) to the client (§23).
       throw httpError(502, "qwen-upstream-" + res.status);

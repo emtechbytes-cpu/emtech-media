@@ -15,13 +15,16 @@
     "QWEN_BASE_URL": "https://ws-lum9z1oqbnbg6tu2.ap-southeast-1.maas.aliyuncs.com/compatible-mode/v1",
 
     // CORS allow-list (§27): the public site + local dev server only.
-    "ALLOWED_ORIGINS": "https://emtechbytes-cpu.github.io,http://localhost:8123,http://127.0.0.1:8123"
-  }
+    "ALLOWED_ORIGINS": "https://emtechbytes-cpu.github.io,http://localhost:8123,http://127.0.0.1:8123",
 
-  // Optional: global rate-limit store (see README → "Rate limiting").
-  // Create it with `npx wrangler kv namespace create RATE_LIMITS`, then
-  // uncomment and fill in the id. Without it, a per-isolate in-memory
-  // limiter is used automatically — deploy works either way.
-  //
-  // "kv_namespaces": [{ "binding": "RATE_LIMITS", "id": "<namespace-id>" }]
+    // Anonymous daily usage ceiling per IP (Phase 3.1.1 §17 — cost protection).
+    // Second layer on top of the per-minute window; raise/lower as needed.
+    "AI_DAILY_LIMIT": "100"
+  },
+
+  // Shared rate-limit + daily-usage store (authoritative across isolates in
+  // production). Created with `wrangler kv namespace create RATE_LIMITS`.
+  // Without this binding the worker automatically falls back to a per-isolate
+  // in-memory limiter, so local dev keeps working either way.
+  "kv_namespaces": [{ "binding": "RATE_LIMITS", "id": "ecc063a6597247bb801b9ffaf79bc375" }]
 }
