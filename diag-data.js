@@ -67,8 +67,13 @@
         { id: "win-performance-background", label: "Background processes or a recent change eating resources", fix: "fix-my-pc-is-slow-all-of-a-sudden-the-order-of-attack", alt: ["hunt-down-memory-hogs"], keywords: ["suddenly", "recently", "days", "after update"] },
         { id: "win-performance-startup", label: "Apps launching at boot are slowing everything down", fix: "disable-startup-bloat", alt: ["switch-the-power-plan-to-best-performance"], keywords: ["startup", "boot", "start up", "restart"] },
         { id: "win-performance-disk", label: "The drive is nearly full or struggling", fix: "let-windows-storage-sense-do-the-work-for-you", alt: ["clean-up-temp-files-and-browser-cache-properly"], keywords: ["storage", "space", "disk", "full"] },
+        /* Phase 3.2.2B — CPU/RAM triage + freeze/hang pathways (all fixes reused from existing tips) */
+        { id: "win-perf-cpu", label: "Something is pegging the processor all the time", fix: "cpu-pegged-at-100-find-the-culprit-in-task-manager", alt: ["hunt-down-memory-hogs", "disable-startup-bloat"], keywords: ["cpu", "processor", "task manager", "100%"] },
+        { id: "win-perf-apphang", label: "A single application is hanging while the rest works", fix: "hunt-down-memory-hogs", alt: ["disable-startup-bloat"], keywords: ["not responding", "one app", "single app"] },
+        { id: "win-perf-freeze", label: "System-wide freezes — resources or disk exhaustion", fix: "fix-my-pc-is-slow-all-of-a-sudden-the-order-of-attack", alt: ["hunt-down-memory-hogs", "let-windows-storage-sense-do-the-work-for-you"], keywords: ["freezes", "frozen", "hangs"] },
+        { id: "win-perf-driver", label: "A driver is causing instability, often after an update", fix: "check-for-driver-updates-in-the-right-order", alt: ["start-windows-in-safe-mode"], keywords: ["driver", "after update", "specific program"] },
       ],
-      questions: ["perf-when", "perf-scope", "perf-worsens", "perf-change"],
+      questions: ["perf-when", "perf-resource", "perf-freeze", "perf-scope", "perf-worsens", "perf-change"],
     },
     {
       id: "win-overheating", devices: ["windows"], category: "overheating",
@@ -117,8 +122,15 @@
         { id: "win-upd-odd", label: "Windows restarting you at odd hours", fix: "stop-windows-updates-at-odd-hours", alt: [], keywords: ["restarts", "3am", "night", "active hours"] },
         { id: "win-upd-fail", label: "Updates stuck or failing to install", fix: "repair-corrupted-system-files", alt: ["start-windows-in-safe-mode"], keywords: ["stuck", "failing", "error", "loop"] },
         { id: "win-upd-eol", label: "Running Windows 10 past end of support", fix: "windows-10-is-past-end-of-support-what-to-do-now", alt: ["check-whether-your-pc-can-run-windows-11"], keywords: ["windows 10", "end of support", "upgrade"] },
+        /* Phase 3.2.2B — Windows Update failing pathway: safe fixes first, repair as escalation.
+           win-upd-stuck outranks win-upd-fail on the install-loop answer (4 vs 3), so the
+           low-risk retry pass is recommended first; if it fails, triedFixes excludes it and
+           win-upd-fail (repair-corrupted-system-files) becomes the auto-recommended next fix. */
+        { id: "win-upd-stuck", label: "Windows Update is stuck — service stalled or install looping", fix: "windows-update-stuck-the-safe-retry-pass", alt: ["repair-corrupted-system-files", "start-windows-in-safe-mode"], keywords: ["stalled", "not starting", "frozen on update"] },
+        { id: "win-upd-net", label: "The network is blocking the download", fix: "slow-internet-run-the-five-minute-test", alt: ["connected-but-no-internet-the-safe-dns-and-stack-reset"], keywords: ["downloading", "download stuck", "network"] },
+        { id: "win-upd-space", label: "Not enough free space for the update", fix: "let-windows-storage-sense-do-the-work-for-you", alt: ["clean-up-temp-files-and-browser-cache-properly"], keywords: ["space", "storage full", "not enough space"] },
       ],
-      questions: ["upd-what", "upd-version"],
+      questions: ["upd-what", "upd-stuck", "upd-version"],
     },
     {
       id: "win-crashes", devices: ["windows"], category: "crashes",
@@ -306,6 +318,27 @@
       ],
     },
 
+    /* Phase 3.2.2B — CPU/RAM triage + freeze/hang (Windows performance profile). */
+    "perf-resource": {
+      q: "Do you know which is working hardest — processor or memory?",
+      desc: "A quick look at Task Manager (Ctrl+Shift+Esc) tells you. Not sure? That's a fine answer too.",
+      options: [
+        { label: "Processor / CPU is pegged near 100%", value: "cpu", score: { "win-perf-cpu": 3 }, reason: "A pinned processor usually has one identifiable culprit — and Task Manager names it in seconds." },
+        { label: "Memory / RAM is nearly full", value: "ram", score: { "win-performance-memory": 3, "win-performance-background": 1 }, reason: "Nearly-full memory points at too much running at once rather than one bad app." },
+        { label: "Both seem high — or I haven't checked", value: "unsure", score: { "win-performance-background": 2 }, reason: "When both look busy it's usually general background load, not a single process." },
+      ],
+    },
+    "perf-freeze": {
+      q: "When it freezes, what can you still do?",
+      desc: "This separates one stuck app from a whole-system freeze — they need different fixes.",
+      options: [
+        { label: "One app says 'Not Responding' but everything else works", value: "app-only", score: { "win-perf-apphang": 3 }, reason: "A single hung app is a different (and safer) problem than a frozen system." },
+        { label: "Everything freezes — mouse and keyboard stop for a while, then it recovers", value: "whole-system", score: { "win-perf-freeze": 3 }, reason: "Whole-system freezes that recover point at resources or the drive working overtime." },
+        { label: "It keeps freezing with one particular program, or after updates", value: "specific", score: { "win-perf-driver": 3 }, reason: "Freezes tied to one program or an update often trace back to a driver." },
+        { label: "It doesn't really freeze — it's just slow", value: "no-freeze" },
+      ],
+    },
+
     "heat-idle": {
       q: "Does it get hot even when you're not doing much?",
       desc: "",
@@ -429,6 +462,20 @@
         { label: "Updates are stuck or failing", value: "fail", score: { "win-upd-fail": 2 } },
         { label: "I want to stay current without surprises", value: "safe", score: { "mac-upd-safe": 3, "win-upd-eol": 1 } },
         { label: "I'm worried about losing data when updating", value: "data", score: { "mac-upd-backup": 2, "win-sec-harden": 1 } },
+      ],
+    },
+
+    /* Phase 3.2.2B — Windows Update failing branch (only shown after 'stuck or failing'). */
+    "upd-stuck": {
+      q: "What exactly is Windows Update doing right now?",
+      desc: "This decides which safe fix to try first.",
+      showIf: { q: "upd-what", is: ["fail"] },
+      options: [
+        { label: "It won't start or check for updates at all", value: "stalled", score: { "win-upd-stuck": 3 }, reason: "A stalled update usually wants a clean restart, free space and working network before anything heavier." },
+        { label: "Stuck downloading — the percentage isn't moving", value: "downloading", score: { "win-upd-net": 3 }, reason: "If the download won't move, the connection is the first thing to rule out." },
+        { label: "Not enough space / my drive is full", value: "space", score: { "win-upd-space": 3 }, reason: "Windows Update needs real headroom on C: — a full drive stalls it silently." },
+        { label: "Stuck installing, failing repeatedly or rolling back", value: "install-loop", score: { "win-upd-stuck": 4, "win-upd-fail": 1 }, reason: "Install loops deserve the safe reset pass first; system-file repair is the next step if it fails." },
+        { label: "Not sure — I just know it's not working", value: "unsure" },
       ],
     },
     "upd-version": {

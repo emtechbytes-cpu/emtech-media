@@ -14,7 +14,7 @@
    ai-api/test/schema.test.mjs fails if the two runtimes drift apart.
    ============================================================ */
 const EMTECH_CLASSIFICATION_WORDS = {
-  version: "1.1.0", // bump when a word is added/removed (stamped for debugging)
+  version: "1.2.0", // bump when a word is added/removed (stamped for debugging)
 
   PLATFORM_WORDS: {
     mac: ["macbook", "imac", "macos", "osx", "apple silicon", "mac mini", "mac studio", "mac laptop", "mac desktop", "my mac ", "on my mac"],
@@ -22,12 +22,12 @@ const EMTECH_CLASSIFICATION_WORDS = {
   },
 
   CATEGORY_WORDS: {
-    performance: ["slow", "sluggish", "laggy", "freezing", "frozen", "hangs", "takes forever", "unresponsive", "beachball"],
+    performance: ["slow", "sluggish", "laggy", "freezing", "frozen", "hangs", "takes forever", "unresponsive", "beachball", "high cpu", "cpu at 100%", "using too much memory", "out of memory"],
     overheating: ["hot", "overheat", "fan", "fans", "loud", "thermal", "throttl"],
     network: ["wifi", "wi-fi", "wireless", "internet", "disconnect", "drops", "buffering", "router", "ethernet"],
     storage: ["storage", "disk space", "drive full", "almost full", "not enough space", "not enough storage", "running out of space", "low on space", "no space left", "temp files", "cache"],
     audio: ["no sound", "silent", "microphone", "mic ", "webcam", "camera won't", "headphones"],
-    updates: ["windows update", "update stuck", "updates failing", "restarts at 3am", "active hours", "macos update"],
+    updates: ["windows update", "update stuck", "updates failing", "restarts at 3am", "active hours", "macos update", "update failed", "update won't install", "update error"],
     crashes: ["blue screen", "bsod", "crash", "won't start", "wont start", "black screen", "goes black", "screen goes dark", "random restarts", "gatekeeper", "no signal", "won't turn on", "wont turn on", "no power"],
     gaming: ["game", "games", "fps", "stutter", "lag spike", "input lag", "framerate"],
     security: ["virus", "malware", "ransomware", "phishing", "scam", "pop-up", "popup", "pop up", "popups", "optimizer", "encrypt"],

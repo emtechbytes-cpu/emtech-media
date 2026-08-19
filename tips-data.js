@@ -1608,6 +1608,45 @@ const TIPS = [
       "Both: enable HTTPS-Only Mode, then audit your extensions and remove anything you don't recognise or haven't used in a month",
     ],
   },
+  /* ---------- Phase 3.2.2B — Windows P0 completion (update + CPU triage) ---------- */
+  {
+    title: "Windows Update stuck? The safe retry pass",
+    risk_level: "low",
+    reversible: true,
+    verification: "Open Settings → Windows Update and confirm the update that was failing now moves past its previous failure point — downloading, installing or completing instead of stopping at the same percentage or error.",
+    failure_conditions: "If the update still fails at the same stage after two attempts (same percentage or same error code), stop repeating this pass. Move to 'Repair corrupted system files' and note the exact error code for the next step — do not start deleting update folders or editing the registry yet.",
+    updated: "2026-08-19",
+    cat: "maintenance",
+    difficulty: 1,
+    time: "10 min",
+    win: "Win 10 / 11",
+    description: "A stuck update is usually one of three boring things — a pending restart, a full drive or a dead network. This pass clears all three in ten minutes and can't damage Windows; system-file repair only comes after it fails.",
+    steps: [
+      "Restart the PC and let it sit for a few minutes after booting — a large share of 'stuck' updates are actually waiting on a pending restart that never happened",
+      "Check free space on C: (Settings → System → Storage). Windows Update needs roughly 10–20 GB of headroom; if you're short, clean up first using the storage tips before retrying",
+      "Confirm the internet itself works — open any website in your browser. A dead or flaky connection looks exactly like a download that never moves",
+      "Now go to Settings → Windows Update and press 'Check for updates' again, then leave it alone until it reports real progress or a specific error code",
+    ],
+  },
+  {
+    title: "CPU pegged at 100%? Find the culprit in Task Manager",
+    risk_level: "low",
+    reversible: true,
+    verification: "After closing or restarting the offending app, CPU usage settles below roughly 20% within a minute and the PC feels responsive again.",
+    failure_conditions: "If CPU stays pegged with no single app responsible (or it's always 'System'/'svchost.exe'), stop here — that points at background processes, a driver or malware. Move to the memory-hog and startup-bloat checks instead of killing random system processes.",
+    updated: "2026-08-19",
+    cat: "speed",
+    difficulty: 1,
+    time: "5 min",
+    win: "Win 10 / 11",
+    description: "A processor pinned near 100% is almost always one process working too hard — or something launching at boot. Task Manager names the culprit in seconds, and closing a misbehaving app can't damage Windows.",
+    steps: [
+      "Press Ctrl+Shift+Esc to open Task Manager (or right-click the taskbar → Task Manager)",
+      "On the Processes tab, click the CPU column header to sort by usage — look at which entry sits on top",
+      "If it's an app you recognise (browser with 40 tabs, a game, a video editor): close or restart it and watch whether CPU drops within a minute",
+      "If the top entry is svchost.exe or something system-looking: note its name, then open Task Manager → Startup apps and disable anything you don't need at boot — that's where silent CPU hogs usually live",
+    ],
+  },
 ];
 
 // Category display names used in the card badge
