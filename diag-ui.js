@@ -175,6 +175,7 @@
         ${historyHtml()}
 
         <p class="dz-fineprint">Runs entirely on this device — your answers never leave the browser.</p>
+        <p class="dz-ai-alt">Prefer to just describe what's happening? <a href="ai.html">Try EmTech AI <span aria-hidden="true">↗</span></a></p>
       </div>`;
   }
 

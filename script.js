@@ -611,6 +611,7 @@
           <h3>We couldn't find that problem.</h3>
           <p>Try describing it differently — e.g. "my laptop is overheating" instead of "computer broken".</p>
           <a class="btn btn-primary" href="diagnose.html">Start diagnosis<span aria-hidden="true"> →</span></a>
+          <p class="search-empty-alt"><a class="btn-link" href="ai.html">Or describe it to EmTech AI <span aria-hidden="true">↗</span></a></p>
         </div>`;
       if (gsCount) gsCount.textContent = "No matches — try the diagnosis instead";
     }
