@@ -71,6 +71,15 @@ function resolveHref(fromRel, href) {
   if (!clean) return null; // pure anchor — nothing to verify on disk
   if (/^(https?:)?\/\//i.test(href)) return null; // external / protocol-relative
   if (/^(data:|mailto:|tel:)/i.test(href)) return null;
+  /* Phase 4.1: root-relative refs are anchored at the GitHub Pages project
+     root (the repo root), not at the file's directory — e.g.
+     /emtech-media/style.css → style.css, /emtech-media/ → index.html */
+  const PROJECT = "/emtech-media/";
+  if (clean.startsWith(PROJECT)) {
+    let p = clean.slice(PROJECT.length);
+    if (!p || p.endsWith("/")) p += "index.html";
+    return path.posix.normalize(p);
+  }
   const dir = path.posix.dirname(fromRel);
   let p = path.posix.normalize(path.posix.join(dir, clean));
   if (p.endsWith("/")) p += "index.html";
@@ -441,9 +450,19 @@ test("docs/SEO-CONTENT-AUDIT.md classifies every fix PUBLISH/REVIEW/MERGE", () =
 test("404 page exists and links home + both hubs without JavaScript", () => {
   const html = read("404.html");
   assert.ok(/<h1[\s>]/.test(html), "404 page has no H1");
-  assert.ok(html.includes('href="index.html"'), "404 page missing home link");
-  assert.ok(html.includes('href="windows/"'), "404 page missing Windows hub link");
-  assert.ok(html.includes('href="mac/"'), "404 page missing Mac hub link");
+  assert.ok(html.includes('href="/emtech-media/"'), "404 page missing home link");
+  assert.ok(html.includes('href="/emtech-media/windows/"'), "404 page missing Windows hub link");
+  assert.ok(html.includes('href="/emtech-media/mac/"'), "404 page missing Mac hub link");
+  // Phase 4.1: GitHub Pages serves this custom 404 at arbitrary unknown paths
+  // (e.g. /emtech-media/foo/bar/baz/), so every href/src must be production-safe:
+  // an absolute URL, a hash anchor, or root-relative from the project root.
+  // Bare relative refs would resolve below the unknown path and 404 again.
+  const refs = [...html.matchAll(/(?:href|src)="([^"]*)"/g)].map((m) => m[1]);
+  assert.ok(refs.length >= 5, "404 page has no href/src references to validate");
+  for (const ref of refs) {
+    const safe = /^https?:\/\//.test(ref) || ref.startsWith("#") || ref === "/" || ref.startsWith("/emtech-media/");
+    assert.ok(safe, `404 page contains a non-production-safe reference: "${ref}"`);
+  }
 });
 
 test("published pages are indexable (no noindex on any sitemap URL)", () => {

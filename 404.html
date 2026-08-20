@@ -32,11 +32,15 @@
       } catch (err) {}
     })();
   </script>
-  <link rel="icon" type="image/svg+xml" href="brand/cursor-favicon.svg" />
+  <!-- Phase 4.1: this page is served at arbitrary unknown paths, so every
+       reference must be production-safe (root-relative from the GitHub Pages
+       project root). Bare relative hrefs would resolve below the unknown
+       path and 404 again. -->
+  <link rel="icon" type="image/svg+xml" href="/emtech-media/brand/cursor-favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@1&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="/emtech-media/style.css" />
 </head>
 <body>
 
@@ -45,19 +49,19 @@
   <!-- ============ HEADER ============ -->
   <header class="site-header" id="top">
     <div class="container nav-wrap">
-      <a class="brand" href="index.html" aria-label="EmTech Media home">
-        <img class="brand-mark" src="brand/cursor-mark.svg" width="30" height="30" alt="" aria-hidden="true">
+      <a class="brand" href="/emtech-media/" aria-label="EmTech Media home">
+        <img class="brand-mark" src="/emtech-media/brand/cursor-mark.svg" width="30" height="30" alt="" aria-hidden="true">
         EmTech&nbsp;Media
       </a>
 
       <nav class="primary-nav" id="primary-nav" aria-label="Primary">
         <ul>
-          <li><a href="index.html#search">Search</a></li>
-          <li><a href="ai.html">EmTech AI</a></li>
-          <li><a href="diagnose.html">Diagnose</a></li>
-          <li><a href="windows/">Windows</a></li>
-          <li><a href="mac/">Mac</a></li>
-          <li><a href="index.html#routine">Routine</a></li>
+          <li><a href="/emtech-media/#search">Search</a></li>
+          <li><a href="/emtech-media/ai.html">EmTech AI</a></li>
+          <li><a href="/emtech-media/diagnose.html">Diagnose</a></li>
+          <li><a href="/emtech-media/windows/">Windows</a></li>
+          <li><a href="/emtech-media/mac/">Mac</a></li>
+          <li><a href="/emtech-media/#routine">Routine</a></li>
         </ul>
       </nav>
 
@@ -94,19 +98,19 @@
         <p class="lede reveal delay-2">That link doesn't lead anywhere — but the fix you're after probably still does. Start from one of these:</p>
 
         <ul class="index-list reveal delay-2" style="margin-top: 24px;">
-          <li><a class="index-row" href="windows/">
+          <li><a class="index-row" href="/emtech-media/windows/">
             <span class="idx-num">01</span>
             <h3 class="idx-title">Windows fixes</h3>
             <p class="idx-desc">66 tested fixes for Windows 10 and 11.</p>
             <span class="idx-arrow" aria-hidden="true">↗</span>
           </a></li>
-          <li><a class="index-row" href="mac/">
+          <li><a class="index-row" href="/emtech-media/mac/">
             <span class="idx-num">02</span>
             <h3 class="idx-title">Mac fixes</h3>
             <p class="idx-desc">23 tested macOS guides, Intel and Apple Silicon.</p>
             <span class="idx-arrow" aria-hidden="true">↗</span>
           </a></li>
-          <li><a class="index-row" href="diagnose.html">
+          <li><a class="index-row" href="/emtech-media/diagnose.html">
             <span class="idx-num">03</span>
             <h3 class="idx-title">Diagnose your problem</h3>
             <p class="idx-desc">Answer a few questions and get the fix that works.</p>
@@ -117,15 +121,15 @@
         <section class="notfound-popular" aria-label="Popular fixes">
           <h2>Popular fixes</h2>
           <ul class="rel-list">
-        <li><a href="windows/fix-my-pc-is-slow-all-of-a-sudden-the-order-of-attack/">Fix &#39;My PC is slow all of a sudden&#39; — the order of attack</a></li>
-        <li><a href="mac/speed-up-a-sluggish-macbook/">Speed up a sluggish MacBook</a></li>
-        <li><a href="mac/free-up-disk-space-with-storage-management/">Free up disk space with Storage Management</a></li>
-        <li><a href="windows/stop-games-stuttering-the-5-point-checklist/">Stop games stuttering — the 5-point checklist</a></li>
+        <li><a href="/emtech-media/windows/fix-my-pc-is-slow-all-of-a-sudden-the-order-of-attack/">Fix &#39;My PC is slow all of a sudden&#39; — the order of attack</a></li>
+        <li><a href="/emtech-media/mac/speed-up-a-sluggish-macbook/">Speed up a sluggish MacBook</a></li>
+        <li><a href="/emtech-media/mac/free-up-disk-space-with-storage-management/">Free up disk space with Storage Management</a></li>
+        <li><a href="/emtech-media/windows/stop-games-stuttering-the-5-point-checklist/">Stop games stuttering — the 5-point checklist</a></li>
           </ul>
         </section>
 
         <div class="hero-cta" style="margin-top: 24px;">
-          <a class="btn btn-primary" href="index.html">Back to the homepage <span aria-hidden="true">→</span></a>
+          <a class="btn btn-primary" href="/emtech-media/">Back to the homepage <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </section>
@@ -135,13 +139,13 @@
   <!-- ============ FOOTER ============ -->
   <footer class="site-footer">
     <div class="container footer-top">
-      <p class="footer-brand"><img class="brand-mark" src="brand/cursor-mark.svg" width="20" height="20" alt="" aria-hidden="true">EmTech Media — PC &amp; Mac problems, solved in plain English.</p>
+      <p class="footer-brand"><img class="brand-mark" src="/emtech-media/brand/cursor-mark.svg" width="20" height="20" alt="" aria-hidden="true">EmTech Media — PC &amp; Mac problems, solved in plain English.</p>
 
       <nav aria-label="Footer">
-        <a href="diagnose.html">Diagnose</a>
-        <a href="windows/">Windows fixes</a>
-        <a href="mac/">Mac fixes</a>
-        <a href="index.html#routine">Monthly routine</a>
+        <a href="/emtech-media/diagnose.html">Diagnose</a>
+        <a href="/emtech-media/windows/">Windows fixes</a>
+        <a href="/emtech-media/mac/">Mac fixes</a>
+        <a href="/emtech-media/#routine">Monthly routine</a>
       </nav>
     </div>
 
