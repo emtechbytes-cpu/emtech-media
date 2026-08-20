@@ -90,7 +90,8 @@
   function fixHref(tip) {
     const s = slugOf();
     if (!tip || !s) return "#";
-    return `${tip.cat === "mac" ? "mac.html" : "windows.html"}#${s(tip.title)}`;
+    // Phase 4: every fix has a canonical static page (windows/<slug>/ or mac/<slug>/).
+    return `${tip.cat === "mac" ? "mac/" : "windows/"}${s(tip.title)}/`;
   }
 
   /* ---------- Ranking (same shape as Phase 1 global search, §10) ---------- */

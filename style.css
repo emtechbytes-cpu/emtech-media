@@ -678,6 +678,25 @@ figcaption {
 }
 .acc-group i { font-style: normal; }
 
+/* Static crawlable fix index (hubs) — same row language as the accordion,
+   fully usable with JavaScript disabled. */
+.static-fix-list { list-style: none; margin: 0; padding: 0; border-bottom: 1px solid var(--hairline); }
+.static-fix-list a {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: clamp(12px, 2vw, 18px) 8px;
+  color: var(--ink);
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.static-fix-list li + li a { border-top: 1px solid var(--hairline); }
+.static-fix-list .sf-title { font-family: var(--font-display); font-weight: 500; }
+.static-fix-list small { font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); white-space: nowrap; }
+.static-fix-list a:hover { background: var(--ink); color: var(--paper); }
+.static-fix-list a:hover small { color: var(--on-ink-muted); }
+
 .acc-item { border-bottom: 1px solid var(--hairline); transition: background-color 0.5s ease; }
 .acc-item.flash { background: var(--accent); }
 

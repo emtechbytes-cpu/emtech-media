@@ -38,7 +38,8 @@
   function tipHref(slug) {
     const t = findTip(slug);
     if (!t) return null;
-    return (t.cat === "mac" ? "mac.html" : "windows.html") + "#" + esc(tipSlug(t.title));
+    // Phase 4: canonical static fix page (windows/<slug>/ or mac/<slug>/).
+    return (t.cat === "mac" ? "mac/" : "windows/") + esc(tipSlug(t.title)) + "/";
   }
   function platformLabel(tip) {
     if (!tip) return "";
@@ -389,7 +390,7 @@
           </li>`;
       }).join("");
 
-      const browseHref = state.device === "mac" ? "mac.html" : "windows.html";
+      const browseHref = state.device === "mac" ? "mac/" : "windows/";
       return `
         <div class="dz-screen dz-step">
           ${stepKicker("Diagnosis complete")}
@@ -411,7 +412,7 @@
         <h1 id="dz-h1" tabindex="-1">We couldn't find a close match.</h1>
         <p class="dz-sub">That's okay. Try describing it differently — e.g. "my laptop is overheating" instead of "computer broken" — or browse the full library.</p>
         <div class="dz-result-actions dz-result-actions-col">
-          <a class="btn btn-primary" href="${state.device === "mac" ? "mac.html" : "windows.html"}">Browse all fixes <span aria-hidden="true">→</span></a>
+          <a class="btn btn-primary" href="${state.device === "mac" ? "mac/" : "windows/"}">Browse all fixes <span aria-hidden="true">→</span></a>
           <button class="btn-link" type="button" data-act="retry-description">Try again with different words</button>
           <button class="btn-link" type="button" data-act="restart-confirm">Start over</button>
         </div>

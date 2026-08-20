@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" id="meta-theme-color" content="#F1EEE6" />
+  <title>Windows Fixes — EmTech Media</title>
+  <meta name="description" content="66 tested fixes for Windows 10 and 11: slow PCs, blue screens, no sound, update chaos, gaming stutter, disk bloat, Wi-Fi lock-down, BitLocker and more. Grouped by what they do, timed to the minute, written in plain English." />
+  <link rel="canonical" href="https://emtechbytes-cpu.github.io/emtech-media/windows/" />
+  <meta property="og:url" content="https://emtechbytes-cpu.github.io/emtech-media/windows/" />
+
+  <meta property="og:image" content="https://emtechbytes-cpu.github.io/emtech-media/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="EmTech Media — PC &amp; Mac problems, solved in plain English" />
+  <meta name="twitter:image" content="https://emtechbytes-cpu.github.io/emtech-media/og-image.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="EmTech Media" />
+  <meta property="og:title" content="Windows Fixes — EmTech Media" />
+  <meta property="og:description" content="66 tested fixes for Windows 10 and 11: slow PCs, blue screens, no sound, update chaos, gaming stutter, disk bloat, Wi-Fi lock-down, BitLocker and more. Grouped by what they do, timed to the minute, written in plain English." />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <script>
+    // Apply the saved theme before first paint (avoids a flash of the wrong theme).
+    (function () {
+      try {
+        var t = localStorage.getItem("emtech-theme");
+        if (!t) t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.theme = t;
+        var m = document.getElementById("meta-theme-color");
+        if (m) m.content = t === "dark" ? "#131210" : "#F1EEE6";
+      } catch (err) {}
+    })();
+  </script>
+  <link rel="icon" type="image/svg+xml" href="../brand/cursor-favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@1&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://emtechbytes-cpu.github.io/emtech-media/index.html" },
+      { "@type": "ListItem", "position": 2, "name": "Windows fixes", "item": "https://emtechbytes-cpu.github.io/emtech-media/windows/" }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header" id="top">
+    <div class="container nav-wrap">
+      <a class="brand" href="../index.html" aria-label="EmTech Media home">
+        <img class="brand-mark" src="../brand/cursor-mark.svg" width="30" height="30" alt="" aria-hidden="true">
+        EmTech&nbsp;Media
+      </a>
+
+      <nav class="primary-nav" id="primary-nav" aria-label="Primary">
+        <ul>
+          <li><a href="../index.html#search">Search</a></li>
+          <li><a href="../ai.html">EmTech AI</a></li>
+          <li><a href="../diagnose.html">Diagnose</a></li>
+          <li><a href="../windows/" class="active" aria-current="page">Windows</a></li>
+          <li><a href="../mac/">Mac</a></li>
+          <li><a href="../index.html#routine">Routine</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false" aria-label="Toggle dark mode">
+          <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"/>
+            <line x1="12" y1="2.5" x2="12" y2="4.5"/><line x1="12" y1="19.5" x2="12" y2="21.5"/>
+            <line x1="2.5" y1="12" x2="4.5" y2="12"/><line x1="19.5" y1="12" x2="21.5" y2="12"/>
+            <line x1="5.3" y1="5.3" x2="6.7" y2="6.7"/><line x1="17.3" y1="17.3" x2="18.7" y2="18.7"/>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20.5 13.2A8.5 8.5 0 1 1 10.8 3.5a7 7 7 0 0 9.7 9.7z"/>
+          </svg>
+        </button>
+        <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle menu">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <line class="icon-open" x1="3" y1="7" x2="21" y2="7"/>
+            <line class="icon-open" x1="3" y1="12" x2="21" y2="12"/>
+            <line class="icon-open" x1="3" y1="17" x2="21" y2="17"/>
+            <line class="icon-close" x1="5" y1="5" x2="19" y2="19"/>
+            <line class="icon-close" x1="19" y1="5" x2="5" y2="19"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ============ PAGE HERO ============ -->
+    <section class="hero">
+      <div class="container">
+        <p class="kicker reveal">Windows 10 / 11 — the full list</p>
+        <h1 class="reveal delay-1">Every Windows fix, <em class="serif">in one list.</em></h1>
+
+        <div class="hero-foot reveal delay-2">
+          <div class="hero-copy">
+            <p class="lede"><span data-tip-count="win">66</span> tested fixes grouped by what they do — speed, updates, gaming, cleaning, maintenance, hardware and security. Each one timed to the minute and written in plain English.</p>
+            <div class="hero-cta">
+              <a class="btn btn-primary" href="#fixes">Jump to the list</a>
+              <a class="btn-link" href="../diagnose.html">Not sure where to start? Diagnose <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+          <ul class="hero-meta" aria-label="Library facts">
+            <li><span>Tested fixes</span> <span data-tip-count="win">66</span></li>
+            <li><span>Categories</span> <span data-tip-count="win-cats">7</span></li>
+            <li><span>Jargon</span> None. Ever.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ THE FULL LIST (JS-enhanced cards) ============ -->
+    <section class="section" id="fixes">
+      <div class="container">
+        <header class="sec-head reveal">
+          <span class="sec-num"><span data-tip-count="win">66</span> fixes · <span data-tip-count="win-cats">7</span> categories</span>
+          <h2>The full list</h2>
+          <p class="sec-sub">Grouped by what they fix. Search, jump to a category, or tap any row to read the steps — no sign-up, no jargon.</p>
+        </header>
+
+        <nav class="breadcrumbs reveal" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="../index.html">Home</a></li>
+            <li id="bc-page" aria-current="page">Windows fixes</li>
+            <li id="bc-tip" hidden></li>
+          </ol>
+        </nav>
+
+        <div class="fix-tools reveal">
+          <div class="fix-search-row">
+            <input type="search" id="fix-search" placeholder="Search the fixes… (press /)" aria-label="Search the Windows fixes" />
+            <span class="fix-count" id="fix-count" aria-live="polite"></span>
+          </div>
+          <div class="cat-chips" role="group" aria-label="Jump to a category">
+            <a class="cat-chip" href="#cat-speed">Speed</a>
+            <a class="cat-chip" href="#cat-windows">Windows</a>
+            <a class="cat-chip" href="#cat-gaming">Gaming</a>
+            <a class="cat-chip" href="#cat-cleaning">Cleaning</a>
+            <a class="cat-chip" href="#cat-maintenance">Maintenance</a>
+            <a class="cat-chip" href="#cat-hardware">Hardware</a>
+            <a class="cat-chip" href="#cat-security">Security</a>
+          </div>
+        </div>
+
+        <!-- script.js renderAccordion() binds these exact ids (win-acc / mac-acc). -->
+        <div class="acc-list" id="win-acc">
+          <noscript><p class="no-js-note">Enable JavaScript to expand the fix cards — or use the full index below, which works without it.</p></noscript>
+        </div>
+
+        <div class="search-empty search-block" id="fix-search-empty" hidden>
+          <h3>We couldn't find that problem.</h3>
+          <p>Try describing it differently — e.g. "my laptop is overheating" instead of "computer broken".</p>
+          <a class="btn btn-primary" href="../diagnose.html">Start diagnosis<span aria-hidden="true"> →</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CRAWLABLE INDEX (works with JavaScript disabled) ============ -->
+    <section class="section" id="all-fixes" aria-label="All fixes index">
+      <div class="container">
+        <header class="sec-head reveal">
+          <span class="sec-num">66 guides</span>
+          <h2>Browse every fix</h2>
+          <p class="sec-sub">Each guide has its own permanent page — open any of them directly, or share the link.</p>
+        </header>
+
+        <section class="static-group" aria-labelledby="cat-speed">
+          <h3 class="acc-group" id="cat-speed"><span>Speed</span><i aria-hidden="true">·</i><span>5 fixes</span></h3>
+          <ul class="static-fix-list">
+            <li><a href="disable-startup-bloat/"><span class="sf-title">Disable startup bloat</span><small>Easy · 2 min</small></a></li>
+            <li><a href="switch-the-power-plan-to-best-performance/"><span class="sf-title">Switch the power plan to Best Performance</span><small>Easy · 1 min</small></a></li>
+            <li><a href="fix-my-pc-is-slow-all-of-a-sudden-the-order-of-attack/"><span class="sf-title">Fix &#39;My PC is slow all of a sudden&#39; — the order of attack</span><small>Easy · 15 min</small></a></li>
+            <li><a href="hunt-down-memory-hogs/"><span class="sf-title">Hunt down memory hogs</span><small>Medium · 10 min</small></a></li>
+            <li><a href="cpu-pegged-at-100-find-the-culprit-in-task-manager/"><span class="sf-title">CPU pegged at 100%? Find the culprit in Task Manager</span><small>Easy · 5 min</small></a></li>
+          </ul>
+        </section>
+        <section class="static-group" aria-labelledby="cat-windows">
+          <h3 class="acc-group" id="cat-windows"><span>Windows</span><i aria-hidden="true">·</i><span>19 fixes</span></h3>
+          <ul class="static-fix-list">
+            <li><a href="stop-windows-updates-at-odd-hours/"><span class="sf-title">Stop Windows updates at odd hours</span><small>Easy · 3 min</small></a></li>
+            <li><a href="lower-windows-transparency-and-animation-effects/"><span class="sf-title">Lower Windows transparency and animation effects</span><small>Easy · 2 min</small></a></li>
+            <li><a href="stop-your-pc-from-sleep-glitching-your-network/"><span class="sf-title">Stop your PC from sleep-glitching your network</span><small>Medium · 10 min</small></a></li>
+            <li><a href="make-windows-search-actually-useful-again/"><span class="sf-title">Make Windows Search actually useful again</span><small>Easy · 5 min</small></a></li>
+            <li><a href="make-your-desktop-feel-like-a-mac-without-the-price/"><span class="sf-title">Make your desktop feel like a Mac (without the price)</span><small>Easy · 15 min</small></a></li>
+            <li><a href="make-big-file-transfers-actually-fast/"><span class="sf-title">Make big file transfers actually fast</span><small>Easy · 5 min</small></a></li>
+            <li><a href="master-the-keyboard-shortcuts-that-save-hours/"><span class="sf-title">Master the keyboard shortcuts that save hours</span><small>Easy · 5 min</small></a></li>
+            <li><a href="install-powertoys-microsoft-s-free-utility-pack/"><span class="sf-title">Install PowerToys — Microsoft&#39;s free utility pack</span><small>Easy · 10 min</small></a></li>
+            <li><a href="no-sound-the-four-minute-fix/"><span class="sf-title">No sound? The four-minute fix</span><small>Easy · 4 min</small></a></li>
+            <li><a href="organise-your-work-with-virtual-desktops/"><span class="sf-title">Organise your work with virtual desktops</span><small>Easy · 5 min</small></a></li>
+            <li><a href="slow-internet-run-the-five-minute-test/"><span class="sf-title">Slow internet? Run the five-minute test</span><small>Easy · 10 min</small></a></li>
+            <li><a href="wi-fi-off-or-missing-the-three-switches-that-disable-it/"><span class="sf-title">Wi-Fi off or missing? The three switches that disable it</span><small>Easy · 5 min</small></a></li>
+            <li><a href="check-whether-your-pc-can-run-windows-11/"><span class="sf-title">Check whether your PC can run Windows 11</span><small>Medium · 10 min</small></a></li>
+            <li><a href="fix-a-printer-that-won-t-print/"><span class="sf-title">Fix a printer that won&#39;t print</span><small>Easy · 10 min</small></a></li>
+            <li><a href="fix-a-microphone-no-one-can-hear/"><span class="sf-title">Fix a microphone no one can hear</span><small>Easy · 5 min</small></a></li>
+            <li><a href="fix-a-webcam-that-won-t-turn-on/"><span class="sf-title">Fix a webcam that won&#39;t turn on</span><small>Easy · 5 min</small></a></li>
+            <li><a href="bluetooth-won-t-connect-the-pairing-reset-that-works/"><span class="sf-title">Bluetooth won&#39;t connect? The pairing reset that works</span><small>Easy · 5 min</small></a></li>
+            <li><a href="usb-device-not-recognised-the-device-manager-pass/"><span class="sf-title">USB device not recognised? The Device Manager pass</span><small>Medium · 10 min</small></a></li>
+            <li><a href="move-everything-to-a-new-pc/"><span class="sf-title">Move everything to a new PC</span><small>Medium · 60 min</small></a></li>
+          </ul>
+        </section>
+        <section class="static-group" aria-labelledby="cat-gaming">
+          <h3 class="acc-group" id="cat-gaming"><span>Gaming</span><i aria-hidden="true">·</i><span>4 fixes</span></h3>
+          <ul class="static-fix-list">
+            <li><a href="stop-games-stuttering-the-5-point-checklist/"><span class="sf-title">Stop games stuttering — the 5-point checklist</span><small>Easy · 15 min</small></a></li>
+            <li><a href="raise-your-effective-fps-with-windows-game-mode/"><span class="sf-title">Raise your effective FPS with Windows Game Mode</span><small>Easy · 1 min</small></a></li>
+            <li><a href="reduce-input-lag-in-competitive-games/"><span class="sf-title">Reduce input lag in competitive games</span><small>Medium · 20 min</small></a></li>
+            <li><a href="save-your-games-the-right-way/"><span class="sf-title">Save your games the right way</span><small>Easy · 5 min</small></a></li>
+          </ul>
+        </section>
+        <section class="static-group" aria-labelledby="cat-cleaning">
+          <h3 class="acc-group" id="cat-cleaning"><span>Cleaning</span><i aria-hidden="true">·</i><span>4 fixes</span></h3>
+          <ul class="static-fix-list">
+            <li><a href="clean-up-temp-files-and-browser-cache-properly/"><span class="sf-title">Clean up temp files and browser cache properly</span><small>Easy · 5 min</small></a></li>
+            <li><a href="let-windows-storage-sense-do-the-work-for-you/"><span class="sf-title">Let Windows&#39; Storage Sense do the work for you</span><small>Easy · 2 min</small></a></li>
+            <li><a href="uninstall-the-apps-you-never-use/"><span class="sf-title">Uninstall the apps you never use</span><small>Easy · 10 min</small></a></li>
+            <li><a href="dodge-bundleware-when-you-install-anything/"><span class="sf-title">Dodge bundleware when you install anything</span><small>Easy · 5 min</small></a></li>
+          </ul>
+        </section>
+        <section class="static-group" aria-labelledby="cat-maintenance">
+          <h3 class="acc-group" id="cat-maintenance"><span>Maintenance</span><i aria-hidden="true">·</i><span>15 fixes</span></h3>
+          <ul class="static-fix-list">
+            <li><a href="fix-a-pc-that-overheats-and-fans-like-a-jet-engine/"><span class="sf-title">Fix a PC that overheats and fans like a jet engine</span><small>Medium · 45 min</small></a></li>
+            <li><a href="check-for-driver-updates-in-the-right-order/"><span class="sf-title">Check for driver updates (in the right order)</span><small>Easy · 15 min</small></a></li>
+            <li><a href="run-a-disk-health-check-before-it-s-too-late/"><span class="sf-title">Run a disk health check before it&#39;s too late</span><small>Medium · 15 min</small></a></li>
+            <li><a href="repair-corrupted-system-files/"><span class="sf-title">Repair corrupted system files</span><small>Medium · 30 min</small></a></li>
+            <li><a href="connected-but-no-internet-the-safe-dns-and-stack-reset/"><span class="sf-title">Connected but no internet? The safe DNS and stack reset</span><small>Medium · 10 min</small></a></li>
+            <li><a href="run-drive-optimization-the-safe-way/"><span class="sf-title">Run drive optimization the safe way</span><small>Easy · 5 min</small></a></li>
+            <li><a href="make-your-laptop-battery-last-longer/"><span class="sf-title">Make your laptop battery last longer</span><small>Easy · 10 min</small></a></li>
+            <li><a href="fix-a-blue-screen-bsod-without-panicking/"><span class="sf-title">Fix a blue screen (BSOD) without panicking</span><small>Medium · 30 min</small></a></li>
+            <li><a href="windows-10-is-past-end-of-support-what-to-do-now/"><span class="sf-title">Windows 10 is past end of support — what to do now</span><small>Easy · 15 min</small></a></li>
+            <li><a href="start-windows-in-safe-mode/"><span class="sf-title">Start Windows in Safe Mode</span><small>Easy · 5 min</small></a></li>
+            <li><a href="get-back-a-file-you-deleted-by-mistake/"><span class="sf-title">Get back a file you deleted by mistake</span><small>Easy · 10 min</small></a></li>
+            <li><a href="pc-won-t-turn-on-run-the-five-minute-power-check/"><span class="sf-title">PC won&#39;t turn on? Run the five-minute power check</span><small>Easy · 5 min</small></a></li>
+            <li><a href="fix-a-pc-that-won-t-start-up/"><span class="sf-title">Fix a PC that won&#39;t start up</span><small>Medium · 15 min</small></a></li>
+            <li><a href="black-screen-check-the-display-signal-path-first/"><span class="sf-title">Black screen? Check the display signal path first</span><small>Easy · 5 min</small></a></li>
+            <li><a href="windows-update-stuck-the-safe-retry-pass/"><span class="sf-title">Windows Update stuck? The safe retry pass</span><small>Easy · 10 min</small></a></li>
+          </ul>
+        </section>
+        <section class="static-group" aria-labelledby="cat-hardware">
+          <h3 class="acc-group" id="cat-hardware"><span>Hardware</span><i aria-hidden="true">·</i><span>6 fixes</span></h3>
+          <ul class="static-fix-list">
+            <li><a href="move-your-os-or-games-to-an-ssd/"><span class="sf-title">Move your OS or games to an SSD</span><small>Medium · 1 hr</small></a></li>
+            <li><a href="upgrade-your-ram-and-match-it/"><span class="sf-title">Upgrade your RAM (and match it)</span><small>Medium · 30 min</small></a></li>
+            <li><a href="know-your-bios-settings-the-5-that-matter/"><span class="sf-title">Know your BIOS settings (the 5 that matter)</span><small>Advanced · 20 min</small></a></li>
+            <li><a href="pick-an-ssd-that-s-actually-fast/"><span class="sf-title">Pick an SSD that&#39;s actually fast</span><small>Easy · 5 min</small></a></li>
+            <li><a href="size-your-psu-before-the-next-upgrade/"><span class="sf-title">Size your PSU before the next upgrade</span><small>Medium · 15 min</small></a></li>
+            <li><a href="fix-a-hot-pc-for-good-the-airflow-pass/"><span class="sf-title">Fix a hot PC for good: the airflow pass</span><small>Medium · 45 min</small></a></li>
+          </ul>
+        </section>
+        <section class="static-group" aria-labelledby="cat-security">
+          <h3 class="acc-group" id="cat-security"><span>Security</span><i aria-hidden="true">·</i><span>13 fixes</span></h3>
+          <ul class="static-fix-list">
+            <li><a href="back-up-properly-3-2-1-rule/"><span class="sf-title">Back up properly (3-2-1 rule)</span><small>Medium · 30 min</small></a></li>
+            <li><a href="hardening-accounts-updates-and-the-firewall/"><span class="sf-title">Hardening: accounts, updates, and the firewall</span><small>Easy · 20 min</small></a></li>
+            <li><a href="kill-shady-pc-optimizer-software/"><span class="sf-title">Kill shady &#39;PC optimizer&#39; software</span><small>Easy · 10 min</small></a></li>
+            <li><a href="protect-against-ransomware-before-it-s-too-late/"><span class="sf-title">Protect against ransomware before it&#39;s too late</span><small>Medium · 20 min</small></a></li>
+            <li><a href="stop-windows-tracking-your-location/"><span class="sf-title">Stop Windows tracking your location</span><small>Easy · 5 min</small></a></li>
+            <li><a href="create-a-local-account-that-doesn-t-phone-home/"><span class="sf-title">Create a local account that doesn&#39;t phone home</span><small>Medium · 10 min</small></a></li>
+            <li><a href="tighten-up-chrome-the-10-minute-pass/"><span class="sf-title">Tighten up Chrome — the 10-minute pass</span><small>Easy · 10 min</small></a></li>
+            <li><a href="skip-paid-antivirus-and-keep-defender-sharp/"><span class="sf-title">Skip paid antivirus — and keep Defender sharp</span><small>Easy · 15 min</small></a></li>
+            <li><a href="lock-down-your-home-wi-fi-properly/"><span class="sf-title">Lock down your home Wi-Fi properly</span><small>Medium · 15 min</small></a></li>
+            <li><a href="stop-emailing-passwords-and-secrets/"><span class="sf-title">Stop emailing passwords and secrets</span><small>Easy · 10 min</small></a></li>
+            <li><a href="turn-on-full-disk-encryption-bitlocker/"><span class="sf-title">Turn on full-disk encryption (BitLocker)</span><small>Easy · 5 min</small></a></li>
+            <li><a href="spot-a-phishing-email-before-you-click/"><span class="sf-title">Spot a phishing email before you click</span><small>Easy · 10 min</small></a></li>
+            <li><a href="tighten-up-edge-and-firefox/"><span class="sf-title">Tighten up Edge and Firefox</span><small>Easy · 10 min</small></a></li>
+          </ul>
+        </section>
+      </div>
+    </section>
+
+    <!-- ============ WHERE TO NEXT ============ -->
+    <section class="section" aria-label="More on this site">
+      <div class="container">
+        <header class="sec-head reveal">
+          <span class="sec-num">Keep going</span>
+          <h2>Where to next?</h2>
+        </header>
+
+        <ul class="index-list reveal delay-1">
+          <li><a class="index-row" href="../diagnose.html">
+            <span class="idx-num">01</span>
+            <h3 class="idx-title">Diagnose your problem</h3>
+            <p class="idx-desc">Tell us what's happening and get the fix that works, starting with the first three steps.</p>
+            <span class="idx-arrow" aria-hidden="true">↗</span>
+          </a></li>
+          <li><a class="index-row" href="../mac/">
+            <span class="idx-num">02</span>
+            <h3 class="idx-title">Mac fixes</h3>
+            <p class="idx-desc">The macOS essentials — same standard: tested, timed, plain English.</p>
+            <span class="idx-arrow" aria-hidden="true">↗</span>
+          </a></li>
+          <li><a class="index-row" href="../index.html#routine">
+            <span class="idx-num">03</span>
+            <h3 class="idx-title">The monthly routine</h3>
+            <p class="idx-desc">Six things, once a month, about an hour total. Progress saved on your device.</p>
+            <span class="idx-arrow" aria-hidden="true">↗</span>
+          </a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container footer-top">
+      <p class="footer-brand"><img class="brand-mark" src="../brand/cursor-mark.svg" width="20" height="20" alt="" aria-hidden="true">EmTech Media — PC &amp; Mac problems, solved in plain English.</p>
+
+      <nav aria-label="Footer">
+        <a href="../diagnose.html">Diagnose</a>
+        <a href="../windows/">Windows fixes</a>
+        <a href="../mac/">Mac fixes</a>
+        <a href="../index.html#routine">Monthly routine</a>
+      </nav>
+    </div>
+
+    <div class="container footer-bottom">
+      <p>© <span id="year">2026</span> EmTech Media. All rights reserved.</p>
+      <p>Tested on real machines, written for humans.</p>
+    </div>
+  </footer>
+
+  <button class="to-top" id="to-top" type="button" aria-label="Back to top">↑</button>
+
+  <script src="../tips-data.js" defer></script>
+  <script src="../diag-data.js" defer></script>
+  <script src="../diag-engine.js" defer></script>
+  <script src="../script.js" defer></script>
+  <script src="../diag-feedback.js" defer></script>
+</body>
+</html>

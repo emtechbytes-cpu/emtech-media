@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" id="meta-theme-color" content="#F1EEE6" />
+  <title>Connected but no internet? The safe DNS and stack reset</title>
+  <meta name="description" content="Wi-Fi connected, little globe with a slash — the link is up but the path to the internet isn&#39;t. A safe, fully reversible stack reset fixes most of it." />
+  <link rel="canonical" href="https://emtechbytes-cpu.github.io/emtech-media/windows/connected-but-no-internet-the-safe-dns-and-stack-reset/" />
+  <meta property="og:url" content="https://emtechbytes-cpu.github.io/emtech-media/windows/connected-but-no-internet-the-safe-dns-and-stack-reset/" />
+
+  <meta property="og:image" content="https://emtechbytes-cpu.github.io/emtech-media/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="EmTech Media — PC &amp; Mac problems, solved in plain English" />
+  <meta name="twitter:image" content="https://emtechbytes-cpu.github.io/emtech-media/og-image.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="EmTech Media" />
+  <meta property="og:title" content="Connected but no internet? The safe DNS and stack reset" />
+  <meta property="og:description" content="Wi-Fi connected, little globe with a slash — the link is up but the path to the internet isn&#39;t. A safe, fully reversible stack reset fixes most of it." />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <script>
+    // Apply the saved theme before first paint (avoids a flash of the wrong theme).
+    (function () {
+      try {
+        var t = localStorage.getItem("emtech-theme");
+        if (!t) t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.theme = t;
+        var m = document.getElementById("meta-theme-color");
+        if (m) m.content = t === "dark" ? "#131210" : "#F1EEE6";
+      } catch (err) {}
+    })();
+  </script>
+  <link rel="icon" type="image/svg+xml" href="../../brand/cursor-favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@1&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../style.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://emtechbytes-cpu.github.io/emtech-media/index.html" },
+      { "@type": "ListItem", "position": 2, "name": "Windows fixes", "item": "https://emtechbytes-cpu.github.io/emtech-media/windows/" },
+      { "@type": "ListItem", "position": 3, "name": "Connected but no internet? The safe DNS and stack reset", "item": "https://emtechbytes-cpu.github.io/emtech-media/windows/connected-but-no-internet-the-safe-dns-and-stack-reset/" }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header" id="top">
+    <div class="container nav-wrap">
+      <a class="brand" href="../../index.html" aria-label="EmTech Media home">
+        <img class="brand-mark" src="../../brand/cursor-mark.svg" width="30" height="30" alt="" aria-hidden="true">
+        EmTech&nbsp;Media
+      </a>
+
+      <nav class="primary-nav" id="primary-nav" aria-label="Primary">
+        <ul>
+          <li><a href="../../index.html#search">Search</a></li>
+          <li><a href="../../ai.html">EmTech AI</a></li>
+          <li><a href="../../diagnose.html">Diagnose</a></li>
+          <li><a href="../../windows/" class="active" aria-current="page">Windows</a></li>
+          <li><a href="../../mac/">Mac</a></li>
+          <li><a href="../../index.html#routine">Routine</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false" aria-label="Toggle dark mode">
+          <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"/>
+            <line x1="12" y1="2.5" x2="12" y2="4.5"/><line x1="12" y1="19.5" x2="12" y2="21.5"/>
+            <line x1="2.5" y1="12" x2="4.5" y2="12"/><line x1="19.5" y1="12" x2="21.5" y2="12"/>
+            <line x1="5.3" y1="5.3" x2="6.7" y2="6.7"/><line x1="17.3" y1="17.3" x2="18.7" y2="18.7"/>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20.5 13.2A8.5 8.5 0 1 1 10.8 3.5a7 7 7 0 0 9.7 9.7z"/>
+          </svg>
+        </button>
+        <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle menu">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <line class="icon-open" x1="3" y1="7" x2="21" y2="7"/>
+            <line class="icon-open" x1="3" y1="12" x2="21" y2="12"/>
+            <line class="icon-open" x1="3" y1="17" x2="21" y2="17"/>
+            <line class="icon-close" x1="5" y1="5" x2="19" y2="19"/>
+            <line class="icon-close" x1="19" y1="5" x2="5" y2="19"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ============ BREADCRUMB ============ -->
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../../windows/">Windows fixes</a></li>
+          <li aria-current="page">Connected but no internet? The safe DNS and stack reset</li>
+        </ol>
+      </nav>
+    </div>
+
+    <!-- ============ FIX ARTICLE (fully static — readable with JS disabled) ============ -->
+    <article class="section fix-article">
+      <div class="container">
+        <p class="kicker reveal">Win 10 / 11 · Maintenance</p>
+        <h1 class="reveal delay-1">Connected but no internet? The safe DNS and stack reset</h1>
+
+        <section class="fix-summary" aria-label="Summary">
+          <p class="lede reveal delay-2">Wi-Fi connected, little globe with a slash — the link is up but the path to the internet isn&#39;t. A safe, fully reversible stack reset fixes most of it.</p>
+          <ul class="hero-meta fix-meta" aria-label="Fix facts">
+            <li><span>Difficulty</span> Medium</li>
+            <li><span>Estimated time</span> 10 min</li>
+            <li><span>Platform</span> Win 10 / 11</li>
+          </ul>
+        </section>
+
+        <section class="fix-safety" aria-label="Before you start">
+          <h2>Before you start</h2>
+          <p><strong>Medium risk.</strong> This change is reversible — you can return to the previous state without professional help or data loss.</p>
+        </section>
+
+        <section aria-label="Steps">
+          <h2>Steps</h2>
+<ol class="tip-steps fix-steps">
+      <li>Isolate first: do other devices on this network have internet? If not, reboot the router and check with your ISP before touching this PC</li>
+      <li>Win + X → Terminal (Admin): run ipconfig /release, then ipconfig /renew — gives the PC a fresh address from the router</li>
+      <li>Then flush the DNS cache: ipconfig /flushdns. Then reset the stack: netsh winsock reset, followed by netsh int ip reset</li>
+      <li>Restart the PC (both resets need it). If pages still won&#39;t load, set your adapter&#39;s DNS to Automatic — or test 1.1.1.1 as a temporary DNS server to confirm it was a DNS problem all along</li>
+</ol>
+        </section>
+
+        <section class="fix-verify" aria-label="How to verify the fix">
+          <h2>How to verify the fix</h2>
+          <p>Open two different websites and confirm pages load normally with the correct content — not just the browser&#39;s offline error page.</p>
+        </section>
+
+        <section class="fix-failure" aria-label="If this didn't fix it">
+          <h2>If this didn't fix it</h2>
+          <p>Still no internet after the stack reset — if other devices are also offline it&#39;s the router or ISP, not this PC; quote them your speed-test numbers from &#39;Slow internet? Run the five-minute test&#39;.</p>
+          <p>Next stop: the related fixes below, or <a href="../../diagnose.html">start a guided diagnosis</a>.</p>
+        </section>
+
+
+        <section class="fix-related" aria-label="Related fixes">
+          <h2>Related fixes</h2>
+          <ul class="rel-list">
+        <li><a href="../../windows/fix-a-pc-that-overheats-and-fans-like-a-jet-engine/">Fix a PC that overheats and fans like a jet engine</a> <small>Medium · 45 min</small></li>
+        <li><a href="../../windows/check-for-driver-updates-in-the-right-order/">Check for driver updates (in the right order)</a> <small>Easy · 15 min</small></li>
+        <li><a href="../../windows/run-a-disk-health-check-before-it-s-too-late/">Run a disk health check before it&#39;s too late</a> <small>Medium · 15 min</small></li>
+        <li><a href="../../windows/repair-corrupted-system-files/">Repair corrupted system files</a> <small>Medium · 30 min</small></li>
+          </ul>
+        </section>
+
+        <div class="hero-cta fix-next">
+          <a class="btn btn-primary" href="../../diagnose.html">Still stuck? Diagnose my problem <span aria-hidden="true">→</span></a>
+          <a class="btn-link" href="../../windows/">Browse all Windows fixes <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </article>
+  </main>
+
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container footer-top">
+      <p class="footer-brand"><img class="brand-mark" src="../../brand/cursor-mark.svg" width="20" height="20" alt="" aria-hidden="true">EmTech Media — PC &amp; Mac problems, solved in plain English.</p>
+
+      <nav aria-label="Footer">
+        <a href="../../diagnose.html">Diagnose</a>
+        <a href="../../windows/">Windows fixes</a>
+        <a href="../../mac/">Mac fixes</a>
+        <a href="../../index.html#routine">Monthly routine</a>
+      </nav>
+    </div>
+
+    <div class="container footer-bottom">
+      <p>© <span id="year">2026</span> EmTech Media. All rights reserved.</p>
+      <p>Tested on real machines, written for humans.</p>
+    </div>
+  </footer>
+
+  <button class="to-top" id="to-top" type="button" aria-label="Back to top">↑</button>
+
+  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above is complete without it. -->
+  <script src="../../tips-data.js" defer></script>
+  <script src="../../script.js" defer></script>
+</body>
+</html>

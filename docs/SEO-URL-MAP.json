@@ -1,0 +1,625 @@
+{
+  "disable-startup-bloat": {
+    "oldSlug": "disable-startup-bloat",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/disable-startup-bloat/",
+    "platform": "windows",
+    "title": "Disable startup bloat",
+    "recommendation": "PUBLISH"
+  },
+  "switch-the-power-plan-to-best-performance": {
+    "oldSlug": "switch-the-power-plan-to-best-performance",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/switch-the-power-plan-to-best-performance/",
+    "platform": "windows",
+    "title": "Switch the power plan to Best Performance",
+    "recommendation": "PUBLISH"
+  },
+  "move-your-os-or-games-to-an-ssd": {
+    "oldSlug": "move-your-os-or-games-to-an-ssd",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/move-your-os-or-games-to-an-ssd/",
+    "platform": "windows",
+    "title": "Move your OS or games to an SSD",
+    "recommendation": "PUBLISH"
+  },
+  "upgrade-your-ram-and-match-it": {
+    "oldSlug": "upgrade-your-ram-and-match-it",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/upgrade-your-ram-and-match-it/",
+    "platform": "windows",
+    "title": "Upgrade your RAM (and match it)",
+    "recommendation": "PUBLISH"
+  },
+  "stop-windows-updates-at-odd-hours": {
+    "oldSlug": "stop-windows-updates-at-odd-hours",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/stop-windows-updates-at-odd-hours/",
+    "platform": "windows",
+    "title": "Stop Windows updates at odd hours",
+    "recommendation": "PUBLISH"
+  },
+  "fix-a-pc-that-overheats-and-fans-like-a-jet-engine": {
+    "oldSlug": "fix-a-pc-that-overheats-and-fans-like-a-jet-engine",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/fix-a-pc-that-overheats-and-fans-like-a-jet-engine/",
+    "platform": "windows",
+    "title": "Fix a PC that overheats and fans like a jet engine",
+    "recommendation": "PUBLISH"
+  },
+  "lower-windows-transparency-and-animation-effects": {
+    "oldSlug": "lower-windows-transparency-and-animation-effects",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/lower-windows-transparency-and-animation-effects/",
+    "platform": "windows",
+    "title": "Lower Windows transparency and animation effects",
+    "recommendation": "PUBLISH"
+  },
+  "clean-up-temp-files-and-browser-cache-properly": {
+    "oldSlug": "clean-up-temp-files-and-browser-cache-properly",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/clean-up-temp-files-and-browser-cache-properly/",
+    "platform": "windows",
+    "title": "Clean up temp files and browser cache properly",
+    "recommendation": "PUBLISH"
+  },
+  "let-windows-storage-sense-do-the-work-for-you": {
+    "oldSlug": "let-windows-storage-sense-do-the-work-for-you",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/let-windows-storage-sense-do-the-work-for-you/",
+    "platform": "windows",
+    "title": "Let Windows' Storage Sense do the work for you",
+    "recommendation": "PUBLISH"
+  },
+  "uninstall-the-apps-you-never-use": {
+    "oldSlug": "uninstall-the-apps-you-never-use",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/uninstall-the-apps-you-never-use/",
+    "platform": "windows",
+    "title": "Uninstall the apps you never use",
+    "recommendation": "PUBLISH"
+  },
+  "check-for-driver-updates-in-the-right-order": {
+    "oldSlug": "check-for-driver-updates-in-the-right-order",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/check-for-driver-updates-in-the-right-order/",
+    "platform": "windows",
+    "title": "Check for driver updates (in the right order)",
+    "recommendation": "PUBLISH"
+  },
+  "run-a-disk-health-check-before-it-s-too-late": {
+    "oldSlug": "run-a-disk-health-check-before-it-s-too-late",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/run-a-disk-health-check-before-it-s-too-late/",
+    "platform": "windows",
+    "title": "Run a disk health check before it's too late",
+    "recommendation": "PUBLISH"
+  },
+  "back-up-properly-3-2-1-rule": {
+    "oldSlug": "back-up-properly-3-2-1-rule",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/back-up-properly-3-2-1-rule/",
+    "platform": "windows",
+    "title": "Back up properly (3-2-1 rule)",
+    "recommendation": "PUBLISH"
+  },
+  "stop-games-stuttering-the-5-point-checklist": {
+    "oldSlug": "stop-games-stuttering-the-5-point-checklist",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/stop-games-stuttering-the-5-point-checklist/",
+    "platform": "windows",
+    "title": "Stop games stuttering — the 5-point checklist",
+    "recommendation": "PUBLISH"
+  },
+  "raise-your-effective-fps-with-windows-game-mode": {
+    "oldSlug": "raise-your-effective-fps-with-windows-game-mode",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/raise-your-effective-fps-with-windows-game-mode/",
+    "platform": "windows",
+    "title": "Raise your effective FPS with Windows Game Mode",
+    "recommendation": "PUBLISH"
+  },
+  "reduce-input-lag-in-competitive-games": {
+    "oldSlug": "reduce-input-lag-in-competitive-games",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/reduce-input-lag-in-competitive-games/",
+    "platform": "windows",
+    "title": "Reduce input lag in competitive games",
+    "recommendation": "PUBLISH"
+  },
+  "hardening-accounts-updates-and-the-firewall": {
+    "oldSlug": "hardening-accounts-updates-and-the-firewall",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/hardening-accounts-updates-and-the-firewall/",
+    "platform": "windows",
+    "title": "Hardening: accounts, updates, and the firewall",
+    "recommendation": "PUBLISH"
+  },
+  "kill-shady-pc-optimizer-software": {
+    "oldSlug": "kill-shady-pc-optimizer-software",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/kill-shady-pc-optimizer-software/",
+    "platform": "windows",
+    "title": "Kill shady 'PC optimizer' software",
+    "recommendation": "PUBLISH"
+  },
+  "repair-corrupted-system-files": {
+    "oldSlug": "repair-corrupted-system-files",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/repair-corrupted-system-files/",
+    "platform": "windows",
+    "title": "Repair corrupted system files",
+    "recommendation": "PUBLISH"
+  },
+  "connected-but-no-internet-the-safe-dns-and-stack-reset": {
+    "oldSlug": "connected-but-no-internet-the-safe-dns-and-stack-reset",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/connected-but-no-internet-the-safe-dns-and-stack-reset/",
+    "platform": "windows",
+    "title": "Connected but no internet? The safe DNS and stack reset",
+    "recommendation": "PUBLISH"
+  },
+  "stop-your-pc-from-sleep-glitching-your-network": {
+    "oldSlug": "stop-your-pc-from-sleep-glitching-your-network",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/stop-your-pc-from-sleep-glitching-your-network/",
+    "platform": "windows",
+    "title": "Stop your PC from sleep-glitching your network",
+    "recommendation": "PUBLISH"
+  },
+  "know-your-bios-settings-the-5-that-matter": {
+    "oldSlug": "know-your-bios-settings-the-5-that-matter",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/know-your-bios-settings-the-5-that-matter/",
+    "platform": "windows",
+    "title": "Know your BIOS settings (the 5 that matter)",
+    "recommendation": "PUBLISH"
+  },
+  "protect-against-ransomware-before-it-s-too-late": {
+    "oldSlug": "protect-against-ransomware-before-it-s-too-late",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/protect-against-ransomware-before-it-s-too-late/",
+    "platform": "windows",
+    "title": "Protect against ransomware before it's too late",
+    "recommendation": "PUBLISH"
+  },
+  "make-windows-search-actually-useful-again": {
+    "oldSlug": "make-windows-search-actually-useful-again",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/make-windows-search-actually-useful-again/",
+    "platform": "windows",
+    "title": "Make Windows Search actually useful again",
+    "recommendation": "PUBLISH"
+  },
+  "save-your-games-the-right-way": {
+    "oldSlug": "save-your-games-the-right-way",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/save-your-games-the-right-way/",
+    "platform": "windows",
+    "title": "Save your games the right way",
+    "recommendation": "PUBLISH"
+  },
+  "make-your-desktop-feel-like-a-mac-without-the-price": {
+    "oldSlug": "make-your-desktop-feel-like-a-mac-without-the-price",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/make-your-desktop-feel-like-a-mac-without-the-price/",
+    "platform": "windows",
+    "title": "Make your desktop feel like a Mac (without the price)",
+    "recommendation": "PUBLISH"
+  },
+  "fix-my-pc-is-slow-all-of-a-sudden-the-order-of-attack": {
+    "oldSlug": "fix-my-pc-is-slow-all-of-a-sudden-the-order-of-attack",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/fix-my-pc-is-slow-all-of-a-sudden-the-order-of-attack/",
+    "platform": "windows",
+    "title": "Fix 'My PC is slow all of a sudden' — the order of attack",
+    "recommendation": "PUBLISH"
+  },
+  "free-up-disk-space-with-storage-management": {
+    "oldSlug": "free-up-disk-space-with-storage-management",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/mac/free-up-disk-space-with-storage-management/",
+    "platform": "mac",
+    "title": "Free up disk space with Storage Management",
+    "recommendation": "PUBLISH"
+  },
+  "reset-nvram-when-things-misbehave": {
+    "oldSlug": "reset-nvram-when-things-misbehave",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/mac/reset-nvram-when-things-misbehave/",
+    "platform": "mac",
+    "title": "Reset NVRAM when things misbehave",
+    "recommendation": "PUBLISH"
+  },
+  "keep-macos-updated-the-safe-way": {
+    "oldSlug": "keep-macos-updated-the-safe-way",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/mac/keep-macos-updated-the-safe-way/",
+    "platform": "mac",
+    "title": "Keep macOS updated the safe way",
+    "recommendation": "PUBLISH"
+  },
+  "speed-up-a-sluggish-macbook": {
+    "oldSlug": "speed-up-a-sluggish-macbook",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/mac/speed-up-a-sluggish-macbook/",
+    "platform": "mac",
+    "title": "Speed up a sluggish MacBook",
+    "recommendation": "PUBLISH"
+  },
+  "hunt-down-memory-hogs": {
+    "oldSlug": "hunt-down-memory-hogs",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/hunt-down-memory-hogs/",
+    "platform": "windows",
+    "title": "Hunt down memory hogs",
+    "recommendation": "PUBLISH"
+  },
+  "make-big-file-transfers-actually-fast": {
+    "oldSlug": "make-big-file-transfers-actually-fast",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/make-big-file-transfers-actually-fast/",
+    "platform": "windows",
+    "title": "Make big file transfers actually fast",
+    "recommendation": "PUBLISH"
+  },
+  "stop-windows-tracking-your-location": {
+    "oldSlug": "stop-windows-tracking-your-location",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/stop-windows-tracking-your-location/",
+    "platform": "windows",
+    "title": "Stop Windows tracking your location",
+    "recommendation": "PUBLISH"
+  },
+  "create-a-local-account-that-doesn-t-phone-home": {
+    "oldSlug": "create-a-local-account-that-doesn-t-phone-home",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/create-a-local-account-that-doesn-t-phone-home/",
+    "platform": "windows",
+    "title": "Create a local account that doesn't phone home",
+    "recommendation": "PUBLISH"
+  },
+  "tighten-up-chrome-the-10-minute-pass": {
+    "oldSlug": "tighten-up-chrome-the-10-minute-pass",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/tighten-up-chrome-the-10-minute-pass/",
+    "platform": "windows",
+    "title": "Tighten up Chrome — the 10-minute pass",
+    "recommendation": "PUBLISH"
+  },
+  "skip-paid-antivirus-and-keep-defender-sharp": {
+    "oldSlug": "skip-paid-antivirus-and-keep-defender-sharp",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/skip-paid-antivirus-and-keep-defender-sharp/",
+    "platform": "windows",
+    "title": "Skip paid antivirus — and keep Defender sharp",
+    "recommendation": "PUBLISH"
+  },
+  "dodge-bundleware-when-you-install-anything": {
+    "oldSlug": "dodge-bundleware-when-you-install-anything",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/dodge-bundleware-when-you-install-anything/",
+    "platform": "windows",
+    "title": "Dodge bundleware when you install anything",
+    "recommendation": "PUBLISH"
+  },
+  "run-drive-optimization-the-safe-way": {
+    "oldSlug": "run-drive-optimization-the-safe-way",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/run-drive-optimization-the-safe-way/",
+    "platform": "windows",
+    "title": "Run drive optimization the safe way",
+    "recommendation": "PUBLISH"
+  },
+  "master-the-keyboard-shortcuts-that-save-hours": {
+    "oldSlug": "master-the-keyboard-shortcuts-that-save-hours",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/master-the-keyboard-shortcuts-that-save-hours/",
+    "platform": "windows",
+    "title": "Master the keyboard shortcuts that save hours",
+    "recommendation": "PUBLISH"
+  },
+  "install-powertoys-microsoft-s-free-utility-pack": {
+    "oldSlug": "install-powertoys-microsoft-s-free-utility-pack",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/install-powertoys-microsoft-s-free-utility-pack/",
+    "platform": "windows",
+    "title": "Install PowerToys — Microsoft's free utility pack",
+    "recommendation": "PUBLISH"
+  },
+  "lock-down-your-home-wi-fi-properly": {
+    "oldSlug": "lock-down-your-home-wi-fi-properly",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/lock-down-your-home-wi-fi-properly/",
+    "platform": "windows",
+    "title": "Lock down your home Wi-Fi properly",
+    "recommendation": "PUBLISH"
+  },
+  "stop-emailing-passwords-and-secrets": {
+    "oldSlug": "stop-emailing-passwords-and-secrets",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/stop-emailing-passwords-and-secrets/",
+    "platform": "windows",
+    "title": "Stop emailing passwords and secrets",
+    "recommendation": "PUBLISH"
+  },
+  "turn-on-full-disk-encryption-bitlocker": {
+    "oldSlug": "turn-on-full-disk-encryption-bitlocker",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/turn-on-full-disk-encryption-bitlocker/",
+    "platform": "windows",
+    "title": "Turn on full-disk encryption (BitLocker)",
+    "recommendation": "PUBLISH"
+  },
+  "make-your-laptop-battery-last-longer": {
+    "oldSlug": "make-your-laptop-battery-last-longer",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/make-your-laptop-battery-last-longer/",
+    "platform": "windows",
+    "title": "Make your laptop battery last longer",
+    "recommendation": "PUBLISH"
+  },
+  "fix-a-blue-screen-bsod-without-panicking": {
+    "oldSlug": "fix-a-blue-screen-bsod-without-panicking",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/fix-a-blue-screen-bsod-without-panicking/",
+    "platform": "windows",
+    "title": "Fix a blue screen (BSOD) without panicking",
+    "recommendation": "PUBLISH"
+  },
+  "no-sound-the-four-minute-fix": {
+    "oldSlug": "no-sound-the-four-minute-fix",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/no-sound-the-four-minute-fix/",
+    "platform": "windows",
+    "title": "No sound? The four-minute fix",
+    "recommendation": "PUBLISH"
+  },
+  "organise-your-work-with-virtual-desktops": {
+    "oldSlug": "organise-your-work-with-virtual-desktops",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/organise-your-work-with-virtual-desktops/",
+    "platform": "windows",
+    "title": "Organise your work with virtual desktops",
+    "recommendation": "PUBLISH"
+  },
+  "slow-internet-run-the-five-minute-test": {
+    "oldSlug": "slow-internet-run-the-five-minute-test",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/slow-internet-run-the-five-minute-test/",
+    "platform": "windows",
+    "title": "Slow internet? Run the five-minute test",
+    "recommendation": "PUBLISH"
+  },
+  "wi-fi-off-or-missing-the-three-switches-that-disable-it": {
+    "oldSlug": "wi-fi-off-or-missing-the-three-switches-that-disable-it",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/wi-fi-off-or-missing-the-three-switches-that-disable-it/",
+    "platform": "windows",
+    "title": "Wi-Fi off or missing? The three switches that disable it",
+    "recommendation": "PUBLISH"
+  },
+  "force-quit-a-frozen-app": {
+    "oldSlug": "force-quit-a-frozen-app",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/mac/force-quit-a-frozen-app/",
+    "platform": "mac",
+    "title": "Force-quit a frozen app",
+    "recommendation": "PUBLISH"
+  },
+  "stop-apps-from-launching-at-login": {
+    "oldSlug": "stop-apps-from-launching-at-login",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/mac/stop-apps-from-launching-at-login/",
+    "platform": "mac",
+    "title": "Stop apps from launching at login",
+    "recommendation": "PUBLISH"
+  },
+  "keep-10-of-your-disk-free": {
+    "oldSlug": "keep-10-of-your-disk-free",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/mac/keep-10-of-your-disk-free/",
+    "platform": "mac",
+    "title": "Keep 10% of your disk free",
+    "recommendation": "PUBLISH"
+  },
+  "tame-spotlight-indexing-on-extra-drives": {
+    "oldSlug": "tame-spotlight-indexing-on-extra-drives",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/mac/tame-spotlight-indexing-on-extra-drives/",
+    "platform": "mac",
+    "title": "Tame Spotlight indexing on extra drives",
+    "recommendation": "PUBLISH"
+  },
+  "fix-a-mac-that-won-t-start-up": {
+    "oldSlug": "fix-a-mac-that-won-t-start-up",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/mac/fix-a-mac-that-won-t-start-up/",
+    "platform": "mac",
+    "title": "Fix a Mac that won't start up",
+    "recommendation": "PUBLISH"
+  },
+  "run-first-aid-on-external-drives": {
+    "oldSlug": "run-first-aid-on-external-drives",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/mac/run-first-aid-on-external-drives/",
+    "platform": "mac",
+    "title": "Run First Aid on external drives",
+    "recommendation": "PUBLISH"
+  },
+  "keep-your-mac-battery-healthy": {
+    "oldSlug": "keep-your-mac-battery-healthy",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/mac/keep-your-mac-battery-healthy/",
+    "platform": "mac",
+    "title": "Keep your Mac battery healthy",
+    "recommendation": "PUBLISH"
+  },
+  "set-up-time-machine-properly": {
+    "oldSlug": "set-up-time-machine-properly",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/mac/set-up-time-machine-properly/",
+    "platform": "mac",
+    "title": "Set up Time Machine properly",
+    "recommendation": "PUBLISH"
+  },
+  "turn-on-filevault-full-disk-encryption": {
+    "oldSlug": "turn-on-filevault-full-disk-encryption",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/mac/turn-on-filevault-full-disk-encryption/",
+    "platform": "mac",
+    "title": "Turn on FileVault full-disk encryption",
+    "recommendation": "PUBLISH"
+  },
+  "open-apps-blocked-by-gatekeeper": {
+    "oldSlug": "open-apps-blocked-by-gatekeeper",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/mac/open-apps-blocked-by-gatekeeper/",
+    "platform": "mac",
+    "title": "Open apps blocked by Gatekeeper",
+    "recommendation": "PUBLISH"
+  },
+  "fix-slow-wi-fi-on-your-mac": {
+    "oldSlug": "fix-slow-wi-fi-on-your-mac",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/mac/fix-slow-wi-fi-on-your-mac/",
+    "platform": "mac",
+    "title": "Fix slow Wi-Fi on your Mac",
+    "recommendation": "PUBLISH"
+  },
+  "give-safari-a-proper-clean-out": {
+    "oldSlug": "give-safari-a-proper-clean-out",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/mac/give-safari-a-proper-clean-out/",
+    "platform": "mac",
+    "title": "Give Safari a proper clean-out",
+    "recommendation": "PUBLISH"
+  },
+  "pick-an-ssd-that-s-actually-fast": {
+    "oldSlug": "pick-an-ssd-that-s-actually-fast",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/pick-an-ssd-that-s-actually-fast/",
+    "platform": "windows",
+    "title": "Pick an SSD that's actually fast",
+    "recommendation": "PUBLISH"
+  },
+  "size-your-psu-before-the-next-upgrade": {
+    "oldSlug": "size-your-psu-before-the-next-upgrade",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/size-your-psu-before-the-next-upgrade/",
+    "platform": "windows",
+    "title": "Size your PSU before the next upgrade",
+    "recommendation": "PUBLISH"
+  },
+  "fix-a-hot-pc-for-good-the-airflow-pass": {
+    "oldSlug": "fix-a-hot-pc-for-good-the-airflow-pass",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/fix-a-hot-pc-for-good-the-airflow-pass/",
+    "platform": "windows",
+    "title": "Fix a hot PC for good: the airflow pass",
+    "recommendation": "PUBLISH"
+  },
+  "windows-10-is-past-end-of-support-what-to-do-now": {
+    "oldSlug": "windows-10-is-past-end-of-support-what-to-do-now",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/windows-10-is-past-end-of-support-what-to-do-now/",
+    "platform": "windows",
+    "title": "Windows 10 is past end of support — what to do now",
+    "recommendation": "PUBLISH"
+  },
+  "check-whether-your-pc-can-run-windows-11": {
+    "oldSlug": "check-whether-your-pc-can-run-windows-11",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/check-whether-your-pc-can-run-windows-11/",
+    "platform": "windows",
+    "title": "Check whether your PC can run Windows 11",
+    "recommendation": "PUBLISH"
+  },
+  "fix-a-printer-that-won-t-print": {
+    "oldSlug": "fix-a-printer-that-won-t-print",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/fix-a-printer-that-won-t-print/",
+    "platform": "windows",
+    "title": "Fix a printer that won't print",
+    "recommendation": "PUBLISH"
+  },
+  "fix-a-microphone-no-one-can-hear": {
+    "oldSlug": "fix-a-microphone-no-one-can-hear",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/fix-a-microphone-no-one-can-hear/",
+    "platform": "windows",
+    "title": "Fix a microphone no one can hear",
+    "recommendation": "PUBLISH"
+  },
+  "fix-a-webcam-that-won-t-turn-on": {
+    "oldSlug": "fix-a-webcam-that-won-t-turn-on",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/fix-a-webcam-that-won-t-turn-on/",
+    "platform": "windows",
+    "title": "Fix a webcam that won't turn on",
+    "recommendation": "PUBLISH"
+  },
+  "bluetooth-won-t-connect-the-pairing-reset-that-works": {
+    "oldSlug": "bluetooth-won-t-connect-the-pairing-reset-that-works",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/bluetooth-won-t-connect-the-pairing-reset-that-works/",
+    "platform": "windows",
+    "title": "Bluetooth won't connect? The pairing reset that works",
+    "recommendation": "PUBLISH"
+  },
+  "usb-device-not-recognised-the-device-manager-pass": {
+    "oldSlug": "usb-device-not-recognised-the-device-manager-pass",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/usb-device-not-recognised-the-device-manager-pass/",
+    "platform": "windows",
+    "title": "USB device not recognised? The Device Manager pass",
+    "recommendation": "PUBLISH"
+  },
+  "start-windows-in-safe-mode": {
+    "oldSlug": "start-windows-in-safe-mode",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/start-windows-in-safe-mode/",
+    "platform": "windows",
+    "title": "Start Windows in Safe Mode",
+    "recommendation": "PUBLISH"
+  },
+  "get-back-a-file-you-deleted-by-mistake": {
+    "oldSlug": "get-back-a-file-you-deleted-by-mistake",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/get-back-a-file-you-deleted-by-mistake/",
+    "platform": "windows",
+    "title": "Get back a file you deleted by mistake",
+    "recommendation": "PUBLISH"
+  },
+  "pc-won-t-turn-on-run-the-five-minute-power-check": {
+    "oldSlug": "pc-won-t-turn-on-run-the-five-minute-power-check",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/pc-won-t-turn-on-run-the-five-minute-power-check/",
+    "platform": "windows",
+    "title": "PC won't turn on? Run the five-minute power check",
+    "recommendation": "PUBLISH"
+  },
+  "fix-a-pc-that-won-t-start-up": {
+    "oldSlug": "fix-a-pc-that-won-t-start-up",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/fix-a-pc-that-won-t-start-up/",
+    "platform": "windows",
+    "title": "Fix a PC that won't start up",
+    "recommendation": "PUBLISH"
+  },
+  "black-screen-check-the-display-signal-path-first": {
+    "oldSlug": "black-screen-check-the-display-signal-path-first",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/black-screen-check-the-display-signal-path-first/",
+    "platform": "windows",
+    "title": "Black screen? Check the display signal path first",
+    "recommendation": "PUBLISH"
+  },
+  "spot-a-phishing-email-before-you-click": {
+    "oldSlug": "spot-a-phishing-email-before-you-click",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/spot-a-phishing-email-before-you-click/",
+    "platform": "windows",
+    "title": "Spot a phishing email before you click",
+    "recommendation": "PUBLISH"
+  },
+  "move-everything-to-a-new-pc": {
+    "oldSlug": "move-everything-to-a-new-pc",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/move-everything-to-a-new-pc/",
+    "platform": "windows",
+    "title": "Move everything to a new PC",
+    "recommendation": "PUBLISH"
+  },
+  "tighten-up-edge-and-firefox": {
+    "oldSlug": "tighten-up-edge-and-firefox",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/tighten-up-edge-and-firefox/",
+    "platform": "windows",
+    "title": "Tighten up Edge and Firefox",
+    "recommendation": "PUBLISH"
+  },
+  "windows-update-stuck-the-safe-retry-pass": {
+    "oldSlug": "windows-update-stuck-the-safe-retry-pass",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/windows-update-stuck-the-safe-retry-pass/",
+    "platform": "windows",
+    "title": "Windows Update stuck? The safe retry pass",
+    "recommendation": "PUBLISH"
+  },
+  "cpu-pegged-at-100-find-the-culprit-in-task-manager": {
+    "oldSlug": "cpu-pegged-at-100-find-the-culprit-in-task-manager",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/windows/cpu-pegged-at-100-find-the-culprit-in-task-manager/",
+    "platform": "windows",
+    "title": "CPU pegged at 100%? Find the culprit in Task Manager",
+    "recommendation": "PUBLISH"
+  },
+  "connected-but-no-internet-on-your-mac-the-safe-network-reset": {
+    "oldSlug": "connected-but-no-internet-on-your-mac-the-safe-network-reset",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/mac/connected-but-no-internet-on-your-mac-the-safe-network-reset/",
+    "platform": "mac",
+    "title": "Connected but no internet on your Mac? The safe network reset",
+    "recommendation": "PUBLISH"
+  },
+  "no-sound-on-your-mac-check-the-output-device-first": {
+    "oldSlug": "no-sound-on-your-mac-check-the-output-device-first",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/mac/no-sound-on-your-mac-check-the-output-device-first/",
+    "platform": "mac",
+    "title": "No sound on your Mac? Check the output device first",
+    "recommendation": "PUBLISH"
+  },
+  "external-monitor-not-detected-on-your-mac": {
+    "oldSlug": "external-monitor-not-detected-on-your-mac",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/mac/external-monitor-not-detected-on-your-mac/",
+    "platform": "mac",
+    "title": "External monitor not detected on your Mac?",
+    "recommendation": "PUBLISH"
+  },
+  "bluetooth-won-t-pair-on-your-mac-reset-it-properly": {
+    "oldSlug": "bluetooth-won-t-pair-on-your-mac-reset-it-properly",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/mac/bluetooth-won-t-pair-on-your-mac-reset-it-properly/",
+    "platform": "mac",
+    "title": "Bluetooth won't pair on your Mac? Reset it properly",
+    "recommendation": "PUBLISH"
+  },
+  "trackpad-or-mouse-not-working-on-your-mac-the-safe-restart-pass": {
+    "oldSlug": "trackpad-or-mouse-not-working-on-your-mac-the-safe-restart-pass",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/mac/trackpad-or-mouse-not-working-on-your-mac-the-safe-restart-pass/",
+    "platform": "mac",
+    "title": "Trackpad or mouse not working on your Mac? The safe restart pass",
+    "recommendation": "PUBLISH"
+  },
+  "no-microphone-on-your-mac-check-the-input-device-first": {
+    "oldSlug": "no-microphone-on-your-mac-check-the-input-device-first",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/mac/no-microphone-on-your-mac-check-the-input-device-first/",
+    "platform": "mac",
+    "title": "No microphone on your Mac? Check the input device first",
+    "recommendation": "PUBLISH"
+  },
+  "microphone-permission-on-your-mac-let-the-app-use-it": {
+    "oldSlug": "microphone-permission-on-your-mac-let-the-app-use-it",
+    "newUrl": "https://emtechbytes-cpu.github.io/emtech-media/mac/microphone-permission-on-your-mac-let-the-app-use-it/",
+    "platform": "mac",
+    "title": "Microphone permission on your Mac? Let the app use it",
+    "recommendation": "PUBLISH"
+  }
+}

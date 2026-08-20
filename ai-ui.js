@@ -115,8 +115,8 @@
     return `
       <div class="ai-links">
         <a class="btn btn-primary ai-btn-sm" href="diagnose.html">Start guided diagnosis</a>
-        <a class="btn-link ai-btn-sm" href="windows.html">Browse Windows fixes</a>
-        <a class="btn-link ai-btn-sm" href="mac.html">Browse Mac fixes</a>
+        <a class="btn-link ai-btn-sm" href="windows/">Browse Windows fixes</a>
+        <a class="btn-link ai-btn-sm" href="mac/">Browse Mac fixes</a>
       </div>`;
   }
 

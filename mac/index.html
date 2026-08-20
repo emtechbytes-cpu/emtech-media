@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" id="meta-theme-color" content="#F1EEE6" />
+  <title>Mac Fixes — EmTech Media</title>
+  <meta name="description" content="23 tested macOS fixes: frozen apps, trackpad &amp; mouse, microphone, slow Wi-Fi, no sound, external displays, Bluetooth pairing, battery health, Time Machine, FileVault, Gatekeeper, boot recovery and more. Intel + Apple Silicon, timed to the minute, written in plain English." />
+  <link rel="canonical" href="https://emtechbytes-cpu.github.io/emtech-media/mac/" />
+  <meta property="og:url" content="https://emtechbytes-cpu.github.io/emtech-media/mac/" />
+
+  <meta property="og:image" content="https://emtechbytes-cpu.github.io/emtech-media/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="EmTech Media — PC &amp; Mac problems, solved in plain English" />
+  <meta name="twitter:image" content="https://emtechbytes-cpu.github.io/emtech-media/og-image.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="EmTech Media" />
+  <meta property="og:title" content="Mac Fixes — EmTech Media" />
+  <meta property="og:description" content="23 tested macOS fixes: frozen apps, trackpad &amp; mouse, microphone, slow Wi-Fi, no sound, external displays, Bluetooth pairing, battery health, Time Machine, FileVault, Gatekeeper, boot recovery and more. Intel + Apple Silicon, timed to the minute, written in plain English." />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <script>
+    // Apply the saved theme before first paint (avoids a flash of the wrong theme).
+    (function () {
+      try {
+        var t = localStorage.getItem("emtech-theme");
+        if (!t) t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.theme = t;
+        var m = document.getElementById("meta-theme-color");
+        if (m) m.content = t === "dark" ? "#131210" : "#F1EEE6";
+      } catch (err) {}
+    })();
+  </script>
+  <link rel="icon" type="image/svg+xml" href="../brand/cursor-favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@1&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://emtechbytes-cpu.github.io/emtech-media/index.html" },
+      { "@type": "ListItem", "position": 2, "name": "Mac fixes", "item": "https://emtechbytes-cpu.github.io/emtech-media/mac/" }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header" id="top">
+    <div class="container nav-wrap">
+      <a class="brand" href="../index.html" aria-label="EmTech Media home">
+        <img class="brand-mark" src="../brand/cursor-mark.svg" width="30" height="30" alt="" aria-hidden="true">
+        EmTech&nbsp;Media
+      </a>
+
+      <nav class="primary-nav" id="primary-nav" aria-label="Primary">
+        <ul>
+          <li><a href="../index.html#search">Search</a></li>
+          <li><a href="../ai.html">EmTech AI</a></li>
+          <li><a href="../diagnose.html">Diagnose</a></li>
+          <li><a href="../windows/">Windows</a></li>
+          <li><a href="../mac/" class="active" aria-current="page">Mac</a></li>
+          <li><a href="../index.html#routine">Routine</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false" aria-label="Toggle dark mode">
+          <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"/>
+            <line x1="12" y1="2.5" x2="12" y2="4.5"/><line x1="12" y1="19.5" x2="12" y2="21.5"/>
+            <line x1="2.5" y1="12" x2="4.5" y2="12"/><line x1="19.5" y1="12" x2="21.5" y2="12"/>
+            <line x1="5.3" y1="5.3" x2="6.7" y2="6.7"/><line x1="17.3" y1="17.3" x2="18.7" y2="18.7"/>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20.5 13.2A8.5 8.5 0 1 1 10.8 3.5a7 7 7 0 0 9.7 9.7z"/>
+          </svg>
+        </button>
+        <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle menu">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <line class="icon-open" x1="3" y1="7" x2="21" y2="7"/>
+            <line class="icon-open" x1="3" y1="12" x2="21" y2="12"/>
+            <line class="icon-open" x1="3" y1="17" x2="21" y2="17"/>
+            <line class="icon-close" x1="5" y1="5" x2="19" y2="19"/>
+            <line class="icon-close" x1="19" y1="5" x2="5" y2="19"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ============ PAGE HERO ============ -->
+    <section class="hero">
+      <div class="container">
+        <p class="kicker reveal">macOS — the essentials</p>
+        <h1 class="reveal delay-1">Mac fixes, <em class="serif">same standard.</em></h1>
+
+        <div class="hero-foot reveal delay-2">
+          <div class="hero-copy">
+            <p class="lede"><span data-tip-count="mac">23</span> tested fixes for every kind of Mac trouble — frozen apps, trackpad & mouse, microphone, slow Wi-Fi, no sound, external displays, Bluetooth pairing, battery health, backups, encryption and the resets that fix weird glitches. Intel and Apple Silicon both covered, timed to the minute.</p>
+            <div class="hero-cta">
+              <a class="btn btn-primary" href="#fixes">Jump to the list</a>
+              <a class="btn-link" href="../diagnose.html">Not sure where to start? Diagnose <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+          <ul class="hero-meta" aria-label="Library facts">
+            <li><span>Tested fixes</span> <span data-tip-count="mac">23</span></li>
+            <li><span>Coverage</span> Intel + Apple Silicon</li>
+            <li><span>Jargon</span> None. Ever.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ THE FULL LIST (JS-enhanced cards) ============ -->
+    <section class="section" id="fixes">
+      <div class="container">
+        <header class="sec-head reveal">
+          <span class="sec-num"><span data-tip-count="mac">23</span> fixes · <span data-tip-count="mac-groups">3</span> groups</span>
+          <h2>The full list</h2>
+          <p class="sec-sub">Grouped by what they fix. Search, jump to a category, or tap any row to read the steps — no sign-up, no jargon.</p>
+        </header>
+
+        <nav class="breadcrumbs reveal" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="../index.html">Home</a></li>
+            <li id="bc-page" aria-current="page">Mac fixes</li>
+            <li id="bc-tip" hidden></li>
+          </ol>
+        </nav>
+
+        <div class="fix-tools reveal">
+          <div class="fix-search-row">
+            <input type="search" id="fix-search" placeholder="Search the fixes… (press /)" aria-label="Search the Mac fixes" />
+            <span class="fix-count" id="fix-count" aria-live="polite"></span>
+          </div>
+          <div class="cat-chips" role="group" aria-label="Jump to a group">
+            <a class="cat-chip" href="#sub-speed">Speed &amp; performance</a>
+            <a class="cat-chip" href="#sub-fixes">Everyday fixes</a>
+            <a class="cat-chip" href="#sub-security">Security &amp; backups</a>
+          </div>
+        </div>
+
+        <!-- script.js renderAccordion() binds these exact ids (win-acc / mac-acc). -->
+        <div class="acc-list" id="mac-acc">
+          <noscript><p class="no-js-note">Enable JavaScript to expand the fix cards — or use the full index below, which works without it.</p></noscript>
+        </div>
+
+        <div class="search-empty search-block" id="fix-search-empty" hidden>
+          <h3>We couldn't find that problem.</h3>
+          <p>Try describing it differently — e.g. "my laptop is overheating" instead of "computer broken".</p>
+          <a class="btn btn-primary" href="../diagnose.html">Start diagnosis<span aria-hidden="true"> →</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CRAWLABLE INDEX (works with JavaScript disabled) ============ -->
+    <section class="section" id="all-fixes" aria-label="All fixes index">
+      <div class="container">
+        <header class="sec-head reveal">
+          <span class="sec-num">23 guides</span>
+          <h2>Browse every fix</h2>
+          <p class="sec-sub">Each guide has its own permanent page — open any of them directly, or share the link.</p>
+        </header>
+
+        <section class="static-group" aria-labelledby="sub-speed">
+          <h3 class="acc-group" id="sub-speed"><span>Speed &amp; performance</span><i aria-hidden="true">·</i><span>6 fixes</span></h3>
+          <ul class="static-fix-list">
+            <li><a href="free-up-disk-space-with-storage-management/"><span class="sf-title">Free up disk space with Storage Management</span><small>Easy · 5 min</small></a></li>
+            <li><a href="speed-up-a-sluggish-macbook/"><span class="sf-title">Speed up a sluggish MacBook</span><small>Easy · 5 min</small></a></li>
+            <li><a href="stop-apps-from-launching-at-login/"><span class="sf-title">Stop apps from launching at login</span><small>Easy · 5 min</small></a></li>
+            <li><a href="keep-10-of-your-disk-free/"><span class="sf-title">Keep 10% of your disk free</span><small>Easy · 10 min</small></a></li>
+            <li><a href="tame-spotlight-indexing-on-extra-drives/"><span class="sf-title">Tame Spotlight indexing on extra drives</span><small>Medium · 5 min</small></a></li>
+            <li><a href="give-safari-a-proper-clean-out/"><span class="sf-title">Give Safari a proper clean-out</span><small>Easy · 5 min</small></a></li>
+          </ul>
+        </section>
+        <section class="static-group" aria-labelledby="sub-fixes">
+          <h3 class="acc-group" id="sub-fixes"><span>Everyday fixes</span><i aria-hidden="true">·</i><span>14 fixes</span></h3>
+          <ul class="static-fix-list">
+            <li><a href="reset-nvram-when-things-misbehave/"><span class="sf-title">Reset NVRAM when things misbehave</span><small>Easy · 3 min</small></a></li>
+            <li><a href="force-quit-a-frozen-app/"><span class="sf-title">Force-quit a frozen app</span><small>Easy · 1 min</small></a></li>
+            <li><a href="fix-a-mac-that-won-t-start-up/"><span class="sf-title">Fix a Mac that won&#39;t start up</span><small>Medium · 30 min</small></a></li>
+            <li><a href="run-first-aid-on-external-drives/"><span class="sf-title">Run First Aid on external drives</span><small>Easy · 10 min</small></a></li>
+            <li><a href="keep-your-mac-battery-healthy/"><span class="sf-title">Keep your Mac battery healthy</span><small>Easy · 5 min</small></a></li>
+            <li><a href="open-apps-blocked-by-gatekeeper/"><span class="sf-title">Open apps blocked by Gatekeeper</span><small>Easy · 2 min</small></a></li>
+            <li><a href="fix-slow-wi-fi-on-your-mac/"><span class="sf-title">Fix slow Wi-Fi on your Mac</span><small>Easy · 10 min</small></a></li>
+            <li><a href="connected-but-no-internet-on-your-mac-the-safe-network-reset/"><span class="sf-title">Connected but no internet on your Mac? The safe network reset</span><small>Medium · 10 min</small></a></li>
+            <li><a href="no-sound-on-your-mac-check-the-output-device-first/"><span class="sf-title">No sound on your Mac? Check the output device first</span><small>Easy · 5 min</small></a></li>
+            <li><a href="external-monitor-not-detected-on-your-mac/"><span class="sf-title">External monitor not detected on your Mac?</span><small>Easy · 5 min</small></a></li>
+            <li><a href="bluetooth-won-t-pair-on-your-mac-reset-it-properly/"><span class="sf-title">Bluetooth won&#39;t pair on your Mac? Reset it properly</span><small>Easy · 5 min</small></a></li>
+            <li><a href="trackpad-or-mouse-not-working-on-your-mac-the-safe-restart-pass/"><span class="sf-title">Trackpad or mouse not working on your Mac? The safe restart pass</span><small>Easy · 5 min</small></a></li>
+            <li><a href="no-microphone-on-your-mac-check-the-input-device-first/"><span class="sf-title">No microphone on your Mac? Check the input device first</span><small>Easy · 5 min</small></a></li>
+            <li><a href="microphone-permission-on-your-mac-let-the-app-use-it/"><span class="sf-title">Microphone permission on your Mac? Let the app use it</span><small>Easy · 5 min</small></a></li>
+          </ul>
+        </section>
+        <section class="static-group" aria-labelledby="sub-security">
+          <h3 class="acc-group" id="sub-security"><span>Security &amp; backups</span><i aria-hidden="true">·</i><span>3 fixes</span></h3>
+          <ul class="static-fix-list">
+            <li><a href="keep-macos-updated-the-safe-way/"><span class="sf-title">Keep macOS updated the safe way</span><small>Easy · 10 min</small></a></li>
+            <li><a href="set-up-time-machine-properly/"><span class="sf-title">Set up Time Machine properly</span><small>Easy · 20 min</small></a></li>
+            <li><a href="turn-on-filevault-full-disk-encryption/"><span class="sf-title">Turn on FileVault full-disk encryption</span><small>Easy · 3 min</small></a></li>
+          </ul>
+        </section>
+      </div>
+    </section>
+
+    <!-- ============ WHERE TO NEXT ============ -->
+    <section class="section" aria-label="More on this site">
+      <div class="container">
+        <header class="sec-head reveal">
+          <span class="sec-num">Keep going</span>
+          <h2>Where to next?</h2>
+        </header>
+
+        <ul class="index-list reveal delay-1">
+          <li><a class="index-row" href="../diagnose.html">
+            <span class="idx-num">01</span>
+            <h3 class="idx-title">Diagnose your problem</h3>
+            <p class="idx-desc">Tell us what's happening and get the fix that works, starting with the first three steps.</p>
+            <span class="idx-arrow" aria-hidden="true">↗</span>
+          </a></li>
+          <li><a class="index-row" href="../windows/">
+            <span class="idx-num">02</span>
+            <h3 class="idx-title">Windows fixes</h3>
+            <p class="idx-desc"><span data-tip-count="win">66</span> tested fixes for Windows 10 and 11, grouped by what they do.</p>
+            <span class="idx-arrow" aria-hidden="true">↗</span>
+          </a></li>
+          <li><a class="index-row" href="../index.html#routine">
+            <span class="idx-num">03</span>
+            <h3 class="idx-title">The monthly routine</h3>
+            <p class="idx-desc">Six things, once a month, about an hour total. Progress saved on your device.</p>
+            <span class="idx-arrow" aria-hidden="true">↗</span>
+          </a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container footer-top">
+      <p class="footer-brand"><img class="brand-mark" src="../brand/cursor-mark.svg" width="20" height="20" alt="" aria-hidden="true">EmTech Media — PC &amp; Mac problems, solved in plain English.</p>
+
+      <nav aria-label="Footer">
+        <a href="../diagnose.html">Diagnose</a>
+        <a href="../windows/">Windows fixes</a>
+        <a href="../mac/">Mac fixes</a>
+        <a href="../index.html#routine">Monthly routine</a>
+      </nav>
+    </div>
+
+    <div class="container footer-bottom">
+      <p>© <span id="year">2026</span> EmTech Media. All rights reserved.</p>
+      <p>Tested on real machines, written for humans.</p>
+    </div>
+  </footer>
+
+  <button class="to-top" id="to-top" type="button" aria-label="Back to top">↑</button>
+
+  <script src="../tips-data.js" defer></script>
+  <script src="../diag-data.js" defer></script>
+  <script src="../diag-engine.js" defer></script>
+  <script src="../script.js" defer></script>
+  <script src="../diag-feedback.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" id="meta-theme-color" content="#F1EEE6" />
+  <title>Know your BIOS settings (the 5 that matter) | EmTech Media</title>
+  <meta name="description" content="Most of the speed potential in a PC is already there — it&#39;s locked in the BIOS/UEFI. Five settings unlock most of it." />
+  <link rel="canonical" href="https://emtechbytes-cpu.github.io/emtech-media/windows/know-your-bios-settings-the-5-that-matter/" />
+  <meta property="og:url" content="https://emtechbytes-cpu.github.io/emtech-media/windows/know-your-bios-settings-the-5-that-matter/" />
+
+  <meta property="og:image" content="https://emtechbytes-cpu.github.io/emtech-media/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="EmTech Media — PC &amp; Mac problems, solved in plain English" />
+  <meta name="twitter:image" content="https://emtechbytes-cpu.github.io/emtech-media/og-image.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="EmTech Media" />
+  <meta property="og:title" content="Know your BIOS settings (the 5 that matter) | EmTech Media" />
+  <meta property="og:description" content="Most of the speed potential in a PC is already there — it&#39;s locked in the BIOS/UEFI. Five settings unlock most of it." />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <script>
+    // Apply the saved theme before first paint (avoids a flash of the wrong theme).
+    (function () {
+      try {
+        var t = localStorage.getItem("emtech-theme");
+        if (!t) t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.theme = t;
+        var m = document.getElementById("meta-theme-color");
+        if (m) m.content = t === "dark" ? "#131210" : "#F1EEE6";
+      } catch (err) {}
+    })();
+  </script>
+  <link rel="icon" type="image/svg+xml" href="../../brand/cursor-favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=IBM+Plex+Mono:wght@400;500&family=Instrument+Serif:ital@1&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../style.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://emtechbytes-cpu.github.io/emtech-media/index.html" },
+      { "@type": "ListItem", "position": 2, "name": "Windows fixes", "item": "https://emtechbytes-cpu.github.io/emtech-media/windows/" },
+      { "@type": "ListItem", "position": 3, "name": "Know your BIOS settings (the 5 that matter)", "item": "https://emtechbytes-cpu.github.io/emtech-media/windows/know-your-bios-settings-the-5-that-matter/" }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header" id="top">
+    <div class="container nav-wrap">
+      <a class="brand" href="../../index.html" aria-label="EmTech Media home">
+        <img class="brand-mark" src="../../brand/cursor-mark.svg" width="30" height="30" alt="" aria-hidden="true">
+        EmTech&nbsp;Media
+      </a>
+
+      <nav class="primary-nav" id="primary-nav" aria-label="Primary">
+        <ul>
+          <li><a href="../../index.html#search">Search</a></li>
+          <li><a href="../../ai.html">EmTech AI</a></li>
+          <li><a href="../../diagnose.html">Diagnose</a></li>
+          <li><a href="../../windows/" class="active" aria-current="page">Windows</a></li>
+          <li><a href="../../mac/">Mac</a></li>
+          <li><a href="../../index.html#routine">Routine</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false" aria-label="Toggle dark mode">
+          <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"/>
+            <line x1="12" y1="2.5" x2="12" y2="4.5"/><line x1="12" y1="19.5" x2="12" y2="21.5"/>
+            <line x1="2.5" y1="12" x2="4.5" y2="12"/><line x1="19.5" y1="12" x2="21.5" y2="12"/>
+            <line x1="5.3" y1="5.3" x2="6.7" y2="6.7"/><line x1="17.3" y1="17.3" x2="18.7" y2="18.7"/>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20.5 13.2A8.5 8.5 0 1 1 10.8 3.5a7 7 7 0 0 9.7 9.7z"/>
+          </svg>
+        </button>
+        <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle menu">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <line class="icon-open" x1="3" y1="7" x2="21" y2="7"/>
+            <line class="icon-open" x1="3" y1="12" x2="21" y2="12"/>
+            <line class="icon-open" x1="3" y1="17" x2="21" y2="17"/>
+            <line class="icon-close" x1="5" y1="5" x2="19" y2="19"/>
+            <line class="icon-close" x1="19" y1="5" x2="5" y2="19"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- ============ BREADCRUMB ============ -->
+    <div class="container">
+      <nav class="breadcrumbs" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../../windows/">Windows fixes</a></li>
+          <li aria-current="page">Know your BIOS settings (the 5 that matter)</li>
+        </ol>
+      </nav>
+    </div>
+
+    <!-- ============ FIX ARTICLE (fully static — readable with JS disabled) ============ -->
+    <article class="section fix-article">
+      <div class="container">
+        <p class="kicker reveal">Any · Hardware</p>
+        <h1 class="reveal delay-1">Know your BIOS settings (the 5 that matter)</h1>
+
+        <section class="fix-summary" aria-label="Summary">
+          <p class="lede reveal delay-2">Most of the speed potential in a PC is already there — it&#39;s locked in the BIOS/UEFI. Five settings unlock most of it.</p>
+          <ul class="hero-meta fix-meta" aria-label="Fix facts">
+            <li><span>Difficulty</span> Advanced</li>
+            <li><span>Estimated time</span> 20 min</li>
+            <li><span>Platform</span> Any</li>
+          </ul>
+        </section>
+
+        <section class="fix-safety" aria-label="Before you start">
+          <h2>Before you start</h2>
+          <p><strong>High risk.</strong> This change is reversible — you can return to the previous state without professional help or data loss.</p>
+        </section>
+
+        <section aria-label="Steps">
+          <h2>Steps</h2>
+<ol class="tip-steps fix-steps">
+      <li>Enter UEFI (usually F2 / DEL at boot). XMP/EXPO: enable it or your RAM runs at 2133 MHz instead of its rated speed</li>
+      <li>Resizable BAR (Above 4G): on for GPU</li>
+      <li>C-States: off if you do low-latency work</li>
+      <li>Boot order: put your SSD first</li>
+      <li>Enable virtualisation (VT-x / SVM) only if you use VMs or Android emulators — off is safer otherwise</li>
+</ol>
+        </section>
+
+        <section class="fix-verify" aria-label="How to verify the fix">
+          <h2>How to verify the fix</h2>
+          <p>The PC boots normally, RAM runs at its rated speed (Task Manager → Memory), and the UEFI settings persist across reboots.</p>
+        </section>
+
+        <section class="fix-failure" aria-label="If this didn't fix it">
+          <h2>If this didn't fix it</h2>
+          <p>The PC fails to post or is unstable after a change — enter UEFI again and reset that setting (or load optimized defaults).</p>
+          <p>Next stop: the related fixes below, or <a href="../../diagnose.html">start a guided diagnosis</a>.</p>
+        </section>
+
+
+        <section class="fix-related" aria-label="Related fixes">
+          <h2>Related fixes</h2>
+          <ul class="rel-list">
+        <li><a href="../../windows/move-your-os-or-games-to-an-ssd/">Move your OS or games to an SSD</a> <small>Medium · 1 hr</small></li>
+        <li><a href="../../windows/upgrade-your-ram-and-match-it/">Upgrade your RAM (and match it)</a> <small>Medium · 30 min</small></li>
+        <li><a href="../../windows/pick-an-ssd-that-s-actually-fast/">Pick an SSD that&#39;s actually fast</a> <small>Easy · 5 min</small></li>
+        <li><a href="../../windows/size-your-psu-before-the-next-upgrade/">Size your PSU before the next upgrade</a> <small>Medium · 15 min</small></li>
+          </ul>
+        </section>
+
+        <div class="hero-cta fix-next">
+          <a class="btn btn-primary" href="../../diagnose.html">Still stuck? Diagnose my problem <span aria-hidden="true">→</span></a>
+          <a class="btn-link" href="../../windows/">Browse all Windows fixes <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+    </article>
+  </main>
+
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container footer-top">
+      <p class="footer-brand"><img class="brand-mark" src="../../brand/cursor-mark.svg" width="20" height="20" alt="" aria-hidden="true">EmTech Media — PC &amp; Mac problems, solved in plain English.</p>
+
+      <nav aria-label="Footer">
+        <a href="../../diagnose.html">Diagnose</a>
+        <a href="../../windows/">Windows fixes</a>
+        <a href="../../mac/">Mac fixes</a>
+        <a href="../../index.html#routine">Monthly routine</a>
+      </nav>
+    </div>
+
+    <div class="container footer-bottom">
+      <p>© <span id="year">2026</span> EmTech Media. All rights reserved.</p>
+      <p>Tested on real machines, written for humans.</p>
+    </div>
+  </footer>
+
+  <button class="to-top" id="to-top" type="button" aria-label="Back to top">↑</button>
+
+  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above is complete without it. -->
+  <script src="../../tips-data.js" defer></script>
+  <script src="../../script.js" defer></script>
+</body>
+</html>

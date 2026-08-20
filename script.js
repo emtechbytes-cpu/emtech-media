@@ -287,7 +287,8 @@
   }
 
   function diagBlock(tip, tag) {
-    const target = tip.cat === "mac" ? "mac.html" : "windows.html";
+    // Phase 4: canonical static fix page (windows/<slug>/ or mac/<slug>/).
+    const target = tip.cat === "mac" ? "mac/" : "windows/";
     const slug = tipSlug(tip.title);
     return `
       <div class="diag-tip">
@@ -298,7 +299,7 @@
         <ol class="tip-steps diag-steps">
           ${tip.steps.slice(0, 3).map((s) => `<li>${esc(s)}</li>`).join("")}
         </ol>
-        <a class="btn-link" href="${target}#${esc(slug)}">Read the full fix <span aria-hidden="true">↗</span></a>
+        <a class="btn-link" href="${target}${esc(slug)}/">Read the full fix <span aria-hidden="true">↗</span></a>
       </div>`;
   }
 
@@ -361,7 +362,8 @@
             ${related.length ? `
             <div class="acc-related">
               <span class="rel-label">Pairs well with</span>
-              <ul>${related.map((r) => `<li><a href="#${esc(tipSlug(r.title))}">${esc(r.title)}</a></li>`).join("")}</ul>
+              <!-- Phase 4: related fixes open their canonical static pages (same platform, hub-relative). -->
+              <ul>${related.map((r) => `<li><a href="${esc(tipSlug(r.title))}/">${esc(r.title)}</a></li>`).join("")}</ul>
             </div>` : ""}
             <div class="acc-actions">
               <button class="done-btn" type="button" aria-pressed="false"><span class="tick" aria-hidden="true"></span><span class="lbl">Mark as done</span></button>
@@ -382,12 +384,14 @@
     order.forEach((cat) => {
       const group = tips.filter((t) => t.cat === cat);
       if (!group.length) return;
-      html += `<h3 class="acc-group" id="cat-${esc(cat)}"><span>${esc(CAT_LABELS[cat] || cat)}</span><i aria-hidden="true">·</i><span>${group.length} fix${group.length > 1 ? "es" : ""}</span></h3>`;
+      // Phase 4: no id here — the hub's static index owns the #cat-* / #sub-*
+      // anchors (single owner, valid with or without JavaScript).
+      html += `<h3 class="acc-group"><span>${esc(CAT_LABELS[cat] || cat)}</span><i aria-hidden="true">·</i><span>${group.length} fix${group.length > 1 ? "es" : ""}</span></h3>`;
       const subKeys = [...new Set(group.map((t) => t.group).filter(Boolean))];
       if (subKeys.length) {
         subKeys.forEach((g) => {
           const sub = group.filter((t) => t.group === g);
-          html += `<h4 class="acc-subgroup" id="sub-${esc(g)}"><span>${esc(GROUP_LABELS[g] || g)}</span><i aria-hidden="true">·</i><span>${sub.length} fix${sub.length > 1 ? "es" : ""}</span></h4>`;
+          html += `<h4 class="acc-subgroup"><span>${esc(GROUP_LABELS[g] || g)}</span><i aria-hidden="true">·</i><span>${sub.length} fix${sub.length > 1 ? "es" : ""}</span></h4>`;
           sub.forEach((t) => { html += accItem(t); });
         });
       } else {
@@ -481,7 +485,8 @@
   ];
 
   function tipHref(tip) {
-    return `${tip.cat === "mac" ? "mac.html" : "windows.html"}#${esc(tipSlug(tip.title))}`;
+    // Phase 4: canonical static fix page (windows/<slug>/ or mac/<slug>/).
+    return `${tip.cat === "mac" ? "mac/" : "windows/"}${esc(tipSlug(tip.title))}/`;
   }
 
   function fmtUpdated(iso) {
@@ -533,14 +538,14 @@
   renderCatGrid("cat-win-grid", WIN_ORDER.map((c) => ({
     label: CAT_LABELS[c] || c,
     count: winTipsAll.filter((t) => t.cat === c).length,
-    href: `windows.html#cat-${c}`,
+    href: `windows/#cat-${c}`,
   })).filter((e) => e.count > 0));
 
   const macTipsAll = TIPS.filter((t) => t.cat === "mac");
   renderCatGrid("cat-mac-grid", ["speed", "fixes", "security"].map((g) => ({
     label: GROUP_LABELS[g] || g,
     count: macTipsAll.filter((t) => t.group === g).length,
-    href: `mac.html#sub-${g}`,
+    href: `mac/#sub-${g}`,
   })).filter((e) => e.count > 0));
 
   /* ---------- Homepage: global fix search (static, no backend) ---------- */
@@ -901,7 +906,9 @@
 
   renderChecklist();
 
-  /* ---------- Deep-link opener: windows.html#slug / mac.html#slug ---------- */
+  /* ---------- Deep-link opener: hub anchors (#cat-*, #sub-*) + legacy hash tips ----------
+     Phase 4 note: individual fixes now live at their own canonical pages
+     (windows/<slug>/, mac/<slug>/); the hubs keep category/group anchors. */
   function openHashedTip() {
     const slug = location.hash.slice(1);
     if (!slug) return;

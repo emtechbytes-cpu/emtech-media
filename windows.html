@@ -4,35 +4,22 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" id="meta-theme-color" content="#F1EEE6" />
-  <title>Windows Fixes — EmTech Media</title>
-  <meta name="description" content="66 tested fixes for Windows 10 and 11: slow PCs, blue screens, no sound, update chaos, gaming stutter, disk bloat, Wi-Fi lock-down, BitLocker and more. Grouped by what they do, timed to the minute, written in plain English." />
+  <title>Windows fixes have moved | EmTech Media</title>
+  <meta name="description" content="This page has moved. All Windows fixes now live at /windows/ — every fix has its own permanent URL." />
   <!-- ============================================================
-       Live preview host: GitHub Pages (resolvable today). When a custom
-       domain is registered, swap these absolute URLs — plus robots.txt
-       and sitemap.xml — to match it.
+       Phase 4 migration stub (was the JS-rendered Windows hub).
+       The real hub is now /windows/. This file exists only so old
+       links keep working: a no-JS meta-refresh sends visitors to the
+       hub, and inline JS preserves legacy deep links of the form
+       windows.html#<fix-slug> (→ /windows/<slug>/) and category
+       anchors like #cat-speed (→ /windows/#cat-speed).
+
+       GitHub Pages cannot issue a true server-side 301 for this path;
+       this is an HTML-level redirect, reported as such. The page is
+       noindexed so it is never indexed as a duplicate of the hub.
        ============================================================ -->
-  <link rel="canonical" href="https://emtechbytes-cpu.github.io/emtech-media/windows.html" />
-  <meta property="og:url" content="https://emtechbytes-cpu.github.io/emtech-media/windows.html" />
-  <meta property="og:image" content="https://emtechbytes-cpu.github.io/emtech-media/og-image.png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="EmTech Media — PC &amp; Mac problems, solved in plain English" />
-  <meta name="twitter:image" content="https://emtechbytes-cpu.github.io/emtech-media/og-image.png" />
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="EmTech Media" />
-  <meta property="og:title" content="Windows Fixes — EmTech Media" />
-  <meta property="og:description" content="66 tested fixes for Windows 10 and 11 in plain English. Grouped by what they do, timed to the minute." />
-  <meta name="twitter:card" content="summary_large_image" />
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://emtechbytes-cpu.github.io/emtech-media/index.html" },
-      { "@type": "ListItem", "position": 2, "name": "Windows fixes", "item": "https://emtechbytes-cpu.github.io/emtech-media/windows.html" }
-    ]
-  }
-  </script>
+  <meta name="robots" content="noindex,follow" />
+  <meta http-equiv="refresh" content="0; url=windows/" />
   <script>
     // Apply the saved theme before first paint (avoids a flash of the wrong theme).
     (function () {
@@ -54,185 +41,57 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <!-- ============ HEADER ============ -->
+  <!-- ============ HEADER (minimal — this is a stub, not the hub) ============ -->
   <header class="site-header" id="top">
     <div class="container nav-wrap">
       <a class="brand" href="index.html" aria-label="EmTech Media home">
         <img class="brand-mark" src="brand/cursor-mark.svg" width="30" height="30" alt="" aria-hidden="true">
         EmTech&nbsp;Media
       </a>
-
-      <nav class="primary-nav" id="primary-nav" aria-label="Primary">
-        <ul>
-          <li><a href="index.html#search">Search</a></li>
-          <li><a href="ai.html">EmTech AI</a></li>
-          <li><a href="diagnose.html">Diagnose</a></li>
-          <li><a href="#fixes" class="active" aria-current="page">Windows</a></li>
-          <li><a href="mac.html">Mac</a></li>
-          <li><a href="index.html#routine">Routine</a></li>
-        </ul>
-      </nav>
-
-      <div class="nav-actions">
-        <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false" aria-label="Toggle dark mode">
-          <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="4"/>
-            <line x1="12" y1="2.5" x2="12" y2="4.5"/><line x1="12" y1="19.5" x2="12" y2="21.5"/>
-            <line x1="2.5" y1="12" x2="4.5" y2="12"/><line x1="19.5" y1="12" x2="21.5" y2="12"/>
-            <line x1="5.3" y1="5.3" x2="6.7" y2="6.7"/><line x1="17.3" y1="17.3" x2="18.7" y2="18.7"/>
-            <line x1="5.3" y1="18.7" x2="6.7" y2="17.3"/><line x1="17.3" y1="6.7" x2="18.7" y2="5.3"/>
-          </svg>
-          <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M20.5 13.2A8.5 8.5 0 1 1 10.8 3.5a7 7 0 0 0 9.7 9.7z"/>
-          </svg>
-        </button>
-        <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Toggle menu">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
-            <line class="icon-open" x1="3" y1="7" x2="21" y2="7"/>
-            <line class="icon-open" x1="3" y1="12" x2="21" y2="12"/>
-            <line class="icon-open" x1="3" y1="17" x2="21" y2="17"/>
-            <line class="icon-close" x1="5" y1="5" x2="19" y2="19"/>
-            <line class="icon-close" x1="19" y1="5" x2="5" y2="19"/>
-          </svg>
-        </button>
-      </div>
     </div>
   </header>
 
   <main id="main">
-    <!-- ============ PAGE HERO ============ -->
-    <section class="hero">
-      <div class="container">
-        <p class="kicker reveal">Windows 10 / 11 — the full list</p>
-        <h1 class="reveal delay-1">Every Windows fix, <em class="serif">in one list.</em></h1>
-
-        <div class="hero-foot reveal delay-2">
-          <div class="hero-copy">
-            <p class="lede"><span data-tip-count="win">66</span> tested fixes grouped by what they do — speed, updates, gaming, cleaning, maintenance, hardware and security. Each one timed to the minute and written in plain English.</p>
-            <div class="hero-cta">
-              <a class="btn btn-primary" href="#fixes">Jump to the list</a>
-              <a class="btn-link" href="diagnose.html">Not sure where to start? Diagnose <span aria-hidden="true">↗</span></a>
-            </div>
-          </div>
-          <ul class="hero-meta" aria-label="Library facts">
-            <li><span>Tested fixes</span> <span data-tip-count="win">66</span></li>
-            <li><span>Categories</span> <span data-tip-count="win-cats">7</span></li>
-            <li><span>Jargon</span> None. Ever.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ PROBLEM TICKER ============ -->
-    <div class="ticker" aria-hidden="true">
-      <div class="ticker-track">
-        <span>Slow PC</span><i>✦</i><span>Overheating</span><i>✦</i><span>Update chaos</span><i>✦</i><span>Gaming stutter</span><i>✦</i><span>Disk full</span><i>✦</i><span>Ransomware-proofing</span><i>✦</i><span>Memory hogs</span><i>✦</i>
-        <span>Slow PC</span><i>✦</i><span>Overheating</span><i>✦</i><span>Update chaos</span><i>✦</i><span>Gaming stutter</span><i>✦</i><span>Disk full</span><i>✦</i><span>Ransomware-proofing</span><i>✦</i><span>Memory hogs</span><i>✦</i>
-      </div>
-    </div>
-
-    <!-- ============ THE FULL LIST ============ -->
-    <section class="section" id="fixes">
-      <div class="container">
-        <header class="sec-head reveal">
-          <span class="sec-num"><span data-tip-count="win">66</span> fixes · <span data-tip-count="win-cats">7</span> categories</span>
-          <h2>The full list</h2>
-          <p class="sec-sub">Grouped by what they fix. Search, jump to a category, or tap any row to read the steps — no sign-up, no jargon.</p>
-        </header>
-
-        <nav class="breadcrumbs reveal" aria-label="Breadcrumb">
-          <ol>
-            <li><a href="index.html">Home</a></li>
-            <li id="bc-page" aria-current="page">Windows fixes</li>
-            <li id="bc-tip" hidden></li>
-          </ol>
-        </nav>
-
-        <div class="fix-tools reveal">
-          <div class="fix-search-row">
-            <input type="search" id="fix-search" placeholder="Search the fixes… (press /)" aria-label="Search the Windows fixes" />
-            <span class="fix-count" id="fix-count" aria-live="polite"></span>
-          </div>
-          <div class="cat-chips" role="group" aria-label="Jump to a category">
-            <a class="cat-chip" href="#cat-speed">Speed</a>
-            <a class="cat-chip" href="#cat-windows">Windows</a>
-            <a class="cat-chip" href="#cat-gaming">Gaming</a>
-            <a class="cat-chip" href="#cat-cleaning">Cleaning</a>
-            <a class="cat-chip" href="#cat-maintenance">Maintenance</a>
-            <a class="cat-chip" href="#cat-hardware">Hardware</a>
-            <a class="cat-chip" href="#cat-security">Security</a>
-          </div>
-        </div>
-
-        <div class="acc-list" id="win-acc">
-          <noscript><p class="no-js-note">Enable JavaScript to expand the fixes, or open the EmTech PC Tips folder for the static pages.</p></noscript>
-        </div>
-
-        <div class="search-empty search-block" id="fix-search-empty" hidden>
-          <h3>We couldn't find that problem.</h3>
-          <p>Try describing it differently — e.g. "my laptop is overheating" instead of "computer broken".</p>
-          <a class="btn btn-primary" href="diagnose.html">Start diagnosis<span aria-hidden="true"> →</span></a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ WHERE TO NEXT ============ -->
-    <section class="section" aria-label="More on this site">
-      <div class="container">
-        <header class="sec-head reveal">
-          <span class="sec-num">Keep going</span>
-          <h2>Where to next?</h2>
-        </header>
-
-        <ul class="index-list reveal delay-1">
-          <li><a class="index-row" href="diagnose.html">
-            <span class="idx-num">01</span>
-            <h3 class="idx-title">Diagnose your problem</h3>
-            <p class="idx-desc">Tell us what's happening and get the fix that works, starting with the first three steps.</p>
-            <span class="idx-arrow" aria-hidden="true">↗</span>
-          </a></li>
-          <li><a class="index-row" href="mac.html">
-            <span class="idx-num">02</span>
-            <h3 class="idx-title">Mac fixes</h3>
-            <p class="idx-desc">The macOS essentials — same standard: tested, timed, plain English.</p>
-            <span class="idx-arrow" aria-hidden="true">↗</span>
-          </a></li>
-          <li><a class="index-row" href="index.html#routine">
-            <span class="idx-num">03</span>
-            <h3 class="idx-title">The monthly routine</h3>
-            <p class="idx-desc">Six things, once a month, about an hour total. Progress saved on your device.</p>
-            <span class="idx-arrow" aria-hidden="true">↗</span>
-          </a></li>
-        </ul>
+    <section class="dz-shell" aria-label="Page moved notice">
+      <div class="container no-js-wrap">
+        <p class="no-js-note kicker">This page has moved</p>
+        <h1>The Windows fixes now have a home of their own</h1>
+        <p>All 66 Windows fixes live at <a href="windows/">/windows/</a>, and every fix now has its own permanent URL. You're being taken there automatically — if nothing happens, follow the link below.</p>
+        <p><a class="btn btn-primary" href="windows/">Continue to all Windows fixes →</a></p>
       </div>
     </section>
   </main>
 
-  <!-- ============ FOOTER ============ -->
+  <!-- ============ FOOTER (minimal) ============ -->
   <footer class="site-footer">
-    <div class="container footer-top">
-      <p class="footer-brand"><img class="brand-mark" src="brand/cursor-mark.svg" width="20" height="20" alt="" aria-hidden="true">EmTech Media — PC &amp; Mac problems, solved in plain English.</p>
-
-      <nav aria-label="Footer">
-        <a href="diagnose.html">Diagnose</a>
-        <a href="windows.html">Windows fixes</a>
-        <a href="mac.html">Mac fixes</a>
-        <a href="index.html#routine">Monthly routine</a>
-      </nav>
-    </div>
-
     <div class="container footer-bottom">
       <p>© <span id="year">2026</span> EmTech Media. All rights reserved.</p>
-      <p>Tested on real machines, written for humans.</p>
+      <p><a href="index.html">Home</a> · <a href="windows/">Windows fixes</a> · <a href="mac/">Mac fixes</a></p>
     </div>
   </footer>
 
-  <button class="to-top" id="to-top" type="button" aria-label="Back to top">↑</button>
-
+  <!-- Deep-link preservation: legacy links like windows.html#<fix-slug> or
+       windows.html#cat-speed keep working. Slugs are validated against the
+       canonical tips-data.js so a stale anchor falls back to the hub. -->
   <script src="tips-data.js"></script>
-  <script src="diag-data.js"></script>
-  <script src="diag-engine.js"></script>
-  <script src="script.js"></script>
-  <script src="diag-feedback.js"></script>
+  <script>
+    (function () {
+      var hash = location.hash.slice(1);
+      if (!hash) return; // plain visit: the meta-refresh above handles it
+      var slugOk = false;
+      try {
+        for (var i = 0; i < TIPS.length; i++) {
+          if (tipSlug(TIPS[i].title) === hash) { slugOk = true; break; }
+        }
+      } catch (err) {}
+      var target = null;
+      if (slugOk) target = "windows/" + hash + "/";
+      else if (/^(cat|sub)-/.test(hash)) target = "windows/#" + hash;
+      if (!target) return; // unknown anchor: let the meta-refresh take the user to the hub
+      var mr = document.querySelector('meta[http-equiv="refresh"]');
+      if (mr && mr.parentNode) mr.parentNode.removeChild(mr); // avoid racing the refresh
+      location.replace(target);
+    })();
+  </script>
 </body>
 </html>
