@@ -26,6 +26,18 @@
   );
   const findTip = (slug) => TIPS_BY_SLUG.get(slug);
 
+  /* Diagrams live at the site root (diagrams/). Hub pages sit one level down,
+     so resolve each figure against the tips-data.js <script> tag's own path —
+     that tag is always written relative to the current page, which keeps this
+     correct at any depth. Falls back to a bare path if the tag isn't found. */
+  const ASSET_PREFIX = (() => {
+    const s = document.querySelector('script[src*="tips-data"]');
+    if (!s) return "";
+    const src = s.getAttribute("src") || "";
+    const i = src.lastIndexOf("/");
+    return i === -1 ? "" : src.slice(0, i + 1);
+  })();
+
   /* ---------- Library counts ----------
      TIPS is the single source of truth. Any element carrying
      data-tip-count has its number filled from the data, so page copy
@@ -361,7 +373,7 @@
         <div class="acc-body" id="body-${esc(slug)}" hidden>
           <div class="acc-inner">
             <p class="acc-desc">${esc(t.description)}</p>
-            ${t.diagram ? `<div class="tip-diagram-scroll"><img class="tip-diagram" src="${esc(t.diagram)}" alt="${esc(t.title)} — schematic diagram" loading="lazy" width="800" height="540"></div>` : ""}
+            ${t.diagram ? `<div class="tip-diagram-scroll"><img class="tip-diagram" src="${esc(ASSET_PREFIX + t.diagram)}" alt="${esc(t.title)} — schematic diagram" loading="lazy" width="800" height="540"></div>` : ""}
             <ol class="tip-steps">${t.steps.map((s) => `<li>${esc(s)}</li>`).join("")}</ol>
             <div class="fix-feedback">
               <p class="ff-q">Did this fix your problem?</p>

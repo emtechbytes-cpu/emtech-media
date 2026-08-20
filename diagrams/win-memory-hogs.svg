@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 540" role="img" aria-label="Schematic diagram: Find it, then cap it">
+  <title>Windows — Find it, then cap it</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=Instrument+Serif:ital@1&amp;display=swap');
+    .mono { font-family: "IBM Plex Mono", ui-monospace, Consolas, monospace; }
+    .serif { font-family: "Instrument Serif", Georgia, serif; font-style: italic; }
+  </style>
+
+<rect x="0" y="0" width="800" height="540" fill="#f1eee6"/>
+
+<text class="mono" x="48" y="52" font-size="11" letter-spacing="2" fill="#5f5b50">FIG. 48 — WINDOWS · SPEED</text>
+<text class="serif" x="48" y="88" font-size="30" fill="#131210">Find it, then cap it</text>
+<text class="mono" x="752" y="52" font-size="11" letter-spacing="1.5" fill="#5f5b50" text-anchor="end">10 MIN · MEDIUM</text>
+
+<rect x="70" y="120" width="660" height="330" fill="#e9e5d8" stroke="#131210" stroke-width="2"/><rect x="84" y="163" width="632" height="42" fill="#c8f03c"/><text class="mono" x="102" y="188" font-size="12" font-weight="600" fill="#131210">1</text><text class="mono" x="132" y="188" font-size="12.5" font-weight="600" fill="#131210">Sort Processes by Memory — close the top</text><text class="mono" x="102" y="244" font-size="12" font-weight="600" fill="#5f5b50">2</text><text class="mono" x="132" y="244" font-size="12.5" fill="#131210">Background app permissions → off</text><text class="mono" x="102" y="300" font-size="12" font-weight="600" fill="#5f5b50">3</text><text class="mono" x="132" y="300" font-size="12.5" fill="#131210">Perfmon: Private Bytes climbing?</text><text class="mono" x="102" y="356" font-size="12" font-weight="600" fill="#5f5b50">4</text><text class="mono" x="132" y="356" font-size="12.5" fill="#131210">Pagefile 1.5×–3× RAM</text><text class="mono" x="102" y="412" font-size="12" font-weight="600" fill="#5f5b50">5</text><text class="mono" x="132" y="412" font-size="12.5" fill="#131210">Full scan — malware hides as hogs</text>
+
+<line x1="70" y1="482" x2="730" y2="482" stroke="rgba(19,18,16,.18)" stroke-width="1"/>
+<text class="mono" x="70" y="506" font-size="10.5" letter-spacing="1" fill="#5f5b50">TASK MANAGER · PERFMON · PAGEFILE · FULL SCAN</text>
+</svg>

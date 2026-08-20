@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 540" role="img" aria-label="Schematic diagram: Matched pairs, dual channel">
+  <title>Windows — Matched pairs, dual channel</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=Instrument+Serif:ital@1&amp;display=swap');
+    .mono { font-family: "IBM Plex Mono", ui-monospace, Consolas, monospace; }
+    .serif { font-family: "Instrument Serif", Georgia, serif; font-style: italic; }
+  </style>
+
+<rect x="0" y="0" width="800" height="540" fill="#f1eee6"/>
+
+<text class="mono" x="48" y="52" font-size="11" letter-spacing="2" fill="#5f5b50">FIG. 25 — WINDOWS · HARDWARE</text>
+<text class="serif" x="48" y="88" font-size="30" fill="#131210">Matched pairs, dual channel</text>
+<text class="mono" x="752" y="52" font-size="11" letter-spacing="1.5" fill="#5f5b50" text-anchor="end">30 MIN · MEDIUM</text>
+
+<rect x="190" y="200" width="46" height="150" rx="3" fill="#f7f5ee" stroke="#131210" stroke-width="2"/><line x1="205" y1="210" x2="221" y2="210" stroke="rgba(19,18,16,.18)" stroke-width="1"/><line x1="205" y1="340" x2="221" y2="340" stroke="rgba(19,18,16,.18)" stroke-width="1"/><rect x="258" y="200" width="46" height="150" rx="3" fill="#f7f5ee" stroke="#131210" stroke-width="2"/><line x1="273" y1="210" x2="289" y2="210" stroke="rgba(19,18,16,.18)" stroke-width="1"/><line x1="273" y1="340" x2="289" y2="340" stroke="rgba(19,18,16,.18)" stroke-width="1"/><rect x="326" y="200" width="46" height="150" rx="3" fill="#c8f03c" stroke="#131210" stroke-width="2"/><line x1="341" y1="210" x2="357" y2="210" stroke="rgba(19,18,16,.18)" stroke-width="1"/><line x1="341" y1="340" x2="357" y2="340" stroke="rgba(19,18,16,.18)" stroke-width="1"/><rect x="394" y="200" width="46" height="150" rx="3" fill="none" stroke="#131210" stroke-width="2" stroke-dasharray="4 3"/><line x1="540" y1="206" x2="552" y2="206" stroke="rgba(19,18,16,.18)" stroke-width="1"/><text class="mono" x="558" y="210" font-size="10.5" fill="#131210">type + speed first (DDR4 /</text><text class="mono" x="558" y="226" font-size="10.5" fill="#131210">DDR5)</text><line x1="540" y1="271" x2="552" y2="271" stroke="rgba(19,18,16,.18)" stroke-width="1"/><text class="mono" x="558" y="275" font-size="10.5" fill="#131210">identical stick = dual</text><text class="mono" x="558" y="291" font-size="10.5" fill="#131210">channel</text><line x1="540" y1="336" x2="552" y2="336" stroke="rgba(19,18,16,.18)" stroke-width="1"/><text class="mono" x="558" y="340" font-size="10.5" fill="#131210">one firm click means</text><text class="mono" x="558" y="356" font-size="10.5" fill="#131210">seated</text>
+<rect x="70" y="380" width="660" height="44" fill="#f7f5ee" stroke="rgba(19,18,16,.18)" stroke-width="1.5"/>
+<text class="mono" x="90" y="408" font-size="11.5" fill="#5f5b50">16 GB is the comfortable minimum</text>
+</svg>

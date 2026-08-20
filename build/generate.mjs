@@ -389,7 +389,7 @@ ${headerHtml(depth, a.platform)}
             <li><span>Estimated time</span> ${esc(t.time)}</li>
             <li><span>Platform</span> ${esc(platformLabel)}</li>
           </ul>
-        </section>
+        </section>${t.diagram ? `\n\n        <figure class="tip-diagram-scroll" role="group" aria-label="${esc(t.title)} — schematic diagram">\n          <img class="tip-diagram" src="${r("diagrams/" + t.diagram.split("/").pop())}" alt="${esc(t.title)} — schematic diagram" width="800" height="540">\n        </figure>` : ""}
 
         <section class="fix-safety" aria-label="Before you start">
           <h2>Before you start</h2>
