@@ -245,15 +245,14 @@ export default {
       return json(403, { error: "origin not allowed", requestId: rid }, request, env, rid);
     }
 
-    /* ---------- rate limits (§25/§16/§17) — per-minute window + daily ceiling ---------- */
+    /* ---------- per-minute rate limit (§25/§16) — stays FIRST by design.
+       Phase 3.4.1: the daily ceiling moved to after body/schema/policy
+       validation (see below), so rejected requests still burn a cheap minute
+       slot but no longer consume the IP's daily budget. */
     const ip = request.headers.get("cf-connecting-ip") || request.headers.get("x-forwarded-for") || "unknown";
     if (!(await rateLimitOk(env, ip)).ok) {
       console.log(`[emtech-ai-api] ${rid} 429 rate limit exceeded`);
       return json(429, { error: "too many requests — please wait a minute and try again", requestId: rid }, request, env, rid);
-    }
-    if (!(await dailyLimitOk(env, ip)).ok) {
-      console.log(`[emtech-ai-api] ${rid} 429 daily limit reached`);
-      return json(429, { error: "today's EmTech AI limit has been reached — please try again tomorrow", requestId: rid }, request, env, rid);
     }
 
     /* ---------- body size cap (§25/§65) ---------- */
@@ -283,6 +282,17 @@ export default {
       console.log(`[emtech-ai-api] ${rid} 400 no user message`);
       return json(400, { error: "no user message found", requestId: rid }, request, env, rid);
     }
+
+    /* ---------- daily usage ceiling (§17 — cost protection) ----------
+       Phase 3.4.1: consumed only here — after the request has passed body size,
+       JSON, shape and policy validation and is eligible to enter the AI pipeline
+       (deterministic router or Qwen). Rejected bodies never burn a daily slot;
+       served turns always do; no refund if the turn later fails. */
+    if (!(await dailyLimitOk(env, ip)).ok) {
+      console.log(`[emtech-ai-api] ${rid} 429 daily limit reached`);
+      return json(429, { error: "today's EmTech AI limit has been reached — please try again tomorrow", requestId: rid }, request, env, rid);
+    }
+
     const bounded = boundHistory(history, env); // §20 — conversation stays bounded
 
     /* ---------- pre-AI router (§22/§23): obvious turns never burn a Qwen call.
