@@ -113,13 +113,32 @@ function classify(t) {
   return "PUBLISH";
 }
 
+/* Phase 5 — curated related fixes. A tip may carry an explicit `related` array of
+   sibling slugs (same platform). When at least two resolve to real same-platform tips we
+   prefer it; the category/group fallback below is only a safety net for tips without
+   curation. Unresolvable or cross-platform slugs are build errors — stale data must fail
+   loudly, never silently degrade links. Mirrors script.js relatedTips() (cap 3 there). */
+const SLUG_INDEX = new Map(TIPS.map((t) => [slugOf(t), t]));
+function resolveRelated(t, platform) {
+  if (Array.isArray(t.related)) {
+    const hits = [];
+    for (const s of t.related) {
+      const o = SLUG_INDEX.get(s);
+      if (!o || o === t) fail(`tip ${slugOf(t)} has unresolvable related slug "${s}"`);
+      if ((o.cat === "mac" ? "mac" : "windows") !== platform) fail(`tip ${slugOf(t)} links cross-platform to "${s}" (platform guard)`);
+      hits.push(o);
+    }
+    if (hits.length >= 2) return hits.slice(0, 4); // §10: 2–4 related fixes
+  }
+  const pool = TIPS.filter((o) => o !== t && o.cat === t.cat);
+  const inGroup = t.group ? pool.filter((o) => o.group === t.group) : [];
+  return (inGroup.length >= 3 ? inGroup : pool).slice(0, 4); // fallback: same rule as script.js relatedTips(), cap 4
+}
+
 const AUDIT = TIPS.map((t) => {
   const s = slugOf(t);
   const platform = t.cat === "mac" ? "mac" : "windows";
-  const pool = TIPS.filter((o) => o !== t && o.cat === t.cat);
-  const inGroup = t.group ? pool.filter((o) => o.group === t.group) : [];
-  const related = (inGroup.length >= 3 ? inGroup : pool).slice(0, 4); // same rule as script.js relatedTips(), cap 4 (§10: 2–4)
-  return { tip: t, slug: s, platform, cat: t.cat, group: t.group || null, steps: t.steps.length, words: stepWords(t), related };
+  return { tip: t, slug: s, platform, cat: t.cat, group: t.group || null, steps: t.steps.length, words: stepWords(t), related: resolveRelated(t, platform) };
 });
 
 // classify() assigns each tip to PUBLISH / REVIEW / MERGE (§4).
@@ -148,6 +167,21 @@ function rel(fromDepth, target) {
   return up + target.replace(/^\/+/, "");
 }
 
+/* ---------- Project-root anchor (Phase 4.1 contract for the custom 404) ---------- */
+// GitHub Pages serves this site under /emtech-media/. The custom 404 page is
+// delivered at arbitrary unknown paths (e.g. /emtech-media/foo/bar/baz/), so its
+// links must be anchored to the project root — bare relative hrefs would resolve
+// below the unknown path and 404 again. index.html[+fragment] maps to the
+// canonical root form used in Phase 4.1 ("/emtech-media/#search").
+const PROJECT_ROOT = "/emtech-media";
+function anchor(p, depth, rootAnchored) {
+  const clean = String(p).replace(/^\/+/, "");
+  if (!rootAnchored) return rel(depth, clean);
+  const m = clean.match(/^index\.html(?:#(.*))?$/);
+  if (m) return `${PROJECT_ROOT}/` + (m[1] ? `#${m[1]}` : "");
+  return clean === "" ? `${PROJECT_ROOT}/` : `${PROJECT_ROOT}/${clean}`;
+}
+
 /* ---------- HTML escaping (same contract as the app's esc()) ---------- */
 function esc(s) {
   return String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({
@@ -156,8 +190,8 @@ function esc(s) {
 }
 
 /* ---------- Shared chrome (header/footer), depth-aware links ---------- */
-function headerHtml(depth, active) {
-  const r = (p) => rel(depth, p);
+function headerHtml(depth, active, rootAnchored = false) {
+  const r = (p) => anchor(p, depth, rootAnchored);
   const item = (href, label, isActive) =>
     `<li><a href="${r(href)}"${isActive ? ' class="active" aria-current="page"' : ""}>${label}</a></li>`;
   return `
@@ -208,8 +242,8 @@ function headerHtml(depth, active) {
   </header>`;
 }
 
-function footerHtml(depth) {
-  const r = (p) => rel(depth, p);
+function footerHtml(depth, rootAnchored = false) {
+  const r = (p) => anchor(p, depth, rootAnchored);
   return `
   <!-- ============ FOOTER ============ -->
   <footer class="site-footer">
@@ -245,8 +279,11 @@ const THEME_SCRIPT = `
     })();
   </script>`;
 
-function headCommon(depth, { title, description, canonical, robots }) {
-  const r = (p) => rel(depth, p);
+function headCommon(depth, { title, description, canonical, robots, rootAnchored } = {}) {
+  const r = (p) => anchor(p, depth, rootAnchored);
+  const notFoundNote = rootAnchored
+    ? `\n  <!-- Phase 4.1: this page is served at arbitrary unknown paths, so every\n       reference must be production-safe (root-relative from the GitHub Pages\n       project root). Bare relative hrefs would resolve below the unknown\n       path and 404 again. -->`
+    : "";
   // The 404 page has no canonical URL of its own — omit the tag entirely.
   const canon = canonical
     ? `<link rel="canonical" href="${esc(canonical)}" />\n  <meta property="og:url" content="${esc(canonical)}" />`
@@ -271,7 +308,7 @@ function headCommon(depth, { title, description, canonical, robots }) {
   <meta property="og:title" content="${esc(title)}" />
   <meta property="og:description" content="${esc(description)}" />
   <meta name="twitter:card" content="summary_large_image" />
-${THEME_SCRIPT}
+${THEME_SCRIPT}${notFoundNote}
   <link rel="icon" type="image/svg+xml" href="${r("brand/cursor-favicon.svg")}" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -582,9 +619,11 @@ ${footerHtml(depth)}
 }
 
 /* ---------- 404 page ---------- */
+// Phase 4.1: every link on this page is project-root-anchored (see anchor()),
+// because GitHub Pages serves it at arbitrary unknown paths.
 function notFoundHtml() {
   const depth = 0;
-  const r = (p) => rel(depth, p);
+  const r = (p) => anchor(p, depth, true);
   const popular = [
     "fix-my-pc-is-slow-all-of-a-sudden-the-order-of-attack",
     "speed-up-a-sluggish-macbook",
@@ -597,10 +636,10 @@ function notFoundHtml() {
     return `        <li><a href="${r(p + a.slug + "/")}">${esc(a.tip.title)}</a></li>`;
   }).filter(Boolean).join("\n");
 
-  return `${headCommon(depth, { title: "Page not found — EmTech Media", description: "The page you're looking for doesn't exist. Find your fix in the Windows or Mac library instead.", canonical: null, robots: "noindex,follow" })}
+  return `${headCommon(depth, { title: "Page not found — EmTech Media", description: "The page you're looking for doesn't exist. Find your fix in the Windows or Mac library instead.", canonical: null, robots: "noindex,follow", rootAnchored: true })}
 </head>
 <body>
-${headerHtml(depth)}
+${headerHtml(depth, null, true)}
 
   <main id="main">
     <section class="section notfound">
@@ -638,13 +677,13 @@ ${popular}
         </section>
 
         <div class="hero-cta" style="margin-top: 24px;">
-          <a class="btn btn-primary" href="${r("index.html")}">Back to the homepage <span aria-hidden="true">→</span></a>
+          <a class="btn btn-primary" href="${r("/")}">Back to the homepage <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </section>
   </main>
 
-${footerHtml(depth)}
+${footerHtml(depth, true)}
 </body>
 </html>
 `;
@@ -841,6 +880,18 @@ for (const a of [...REVIEWED, ...MERGED]) {
 for (const a of PUBLISHED) {
   const dir = a.platform === "mac" ? "mac" : "windows";
   if (!path.join(dir, a.slug).startsWith(a.platform)) throw new Error(`SEO VALIDATION: platform guard broken for ${a.slug}`);
+}
+
+// 6. Phase 4.1 contract: the custom 404 is served at arbitrary unknown paths,
+//    so every href/src must be production-safe (absolute URL, hash anchor, or
+//    anchored to the GitHub Pages project root). Bare relative refs would 404.
+{
+  const nf = read("404.html");
+  for (const m of nf.matchAll(/(?:href|src)="([^"]*)"/g)) {
+    const v = m[1];
+    const safe = /^https?:\/\//.test(v) || v.startsWith("#") || v === "/" || v.startsWith(`${PROJECT_ROOT}/`);
+    if (!safe) throw new Error(`SEO VALIDATION: 404.html has a non-production-safe reference "${v}" (Phase 4.1 contract)`);
+  }
 }
 
 /* ---------- Summary ---------- */

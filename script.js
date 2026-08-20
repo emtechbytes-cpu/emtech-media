@@ -331,6 +331,18 @@
   const WIN_ORDER = ["speed", "windows", "gaming", "cleaning", "maintenance", "hardware", "security"];
 
   function relatedTips(t) {
+    // Phase 5: prefer the tip's curated `related` slugs — same rule as build/generate.mjs.
+    // Runtime degrades gracefully (skips invalid entries); the generator fails the build on them.
+    const platform = t.cat === "mac" ? "mac" : "windows";
+    if (Array.isArray(t.related)) {
+      const hits = [];
+      for (const s of t.related) {
+        const o = TIPS.find((x) => x !== t && tipSlug(x.title) === s);
+        if (!o || (o.cat === "mac" ? "mac" : "windows") !== platform) continue;
+        hits.push(o);
+      }
+      if (hits.length >= 2) return hits.slice(0, 3);
+    }
     const pool = TIPS.filter((o) => o !== t && o.cat === t.cat);
     const inGroup = t.group ? pool.filter((o) => o.group === t.group) : [];
     return (inGroup.length >= 3 ? inGroup : pool).slice(0, 3);

@@ -11,6 +11,11 @@
      description string  (the short pitch)
      steps       array of step strings (rendered as a list)
      group       optional sub-grouping key (speed | fixes | security)
+     related     optional array of sibling tip SLUGS (same platform). When present and at
+                 least two resolve to same-platform tips, both build/generate.mjs
+                 ("Related fixes") and script.js ("Pairs well with") prefer it over the
+                 category/group fallback; otherwise the fallback applies. Slugs are
+                 permanent identifiers — they survive title edits (see tipSlug).
      diagram     optional string — path to an SVG figure shown in the accordion body
      updated     "YYYY-MM-DD" — last content revision. Bump it whenever you edit a tip;
                  drives the homepage "Recently updated" section (real dates only)
@@ -57,6 +62,7 @@ const TIPS = [
     time: "2 min",
     win: "Win 10 / 11",
     description: "Every app that launches at boot slows your PC down. Most don't need to.",
+    related: ["fix-my-pc-is-slow-all-of-a-sudden-the-order-of-attack", "cpu-pegged-at-100-find-the-culprit-in-task-manager"],
     steps: [
       "Press Ctrl + Shift + Esc to open Task Manager",
       "Go to the Startup apps tab (Startup in Win 10)",
@@ -77,6 +83,7 @@ const TIPS = [
     time: "1 min",
     win: "Win 10 / 11",
     description: "The default Balanced plan throttles the CPU to save power. On a desktop, just use full performance.",
+    related: ["fix-my-pc-is-slow-all-of-a-sudden-the-order-of-attack", "make-your-laptop-battery-last-longer"],
     steps: [
       "Windows key, type 'Power Plan' to search",
       "Open 'Choose a power plan' from Control Panel results",
@@ -96,6 +103,7 @@ const TIPS = [
     time: "1 hr",
     win: "Any",
     description: "HDD → SSD is the single biggest speed upgrade you can make. Boot times go from minutes to seconds.",
+    related: ["pick-an-ssd-that-s-actually-fast", "run-a-disk-health-check-before-it-s-too-late"],
     steps: [
       "Buy a SATA or NVMe SSD (500 GB+ if going for OS + games)",
       "Use the SSD maker's cloning software (Samsung, Crucial, WD all have free tools) to clone your drive",
@@ -115,6 +123,7 @@ const TIPS = [
     time: "30 min",
     win: "Any",
     description: "16 GB is the comfortable minimum for modern Windows use. Always buy matched pairs for dual-channel speed.",
+    related: ["know-your-bios-settings-the-5-that-matter", "move-your-os-or-games-to-an-ssd"],
     steps: [
       "Check what you have: open Task Manager → Performance → Memory",
       "Note the type (DDR4 / DDR5), speed, and how many slots are free",
@@ -135,6 +144,7 @@ const TIPS = [
     time: "3 min",
     win: "Win 10 / 11",
     description: "Updates restarting your PC while you're mid-game is a real thing. Set Active Hours so Windows knows when you're working.",
+    related: ["windows-update-stuck-the-safe-retry-pass", "hardening-accounts-updates-and-the-firewall"],
     steps: [
       "Settings → Windows Update → Advance options → Active hours",
       "Set a window that covers when you actually use the PC",
@@ -154,6 +164,7 @@ const TIPS = [
     time: "45 min",
     win: "Any",
     description: "Loud fans usually mean dust, not a failing fan. A clean-out often fixes half of all 'my PC is slow' tickets.",
+    related: ["fix-a-hot-pc-for-good-the-airflow-pass", "make-your-laptop-battery-last-longer"],
     steps: [
       "Power off and unplug. Open the case side panel",
       "Blow dust out with compressed air in short bursts (PSU first, then fans, then heatsink fins)",
@@ -174,6 +185,7 @@ const TIPS = [
     time: "2 min",
     win: "Win 10 / 11",
     description: "Transparency and animations eat GPU and CPU on modest hardware. Turning them off makes everything feel snappier.",
+    related: ["make-your-desktop-feel-like-a-mac-without-the-price", "fix-my-pc-is-slow-all-of-a-sudden-the-order-of-attack"],
     steps: [
       "Settings → Personalisation → Colours → turn off 'Transparency effects'",
       "Settings → Accessibility → Visual effects → turn off animation effects",
@@ -192,6 +204,7 @@ const TIPS = [
     time: "5 min",
     win: "Win 10 / 11",
     description: "Temp files and caches pile up gigabytes over months. They're safe to delete — that's what they're for.",
+    related: ["let-windows-storage-sense-do-the-work-for-you", "uninstall-the-apps-you-never-use"],
     steps: [
       "Settings → System → Storage → Temporary files → tick what you want and Remove files",
       "Also: win+r → %temp% → Ctrl+A → Delete (skip files in use)",
@@ -211,6 +224,7 @@ const TIPS = [
     time: "2 min",
     win: "Win 10 / 11",
     description: "Fully-automated junk cleanup. Turn it on once and forget about disk bloat until your next OS install.",
+    related: ["clean-up-temp-files-and-browser-cache-properly", "uninstall-the-apps-you-never-use"],
     steps: [
       "Settings → System → Storage → turn on Storage Sense",
       "Click 'Storage Sense' again to set when it runs (daily / weekly / monthly)",
@@ -229,6 +243,7 @@ const TIPS = [
     time: "10 min",
     win: "Win 10 / 11",
     description: "Every installed app is small overhead — background services, update checks, context-menu entries. Remove what you don't open.",
+    related: ["clean-up-temp-files-and-browser-cache-properly", "let-windows-storage-sense-do-the-work-for-you"],
     steps: [
       "Settings → Apps → Installed apps",
       "Sort by size — the biggest offenders are usually games you've abandoned",
@@ -248,6 +263,7 @@ const TIPS = [
     time: "15 min",
     win: "Any",
     description: "Stale or wrong drivers cause crashes, audio glitches, and odd lag. Update the GPU first — it's the one that matters most.",
+    related: ["usb-device-not-recognised-the-device-manager-pass", "fix-a-webcam-that-won-t-turn-on"],
     steps: [
       "GPU: use the maker's tool (NVIDIA GeForce Experience / AMD Adrenalin / Intel DSA) — not Windows Update for this",
       "Chipset + audio + network: the laptop/motherboard maker's support page is the only safe source",
@@ -266,6 +282,7 @@ const TIPS = [
     time: "15 min",
     win: "Win 10 / 11",
     description: "Drives fail suddenly. A 10-minute monthly check tells you when to back up and replace before the data is gone.",
+    related: ["repair-corrupted-system-files", "move-your-os-or-games-to-an-ssd"],
     steps: [
       "Task Manager → Performance → Storage → check 'Health' (or use CrystalDiskInfo for full S.M.A.R.T. data)",
       "Any re-allocated sectors, pending sectors, or bad sectors = back everything up NOW",
@@ -285,6 +302,7 @@ const TIPS = [
     time: "30 min",
     win: "Any",
     description: "Three copies, two different media, one off-site. It's boring — until you need it. Set it up once.",
+    related: ["protect-against-ransomware-before-it-s-too-late", "get-back-a-file-you-deleted-by-mistake"],
     steps: [
       "Enable Windows File History or use a NAS / external drive (copy #1 + #2)",
       "Add a cloud backup for your documents folder (OneDrive, Google Drive, or Backblaze B2)",
@@ -304,6 +322,7 @@ const TIPS = [
     time: "15 min",
     win: "Win 10 / 11",
     description: "Most 'random lag spikes' trace back to one of five mundane causes. Knock them all out.",
+    related: ["raise-your-effective-fps-with-windows-game-mode", "reduce-input-lag-in-competitive-games"],
     steps: [
       "GPU driver is current (make it a clean install with DDU if stutter persists)",
       "Game files intact / verified (Steam, EA, Epic all have a 'verify' button)",
@@ -324,6 +343,7 @@ const TIPS = [
     time: "1 min",
     win: "Win 10 / 11",
     description: "Game Mode tells Windows to prioritise the game process and quiet notifications. Leave it on, always.",
+    related: ["stop-games-stuttering-the-5-point-checklist", "reduce-input-lag-in-competitive-games"],
     steps: [
       "Settings → Gaming → Game Mode → keep it ON",
       "Same page → Background processes → 'Limit background bandwidth' (on slow connections)",
@@ -342,6 +362,7 @@ const TIPS = [
     time: "20 min",
     win: "Win 10 / 11",
     description: "Millisecond matters in FPS games. Cut anything between your hand and the screen.",
+    related: ["stop-games-stuttering-the-5-point-checklist", "raise-your-effective-fps-with-windows-game-mode"],
     steps: [
       "Change monitor refresh rate: Windows → Screen → Advanced display → set to the monitor's native rate (often hidden at 60 Hz by default)",
       "Set GPU power management to 'Prefer Maximum Performance'",
@@ -361,6 +382,7 @@ const TIPS = [
     time: "20 min",
     win: "Win 10 / 11",
     description: "The default Windows firewalls work. What most people skip is the 20 minutes of account hygiene that prevents 90% of incidents.",
+    related: ["stop-windows-updates-at-odd-hours", "stop-emailing-passwords-and-secrets"],
     steps: [
       "Use a unique password per critical account, in a password manager (Bitwarden, 1Password, or the built-in Windows Credential Manager)",
       "Turn on Windows Hello (PIN / face) for daily login, keep the real password as your emergency fallback",
@@ -380,6 +402,7 @@ const TIPS = [
     time: "10 min",
     win: "Any",
     description: "Half of every 'PC repair' product in the world is useless or actively harmful. There is no magic pill that makes Windows faster.",
+    related: ["dodge-bundleware-when-you-install-anything", "skip-paid-antivirus-and-keep-defender-sharp"],
     steps: [
       "If a program is nagging you about 'errors', 'registry problems', or 'RAM issues' — uninstall it",
       "Registry cleaners are scams: the Windows registry is not your hard drive, and 'optimising' it can break things",
@@ -398,6 +421,7 @@ const TIPS = [
     time: "30 min",
     win: "Win 10 / 11",
     description: "A slow, glitchy PC that won't update? Corrupted system files are usually the cause. Two commands fix most of it.",
+    related: ["windows-update-stuck-the-safe-retry-pass", "start-windows-in-safe-mode"],
     steps: [
       "Open Command Prompt as Administrator",
       "Run: DISM /Online /Cleanup-Image /RestoreHealth (waits a few minutes)",
@@ -417,6 +441,7 @@ const TIPS = [
     time: "10 min",
     win: "Win 10 / 11",
     description: "Wi-Fi connected, little globe with a slash — the link is up but the path to the internet isn't. A safe, fully reversible stack reset fixes most of it.",
+    related: ["stop-your-pc-from-sleep-glitching-your-network", "slow-internet-run-the-five-minute-test"],
     steps: [
       "Isolate first: do other devices on this network have internet? If not, reboot the router and check with your ISP before touching this PC",
       "Win + X → Terminal (Admin): run ipconfig /release, then ipconfig /renew — gives the PC a fresh address from the router",
@@ -436,6 +461,7 @@ const TIPS = [
     time: "10 min",
     win: "Win 10 / 11",
     description: "Ethernet that drops right after wake-from-sleep, or Wi-Fi that needs a manual reconnect — it's the NIC trying to save power",
+    related: ["connected-but-no-internet-the-safe-dns-and-stack-reset", "slow-internet-run-the-five-minute-test"],
     steps: [
       "Device Manager → Network adapters → your NIC → Properties → Power Management",
       "Uncheck 'Allow the computer to turn off this device to save power'",
@@ -454,6 +480,7 @@ const TIPS = [
     time: "20 min",
     win: "Any",
     description: "Most of the speed potential in a PC is already there — it's locked in the BIOS/UEFI. Five settings unlock most of it.",
+    related: ["upgrade-your-ram-and-match-it", "pick-an-ssd-that-s-actually-fast"],
     steps: [
       "Enter UEFI (usually F2 / DEL at boot). XMP/EXPO: enable it or your RAM runs at 2133 MHz instead of its rated speed",
       "Resizable BAR (Above 4G): on for GPU",
@@ -474,6 +501,7 @@ const TIPS = [
     time: "20 min",
     win: "Win 10 / 11",
     description: "Ransomware that you can't restore from is the only data loss that really matters. VBS + Controlled Folder Access + a backup = you're almost unkillable.",
+    related: ["back-up-properly-3-2-1-rule", "skip-paid-antivirus-and-keep-defender-sharp"],
     steps: [
       "Turn on Windows Defender's 'Controlled folder access': Settings → Privacy & Security → Windows Security → Virus & threat protection → Ransomware protection → on",
       "Enable 'Memory integrity' (VBS) under Device security — yes, it has a tiny game FPS cost on old hardware, it's worth it",
@@ -510,6 +538,7 @@ const TIPS = [
     time: "5 min",
     win: "Any",
     description: "The #1 cause of 'I lost 200 hours of progress' is not a disk failure — it's saves living somewhere you didn't think to back up.",
+    related: ["back-up-properly-3-2-1-rule", "move-everything-to-a-new-pc"],
     steps: [
       "Find where each game saves: most Steam games in %userprofile%\\AppData\\Local\\ or Documents",
       "Copy your whole Documents\\My Games (or the game's actual save folder) monthly to an external drive",
@@ -528,6 +557,7 @@ const TIPS = [
     time: "15 min",
     win: "Win 10 / 11",
     description: "Most Windows 'looks bad' complaints are just missing a few settings. A 15-minute pass makes it look dramatically cleaner.",
+    related: ["organise-your-work-with-virtual-desktops", "lower-windows-transparency-and-animation-effects"],
     steps: [
       "Settings → Personalisation → Colours → pick a base colour, turn on 'Accent colour' auto",
       "Turn off 'Transparency effects' for a flatter, cleaner look (and it's faster on weak GPUs too)",
@@ -547,6 +577,7 @@ const TIPS = [
     time: "15 min",
     win: "Win 10 / 11",
     description: "When a fast PC suddenly crawls, it's almost always one of four things. Check them in this order.",
+    related: ["disable-startup-bloat", "hunt-down-memory-hogs"],
     steps: [
       "1. Task Manager → Performance: is the Disk at 100%? (that's your HDD or a dying drive — the answer)",
       "2. Processes tab sorted by Memory or CPU: is something you don't recognise eating resources?",
@@ -568,6 +599,7 @@ const TIPS = [
     time: "5 min",
     win: "macOS",
     description: "macOS hides how full your drive really is. Storage Management shows the big offenders and can clean them automatically.",
+    related: ["keep-10-of-your-disk-free", "give-safari-a-proper-clean-out"],
     steps: [
       "Apple menu → About This Mac → Storage…",
       "Click 'Manage' to see what's eating space (Apps, Documents, System Data)",
@@ -589,6 +621,7 @@ const TIPS = [
     time: "3 min",
     win: "Intel Macs",
     description: "NVRAM stores display resolution, sound and boot preferences. A reset fixes a surprising number of weird glitches.",
+    related: ["no-sound-on-your-mac-check-the-output-device-first", "external-monitor-not-detected-on-your-mac"],
     steps: [
       "Shut down the Mac completely (not sleep)",
       "Press power, immediately hold Option + Command + R for about 20 seconds",
@@ -609,6 +642,7 @@ const TIPS = [
     time: "10 min",
     win: "macOS",
     description: "Updates fix security holes and bugs — but back up first, so a bad update is never a disaster.",
+    related: ["set-up-time-machine-properly", "turn-on-filevault-full-disk-encryption"],
     steps: [
       "Apple menu → System Settings (or Preferences) → General → Software Update",
       "Before any major version: make a fresh Time Machine backup",
@@ -629,6 +663,7 @@ const TIPS = [
     time: "5 min",
     win: "macOS",
     description: "Old MacBooks slow down for boring reasons: background apps and effects. Both are easy to tame.",
+    related: ["stop-apps-from-launching-at-login", "keep-10-of-your-disk-free"],
     steps: [
       "Open Activity Monitor (Cmd + Space → 'Activity')",
       "Sort by CPU and quit anything you don't recognise or need",
@@ -648,6 +683,7 @@ const TIPS = [
     time: "10 min",
     win: "Win 10 / 11",
     description: "Full RAM is the quiet cause of most 'sluggish' complaints. Find what's eating it and put a ceiling on it.",
+    related: ["fix-my-pc-is-slow-all-of-a-sudden-the-order-of-attack", "cpu-pegged-at-100-find-the-culprit-in-task-manager"],
     steps: [
       "Ctrl + Shift + Esc → Processes tab → sort by Memory — close or End Task anything you don't need at the top",
       "Settings → Apps → Installed apps → three dots next to an app → Advanced options → Background app permissions → 'In background' off for anything that doesn't need it",
@@ -668,6 +704,7 @@ const TIPS = [
     time: "5 min",
     win: "Win 10 / 11",
     description: "Drag-and-drop copies files one at a time and scans every byte twice. A few settings make the same transfer feel instant.",
+    related: ["move-everything-to-a-new-pc", "run-drive-optimization-the-safe-way"],
     steps: [
       "Check what you're copying to/from: Task Manager → Performance → Disk — it says SSD or HDD; an NVMe drive does in 15 seconds what takes an HDD three minutes",
       "Use a USB 3.x port (blue/teal plastic inside) for external drives — roughly ten times the speed of USB 2.0",
@@ -688,6 +725,7 @@ const TIPS = [
     time: "5 min",
     win: "Win 10 / 11",
     description: "Your PC knows where you are — and most apps don't need to either. Cut it off at the source.",
+    related: ["create-a-local-account-that-doesn-t-phone-home", "tighten-up-chrome-the-10-minute-pass"],
     steps: [
       "Settings → Privacy & Security → Location → toggle 'Location services' off for a full cutoff, or leave it on and switch off individual apps below",
       "Under 'Let apps access your location', turn off games, social apps and anything you don't recognise — most never needed it in the first place",
@@ -708,6 +746,7 @@ const TIPS = [
     time: "10 min",
     win: "Win 10 / 11",
     description: "Microsoft accounts sync your activity to their servers. A local account keeps everything on the machine — ideal for shared or guest PCs.",
+    related: ["stop-windows-tracking-your-location", "stop-emailing-passwords-and-secrets"],
     steps: [
       "Settings → Accounts → Other users → Add account, then click 'I don't have this person's sign-in info'",
       "Choose 'Add a user without a Microsoft Account' and set a username + password",
@@ -728,6 +767,7 @@ const TIPS = [
     time: "10 min",
     win: "Any",
     description: "Out of the box, Chrome tracks more than it needs to and keeps running apps after you close it. Ten toggles fix most of it.",
+    related: ["tighten-up-edge-and-firefox", "stop-windows-tracking-your-location"],
     steps: [
       "Settings → Privacy and security → Third-party cookies → 'Block third-party cookies' — kills cross-site tracking",
       "Privacy and security → Security → Safe Browsing → pick 'Enhanced protection' for real-time threat checks, not just a known-bad list",
@@ -748,6 +788,7 @@ const TIPS = [
     time: "15 min",
     win: "Win 10 / 11",
     description: "Most 'security suites' slow your PC down more than the malware they catch. The built-in defender is better than you think — if you switch it on properly.",
+    related: ["protect-against-ransomware-before-it-s-too-late", "kill-shady-pc-optimizer-software"],
     steps: [
       "Uninstall the suite first (win+r → appwiz.cpl) — while a third-party AV is present, Defender sits in passive mode, and two engines fighting each other leaves gaps",
       "Windows Security → Virus & threat protection → Manage settings → confirm 'Real-time protection' is on",
@@ -768,6 +809,7 @@ const TIPS = [
     time: "5 min",
     win: "Any",
     description: "Half of every 'my PC is slow' ticket starts at an installer that checked boxes for you. One extra minute per install prevents most of it.",
+    related: ["kill-shady-pc-optimizer-software", "uninstall-the-apps-you-never-use"],
     steps: [
       "Always pick 'Custom' (or 'Manual') install and read each screen — untick the toolbars, offer bundles and 'recommended' extras",
       "On a new PC, uninstall manufacturer bloat first: trial 'security', sponsor apps, utilities you'll never open",
@@ -788,6 +830,7 @@ const TIPS = [
     time: "5 min",
     win: "Win 10 / 11",
     description: "Defragmenting an SSD is actively harmful; skipping it on an HDD leaves speed on the table. Windows has one tool that does both correctly.",
+    related: ["move-your-os-or-games-to-an-ssd", "make-big-file-transfers-actually-fast"],
     steps: [
       "Search 'Defragment and optimize drives' (or win+r → dfrgui) — it lists every drive with its type",
       "HDDs: click Optimize to defrag; SSDs: the same button runs TRIM instead, which is what they actually need",
@@ -807,6 +850,7 @@ const TIPS = [
     time: "5 min",
     win: "Win 10 / 11",
     description: "You're probably doing 90% of your work with the mouse. Ten keys below will shave minutes off every single day.",
+    related: ["organise-your-work-with-virtual-desktops", "install-powertoys-microsoft-s-free-utility-pack"],
     steps: [
       "Win + V opens clipboard history — paste any of your last ~25 copies, not just the latest one (enable it on first use)",
       "Win + Shift + S snips exactly what you want to capture instead of a full-screen screenshot",
@@ -827,6 +871,7 @@ const TIPS = [
     time: "10 min",
     win: "Win 10 / 11",
     description: "Microsoft's own free toolkit fixes the little things Windows gets wrong. It's official, safe and better than most paid utilities.",
+    related: ["master-the-keyboard-shortcuts-that-save-hours", "make-your-desktop-feel-like-a-mac-without-the-price"],
     steps: [
       "Get it from the Microsoft Store (search 'PowerToys') or GitHub — never a third-party download site",
       "PowerToys Run (Alt + Space): a fast app launcher that also does math and unit conversion",
@@ -867,6 +912,7 @@ const TIPS = [
     time: "10 min",
     win: "Any",
     description: "Email is not a vault. Passwords, OTP codes and API keys sitting in an inbox are the easiest win a hacker can get.",
+    related: ["spot-a-phishing-email-before-you-click", "create-a-local-account-that-doesn-t-phone-home"],
     steps: [
       "Move everything into a password manager (Bitwarden free, 1Password) — one master password to remember, everything else generated for you",
       "Turn on two-factor authentication for email, banking and anything that matters; prefer an authenticator app over SMS where possible",
@@ -886,6 +932,7 @@ const TIPS = [
     time: "5 min",
     win: "Win 10 / 11",
     description: "If your laptop is stolen or lost, an unencrypted drive is just a USB stick with someone else's life on it. BitLocker makes the data unreadable without your sign-in.",
+    related: ["back-up-properly-3-2-1-rule", "protect-against-ransomware-before-it-s-too-late"],
     steps: [
       "Settings → Privacy & Security → Device encryption — if it says 'On', you're already covered (common on laptops)",
       "If it's off, flip it on; Windows encrypts in the background while you keep working",
@@ -905,6 +952,7 @@ const TIPS = [
     time: "10 min",
     win: "Any",
     description: "Batteries age from heat and from sitting at 100% all day. A few settings slow the ageing down noticeably.",
+    related: ["fix-a-pc-that-overheats-and-fans-like-a-jet-engine", "switch-the-power-plan-to-best-performance"],
     steps: [
       "Settings → System → Power & battery → turn on Battery saver below 20%, or set it to kick in earlier if you're always on the move",
       "Enable Optimised charging in your laptop maker's tool (Lenovo Vantage, MyASUS, Dell Power Manager) so the machine stops holding 100% overnight",
@@ -925,6 +973,7 @@ const TIPS = [
     time: "30 min",
     win: "Win 10 / 11",
     description: "A blue screen looks dramatic but it's usually Windows protecting itself from a bad driver or a flaky stick of RAM. The stop code tells you which.",
+    related: ["check-for-driver-updates-in-the-right-order", "start-windows-in-safe-mode"],
     steps: [
       "Read the stop code at the bottom (e.g. DRIVER_IRQL_NOT_LESS_OR_EQUAL) and search that exact string — generic 'BSOD fix' articles are mostly noise",
       "If it started after an update or a new driver, roll back: Settings → Windows Update → Update history → Uninstall updates, or Device Manager → Roll back driver on the suspect device",
@@ -945,6 +994,7 @@ const TIPS = [
     time: "4 min",
     win: "Win 10 / 11",
     description: "Most 'my PC has no audio' tickets are the wrong output device selected after a driver update or a plugged-in headset.",
+    related: ["fix-a-microphone-no-one-can-hear", "bluetooth-won-t-connect-the-pairing-reset-that-works"],
     steps: [
       "Click the speaker icon in the taskbar → check the volume slider and that you're not muted; click the arrow to pick the right output (speakers vs headphones vs HDMI)",
       "Settings → System → Sound → open Volume mixer — sometimes one app is at zero while everything else looks fine",
@@ -964,6 +1014,7 @@ const TIPS = [
     time: "5 min",
     win: "Win 10 / 11",
     description: "One giant taskbar full of thirty apps is where focus goes to die. Windows has had real multi-desktop support forever — most people never find it.",
+    related: ["make-your-desktop-feel-like-a-mac-without-the-price", "master-the-keyboard-shortcuts-that-save-hours"],
     steps: [
       "Win + Ctrl + D creates a new virtual desktop; Win + Ctrl + Left/Right switches between them",
       "Task View (Win + Tab) shows all of them at once — drag windows between desktops from there",
@@ -984,6 +1035,7 @@ const TIPS = [
     time: "10 min",
     win: "Any",
     description: "Before you blame your ISP, prove where the slowdown actually is. Five minutes of testing separates 'bad router' from 'bad line'.",
+    related: ["connected-but-no-internet-the-safe-dns-and-stack-reset", "stop-your-pc-from-sleep-glitching-your-network"],
     steps: [
       "Close everything bandwidth-hungry (downloads, cloud sync, video calls), then run a speed test on speedtest.net — note download, upload and ping",
       "Test wired vs Wi-Fi: plug in with Ethernet and re-test. A big gap means your router or its placement is the problem, not the line",
@@ -1004,6 +1056,7 @@ const TIPS = [
     time: "5 min",
     win: "Win 10 / 11",
     description: "When the Wi-Fi option vanishes or won't turn on, it's almost always one of three switches — airplane mode, the network toggle, or a disabled adapter. All are quick to find and fully reversible.",
+    related: ["connected-but-no-internet-the-safe-dns-and-stack-reset", "slow-internet-run-the-five-minute-test"],
     steps: [
       "Airplane mode first: click the network icon in the taskbar (or Win + A → Quick settings) and make sure Airplane mode is off",
       "Wi-Fi toggle: Settings → Network & internet → Wi-Fi — flip it off, wait ten seconds, on again",
@@ -1045,6 +1098,7 @@ const TIPS = [
     time: "5 min",
     win: "macOS",
     description: "Every app that starts with your Mac steals seconds from boot and RAM all day long. Most of them don't need to be there.",
+    related: ["speed-up-a-sluggish-macbook", "tame-spotlight-indexing-on-extra-drives"],
     steps: [
       "System Settings → General → Login Items — remove anything you don't consciously want at startup (the minus button)",
       "Scroll down to 'Allow in the Background' and switch off apps that don't genuinely need background work",
@@ -1065,6 +1119,7 @@ const TIPS = [
     time: "10 min",
     win: "macOS",
     description: "macOS needs headroom for swap and caches. Under about 10% free space, everything — including Time Machine — starts to crawl.",
+    related: ["free-up-disk-space-with-storage-management", "speed-up-a-sluggish-macbook"],
     steps: [
       "Apple menu → About This Mac → Storage… → Manage — sort categories by size and delete what you don't need (Apps, Documents, 'Other')",
       "Sort items by date last used — the oldest offenders are usually safe to move to an external drive",
@@ -1085,6 +1140,7 @@ const TIPS = [
     time: "5 min",
     win: "macOS",
     description: "Spotlight re-indexes every drive it can see. On an older Mac with a big external HDD, that background work is often your whole 'slowness'.",
+    related: ["speed-up-a-sluggish-macbook", "stop-apps-from-launching-at-login"],
     steps: [
       "System Settings → Siri & Spotlight → Spotlight Privacy (older macOS: the Spotlight tab in System Preferences)",
       "Add any external or backup drives you don't need to search — they stop being indexed and the disk light goes quiet",
@@ -1166,6 +1222,7 @@ const TIPS = [
     time: "20 min",
     win: "macOS",
     description: "Time Machine is the closest thing macOS has to 'undo' for your whole computer. Twenty minutes now saves a disaster later.",
+    related: ["turn-on-filevault-full-disk-encryption", "keep-macos-updated-the-safe-way"],
     steps: [
       "Connect an external drive (500 GB+ recommended), then System Settings → General → Time Machine → Add Backup Disk",
       "Pick the drive and let it run the first full backup — it can take hours, so start it before bed",
@@ -1187,6 +1244,7 @@ const TIPS = [
     time: "3 min",
     win: "macOS",
     description: "If your Mac is stolen or lost, FileVault is the difference between 'inconvenience' and 'identity theft'. It's one click.",
+    related: ["set-up-time-machine-properly", "keep-macos-updated-the-safe-way"],
     steps: [
       "System Settings → Privacy & Security → FileVault → Turn On FileVault Protection",
       "Choose whether to let iCloud unlock it (convenient) or keep a recovery key — if you pick the key, store it somewhere that isn't this Mac",
@@ -1264,6 +1322,7 @@ const TIPS = [
     time: "5 min",
     win: "Any",
     description: "Not all solid-state drives are equal. The label tells you almost nothing — the interface and the NAND type do.",
+    related: ["move-your-os-or-games-to-an-ssd", "size-your-psu-before-the-next-upgrade"],
     steps: [
       "For your main drive, buy NVMe (M.2) — it's 3–5× faster than SATA SSDs and costs about the same per GB now",
       "Avoid QLC drives for daily use: they're cheap but slow down badly once full; TLC is the sweet spot for price and endurance",
@@ -1283,6 +1342,7 @@ const TIPS = [
     time: "15 min",
     win: "Any",
     description: "A power supply that's too small is the quiet cause of random shutdowns under load. Sizing it right takes one calculator and ten minutes.",
+    related: ["pick-an-ssd-that-s-actually-fast", "fix-a-hot-pc-for-good-the-airflow-pass"],
     steps: [
       "Add up your parts' typical draw (CPU + GPU are 80% of it) — be honest about the GPU you're planning, not the one you have",
       "Buy ~30% headroom over that total: a 450 W system wants a 600–650 W unit, which also runs cooler and quieter at part load",
@@ -1302,6 +1362,7 @@ const TIPS = [
     time: "45 min",
     win: "Any",
     description: "Dust cleaning is a band-aid. The real fix is airflow: cool air in one side, hot air out the other, with nothing blocking either.",
+    related: ["fix-a-pc-that-overheats-and-fans-like-a-jet-engine", "size-your-psu-before-the-next-upgrade"],
     steps: [
       "Map your case: front and bottom fans pull cool air IN (labels face out), rear and top fans push hot air OUT",
       "If you have no exhaust fan at all, add one at the rear — a single intake with zero exhaust just shuffles warm air around",
@@ -1322,6 +1383,7 @@ const TIPS = [
     time: "15 min",
     win: "Win 10",
     description: "Windows 10 stopped getting security updates on 14 October 2025. The PC still works — it just stops getting patched, and that gap widens every month.",
+    related: ["check-whether-your-pc-can-run-windows-11", "move-everything-to-a-new-pc"],
     steps: [
       "Check what you're actually on: Win + R → winver. If it says Windows 10, you're no longer receiving security fixes",
       "Best option: upgrade to Windows 11, which is still free for qualifying PCs — run 'Check whether your PC can run Windows 11' first so you know what you're dealing with",
@@ -1342,6 +1404,7 @@ const TIPS = [
     time: "10 min",
     win: "Win 10 / 11",
     description: "Most machines from 2018 onward qualify. The two things that usually block the upgrade — TPM 2.0 and Secure Boot — are often already fitted and simply switched off in the BIOS.",
+    related: ["windows-10-is-past-end-of-support-what-to-do-now", "move-everything-to-a-new-pc"],
     steps: [
       "Run Microsoft's PC Health Check app — unlike the installer, it names the exact blocker instead of just refusing",
       "Check the TPM: Win + R → tpm.msc. You want 'The TPM is ready for use' and Specification Version 2.0",
@@ -1383,6 +1446,7 @@ const TIPS = [
     time: "5 min",
     win: "Win 10 / 11",
     description: "'You're on mute' is usually Windows listening to the wrong input, or a privacy setting silently blocking the app you're calling from.",
+    related: ["no-sound-the-four-minute-fix", "fix-a-webcam-that-won-t-turn-on"],
     steps: [
       "Settings → System → Sound → Input: select the right device and talk. The volume bar should move — if it doesn't, nothing further down the chain will help",
       "Settings → Privacy & security → Microphone: confirm microphone access is on, then check your specific app is allowed in the list underneath",
@@ -1403,6 +1467,7 @@ const TIPS = [
     time: "5 min",
     win: "Win 10 / 11",
     description: "A camera showing a black square is nearly always blocked rather than broken — by a privacy setting, a physical shutter, or another app that grabbed it first.",
+    related: ["usb-device-not-recognised-the-device-manager-pass", "check-for-driver-updates-in-the-right-order"],
     steps: [
       "Check the physical shutter or slider on the bezel, and the F-key that disables the camera on many laptops",
       "Settings → Privacy & security → Camera: turn camera access on, then confirm your app is permitted further down the page",
@@ -1422,6 +1487,7 @@ const TIPS = [
     time: "5 min",
     win: "Win 10 / 11",
     description: "A Bluetooth device that won't pair or keeps dropping is usually stale pairing data or a tired adapter — not broken hardware. Reset the pairing before you replace anything.",
+    related: ["no-sound-the-four-minute-fix", "usb-device-not-recognised-the-device-manager-pass"],
     steps: [
       "Both ends on and discoverable: Bluetooth on in Windows (taskbar icon), and the device in pairing mode per its manual",
       "Forget it first: Settings → Bluetooth & devices → your device → Remove device, then pair again from scratch — stale pairing data is the most common 'won't connect' cause",
@@ -1441,6 +1507,7 @@ const TIPS = [
     time: "10 min",
     win: "Win 10 / 11",
     description: "A keyboard, mouse or drive that Windows ignores is usually a port, cable, or driver state — not the device itself. Work through the path before you buy anything.",
+    related: ["fix-a-webcam-that-won-t-turn-on", "check-for-driver-updates-in-the-right-order"],
     steps: [
       "The physical pass first: try a different USB port (on a desktop, one on the back of the case), a different cable if it has one, and remove any hub — direct connection only",
       "Power-cycle with the device unplugged: shut down, unplug the PC fully for 30 seconds, boot up, then plug the device in last",
@@ -1461,6 +1528,7 @@ const TIPS = [
     time: "5 min",
     win: "Win 10 / 11",
     description: "Safe Mode loads Windows with only the drivers it cannot do without. If a problem disappears there, it's software — and knowing that one fact saves hours of guessing.",
+    related: ["repair-corrupted-system-files", "fix-a-pc-that-won-t-start-up"],
     steps: [
       "From a working desktop: Settings → System → Recovery → Advanced startup → Restart now",
       "From the sign-in screen: hold Shift while you click Restart",
@@ -1482,6 +1550,7 @@ const TIPS = [
     time: "10 min",
     win: "Win 10 / 11",
     description: "Deleted isn't gone — it's unlinked, and the space is merely marked reusable. Your odds are excellent in the first hour and fall away quickly, so stop writing to that drive now.",
+    related: ["back-up-properly-3-2-1-rule", "protect-against-ransomware-before-it-s-too-late"],
     steps: [
       "Check the Recycle Bin and search it by name. Shift + Delete skips it, but an ordinary delete does not",
       "Right-click the folder it lived in → Properties → Previous Versions. If File History or a restore point covered that folder, the file is one click away",
@@ -1502,6 +1571,7 @@ const TIPS = [
     time: "5 min",
     win: "Win 10 / 11",
     description: "A completely dark PC is usually one boring thing — a socket, a switch, or a stuck power state. Five minutes of checks separates 'dead' from 'just asleep', and nothing here can damage the machine.",
+    related: ["fix-a-pc-that-won-t-start-up", "black-screen-check-the-display-signal-path-first"],
     steps: [
       "Check the boring stuff first: wall socket (try another), power cable firmly seated at both ends, and that little O/I rocker switch on the back of the PSU — half of all 'dead PC' calls end here",
       "Look for a standby light on the case or front panel. On with no display = it's alive, this is now a display problem; off = keep going down this list",
@@ -1522,6 +1592,7 @@ const TIPS = [
     time: "15 min",
     win: "Win 10 / 11",
     description: "A dead screen at boot feels like a funeral for the machine, but most 'dead' PCs are one small thing away from life — and your files are still on the disk either way.",
+    related: ["pc-won-t-turn-on-run-the-five-minute-power-check", "black-screen-check-the-display-signal-path-first"],
     steps: [
       "Check the boring stuff first: wall socket, power cable, and that little O/I switch on the back of the PSU. Half of all 'dead PC' calls end here",
       "Hard reset it: hold the power button for 10 seconds, unplug (or pull the battery if you can), wait 30 seconds, then try again — stuck electrical states look exactly like death and die with them",
@@ -1542,6 +1613,7 @@ const TIPS = [
     time: "5 min",
     win: "Win 10 / 11",
     description: "A black screen on a powered-on PC is usually the picture not reaching the panel — cable, input source, or projection mode. Check the path before you suspect the GPU.",
+    related: ["fix-a-pc-that-won-t-start-up", "pc-won-t-turn-on-run-the-five-minute-power-check"],
     steps: [
       "Confirm the monitor itself: power light on, correct input source selected (HDMI1 vs HDMI2 vs DisplayPort), and try a different cable if you have one",
       "Desktops with a graphics card: the screen must be plugged into the GPU's ports at the back of the case, not the motherboard's — the most common 'no signal' cause",
@@ -1561,6 +1633,7 @@ const TIPS = [
     time: "10 min",
     win: "Any",
     description: "Modern phishing has no spelling mistakes and copies the real branding pixel for pixel. You beat it on process, not on how convincing the message looks.",
+    related: ["stop-emailing-passwords-and-secrets", "tighten-up-edge-and-firefox"],
     steps: [
       "Read the sender's actual domain rather than the display name — 'Microsoft Support <billing@micros0ft-secure.com>' is the entire tell",
       "Hover a link (long-press on a phone) and read where it truly goes before you click. On mobile that's the only reliable check you have",
@@ -1581,6 +1654,7 @@ const TIPS = [
     time: "60 min",
     win: "Win 10 / 11",
     description: "The files are the easy part. What catches people out is the browser profile, the licence keys and the two-factor codes — sort those before the old machine gets wiped.",
+    related: ["check-whether-your-pc-can-run-windows-11", "back-up-properly-3-2-1-rule"],
     steps: [
       "Sign in on the old PC with a Microsoft account and use Windows Backup (Settings → Accounts → Windows Backup) to carry settings and your app list across",
       "Copy the actual data yourself over an external drive or the network — for large folders it's faster and far more predictable than any migration tool",
@@ -1601,6 +1675,7 @@ const TIPS = [
     time: "10 min",
     win: "Any",
     description: "The Chrome pass only covers one browser. Edge ships on every Windows PC whether you use it or not, and Firefox is the main alternative — both deserve the same ten minutes.",
+    related: ["tighten-up-chrome-the-10-minute-pass", "spot-a-phishing-email-before-you-click"],
     steps: [
       "Edge: Settings → Privacy, search and services → set Tracking prevention to Strict, and switch off 'Personalise your web experience'",
       "Edge: further down that same page, turn off the shopping, sidebar and Rewards extras — they're the noisiest part of the browser and none of them are load-bearing",
@@ -1621,6 +1696,7 @@ const TIPS = [
     time: "10 min",
     win: "Win 10 / 11",
     description: "A stuck update is usually one of three boring things — a pending restart, a full drive or a dead network. This pass clears all three in ten minutes and can't damage Windows; system-file repair only comes after it fails.",
+    related: ["stop-windows-updates-at-odd-hours", "repair-corrupted-system-files"],
     steps: [
       "Restart the PC and let it sit for a few minutes after booting — a large share of 'stuck' updates are actually waiting on a pending restart that never happened",
       "Check free space on C: (Settings → System → Storage). Windows Update needs roughly 10–20 GB of headroom; if you're short, clean up first using the storage tips before retrying",
@@ -1640,6 +1716,7 @@ const TIPS = [
     time: "5 min",
     win: "Win 10 / 11",
     description: "A processor pinned near 100% is almost always one process working too hard — or something launching at boot. Task Manager names the culprit in seconds, and closing a misbehaving app can't damage Windows.",
+    related: ["disable-startup-bloat", "hunt-down-memory-hogs"],
     steps: [
       "Press Ctrl+Shift+Esc to open Task Manager (or right-click the taskbar → Task Manager)",
       "On the Processes tab, click the CPU column header to sort by usage — look at which entry sits on top",
@@ -1686,6 +1763,7 @@ const TIPS = [
     time: "5 min",
     win: "macOS",
     description: "Most 'my Mac has no audio' tickets are the wrong output device selected after a Bluetooth pairing or an external display was plugged in. The fix is a settings check, not a reset.",
+    related: ["bluetooth-won-t-pair-on-your-mac-reset-it-properly", "reset-nvram-when-things-misbehave"],
     steps: [
       "Click the volume control in the menu bar (or press F12) and make sure it's not muted and the slider is up",
       "In that same menu, check 'Output' — if audio is routed to a Bluetooth speaker or an external display with speakers, select your Mac's built-in output instead",
@@ -1706,6 +1784,7 @@ const TIPS = [
     time: "5 min",
     win: "macOS",
     description: "A second screen that macOS refuses to see is usually the cable, the adapter or a dead port — not the Mac. Rotate through them in order and it almost always shows up.",
+    related: ["reset-nvram-when-things-misbehave", "no-sound-on-your-mac-check-the-output-device-first"],
     steps: [
       "Check the cable at both ends, then try a different port on the Mac — some ports are data-only",
       "If you use an adapter or dock, bypass it first: connect the monitor directly with a known-good cable to rule out the adapter",
@@ -1777,6 +1856,7 @@ const TIPS = [
     time: "5 min",
     win: "macOS",
     description: "Most 'my Mac can't hear me' problems are the wrong input device selected after a call, a headset pairing or an external display was plugged in. The fix is a settings check with a live level meter, not a reset.",
+    related: ["microphone-permission-on-your-mac-let-the-app-use-it", "no-sound-on-your-mac-check-the-output-device-first"],
     steps: [
       "Open System Settings → Sound → Input and select 'MacBook Microphone' (or the mic you expect to use)",
       "Speak normally and watch the input level meter — it should move as you talk; if it doesn't, pick a different input device from the same list",
@@ -1797,6 +1877,7 @@ const TIPS = [
     time: "5 min",
     win: "macOS",
     description: "macOS blocks each app from the microphone until you allow it — one denied prompt and that app is silent forever, even though every other app hears you fine. The switch lives in Privacy & Security.",
+    related: ["no-microphone-on-your-mac-check-the-input-device-first", "open-apps-blocked-by-gatekeeper"],
     steps: [
       "Open System Settings → Privacy & Security → Microphone",
       "Find the affected app in the list and make sure its switch is ON; if it's missing, use the mic inside that app once to trigger the permission prompt, then allow it",
