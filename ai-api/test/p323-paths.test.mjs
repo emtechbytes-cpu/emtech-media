@@ -12,8 +12,9 @@
 
      NO SOUND (new mac-audio profile — audio was Windows-only before)
        speakers + nothing-works → output-device tip (high confidence)
-       mic / one-app answers → honestly 'insufficient' (no Mac mic fix exists;
-         the engine must NOT invent one)
+       mic / one-app answers → honestly 'insufficient' until Phase 3.4 (§2/§5)
+         wires the two approved mic tips in behind mac-mic-scope; a bare mic
+         answer still gets no verdict, and output fixes never leak into it
        single cause → after its fix fails → exhausted
 
      EXTERNAL DISPLAY (mac-hardware extended)
@@ -114,8 +115,11 @@ test("new questions sit in their profiles; mac-audio-where stays gated", () => {
 
   assert.deepEqual(byId("mac-network").questions, ["net-state", "net-when", "net-scope"],
     "mac-network order: state → when → scope (state first so the router serves it)");
-  assert.deepEqual(byId("mac-audio").questions, ["mac-audio-what", "mac-audio-where"],
-    "mac-audio order: what → where");
+  /* Phase 3.4 (§2/§5) — the microphone scope split sits between "what" and
+     "where": a mic answer now routes through mac-mic-scope (every app vs one
+     app), so the profile order is what → mic-scope → where. */
+  assert.deepEqual(byId("mac-audio").questions, ["mac-audio-what", "mac-mic-scope", "mac-audio-where"],
+    "mac-audio order: what → mic scope → where (Phase 3.4 §5)");
   assert.ok(D.questions["mac-audio-what"] && D.questions["mac-audio-where"], "both audio questions exist in the bank");
 
   // mac-audio-where must be rejected before its parent answer (showIf).
@@ -134,6 +138,21 @@ test("new questions sit in their profiles; mac-audio-where stays gated", () => {
     assert.equal(E.answer(s2, "mac-audio-where", "nothing-works").ok, false,
       `gated question rejected for the ${v} branch`);
   }
+
+  /* Phase 3.4 (§5) — mac-mic-scope is gated on a mic answer: rejected before
+     mac-audio-what, accepted right after "mic", and still hidden for oneapp. */
+  const sMic = E.newSession(null);
+  E.selectDevice(sMic, "mac"); E.selectCategory(sMic, "audio"); E.skipDescription(sMic);
+  assert.equal(E.answer(sMic, "mac-mic-scope", "everywhere").ok, false,
+    "mac-mic-scope rejected before mac-audio-what is answered");
+  assert.ok(E.answer(sMic, "mac-audio-what", "mic").ok, "answer mic");
+  assert.equal(E.answer(sMic, "mac-mic-scope", "everywhere").ok, true,
+    "mac-mic-scope accepted once mac-audio-what=mic");
+  const sOne = E.newSession(null);
+  E.selectDevice(sOne, "mac"); E.selectCategory(sOne, "audio"); E.skipDescription(sOne);
+  assert.ok(E.answer(sOne, "mac-audio-what", "oneapp").ok, "answer oneapp");
+  assert.equal(E.answer(sOne, "mac-mic-scope", "everywhere").ok, false,
+    "mac-mic-scope stays hidden for the one-app branch");
 
   // Output-silence branches → visible and accepted.
   for (const v of ["speakers", "both"]) {

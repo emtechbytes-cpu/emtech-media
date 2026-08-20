@@ -13,7 +13,8 @@
      TRACKPAD / MOUSE (Part 2)
        hw-mac-what=input → new safe restart pass FIRST (medium confidence)
          → failed fix → NVRAM reset (existing tip reused) escalates in
-           → tried fixes are never re-recommended
+           → both fail → honest exhaustion scoped to the input group
+             (Phase 3.4 §8/§9: no cross-category fall-through)
 
      FREEZE / HANG (Part 3)
        mac-freeze question splits one-app hang / whole-Mac lockup / repeated
@@ -146,13 +147,27 @@ test("trackpad/mouse: safe restart pass first → NVRAM escalates in after failu
   assert.equal(r2.recommendedFix, REUSED.nvram, `fix=${r2.recommendedFix} (wanted the reused NVRAM reset)`);
   assert.ok(!r2.alternativeFixes.includes(NEW_SLUGS[0]), "already-tried restart pass must not be re-listed");
 
-  // NVRAM also fails → engine falls through to remaining profile causes;
-  // neither tried fix may be re-recommended (same semantics as Phase 3.2.3).
+  /* Phase 3.4 (§8/§9) — the input branch is now a scoped group (restart pass
+     + NVRAM reset). Once both are tried the flow reaches TRUE exhaustion:
+     no new recommendation, and "all fixes in this area" stays inside the
+     input group (the shipped UI lists those with "Tried" markers).
+     The old Phase 3.3 fall-through into battery/drives/display tips was a
+     cross-category leak that scoping removes on purpose — so this block now
+     PINS honest exhaustion instead of allowing either outcome. */
   const r3 = E.afterFailedFix(s, REUSED.nvram);
-  assert.ok(["success", "exhausted"].includes(r3.status), `status=${r3.status}`);
-  for (const tried of [NEW_SLUGS[0], REUSED.nvram]) {
-    assert.notEqual(r3.recommendedFix, tried, `tried fix ${tried} must not be re-recommended`);
-    assert.ok(!r3.alternativeFixes.includes(tried), `tried fix ${tried} must not appear as an alternative`);
+  assert.equal(r3.status, "exhausted", `status=${r3.status} (honest exhaustion after both input fixes)`);
+  assert.equal(r3.recommendedFix, null, "exhaustion must not recommend a fix");
+  const alts = [...(r3.alternativeFixes || [])].sort();
+  assert.deepEqual(alts, [NEW_SLUGS[0], REUSED.nvram].sort(),
+    `exhaustion lists exactly the two input-group fixes (got: ${alts.join(", ")})`);
+  const foreign = [
+    "keep-your-mac-battery-healthy",
+    "run-first-aid-on-external-drives",
+    "external-monitor-not-detected-on-your-mac",
+    "bluetooth-won-t-pair-on-your-mac-reset-it-properly",
+  ];
+  for (const f of foreign) {
+    assert.ok(!alts.includes(f), `cross-category fix ${f} must not leak into the input branch`);
   }
 });
 

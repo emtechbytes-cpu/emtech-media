@@ -294,9 +294,22 @@
     primary: null, reasons: [], recommendedFix: null, alternativeFixes: [],
   };
 
+  /* Phase 3.4 — scoped exhaustion (§8). A cause may declare a `group`
+     (e.g. "input" vs "output"). When the top-ranked cause declares one,
+     analysis is confined to that group: confidence, untried selection and
+     alternatives all stay inside it, so an exhausted microphone branch can
+     never leak speaker/output fixes — and vice versa. Profiles whose causes
+     declare no group behave exactly as before (Phase 3.2.3 contract). */
+  function activeGroup(ranked) {
+    const g = ranked[0] && ranked[0].cause.group;
+    return typeof g === "string" && g.length ? g : null;
+  }
+
   function analyzeProfile(state) {
-    const ranked = rankCauses(state);
-    if (!ranked.length) return Object.assign({}, NO_MATCH);
+    const all = rankCauses(state);
+    if (!all.length) return Object.assign({}, NO_MATCH);
+    const group = activeGroup(all);
+    const ranked = group ? all.filter((r) => r.cause.group === group) : all;
 
     const top = ranked[0];
     const second = ranked[1] ? ranked[1].score : 0;
@@ -324,10 +337,13 @@
     }
 
     const chosen = untried[0]; // highest-scoring cause whose fix hasn't been tried
+    /* Phase 3.4 — when the profile is grouped, an explicit alt must stay in
+       the active group too (no cross-group leak into "alternative fixes"). */
+    const inGroup = (slug) => !group || ranked.some((r) => r.cause.fix === slug);
     const alts = [];
     for (const r of untried.slice(1)) if (alts.indexOf(r.cause.fix) === -1) alts.push(r.cause.fix);
     for (const a of chosen.cause.alt || []) {
-      if (state.triedFixes.indexOf(a) === -1 && alts.indexOf(a) === -1) alts.push(a);
+      if (state.triedFixes.indexOf(a) === -1 && alts.indexOf(a) === -1 && inGroup(a)) alts.push(a);
     }
 
     return {

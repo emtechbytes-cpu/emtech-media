@@ -423,7 +423,10 @@ test("every cause→fix reference in the diagnostic data resolves to a live page
       }
     }
   }
-  assert.equal(refs, 147, `expected the Phase 3.3 baseline of 147 cause→fix references, got ${refs}`);
+  /* Phase 3.4 (§2/§8) — the microphone branch adds two causes (mac-mic-input,
+     mac-mic-perm), each reusing an EXISTING published tip: 147 (Phase 3.3
+     baseline) + 2 = 149. No new pages, no broken references. */
+  assert.equal(refs, 149, `expected the Phase 3.4 total of 149 cause→fix references (147 + 2 mic causes), got ${refs}`);
   assert.deepEqual(broken, [], "broken engine fix references:\n" + broken.join("\n"));
 });
 

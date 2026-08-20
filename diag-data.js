@@ -205,14 +205,22 @@
       questions: ["net-state", "net-when", "net-scope"],
     },
     /* Phase 3.2.3 — macOS audio pathway (audio category was Windows-only before this).
-       Single approved cause on purpose: there is no verified Mac mic fix in the
-       library, so mic answers stay honestly 'insufficient' instead of inventing one. */
+       Phase 3.4 — structured microphone/input branch (§2/§5): the two approved
+       Phase 3.3 mic tips are now wired into this profile as a scoped "input"
+       group, so a mic user gets input-device → permission escalation and honest
+       exhaustion WITHOUT ever leaking speaker/output fixes (and vice versa).
+       The output cause keeps its own "output" group; profiles whose causes
+       declare no group elsewhere in the library are unaffected by scoping. */
     {
       id: "mac-audio", devices: ["mac"], category: "audio",
       causes: [
-        { id: "mac-aud-output", label: "Wrong output device selected — muted or Bluetooth-routed audio", fix: "no-sound-on-your-mac-check-the-output-device-first", alt: [], keywords: ["no sound", "silent", "mute", "output"] },
+        { id: "mac-aud-output", label: "Wrong output device selected — muted or Bluetooth-routed audio", fix: "no-sound-on-your-mac-check-the-output-device-first", alt: [], keywords: ["no sound", "silent", "mute", "output"], group: "output" },
+        /* Phase 3.4 — microphone/input causes (REUSE the two approved Phase 3.3
+           tips; no new tip is created). */
+        { id: "mac-mic-input", label: "Microphone input device not selected or not detected", fix: "no-microphone-on-your-mac-check-the-input-device-first", alt: [], keywords: ["microphone", "mic ", "input device", "not detected", "quiet", "can't hear me"], group: "input" },
+        { id: "mac-mic-perm", label: "The app is blocked from the microphone (permission)", fix: "microphone-permission-on-your-mac-let-the-app-use-it", alt: [], keywords: ["zoom", "teams", "discord", "one app", "other apps", "permission"], group: "input" },
       ],
-      questions: ["mac-audio-what", "mac-audio-where"],
+      questions: ["mac-audio-what", "mac-mic-scope", "mac-audio-where"],
     },
     {
       id: "mac-storage", devices: ["mac"], category: "storage",
@@ -256,12 +264,14 @@
         { id: "mac-hw-drives", label: "External drives — First Aid and setup", fix: "run-first-aid-on-external-drives", alt: [], keywords: ["external drive", "usb", "time machine disk"] },
         /* Phase 3.2.3 — external display + Bluetooth pathways (NVRAM reset reused as the escalation step) */
         { id: "mac-hw-display", label: "An external monitor or second screen isn't detected", fix: "external-monitor-not-detected-on-your-mac", alt: ["reset-nvram-when-things-misbehave"], keywords: ["external monitor", "second screen", "monitor not detected"] },
-        { id: "mac-hw-nvram", label: "A display/audio/boot glitch an NVRAM reset clears (Intel Macs)", fix: "reset-nvram-when-things-misbehave", alt: [], keywords: ["nvram", "weird glitch"] },
+        { id: "mac-hw-nvram", label: "A display/audio/boot glitch an NVRAM reset clears (Intel Macs)", fix: "reset-nvram-when-things-misbehave", alt: [], keywords: ["nvram", "weird glitch"], group: "input" },
         { id: "mac-hw-bluetooth", label: "Bluetooth won't pair or keeps dropping", fix: "bluetooth-won-t-pair-on-your-mac-reset-it-properly", alt: [], keywords: ["bluetooth", "pairing", "won't pair"] },
         /* Phase 3.3 — trackpad/mouse pathway (Part 2). New safe restart pass
            tip; NVRAM reset (existing) is the escalation step, same pattern as
-           the display branch above. */
-        { id: "mac-hw-input", label: "Trackpad or mouse not responding", fix: "trackpad-or-mouse-not-working-on-your-mac-the-safe-restart-pass", alt: ["reset-nvram-when-things-misbehave"], keywords: ["trackpad", "mouse", "cursor stuck", "input dead"] },
+           the display branch above.
+           Phase 3.4 — grouped with mac-hw-nvram: restart → NVRAM → honest
+           exhaustion, no cross-category fall-through (§8/§9). */
+        { id: "mac-hw-input", label: "Trackpad or mouse not responding", fix: "trackpad-or-mouse-not-working-on-your-mac-the-safe-restart-pass", alt: ["reset-nvram-when-things-misbehave"], keywords: ["trackpad", "mouse", "cursor stuck", "input dead"], group: "input" },
       ],
       questions: ["hw-mac-what"],
     },
@@ -645,9 +655,12 @@
 
     /* Phase 3.2.3 — macOS audio questions.
        mac-audio-where is showIf-gated to output-silence answers: after a mic or
-       one-app answer it must NOT appear (there is no approved Mac fix behind it).
-       Phase 3.3 note: the microphone stays on this honest branch by design —
-       see the Phase 3.2.3 comment above and the Phase 3.3 report (Part G). */
+       one-app answer it must NOT appear (the microphone has its own branch now).
+       Phase 3.4 — the deferred microphone branch is implemented (§2/§5):
+       mac-mic-scope splits "fails everywhere" from "one app only" and routes to
+       the two approved Phase 3.3 mic tips inside a scoped input group, so
+       exhaustion stays honest without leaking output fixes (or vice versa). —
+       see the Phase 3.2.3 profile comment above for the original deferral. */
     "mac-audio-what": {
       q: "What exactly isn't working?",
       desc: "This splits silent output from microphone and single-app problems.",
@@ -655,9 +668,25 @@
         { label: "Speakers or headphones are silent", value: "speakers", score: { "mac-aud-output": 3 }, reason: "Silent output on a Mac is usually the wrong device selected, not broken hardware." },
         { label: "Both — no sound and the mic isn't heard either", value: "both", score: { "mac-aud-output": 2 } },
         { label: "Only one app has no sound", value: "oneapp" },
-        { label: "My microphone isn't being heard", value: "mic" },
+        { label: "My microphone isn't being heard", value: "mic", score: { "mac-mic-input": 2, "mac-mic-perm": 1 }, reason: "A silent microphone is an input problem — we'll check the device and the app's permission next." },
       ],
     },
+
+    /* Phase 3.4 — microphone scope split (§5). Shown only after a mic answer;
+       it separates "fails everywhere" (input-device check first) from
+       "one app only" (permission/app-specific path first), so the engine never
+       recommends global repairs to an app-specific problem and vice versa. */
+    "mac-mic-scope": {
+      q: "Does it fail in every app, or just one?",
+      desc: "This decides whether we check the input device first or the app's microphone permission.",
+      showIf: { q: "mac-audio-what", is: ["mic"] },
+      options: [
+        { label: "Everywhere — no app can hear me", value: "everywhere", score: { "mac-mic-input": 3 }, reason: "Silence in every app points at the input device or its settings, not one application." },
+        { label: "Just one app (Zoom, Teams, a game…)", value: "one-app", score: { "mac-mic-perm": 4 }, reason: "One silent app while others work is usually that app's microphone permission." },
+        { label: "Not sure", value: "unsure", score: { "mac-mic-input": 1 } },
+      ],
+    },
+
     "mac-audio-where": {
       q: "Where does the silence happen?",
       desc: "This separates routing problems from a failing speaker.",
