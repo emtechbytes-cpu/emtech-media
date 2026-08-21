@@ -48,6 +48,43 @@
     ]
   }
   </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "@id": "https://emtechbytes-cpu.github.io/emtech-media/windows/tighten-up-chrome-the-10-minute-pass/#article",
+  "headline": "Tighten up Chrome — the 10-minute pass",
+  "description": "Out of the box, Chrome tracks more than it needs to and keeps running apps after you close it. Ten toggles fix most of it.",
+  "url": "https://emtechbytes-cpu.github.io/emtech-media/windows/tighten-up-chrome-the-10-minute-pass/",
+  "mainEntityOfPage": "https://emtechbytes-cpu.github.io/emtech-media/windows/tighten-up-chrome-the-10-minute-pass/",
+  "inLanguage": "en",
+  "dateModified": "2026-08-18",
+  "author": {
+    "@type": "Organization",
+    "@id": "https://emtechbytes-cpu.github.io/emtech-media/#organization",
+    "name": "EmTech Media",
+    "url": "https://emtechbytes-cpu.github.io/emtech-media/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png"
+    }
+  },
+  "publisher": {
+    "@type": "Organization",
+    "@id": "https://emtechbytes-cpu.github.io/emtech-media/#organization",
+    "name": "EmTech Media",
+    "url": "https://emtechbytes-cpu.github.io/emtech-media/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png"
+    }
+  },
+  "image": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png",
+  "proficiencyLevel": "Beginner",
+  "dependencies": "Any",
+  "timeRequired": "PT10M"
+}
+  </script>
 </head>
 <body>
 
@@ -121,6 +158,7 @@
             <li><span>Difficulty</span> Easy</li>
             <li><span>Estimated time</span> 10 min</li>
             <li><span>Platform</span> Any</li>
+            <li><span>Last updated</span> <time datetime="2026-08-18">Aug 18, 2026</time></li>
           </ul>
         </section>
 
@@ -133,14 +171,16 @@
           <p><strong>Low risk.</strong> This change is reversible — you can return to the previous state without professional help or data loss.</p>
         </section>
 
+
+
         <section aria-label="Steps">
           <h2>Steps</h2>
 <ol class="tip-steps fix-steps">
-      <li>Settings → Privacy and security → Third-party cookies → &#39;Block third-party cookies&#39; — kills cross-site tracking</li>
-      <li>Privacy and security → Security → Safe Browsing → pick &#39;Enhanced protection&#39; for real-time threat checks, not just a known-bad list</li>
-      <li>Same page → Advanced → turn on &#39;Use secure DNS&#39; (Cloudflare or your OS default) so your ISP can&#39;t read which sites you visit</li>
-      <li>Settings → System → turn off &#39;Continue running background apps when Google Chrome is closed&#39;</li>
-      <li>myactivity.google.com/activity-controls → Web &amp; App Activity → Auto-delete after 3 months — or switch it off entirely if personalization isn&#39;t worth the trail</li>
+      <li id="step-1">Settings → Privacy and security → Third-party cookies → &#39;Block third-party cookies&#39; — kills cross-site tracking</li>
+      <li id="step-2">Privacy and security → Security → Safe Browsing → pick &#39;Enhanced protection&#39; for real-time threat checks, not just a known-bad list</li>
+      <li id="step-3">Same page → Advanced → turn on &#39;Use secure DNS&#39; (Cloudflare or your OS default) so your ISP can&#39;t read which sites you visit</li>
+      <li id="step-4">Settings → System → turn off &#39;Continue running background apps when Google Chrome is closed&#39;</li>
+      <li id="step-5">myactivity.google.com/activity-controls → Web &amp; App Activity → Auto-delete after 3 months — or switch it off entirely if personalization isn&#39;t worth the trail</li>
 </ol>
         </section>
 
@@ -194,8 +234,9 @@
 
   <button class="to-top" id="to-top" type="button" aria-label="Back to top">↑</button>
 
-  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above is complete without it. -->
-  <script src="../../tips-data.js" defer></script>
-  <script src="../../script.js" defer></script>
+  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above
+       is complete without it. page.js carries the chrome and nothing else — a fix page
+       renders no cards from TIPS, so it loads neither tips-data.js nor script.js. -->
+  <script src="../../page.js" defer></script>
 </body>
 </html>

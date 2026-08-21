@@ -48,6 +48,43 @@
     ]
   }
   </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "@id": "https://emtechbytes-cpu.github.io/emtech-media/mac/turn-on-filevault-full-disk-encryption/#article",
+  "headline": "Turn on FileVault full-disk encryption",
+  "description": "If your Mac is stolen or lost, FileVault is the difference between 'inconvenience' and 'identity theft'. It's one click.",
+  "url": "https://emtechbytes-cpu.github.io/emtech-media/mac/turn-on-filevault-full-disk-encryption/",
+  "mainEntityOfPage": "https://emtechbytes-cpu.github.io/emtech-media/mac/turn-on-filevault-full-disk-encryption/",
+  "inLanguage": "en",
+  "dateModified": "2026-08-18",
+  "author": {
+    "@type": "Organization",
+    "@id": "https://emtechbytes-cpu.github.io/emtech-media/#organization",
+    "name": "EmTech Media",
+    "url": "https://emtechbytes-cpu.github.io/emtech-media/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png"
+    }
+  },
+  "publisher": {
+    "@type": "Organization",
+    "@id": "https://emtechbytes-cpu.github.io/emtech-media/#organization",
+    "name": "EmTech Media",
+    "url": "https://emtechbytes-cpu.github.io/emtech-media/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png"
+    }
+  },
+  "image": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png",
+  "proficiencyLevel": "Beginner",
+  "dependencies": "macOS",
+  "timeRequired": "PT3M"
+}
+  </script>
 </head>
 <body>
 
@@ -121,6 +158,7 @@
             <li><span>Difficulty</span> Easy</li>
             <li><span>Estimated time</span> 3 min</li>
             <li><span>Platform</span> macOS</li>
+            <li><span>Last updated</span> <time datetime="2026-08-18">Aug 18, 2026</time></li>
           </ul>
         </section>
 
@@ -133,12 +171,23 @@
           <p><strong>Medium risk.</strong> This change is reversible — you can return to the previous state without professional help or data loss.</p>
         </section>
 
+
+        <section class="fix-gotchas" aria-label="What usually goes wrong">
+          <h2>What usually goes wrong</h2>
+          <ul class="gotcha-list">
+            <li>The iCloud unlock option is only as strong as your Apple account. Turn on two-factor there first, or you&#39;ve moved the lock rather than added one.</li>
+            <li>If you choose the recovery key instead, that key is genuinely the only way back in. Apple cannot reset it for you — store it off the Mac, on paper or in a password manager.</li>
+            <li>Keep the Mac plugged in for the first encryption pass. It runs for a few hours in the background, and letting the battery die partway through is asking for trouble.</li>
+            <li>Multiple accounts on the Mac? Each user has to be enabled for FileVault individually, or they simply can&#39;t unlock the machine after a restart.</li>
+          </ul>
+        </section>
+
         <section aria-label="Steps">
           <h2>Steps</h2>
 <ol class="tip-steps fix-steps">
-      <li>System Settings → Privacy &amp; Security → FileVault → Turn On FileVault Protection</li>
-      <li>Choose whether to let iCloud unlock it (convenient) or keep a recovery key — if you pick the key, store it somewhere that isn&#39;t this Mac</li>
-      <li>Encryption happens in the background over a few hours; your Mac keeps working normally meanwhile</li>
+      <li id="step-1">System Settings → Privacy &amp; Security → FileVault → Turn On FileVault Protection</li>
+      <li id="step-2">Choose whether to let iCloud unlock it (convenient) or keep a recovery key — if you pick the key, store it somewhere that isn&#39;t this Mac</li>
+      <li id="step-3">Encryption happens in the background over a few hours; your Mac keeps working normally meanwhile</li>
 </ol>
         </section>
 
@@ -192,8 +241,9 @@
 
   <button class="to-top" id="to-top" type="button" aria-label="Back to top">↑</button>
 
-  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above is complete without it. -->
-  <script src="../../tips-data.js" defer></script>
-  <script src="../../script.js" defer></script>
+  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above
+       is complete without it. page.js carries the chrome and nothing else — a fix page
+       renders no cards from TIPS, so it loads neither tips-data.js nor script.js. -->
+  <script src="../../page.js" defer></script>
 </body>
 </html>

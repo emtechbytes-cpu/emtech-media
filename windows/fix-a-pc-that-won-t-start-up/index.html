@@ -48,6 +48,43 @@
     ]
   }
   </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "@id": "https://emtechbytes-cpu.github.io/emtech-media/windows/fix-a-pc-that-won-t-start-up/#article",
+  "headline": "Fix a PC that won't start up",
+  "description": "A dead screen at boot feels like a funeral for the machine, but most 'dead' PCs are one small thing away from life — and your files are still on the disk either way.",
+  "url": "https://emtechbytes-cpu.github.io/emtech-media/windows/fix-a-pc-that-won-t-start-up/",
+  "mainEntityOfPage": "https://emtechbytes-cpu.github.io/emtech-media/windows/fix-a-pc-that-won-t-start-up/",
+  "inLanguage": "en",
+  "dateModified": "2026-08-18",
+  "author": {
+    "@type": "Organization",
+    "@id": "https://emtechbytes-cpu.github.io/emtech-media/#organization",
+    "name": "EmTech Media",
+    "url": "https://emtechbytes-cpu.github.io/emtech-media/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png"
+    }
+  },
+  "publisher": {
+    "@type": "Organization",
+    "@id": "https://emtechbytes-cpu.github.io/emtech-media/#organization",
+    "name": "EmTech Media",
+    "url": "https://emtechbytes-cpu.github.io/emtech-media/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png"
+    }
+  },
+  "image": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png",
+  "proficiencyLevel": "Intermediate",
+  "dependencies": "Win 10 / 11",
+  "timeRequired": "PT15M"
+}
+  </script>
 </head>
 <body>
 
@@ -121,6 +158,7 @@
             <li><span>Difficulty</span> Medium</li>
             <li><span>Estimated time</span> 15 min</li>
             <li><span>Platform</span> Win 10 / 11</li>
+            <li><span>Last updated</span> <time datetime="2026-08-18">Aug 18, 2026</time></li>
           </ul>
         </section>
 
@@ -133,14 +171,16 @@
           <p><strong>Medium risk.</strong> This change is reversible — you can return to the previous state without professional help or data loss.</p>
         </section>
 
+
+
         <section aria-label="Steps">
           <h2>Steps</h2>
 <ol class="tip-steps fix-steps">
-      <li>Check the boring stuff first: wall socket, power cable, and that little O/I switch on the back of the PSU. Half of all &#39;dead PC&#39; calls end here</li>
-      <li>Hard reset it: hold the power button for 10 seconds, unplug (or pull the battery if you can), wait 30 seconds, then try again — stuck electrical states look exactly like death and die with them</li>
-      <li>Fans spin but no display? Try another monitor or cable before touching the PC. On desktops make sure the screen is plugged into the graphics card, not the motherboard</li>
-      <li>Stuck on the Windows logo: force it off (hold power 10 seconds) three times in a row — the fourth attempt opens Automatic Repair → Advanced options → Startup Repair, then System Restore if that declines</li>
-      <li>Still dark? Boot Safe Mode from those same Advanced options and uninstall whatever changed — recent update first, new driver second. And before any reinstall: copy your files off the drive. Recovery is cheap; data loss isn&#39;t</li>
+      <li id="step-1">Check the boring stuff first: wall socket, power cable, and that little O/I switch on the back of the PSU. Half of all &#39;dead PC&#39; calls end here</li>
+      <li id="step-2">Hard reset it: hold the power button for 10 seconds, unplug (or pull the battery if you can), wait 30 seconds, then try again — stuck electrical states look exactly like death and die with them</li>
+      <li id="step-3">Fans spin but no display? Try another monitor or cable before touching the PC. On desktops make sure the screen is plugged into the graphics card, not the motherboard</li>
+      <li id="step-4">Stuck on the Windows logo: force it off (hold power 10 seconds) three times in a row — the fourth attempt opens Automatic Repair → Advanced options → Startup Repair, then System Restore if that declines</li>
+      <li id="step-5">Still dark? Boot Safe Mode from those same Advanced options and uninstall whatever changed — recent update first, new driver second. And before any reinstall: copy your files off the drive. Recovery is cheap; data loss isn&#39;t</li>
 </ol>
         </section>
 
@@ -194,8 +234,9 @@
 
   <button class="to-top" id="to-top" type="button" aria-label="Back to top">↑</button>
 
-  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above is complete without it. -->
-  <script src="../../tips-data.js" defer></script>
-  <script src="../../script.js" defer></script>
+  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above
+       is complete without it. page.js carries the chrome and nothing else — a fix page
+       renders no cards from TIPS, so it loads neither tips-data.js nor script.js. -->
+  <script src="../../page.js" defer></script>
 </body>
 </html>

@@ -48,6 +48,43 @@
     ]
   }
   </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "@id": "https://emtechbytes-cpu.github.io/emtech-media/windows/slow-internet-run-the-five-minute-test/#article",
+  "headline": "Slow internet? Run the five-minute test",
+  "description": "Before you blame your ISP, prove where the slowdown actually is. Five minutes of testing separates 'bad router' from 'bad line'.",
+  "url": "https://emtechbytes-cpu.github.io/emtech-media/windows/slow-internet-run-the-five-minute-test/",
+  "mainEntityOfPage": "https://emtechbytes-cpu.github.io/emtech-media/windows/slow-internet-run-the-five-minute-test/",
+  "inLanguage": "en",
+  "dateModified": "2026-08-18",
+  "author": {
+    "@type": "Organization",
+    "@id": "https://emtechbytes-cpu.github.io/emtech-media/#organization",
+    "name": "EmTech Media",
+    "url": "https://emtechbytes-cpu.github.io/emtech-media/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png"
+    }
+  },
+  "publisher": {
+    "@type": "Organization",
+    "@id": "https://emtechbytes-cpu.github.io/emtech-media/#organization",
+    "name": "EmTech Media",
+    "url": "https://emtechbytes-cpu.github.io/emtech-media/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png"
+    }
+  },
+  "image": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png",
+  "proficiencyLevel": "Beginner",
+  "dependencies": "Any",
+  "timeRequired": "PT10M"
+}
+  </script>
 </head>
 <body>
 
@@ -121,6 +158,7 @@
             <li><span>Difficulty</span> Easy</li>
             <li><span>Estimated time</span> 10 min</li>
             <li><span>Platform</span> Any</li>
+            <li><span>Last updated</span> <time datetime="2026-08-18">Aug 18, 2026</time></li>
           </ul>
         </section>
 
@@ -133,14 +171,16 @@
           <p><strong>Low risk.</strong> This change is reversible — you can return to the previous state without professional help or data loss.</p>
         </section>
 
+
+
         <section aria-label="Steps">
           <h2>Steps</h2>
 <ol class="tip-steps fix-steps">
-      <li>Close everything bandwidth-hungry (downloads, cloud sync, video calls), then run a speed test on speedtest.net — note download, upload and ping</li>
-      <li>Test wired vs Wi-Fi: plug in with Ethernet and re-test. A big gap means your router or its placement is the problem, not the line</li>
-      <li>Move closer to the router or switch to the 5 GHz band (faster, shorter range); keep it off a shelf behind metal cabinets</li>
-      <li>Reboot the router — months of uptime clog its memory; if speed returns for a week and then sags again, schedule a weekly reboot</li>
-      <li>Still slow on both wired and Wi-Fi? That&#39;s your ISP&#39;s problem now — and you have numbers to quote them</li>
+      <li id="step-1">Close everything bandwidth-hungry (downloads, cloud sync, video calls), then run a speed test on speedtest.net — note download, upload and ping</li>
+      <li id="step-2">Test wired vs Wi-Fi: plug in with Ethernet and re-test. A big gap means your router or its placement is the problem, not the line</li>
+      <li id="step-3">Move closer to the router or switch to the 5 GHz band (faster, shorter range); keep it off a shelf behind metal cabinets</li>
+      <li id="step-4">Reboot the router — months of uptime clog its memory; if speed returns for a week and then sags again, schedule a weekly reboot</li>
+      <li id="step-5">Still slow on both wired and Wi-Fi? That&#39;s your ISP&#39;s problem now — and you have numbers to quote them</li>
 </ol>
         </section>
 
@@ -194,8 +234,9 @@
 
   <button class="to-top" id="to-top" type="button" aria-label="Back to top">↑</button>
 
-  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above is complete without it. -->
-  <script src="../../tips-data.js" defer></script>
-  <script src="../../script.js" defer></script>
+  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above
+       is complete without it. page.js carries the chrome and nothing else — a fix page
+       renders no cards from TIPS, so it loads neither tips-data.js nor script.js. -->
+  <script src="../../page.js" defer></script>
 </body>
 </html>

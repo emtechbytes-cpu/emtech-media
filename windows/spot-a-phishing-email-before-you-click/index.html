@@ -48,6 +48,43 @@
     ]
   }
   </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "@id": "https://emtechbytes-cpu.github.io/emtech-media/windows/spot-a-phishing-email-before-you-click/#article",
+  "headline": "Spot a phishing email before you click",
+  "description": "Modern phishing has no spelling mistakes and copies the real branding pixel for pixel. You beat it on process, not on how convincing the message looks.",
+  "url": "https://emtechbytes-cpu.github.io/emtech-media/windows/spot-a-phishing-email-before-you-click/",
+  "mainEntityOfPage": "https://emtechbytes-cpu.github.io/emtech-media/windows/spot-a-phishing-email-before-you-click/",
+  "inLanguage": "en",
+  "dateModified": "2026-08-18",
+  "author": {
+    "@type": "Organization",
+    "@id": "https://emtechbytes-cpu.github.io/emtech-media/#organization",
+    "name": "EmTech Media",
+    "url": "https://emtechbytes-cpu.github.io/emtech-media/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png"
+    }
+  },
+  "publisher": {
+    "@type": "Organization",
+    "@id": "https://emtechbytes-cpu.github.io/emtech-media/#organization",
+    "name": "EmTech Media",
+    "url": "https://emtechbytes-cpu.github.io/emtech-media/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png"
+    }
+  },
+  "image": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png",
+  "proficiencyLevel": "Beginner",
+  "dependencies": "Any",
+  "timeRequired": "PT10M"
+}
+  </script>
 </head>
 <body>
 
@@ -121,6 +158,7 @@
             <li><span>Difficulty</span> Easy</li>
             <li><span>Estimated time</span> 10 min</li>
             <li><span>Platform</span> Any</li>
+            <li><span>Last updated</span> <time datetime="2026-08-18">Aug 18, 2026</time></li>
           </ul>
         </section>
 
@@ -133,14 +171,16 @@
           <p><strong>Low risk.</strong> This change is reversible — you can return to the previous state without professional help or data loss.</p>
         </section>
 
+
+
         <section aria-label="Steps">
           <h2>Steps</h2>
 <ol class="tip-steps fix-steps">
-      <li>Read the sender&#39;s actual domain rather than the display name — &#39;Microsoft Support &lt;billing@micros0ft-secure.com&gt;&#39; is the entire tell</li>
-      <li>Hover a link (long-press on a phone) and read where it truly goes before you click. On mobile that&#39;s the only reliable check you have</li>
-      <li>Treat urgency as the alarm bell: &#39;account closing in 24 hours&#39;, &#39;unusual sign-in detected&#39;, &#39;payment failed&#39; all exist to stop you thinking</li>
-      <li>Never act from inside the message. Open a new tab, type the company&#39;s address yourself, and check your account there — if it&#39;s genuine, the notice will be waiting</li>
-      <li>Unexpected attachment? Don&#39;t open it. .zip, .html and macro-enabled Office documents are the usual carriers</li>
+      <li id="step-1">Read the sender&#39;s actual domain rather than the display name — &#39;Microsoft Support &lt;billing@micros0ft-secure.com&gt;&#39; is the entire tell</li>
+      <li id="step-2">Hover a link (long-press on a phone) and read where it truly goes before you click. On mobile that&#39;s the only reliable check you have</li>
+      <li id="step-3">Treat urgency as the alarm bell: &#39;account closing in 24 hours&#39;, &#39;unusual sign-in detected&#39;, &#39;payment failed&#39; all exist to stop you thinking</li>
+      <li id="step-4">Never act from inside the message. Open a new tab, type the company&#39;s address yourself, and check your account there — if it&#39;s genuine, the notice will be waiting</li>
+      <li id="step-5">Unexpected attachment? Don&#39;t open it. .zip, .html and macro-enabled Office documents are the usual carriers</li>
 </ol>
         </section>
 
@@ -194,8 +234,9 @@
 
   <button class="to-top" id="to-top" type="button" aria-label="Back to top">↑</button>
 
-  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above is complete without it. -->
-  <script src="../../tips-data.js" defer></script>
-  <script src="../../script.js" defer></script>
+  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above
+       is complete without it. page.js carries the chrome and nothing else — a fix page
+       renders no cards from TIPS, so it loads neither tips-data.js nor script.js. -->
+  <script src="../../page.js" defer></script>
 </body>
 </html>

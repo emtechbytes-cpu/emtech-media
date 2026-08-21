@@ -48,6 +48,43 @@
     ]
   }
   </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "@id": "https://emtechbytes-cpu.github.io/emtech-media/windows/move-your-os-or-games-to-an-ssd/#article",
+  "headline": "Move your OS or games to an SSD",
+  "description": "HDD → SSD is the single biggest speed upgrade you can make. Boot times go from minutes to seconds.",
+  "url": "https://emtechbytes-cpu.github.io/emtech-media/windows/move-your-os-or-games-to-an-ssd/",
+  "mainEntityOfPage": "https://emtechbytes-cpu.github.io/emtech-media/windows/move-your-os-or-games-to-an-ssd/",
+  "inLanguage": "en",
+  "dateModified": "2026-08-18",
+  "author": {
+    "@type": "Organization",
+    "@id": "https://emtechbytes-cpu.github.io/emtech-media/#organization",
+    "name": "EmTech Media",
+    "url": "https://emtechbytes-cpu.github.io/emtech-media/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png"
+    }
+  },
+  "publisher": {
+    "@type": "Organization",
+    "@id": "https://emtechbytes-cpu.github.io/emtech-media/#organization",
+    "name": "EmTech Media",
+    "url": "https://emtechbytes-cpu.github.io/emtech-media/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png"
+    }
+  },
+  "image": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png",
+  "proficiencyLevel": "Intermediate",
+  "dependencies": "Any",
+  "timeRequired": "PT1H"
+}
+  </script>
 </head>
 <body>
 
@@ -121,6 +158,7 @@
             <li><span>Difficulty</span> Medium</li>
             <li><span>Estimated time</span> 1 hr</li>
             <li><span>Platform</span> Any</li>
+            <li><span>Last updated</span> <time datetime="2026-08-18">Aug 18, 2026</time></li>
           </ul>
         </section>
 
@@ -133,13 +171,25 @@
           <p><strong>High risk.</strong> This change is not fully reversible — read every step before you begin and make sure your important work is saved.</p>
         </section>
 
+
+        <section class="fix-gotchas" aria-label="What usually goes wrong">
+          <h2>What usually goes wrong</h2>
+          <ul class="gotcha-list">
+            <li>Clone the whole drive, not just the C: partition. The small hidden EFI and recovery partitions are what actually make it bootable — miss them and you get a perfect copy of your files that won&#39;t start.</li>
+            <li>If the SSD is smaller than the old drive, shrink the old partition to fit before cloning. This is the single most common reason a clone refuses to start.</li>
+            <li>Set SATA mode to AHCI, or enable NVMe, in the BIOS before the first boot. Skip it and Windows greets you with INACCESSIBLE_BOOT_DEVICE on a drive that is in fact fine.</li>
+            <li>Unplug the old drive for the first boot from the SSD. With both connected, the boot manager can load from the new drive but still point at the old one, and you&#39;ll think the clone failed.</li>
+            <li>Keep the old drive untouched for a month before you wipe it. It is your only way back, and the things that turn out to be missing — a licence, a save folder, a mail archive — surface in week three, not on day one.</li>
+          </ul>
+        </section>
+
         <section aria-label="Steps">
           <h2>Steps</h2>
 <ol class="tip-steps fix-steps">
-      <li>Buy a SATA or NVMe SSD (500 GB+ if going for OS + games)</li>
-      <li>Use the SSD maker&#39;s cloning software (Samsung, Crucial, WD all have free tools) to clone your drive</li>
-      <li>Swap the drives (or set the SSD as the first boot device in BIOS)</li>
-      <li>Verify it boots, then shred and reuse the old HDD for storage</li>
+      <li id="step-1">Buy a SATA or NVMe SSD (500 GB+ if going for OS + games)</li>
+      <li id="step-2">Use the SSD maker&#39;s cloning software (Samsung, Crucial, WD all have free tools) to clone your drive</li>
+      <li id="step-3">Swap the drives (or set the SSD as the first boot device in BIOS)</li>
+      <li id="step-4">Verify it boots — then leave the old drive alone for a month before you reuse it. Something always turns out to be missing in week three</li>
 </ol>
         </section>
 
@@ -193,8 +243,9 @@
 
   <button class="to-top" id="to-top" type="button" aria-label="Back to top">↑</button>
 
-  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above is complete without it. -->
-  <script src="../../tips-data.js" defer></script>
-  <script src="../../script.js" defer></script>
+  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above
+       is complete without it. page.js carries the chrome and nothing else — a fix page
+       renders no cards from TIPS, so it loads neither tips-data.js nor script.js. -->
+  <script src="../../page.js" defer></script>
 </body>
 </html>

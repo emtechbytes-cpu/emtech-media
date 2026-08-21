@@ -234,6 +234,9 @@
          Qwen may reference it, never invent it). Labels deliberately do not
          collide with policy.js extractClientContext fact lines. */
       if (t.risk_level) out += `Safety risk:\n${t.risk_level}\n`;
+      if (Array.isArray(t.gotchas) && t.gotchas.length) {
+        out += "What usually goes wrong:\n" + t.gotchas.map((g) => `- ${g}`).join("\n") + "\n";
+      }
       if (t.verification) out += `How to verify it worked:\n- ${t.verification}\n`;
       if (t.failure_conditions) out += `If it does not work:\n- ${t.failure_conditions}\n`;
       out += `\n`;

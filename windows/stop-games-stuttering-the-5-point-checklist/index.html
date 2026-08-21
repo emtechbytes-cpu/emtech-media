@@ -48,6 +48,43 @@
     ]
   }
   </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "@id": "https://emtechbytes-cpu.github.io/emtech-media/windows/stop-games-stuttering-the-5-point-checklist/#article",
+  "headline": "Stop games stuttering — the 5-point checklist",
+  "description": "Most 'random lag spikes' trace back to one of five mundane causes. Knock them all out.",
+  "url": "https://emtechbytes-cpu.github.io/emtech-media/windows/stop-games-stuttering-the-5-point-checklist/",
+  "mainEntityOfPage": "https://emtechbytes-cpu.github.io/emtech-media/windows/stop-games-stuttering-the-5-point-checklist/",
+  "inLanguage": "en",
+  "dateModified": "2026-08-18",
+  "author": {
+    "@type": "Organization",
+    "@id": "https://emtechbytes-cpu.github.io/emtech-media/#organization",
+    "name": "EmTech Media",
+    "url": "https://emtechbytes-cpu.github.io/emtech-media/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png"
+    }
+  },
+  "publisher": {
+    "@type": "Organization",
+    "@id": "https://emtechbytes-cpu.github.io/emtech-media/#organization",
+    "name": "EmTech Media",
+    "url": "https://emtechbytes-cpu.github.io/emtech-media/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png"
+    }
+  },
+  "image": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png",
+  "proficiencyLevel": "Beginner",
+  "dependencies": "Win 10 / 11",
+  "timeRequired": "PT15M"
+}
+  </script>
 </head>
 <body>
 
@@ -121,6 +158,7 @@
             <li><span>Difficulty</span> Easy</li>
             <li><span>Estimated time</span> 15 min</li>
             <li><span>Platform</span> Win 10 / 11</li>
+            <li><span>Last updated</span> <time datetime="2026-08-18">Aug 18, 2026</time></li>
           </ul>
         </section>
 
@@ -133,14 +171,25 @@
           <p><strong>Medium risk.</strong> This change is reversible — you can return to the previous state without professional help or data loss.</p>
         </section>
 
+
+        <section class="fix-gotchas" aria-label="What usually goes wrong">
+          <h2>What usually goes wrong</h2>
+          <ul class="gotcha-list">
+            <li>DDU has to run in Safe Mode with the network disconnected. Run it on a normal desktop and Windows reinstalls a driver halfway through the clean, which is how people end up worse off than when they started.</li>
+            <li>Stutter alongside a healthy average frame rate usually isn&#39;t the GPU. Watch the frametime graph rather than the FPS counter — a game averaging 120 with regular spikes feels far worse than a steady 60.</li>
+            <li>Shader compilation stutter during the first hour of a modern game is normal and settles by itself. Don&#39;t rebuild the machine over it.</li>
+            <li>Uncapping the frame rate without a limiter pins the GPU at 100% and can make latency worse, not better. Cap a few frames below your refresh rate.</li>
+          </ul>
+        </section>
+
         <section aria-label="Steps">
           <h2>Steps</h2>
 <ol class="tip-steps fix-steps">
-      <li>GPU driver is current (make it a clean install with DDU if stutter persists)</li>
-      <li>Game files intact / verified (Steam, EA, Epic all have a &#39;verify&#39; button)</li>
-      <li>DirectX / VCRedist packs are installed</li>
-      <li>No overlays fighting each other (Steam + Discord + GeForce Experience = pick one)</li>
-      <li>Disable Game Bar and Game DVR: Settings → Gaming → off both</li>
+      <li id="step-1">GPU driver is current (make it a clean install with DDU if stutter persists)</li>
+      <li id="step-2">Game files intact / verified (Steam, EA, Epic all have a &#39;verify&#39; button)</li>
+      <li id="step-3">DirectX / VCRedist packs are installed</li>
+      <li id="step-4">No overlays fighting each other (Steam + Discord + GeForce Experience = pick one)</li>
+      <li id="step-5">Disable Game Bar and Game DVR: Settings → Gaming → off both</li>
 </ol>
         </section>
 
@@ -194,8 +243,9 @@
 
   <button class="to-top" id="to-top" type="button" aria-label="Back to top">↑</button>
 
-  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above is complete without it. -->
-  <script src="../../tips-data.js" defer></script>
-  <script src="../../script.js" defer></script>
+  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above
+       is complete without it. page.js carries the chrome and nothing else — a fix page
+       renders no cards from TIPS, so it loads neither tips-data.js nor script.js. -->
+  <script src="../../page.js" defer></script>
 </body>
 </html>

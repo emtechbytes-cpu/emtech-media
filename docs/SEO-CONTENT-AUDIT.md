@@ -51,7 +51,7 @@ complete safety metadata; they are listed here so future enrichment can prioriti
 |---|---|---|---|---|---|---|---|---|---|
 | `disable-startup-bloat` | Disable startup bloat | Windows | 4 | 32 | yes | yes | low | 2 | **PUBLISH** |
 | `switch-the-power-plan-to-best-performance` | Switch the power plan to Best Performance | Windows | 4 | 33 | yes | yes | low | 2 | **PUBLISH** |
-| `move-your-os-or-games-to-an-ssd` | Move your OS or games to an SSD | Windows | 4 | 57 | yes | yes | high | 2 | **PUBLISH** |
+| `move-your-os-or-games-to-an-ssd` | Move your OS or games to an SSD | Windows | 4 | 72 | yes | yes | high | 2 | **PUBLISH** |
 | `upgrade-your-ram-and-match-it` | Upgrade your RAM (and match it) | Windows | 4 | 55 | yes | yes | low | 2 | **PUBLISH** |
 | `stop-windows-updates-at-odd-hours` | Stop Windows updates at odd hours | Windows | 3 | 33 | yes | yes | low | 2 | **PUBLISH** |
 | `fix-a-pc-that-overheats-and-fans-like-a-jet-engine` | Fix a PC that overheats and fans like a jet engine | Windows | 5 | 58 | yes | yes | low | 2 | **PUBLISH** |
@@ -75,7 +75,7 @@ complete safety metadata; they are listed here so future enrichment can prioriti
 | `make-windows-search-actually-useful-again` | Make Windows Search actually useful again | Windows | 3 | 50 | yes | yes | low | 4 | **PUBLISH** |
 | `save-your-games-the-right-way` | Save your games the right way | Windows | 3 | 44 | yes | yes | low | 2 | **PUBLISH** |
 | `make-your-desktop-feel-like-a-mac-without-the-price` | Make your desktop feel like a Mac (without the price) | Windows | 4 | 67 | yes | yes | low | 2 | **PUBLISH** |
-| `fix-my-pc-is-slow-all-of-a-sudden-the-order-of-attack` | Fix &#39;My PC is slow all of a sudden&#39; — the order of attack | Windows | 4 | 63 | yes | yes | medium | 2 | **PUBLISH** |
+| `fix-my-pc-is-slow-all-of-a-sudden-the-order-of-attack` | Fix &#39;My PC is slow all of a sudden&#39; — the order of attack | Windows | 4 | 59 | yes | yes | medium | 2 | **PUBLISH** |
 | `free-up-disk-space-with-storage-management` | Free up disk space with Storage Management | Mac | 4 | 44 | yes | yes | low | 2 | **PUBLISH** |
 | `reset-nvram-when-things-misbehave` | Reset NVRAM when things misbehave | Mac | 4 | 42 | yes | yes | low | 2 | **PUBLISH** |
 | `keep-macos-updated-the-safe-way` | Keep macOS updated the safe way | Mac | 4 | 47 | yes | yes | low | 2 | **PUBLISH** |
