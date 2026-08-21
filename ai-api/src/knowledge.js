@@ -81,7 +81,17 @@ function allApprovedQuestions() {
 
 /* First unasked approved question for a platform+category branch — mirrors
    the frontend's ai-knowledge.approvedQuestions() (same data, same lookup).
-   Used by the pre-AI router so obvious turns never need a Qwen call. */
+   Used by the pre-AI router so obvious turns never need a Qwen call.
+
+   Phase 3.5.1 — showIf safety: the client protocol sends only ALREADY-ASKED
+   QUESTION IDS ("Already asked: id; id") — never the answer values. The
+   frontend can evaluate a question's showIf gate because it holds the user's
+   answers; this Worker cannot. A gated candidate therefore has an UNKNOWN
+   gate here, and unknown gates are never served deterministically:
+   return null so the turn falls through to Qwen with full conversation
+   context (which DOES see the answers). We do not guess the answer, assume
+   the gate is satisfied, or skip ahead to a later question whose relevance
+   also depends on the unknown answer. */
 function firstBranchQuestion(platform, category, excludeIds) {
   if (!DIAG || !Array.isArray(DIAG.profiles)) return null;
   const device = platform === "mac" ? "mac" : platform === "windows" ? "windows" : null;
@@ -92,6 +102,8 @@ function firstBranchQuestion(platform, category, excludeIds) {
   for (const qid of profile.questions || []) {
     if (skip.has(qid)) continue;
     const q = DIAG.questions[qid];
+    // Phase 3.5.1 — UNKNOWN GATE = DO NOT SERVE DETERMINISTICALLY.
+    if (q && q.showIf) return null; // gate needs an answer value the Worker never receives
     // diag-data.js stores the question text in `q` (frontend reads q.q).
     const text = typeof q && (typeof q.q === "string" ? q.q : typeof q.text === "string" ? q.text : null);
     if (!text) continue;
