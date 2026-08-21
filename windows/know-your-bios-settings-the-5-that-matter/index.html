@@ -48,6 +48,43 @@
     ]
   }
   </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "@id": "https://emtechbytes-cpu.github.io/emtech-media/windows/know-your-bios-settings-the-5-that-matter/#article",
+  "headline": "Know your BIOS settings (the 5 that matter)",
+  "description": "Most of the speed potential in a PC is already there — it's locked in the BIOS/UEFI. Five settings unlock most of it.",
+  "url": "https://emtechbytes-cpu.github.io/emtech-media/windows/know-your-bios-settings-the-5-that-matter/",
+  "mainEntityOfPage": "https://emtechbytes-cpu.github.io/emtech-media/windows/know-your-bios-settings-the-5-that-matter/",
+  "inLanguage": "en",
+  "dateModified": "2026-08-18",
+  "author": {
+    "@type": "Organization",
+    "@id": "https://emtechbytes-cpu.github.io/emtech-media/#organization",
+    "name": "EmTech Media",
+    "url": "https://emtechbytes-cpu.github.io/emtech-media/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png"
+    }
+  },
+  "publisher": {
+    "@type": "Organization",
+    "@id": "https://emtechbytes-cpu.github.io/emtech-media/#organization",
+    "name": "EmTech Media",
+    "url": "https://emtechbytes-cpu.github.io/emtech-media/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png"
+    }
+  },
+  "image": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png",
+  "proficiencyLevel": "Expert",
+  "dependencies": "Any",
+  "timeRequired": "PT20M"
+}
+  </script>
 </head>
 <body>
 
@@ -121,6 +158,7 @@
             <li><span>Difficulty</span> Advanced</li>
             <li><span>Estimated time</span> 20 min</li>
             <li><span>Platform</span> Any</li>
+            <li><span>Last updated</span> <time datetime="2026-08-18">Aug 18, 2026</time></li>
           </ul>
         </section>
 
@@ -133,14 +171,26 @@
           <p><strong>High risk.</strong> This change is reversible — you can return to the previous state without professional help or data loss.</p>
         </section>
 
+
+        <section class="fix-gotchas" aria-label="What usually goes wrong">
+          <h2>What usually goes wrong</h2>
+          <ul class="gotcha-list">
+            <li>Photograph each screen before you change anything. UEFI has no undo, and &#39;load optimised defaults&#39; also throws away settings you wanted to keep.</li>
+            <li>One setting at a time, reboot in between. Change five at once and a machine that won&#39;t start tells you nothing about which one did it.</li>
+            <li>XMP/EXPO is an overclock, just a pre-packaged one. Not every kit hits its rated speed on every board — if the PC gets flaky after enabling it, that&#39;s the first thing to turn back off.</li>
+            <li>If it won&#39;t post at all, the fix is a CMOS clear, not the UEFI menu you can no longer reach: power off at the wall, then move the CLR_CMOS jumper or pull the board battery for a minute.</li>
+            <li>The names vary by manufacturer. Resizable BAR may appear as &#39;Above 4G Decoding&#39; plus &#39;Re-Size BAR Support&#39;, and virtualisation is VT-x on Intel but SVM on AMD.</li>
+          </ul>
+        </section>
+
         <section aria-label="Steps">
           <h2>Steps</h2>
 <ol class="tip-steps fix-steps">
-      <li>Enter UEFI (usually F2 / DEL at boot). XMP/EXPO: enable it or your RAM runs at 2133 MHz instead of its rated speed</li>
-      <li>Resizable BAR (Above 4G): on for GPU</li>
-      <li>C-States: off if you do low-latency work</li>
-      <li>Boot order: put your SSD first</li>
-      <li>Enable virtualisation (VT-x / SVM) only if you use VMs or Android emulators — off is safer otherwise</li>
+      <li id="step-1">Enter UEFI (usually F2 / DEL at boot). XMP/EXPO: enable it or your RAM runs at 2133 MHz instead of its rated speed</li>
+      <li id="step-2">Resizable BAR (Above 4G): on for GPU</li>
+      <li id="step-3">C-States: off if you do low-latency work</li>
+      <li id="step-4">Boot order: put your SSD first</li>
+      <li id="step-5">Enable virtualisation (VT-x / SVM) only if you use VMs or Android emulators — off is safer otherwise</li>
 </ol>
         </section>
 
@@ -194,8 +244,9 @@
 
   <button class="to-top" id="to-top" type="button" aria-label="Back to top">↑</button>
 
-  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above is complete without it. -->
-  <script src="../../tips-data.js" defer></script>
-  <script src="../../script.js" defer></script>
+  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above
+       is complete without it. page.js carries the chrome and nothing else — a fix page
+       renders no cards from TIPS, so it loads neither tips-data.js nor script.js. -->
+  <script src="../../page.js" defer></script>
 </body>
 </html>

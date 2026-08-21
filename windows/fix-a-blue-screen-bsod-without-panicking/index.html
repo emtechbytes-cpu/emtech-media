@@ -48,6 +48,43 @@
     ]
   }
   </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "@id": "https://emtechbytes-cpu.github.io/emtech-media/windows/fix-a-blue-screen-bsod-without-panicking/#article",
+  "headline": "Fix a blue screen (BSOD) without panicking",
+  "description": "A blue screen looks dramatic but it's usually Windows protecting itself from a bad driver or a flaky stick of RAM. The stop code tells you which.",
+  "url": "https://emtechbytes-cpu.github.io/emtech-media/windows/fix-a-blue-screen-bsod-without-panicking/",
+  "mainEntityOfPage": "https://emtechbytes-cpu.github.io/emtech-media/windows/fix-a-blue-screen-bsod-without-panicking/",
+  "inLanguage": "en",
+  "dateModified": "2026-08-18",
+  "author": {
+    "@type": "Organization",
+    "@id": "https://emtechbytes-cpu.github.io/emtech-media/#organization",
+    "name": "EmTech Media",
+    "url": "https://emtechbytes-cpu.github.io/emtech-media/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png"
+    }
+  },
+  "publisher": {
+    "@type": "Organization",
+    "@id": "https://emtechbytes-cpu.github.io/emtech-media/#organization",
+    "name": "EmTech Media",
+    "url": "https://emtechbytes-cpu.github.io/emtech-media/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png"
+    }
+  },
+  "image": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png",
+  "proficiencyLevel": "Intermediate",
+  "dependencies": "Win 10 / 11",
+  "timeRequired": "PT30M"
+}
+  </script>
 </head>
 <body>
 
@@ -121,6 +158,7 @@
             <li><span>Difficulty</span> Medium</li>
             <li><span>Estimated time</span> 30 min</li>
             <li><span>Platform</span> Win 10 / 11</li>
+            <li><span>Last updated</span> <time datetime="2026-08-18">Aug 18, 2026</time></li>
           </ul>
         </section>
 
@@ -133,13 +171,24 @@
           <p><strong>Medium risk.</strong> This change is reversible — you can return to the previous state without professional help or data loss.</p>
         </section>
 
+
+        <section class="fix-gotchas" aria-label="What usually goes wrong">
+          <h2>What usually goes wrong</h2>
+          <ul class="gotcha-list">
+            <li>Turn off automatic restart first or the screen vanishes before you can read it: System Properties → Advanced → Startup and Recovery → uncheck &#39;Automatically restart&#39;.</li>
+            <li>When the stop code is vague, the crash dump isn&#39;t. Minidumps land in C:\Windows\Minidump, and a free reader like BlueScreenView names the offending driver in seconds — no debugger to install.</li>
+            <li>Blue screens that only arrive under load — gaming, rendering, long file copies — point at heat or the power supply rather than a driver. Check temperatures before you start rolling drivers back.</li>
+            <li>If Windows won&#39;t stay up long enough to change anything, do the rollback from Safe Mode instead of fighting the desktop.</li>
+          </ul>
+        </section>
+
         <section aria-label="Steps">
           <h2>Steps</h2>
 <ol class="tip-steps fix-steps">
-      <li>Read the stop code at the bottom (e.g. DRIVER_IRQL_NOT_LESS_OR_EQUAL) and search that exact string — generic &#39;BSOD fix&#39; articles are mostly noise</li>
-      <li>If it started after an update or a new driver, roll back: Settings → Windows Update → Update history → Uninstall updates, or Device Manager → Roll back driver on the suspect device</li>
-      <li>Event Viewer → Windows Logs → System: look for red errors in the minutes before each crash — they name the culprit file</li>
-      <li>Run Windows Memory Diagnostic (search &#39;mdsched&#39;) to rule out bad RAM; a failing stick shows up as random BSODs across different drivers</li>
+      <li id="step-1">Read the stop code at the bottom (e.g. DRIVER_IRQL_NOT_LESS_OR_EQUAL) and search that exact string — generic &#39;BSOD fix&#39; articles are mostly noise</li>
+      <li id="step-2">If it started after an update or a new driver, roll back: Settings → Windows Update → Update history → Uninstall updates, or Device Manager → Roll back driver on the suspect device</li>
+      <li id="step-3">Event Viewer → Windows Logs → System: look for red errors in the minutes before each crash — they name the culprit file</li>
+      <li id="step-4">Run Windows Memory Diagnostic (search &#39;mdsched&#39;) to rule out bad RAM; a failing stick shows up as random BSODs across different drivers</li>
 </ol>
         </section>
 
@@ -193,8 +242,9 @@
 
   <button class="to-top" id="to-top" type="button" aria-label="Back to top">↑</button>
 
-  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above is complete without it. -->
-  <script src="../../tips-data.js" defer></script>
-  <script src="../../script.js" defer></script>
+  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above
+       is complete without it. page.js carries the chrome and nothing else — a fix page
+       renders no cards from TIPS, so it loads neither tips-data.js nor script.js. -->
+  <script src="../../page.js" defer></script>
 </body>
 </html>

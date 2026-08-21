@@ -48,6 +48,43 @@
     ]
   }
   </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "@id": "https://emtechbytes-cpu.github.io/emtech-media/windows/raise-your-effective-fps-with-windows-game-mode/#article",
+  "headline": "Raise your effective FPS with Windows Game Mode",
+  "description": "Game Mode tells Windows to prioritise the game process and quiet notifications. Leave it on, always.",
+  "url": "https://emtechbytes-cpu.github.io/emtech-media/windows/raise-your-effective-fps-with-windows-game-mode/",
+  "mainEntityOfPage": "https://emtechbytes-cpu.github.io/emtech-media/windows/raise-your-effective-fps-with-windows-game-mode/",
+  "inLanguage": "en",
+  "dateModified": "2026-08-18",
+  "author": {
+    "@type": "Organization",
+    "@id": "https://emtechbytes-cpu.github.io/emtech-media/#organization",
+    "name": "EmTech Media",
+    "url": "https://emtechbytes-cpu.github.io/emtech-media/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png"
+    }
+  },
+  "publisher": {
+    "@type": "Organization",
+    "@id": "https://emtechbytes-cpu.github.io/emtech-media/#organization",
+    "name": "EmTech Media",
+    "url": "https://emtechbytes-cpu.github.io/emtech-media/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png"
+    }
+  },
+  "image": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png",
+  "proficiencyLevel": "Beginner",
+  "dependencies": "Win 10 / 11",
+  "timeRequired": "PT1M"
+}
+  </script>
 </head>
 <body>
 
@@ -121,6 +158,7 @@
             <li><span>Difficulty</span> Easy</li>
             <li><span>Estimated time</span> 1 min</li>
             <li><span>Platform</span> Win 10 / 11</li>
+            <li><span>Last updated</span> <time datetime="2026-08-18">Aug 18, 2026</time></li>
           </ul>
         </section>
 
@@ -133,12 +171,14 @@
           <p><strong>Low risk.</strong> This change is reversible — you can return to the previous state without professional help or data loss.</p>
         </section>
 
+
+
         <section aria-label="Steps">
           <h2>Steps</h2>
 <ol class="tip-steps fix-steps">
-      <li>Settings → Gaming → Game Mode → keep it ON</li>
-      <li>Same page → Background processes → &#39;Limit background bandwidth&#39; (on slow connections)</li>
-      <li>In Task Manager, pin your game to a specific CPU core group if you have a hybrid CPU (P-cores vs E-cores) via the GPU&#39;s affinity settings</li>
+      <li id="step-1">Settings → Gaming → Game Mode → keep it ON</li>
+      <li id="step-2">Same page → Background processes → &#39;Limit background bandwidth&#39; (on slow connections)</li>
+      <li id="step-3">In Task Manager, pin your game to a specific CPU core group if you have a hybrid CPU (P-cores vs E-cores) via the GPU&#39;s affinity settings</li>
 </ol>
         </section>
 
@@ -192,8 +232,9 @@
 
   <button class="to-top" id="to-top" type="button" aria-label="Back to top">↑</button>
 
-  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above is complete without it. -->
-  <script src="../../tips-data.js" defer></script>
-  <script src="../../script.js" defer></script>
+  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above
+       is complete without it. page.js carries the chrome and nothing else — a fix page
+       renders no cards from TIPS, so it loads neither tips-data.js nor script.js. -->
+  <script src="../../page.js" defer></script>
 </body>
 </html>

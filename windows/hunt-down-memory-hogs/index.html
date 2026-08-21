@@ -48,6 +48,43 @@
     ]
   }
   </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "@id": "https://emtechbytes-cpu.github.io/emtech-media/windows/hunt-down-memory-hogs/#article",
+  "headline": "Hunt down memory hogs",
+  "description": "Full RAM is the quiet cause of most 'sluggish' complaints. Find what's eating it and put a ceiling on it.",
+  "url": "https://emtechbytes-cpu.github.io/emtech-media/windows/hunt-down-memory-hogs/",
+  "mainEntityOfPage": "https://emtechbytes-cpu.github.io/emtech-media/windows/hunt-down-memory-hogs/",
+  "inLanguage": "en",
+  "dateModified": "2026-08-18",
+  "author": {
+    "@type": "Organization",
+    "@id": "https://emtechbytes-cpu.github.io/emtech-media/#organization",
+    "name": "EmTech Media",
+    "url": "https://emtechbytes-cpu.github.io/emtech-media/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png"
+    }
+  },
+  "publisher": {
+    "@type": "Organization",
+    "@id": "https://emtechbytes-cpu.github.io/emtech-media/#organization",
+    "name": "EmTech Media",
+    "url": "https://emtechbytes-cpu.github.io/emtech-media/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png"
+    }
+  },
+  "image": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png",
+  "proficiencyLevel": "Intermediate",
+  "dependencies": "Win 10 / 11",
+  "timeRequired": "PT10M"
+}
+  </script>
 </head>
 <body>
 
@@ -121,6 +158,7 @@
             <li><span>Difficulty</span> Medium</li>
             <li><span>Estimated time</span> 10 min</li>
             <li><span>Platform</span> Win 10 / 11</li>
+            <li><span>Last updated</span> <time datetime="2026-08-18">Aug 18, 2026</time></li>
           </ul>
         </section>
 
@@ -133,14 +171,25 @@
           <p><strong>Medium risk.</strong> This change is reversible — you can return to the previous state without professional help or data loss.</p>
         </section>
 
+
+        <section class="fix-gotchas" aria-label="What usually goes wrong">
+          <h2>What usually goes wrong</h2>
+          <ul class="gotcha-list">
+            <li>Don&#39;t shrink or disable the paging file to reclaim space. Set it too small and Windows can&#39;t write a crash dump, so the next blue screen tells you nothing at all. Leave it system-managed unless you have a specific reason not to.</li>
+            <li>High memory use is not by itself a fault. Windows deliberately fills spare RAM with cache and hands it back on demand — the numbers worth watching are committed memory and hard faults, not the percentage.</li>
+            <li>End Task on something you don&#39;t recognise can take the desktop or the network down with it. Search the process name before you kill anything running as SYSTEM.</li>
+            <li>A leak that only surfaces after days of uptime won&#39;t show up in a ten-minute look. Leave Performance Monitor logging overnight and read it in the morning.</li>
+          </ul>
+        </section>
+
         <section aria-label="Steps">
           <h2>Steps</h2>
 <ol class="tip-steps fix-steps">
-      <li>Ctrl + Shift + Esc → Processes tab → sort by Memory — close or End Task anything you don&#39;t need at the top</li>
-      <li>Settings → Apps → Installed apps → three dots next to an app → Advanced options → Background app permissions → &#39;In background&#39; off for anything that doesn&#39;t need it</li>
-      <li>Hunting a leak: Win + R → perfmon → Monitoring Tools → Performance Monitor → add Process &gt; Private Bytes — a line that climbs and never falls is your culprit; update, restart or replace that program</li>
-      <li>Size the paging file: search &#39;View advanced system settings&#39; → Settings → Advanced → Change → Custom size, initial 1.5× RAM in MB, max 3× (8 GB → 12,288 / 24,576) → restart</li>
-      <li>Windows Security → Virus &amp; threat protection → Full scan — malware loves to hide as a memory hog; run it monthly</li>
+      <li id="step-1">Ctrl + Shift + Esc → Processes tab → sort by Memory — close or End Task anything you don&#39;t need at the top</li>
+      <li id="step-2">Settings → Apps → Installed apps → three dots next to an app → Advanced options → Background app permissions → &#39;In background&#39; off for anything that doesn&#39;t need it</li>
+      <li id="step-3">Hunting a leak: Win + R → perfmon → Monitoring Tools → Performance Monitor → add Process &gt; Private Bytes — a line that climbs and never falls is your culprit; update, restart or replace that program</li>
+      <li id="step-4">Size the paging file: search &#39;View advanced system settings&#39; → Settings → Advanced → Change → Custom size, initial 1.5× RAM in MB, max 3× (8 GB → 12,288 / 24,576) → restart</li>
+      <li id="step-5">Windows Security → Virus &amp; threat protection → Full scan — malware loves to hide as a memory hog; run it monthly</li>
 </ol>
         </section>
 
@@ -194,8 +243,9 @@
 
   <button class="to-top" id="to-top" type="button" aria-label="Back to top">↑</button>
 
-  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above is complete without it. -->
-  <script src="../../tips-data.js" defer></script>
-  <script src="../../script.js" defer></script>
+  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above
+       is complete without it. page.js carries the chrome and nothing else — a fix page
+       renders no cards from TIPS, so it loads neither tips-data.js nor script.js. -->
+  <script src="../../page.js" defer></script>
 </body>
 </html>

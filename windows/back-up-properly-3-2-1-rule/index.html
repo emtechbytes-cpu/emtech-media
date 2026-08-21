@@ -48,6 +48,43 @@
     ]
   }
   </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "@id": "https://emtechbytes-cpu.github.io/emtech-media/windows/back-up-properly-3-2-1-rule/#article",
+  "headline": "Back up properly (3-2-1 rule)",
+  "description": "Three copies, two different media, one off-site. It's boring — until you need it. Set it up once.",
+  "url": "https://emtechbytes-cpu.github.io/emtech-media/windows/back-up-properly-3-2-1-rule/",
+  "mainEntityOfPage": "https://emtechbytes-cpu.github.io/emtech-media/windows/back-up-properly-3-2-1-rule/",
+  "inLanguage": "en",
+  "dateModified": "2026-08-18",
+  "author": {
+    "@type": "Organization",
+    "@id": "https://emtechbytes-cpu.github.io/emtech-media/#organization",
+    "name": "EmTech Media",
+    "url": "https://emtechbytes-cpu.github.io/emtech-media/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png"
+    }
+  },
+  "publisher": {
+    "@type": "Organization",
+    "@id": "https://emtechbytes-cpu.github.io/emtech-media/#organization",
+    "name": "EmTech Media",
+    "url": "https://emtechbytes-cpu.github.io/emtech-media/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png"
+    }
+  },
+  "image": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png",
+  "proficiencyLevel": "Intermediate",
+  "dependencies": "Any",
+  "timeRequired": "PT30M"
+}
+  </script>
 </head>
 <body>
 
@@ -121,6 +158,7 @@
             <li><span>Difficulty</span> Medium</li>
             <li><span>Estimated time</span> 30 min</li>
             <li><span>Platform</span> Any</li>
+            <li><span>Last updated</span> <time datetime="2026-08-18">Aug 18, 2026</time></li>
           </ul>
         </section>
 
@@ -133,13 +171,24 @@
           <p><strong>Low risk.</strong> This change is reversible — you can return to the previous state without professional help or data loss.</p>
         </section>
 
+
+        <section class="fix-gotchas" aria-label="What usually goes wrong">
+          <h2>What usually goes wrong</h2>
+          <ul class="gotcha-list">
+            <li>OneDrive and Google Drive are sync, not backup. Delete a file or let ransomware encrypt it and the change reaches the cloud copy in seconds. They only count as a copy if version history is on and you know how to roll it back.</li>
+            <li>File History protects the folders it was told about and nothing else. Check that list — anything kept outside your user folder is excluded by default, which is exactly where games, projects and code usually live.</li>
+            <li>A second drive in the same drawer is one copy, not two. The off-site copy is the one that survives a fire, a flood or a burglary, and it&#39;s the one people skip.</li>
+            <li>An external drive left permanently connected is reachable by anything that gets onto the PC, ransomware included. Unplug it between backups.</li>
+          </ul>
+        </section>
+
         <section aria-label="Steps">
           <h2>Steps</h2>
 <ol class="tip-steps fix-steps">
-      <li>Enable Windows File History or use a NAS / external drive (copy #1 + #2)</li>
-      <li>Add a cloud backup for your documents folder (OneDrive, Google Drive, or Backblaze B2)</li>
-      <li>For important projects, keep a second copy on a USB stick you store elsewhere</li>
-      <li>Test a restore once a year — a backup you can&#39;t restore isn&#39;t a backup</li>
+      <li id="step-1">Enable Windows File History or use a NAS / external drive (copy #1 + #2)</li>
+      <li id="step-2">Add a cloud backup for your documents folder (OneDrive, Google Drive, or Backblaze B2)</li>
+      <li id="step-3">For important projects, keep a second copy on a USB stick you store elsewhere</li>
+      <li id="step-4">Test a restore once a year — a backup you can&#39;t restore isn&#39;t a backup</li>
 </ol>
         </section>
 
@@ -193,8 +242,9 @@
 
   <button class="to-top" id="to-top" type="button" aria-label="Back to top">↑</button>
 
-  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above is complete without it. -->
-  <script src="../../tips-data.js" defer></script>
-  <script src="../../script.js" defer></script>
+  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above
+       is complete without it. page.js carries the chrome and nothing else — a fix page
+       renders no cards from TIPS, so it loads neither tips-data.js nor script.js. -->
+  <script src="../../page.js" defer></script>
 </body>
 </html>

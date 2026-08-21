@@ -48,6 +48,43 @@
     ]
   }
   </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "@id": "https://emtechbytes-cpu.github.io/emtech-media/windows/connected-but-no-internet-the-safe-dns-and-stack-reset/#article",
+  "headline": "Connected but no internet? The safe DNS and stack reset",
+  "description": "Wi-Fi connected, little globe with a slash — the link is up but the path to the internet isn't. A safe, fully reversible stack reset fixes most of it.",
+  "url": "https://emtechbytes-cpu.github.io/emtech-media/windows/connected-but-no-internet-the-safe-dns-and-stack-reset/",
+  "mainEntityOfPage": "https://emtechbytes-cpu.github.io/emtech-media/windows/connected-but-no-internet-the-safe-dns-and-stack-reset/",
+  "inLanguage": "en",
+  "dateModified": "2026-08-19",
+  "author": {
+    "@type": "Organization",
+    "@id": "https://emtechbytes-cpu.github.io/emtech-media/#organization",
+    "name": "EmTech Media",
+    "url": "https://emtechbytes-cpu.github.io/emtech-media/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png"
+    }
+  },
+  "publisher": {
+    "@type": "Organization",
+    "@id": "https://emtechbytes-cpu.github.io/emtech-media/#organization",
+    "name": "EmTech Media",
+    "url": "https://emtechbytes-cpu.github.io/emtech-media/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png"
+    }
+  },
+  "image": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png",
+  "proficiencyLevel": "Intermediate",
+  "dependencies": "Win 10 / 11",
+  "timeRequired": "PT10M"
+}
+  </script>
 </head>
 <body>
 
@@ -121,6 +158,7 @@
             <li><span>Difficulty</span> Medium</li>
             <li><span>Estimated time</span> 10 min</li>
             <li><span>Platform</span> Win 10 / 11</li>
+            <li><span>Last updated</span> <time datetime="2026-08-19">Aug 19, 2026</time></li>
           </ul>
         </section>
 
@@ -133,13 +171,24 @@
           <p><strong>Medium risk.</strong> This change is reversible — you can return to the previous state without professional help or data loss.</p>
         </section>
 
+
+        <section class="fix-gotchas" aria-label="What usually goes wrong">
+          <h2>What usually goes wrong</h2>
+          <ul class="gotcha-list">
+            <li>netsh winsock reset strips out layered networking software. VPN clients, some antivirus and older virtual adapters can stop working afterwards and need reinstalling — know which VPN you rely on before you run it.</li>
+            <li>If the adapter had a manual IP or DNS set for a work network, a printer or a media server, these resets discard it. Note those settings down first.</li>
+            <li>Both resets need the restart to take effect. Skip it and the stack sits half-configured, which looks exactly like the reset having failed.</li>
+            <li>If switching to a public resolver like 1.1.1.1 fixes it, don&#39;t just leave it there and move on — your router or ISP resolver is the actual fault, and it&#39;s affecting every other device in the house too.</li>
+          </ul>
+        </section>
+
         <section aria-label="Steps">
           <h2>Steps</h2>
 <ol class="tip-steps fix-steps">
-      <li>Isolate first: do other devices on this network have internet? If not, reboot the router and check with your ISP before touching this PC</li>
-      <li>Win + X → Terminal (Admin): run ipconfig /release, then ipconfig /renew — gives the PC a fresh address from the router</li>
-      <li>Then flush the DNS cache: ipconfig /flushdns. Then reset the stack: netsh winsock reset, followed by netsh int ip reset</li>
-      <li>Restart the PC (both resets need it). If pages still won&#39;t load, set your adapter&#39;s DNS to Automatic — or test 1.1.1.1 as a temporary DNS server to confirm it was a DNS problem all along</li>
+      <li id="step-1">Isolate first: do other devices on this network have internet? If not, reboot the router and check with your ISP before touching this PC</li>
+      <li id="step-2">Win + X → Terminal (Admin): run ipconfig /release, then ipconfig /renew — gives the PC a fresh address from the router</li>
+      <li id="step-3">Then flush the DNS cache: ipconfig /flushdns. Then reset the stack: netsh winsock reset, followed by netsh int ip reset</li>
+      <li id="step-4">Restart the PC (both resets need it). If pages still won&#39;t load, set your adapter&#39;s DNS to Automatic — or test 1.1.1.1 as a temporary DNS server to confirm it was a DNS problem all along</li>
 </ol>
         </section>
 
@@ -193,8 +242,9 @@
 
   <button class="to-top" id="to-top" type="button" aria-label="Back to top">↑</button>
 
-  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above is complete without it. -->
-  <script src="../../tips-data.js" defer></script>
-  <script src="../../script.js" defer></script>
+  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above
+       is complete without it. page.js carries the chrome and nothing else — a fix page
+       renders no cards from TIPS, so it loads neither tips-data.js nor script.js. -->
+  <script src="../../page.js" defer></script>
 </body>
 </html>

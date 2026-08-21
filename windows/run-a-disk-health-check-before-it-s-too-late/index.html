@@ -48,6 +48,43 @@
     ]
   }
   </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "@id": "https://emtechbytes-cpu.github.io/emtech-media/windows/run-a-disk-health-check-before-it-s-too-late/#article",
+  "headline": "Run a disk health check before it's too late",
+  "description": "Drives fail suddenly. A 10-minute monthly check tells you when to back up and replace before the data is gone.",
+  "url": "https://emtechbytes-cpu.github.io/emtech-media/windows/run-a-disk-health-check-before-it-s-too-late/",
+  "mainEntityOfPage": "https://emtechbytes-cpu.github.io/emtech-media/windows/run-a-disk-health-check-before-it-s-too-late/",
+  "inLanguage": "en",
+  "dateModified": "2026-08-18",
+  "author": {
+    "@type": "Organization",
+    "@id": "https://emtechbytes-cpu.github.io/emtech-media/#organization",
+    "name": "EmTech Media",
+    "url": "https://emtechbytes-cpu.github.io/emtech-media/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png"
+    }
+  },
+  "publisher": {
+    "@type": "Organization",
+    "@id": "https://emtechbytes-cpu.github.io/emtech-media/#organization",
+    "name": "EmTech Media",
+    "url": "https://emtechbytes-cpu.github.io/emtech-media/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png"
+    }
+  },
+  "image": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png",
+  "proficiencyLevel": "Intermediate",
+  "dependencies": "Win 10 / 11",
+  "timeRequired": "PT15M"
+}
+  </script>
 </head>
 <body>
 
@@ -121,6 +158,7 @@
             <li><span>Difficulty</span> Medium</li>
             <li><span>Estimated time</span> 15 min</li>
             <li><span>Platform</span> Win 10 / 11</li>
+            <li><span>Last updated</span> <time datetime="2026-08-18">Aug 18, 2026</time></li>
           </ul>
         </section>
 
@@ -133,13 +171,24 @@
           <p><strong>Medium risk.</strong> This change is reversible — you can return to the previous state without professional help or data loss.</p>
         </section>
 
+
+        <section class="fix-gotchas" aria-label="What usually goes wrong">
+          <h2>What usually goes wrong</h2>
+          <ul class="gotcha-list">
+            <li>Don&#39;t run chkdsk /r on a drive already reporting bad sectors. The full surface scan hammers a failing disk for hours and is quite capable of finishing it off. Copy the data somewhere safe first, then test.</li>
+            <li>S.M.A.R.T. reporting &#39;OK&#39; is not a clean bill of health — it only means no threshold the manufacturer chose has been crossed yet. A reallocated sector count that is climbing at all is the warning, whatever the overall verdict says.</li>
+            <li>chkdsk tells you very little about an SSD. Wear levelling plus the maker&#39;s own tool — Samsung Magician, Crucial Storage Executive — are the checks that mean something there.</li>
+            <li>Clicking, ticking, or a drive that disappears and comes back: stop testing and copy the data off now. Every extra powered-on hour is spending down what you can still recover.</li>
+          </ul>
+        </section>
+
         <section aria-label="Steps">
           <h2>Steps</h2>
 <ol class="tip-steps fix-steps">
-      <li>Task Manager → Performance → Storage → check &#39;Health&#39; (or use CrystalDiskInfo for full S.M.A.R.T. data)</li>
-      <li>Any re-allocated sectors, pending sectors, or bad sectors = back everything up NOW</li>
-      <li>SSDs: check &#39;Wear Leveling Count&#39; — under 90% is fine, below 50% plan a replacement</li>
-      <li>Run &#39;chkdsk C:&#39; from an admin command prompt for a full scan (takes a while, do it overnight)</li>
+      <li id="step-1">Task Manager → Performance → Storage → check &#39;Health&#39; (or use CrystalDiskInfo for full S.M.A.R.T. data)</li>
+      <li id="step-2">Any re-allocated sectors, pending sectors, or bad sectors = back everything up NOW</li>
+      <li id="step-3">SSDs: check &#39;Wear Leveling Count&#39; — under 90% is fine, below 50% plan a replacement</li>
+      <li id="step-4">Run &#39;chkdsk C:&#39; from an admin command prompt for a full scan (takes a while, do it overnight)</li>
 </ol>
         </section>
 
@@ -193,8 +242,9 @@
 
   <button class="to-top" id="to-top" type="button" aria-label="Back to top">↑</button>
 
-  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above is complete without it. -->
-  <script src="../../tips-data.js" defer></script>
-  <script src="../../script.js" defer></script>
+  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above
+       is complete without it. page.js carries the chrome and nothing else — a fix page
+       renders no cards from TIPS, so it loads neither tips-data.js nor script.js. -->
+  <script src="../../page.js" defer></script>
 </body>
 </html>

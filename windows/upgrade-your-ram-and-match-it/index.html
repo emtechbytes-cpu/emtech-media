@@ -48,6 +48,43 @@
     ]
   }
   </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "@id": "https://emtechbytes-cpu.github.io/emtech-media/windows/upgrade-your-ram-and-match-it/#article",
+  "headline": "Upgrade your RAM (and match it)",
+  "description": "16 GB is the comfortable minimum for modern Windows use. Always buy matched pairs for dual-channel speed.",
+  "url": "https://emtechbytes-cpu.github.io/emtech-media/windows/upgrade-your-ram-and-match-it/",
+  "mainEntityOfPage": "https://emtechbytes-cpu.github.io/emtech-media/windows/upgrade-your-ram-and-match-it/",
+  "inLanguage": "en",
+  "dateModified": "2026-08-18",
+  "author": {
+    "@type": "Organization",
+    "@id": "https://emtechbytes-cpu.github.io/emtech-media/#organization",
+    "name": "EmTech Media",
+    "url": "https://emtechbytes-cpu.github.io/emtech-media/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png"
+    }
+  },
+  "publisher": {
+    "@type": "Organization",
+    "@id": "https://emtechbytes-cpu.github.io/emtech-media/#organization",
+    "name": "EmTech Media",
+    "url": "https://emtechbytes-cpu.github.io/emtech-media/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png"
+    }
+  },
+  "image": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png",
+  "proficiencyLevel": "Intermediate",
+  "dependencies": "Any",
+  "timeRequired": "PT30M"
+}
+  </script>
 </head>
 <body>
 
@@ -121,6 +158,7 @@
             <li><span>Difficulty</span> Medium</li>
             <li><span>Estimated time</span> 30 min</li>
             <li><span>Platform</span> Any</li>
+            <li><span>Last updated</span> <time datetime="2026-08-18">Aug 18, 2026</time></li>
           </ul>
         </section>
 
@@ -133,13 +171,25 @@
           <p><strong>Low risk.</strong> This change is reversible — you can return to the previous state without professional help or data loss.</p>
         </section>
 
+
+        <section class="fix-gotchas" aria-label="What usually goes wrong">
+          <h2>What usually goes wrong</h2>
+          <ul class="gotcha-list">
+            <li>Two sticks go in the matching-coloured slots — usually the 2nd and 4th counting from the CPU, not the two side by side. The wrong pair of slots gets you single-channel and quietly costs you the speed you just paid for. The motherboard manual has the diagram.</li>
+            <li>Fitting the RAM is only half of it. Enable XMP (Intel) or EXPO (AMD) in the BIOS afterwards, or the sticks run at the slow default speed regardless of what&#39;s printed on the heatsink.</li>
+            <li>Unplug at the wall and hold the power button for ten seconds before you open the case. That drains the residual charge that&#39;s still in the board after shutdown.</li>
+            <li>Mixing a new stick with your existing one usually works, but both drop to the slower one&#39;s timings. A matched kit is tested to run together; two singles are not.</li>
+            <li>Won&#39;t turn on after fitting? Reseat before you assume the stick is dead. Most &#39;faulty RAM&#39; is one end that never fully clicked in.</li>
+          </ul>
+        </section>
+
         <section aria-label="Steps">
           <h2>Steps</h2>
 <ol class="tip-steps fix-steps">
-      <li>Check what you have: open Task Manager → Performance → Memory</li>
-      <li>Note the type (DDR4 / DDR5), speed, and how many slots are free</li>
-      <li>Buy an identical stick for dual-channel, or a matched 2×16 GB kit</li>
-      <li>Power off, unplug, push the side clips and drop the new RAM in; one firm click means it&#39;s seated</li>
+      <li id="step-1">Check what you have: open Task Manager → Performance → Memory</li>
+      <li id="step-2">Note the type (DDR4 / DDR5), speed, and how many slots are free</li>
+      <li id="step-3">Buy an identical stick for dual-channel, or a matched 2×16 GB kit</li>
+      <li id="step-4">Power off, unplug, push the side clips and drop the new RAM in; one firm click means it&#39;s seated</li>
 </ol>
         </section>
 
@@ -193,8 +243,9 @@
 
   <button class="to-top" id="to-top" type="button" aria-label="Back to top">↑</button>
 
-  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above is complete without it. -->
-  <script src="../../tips-data.js" defer></script>
-  <script src="../../script.js" defer></script>
+  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above
+       is complete without it. page.js carries the chrome and nothing else — a fix page
+       renders no cards from TIPS, so it loads neither tips-data.js nor script.js. -->
+  <script src="../../page.js" defer></script>
 </body>
 </html>

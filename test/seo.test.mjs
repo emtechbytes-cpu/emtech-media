@@ -209,8 +209,13 @@ test("every fix page contains its full step list in raw HTML", () => {
     const html = fixHtml.get(p.rel);
     const ol = html.match(/<ol class="tip-steps fix-steps">([\s\S]*?)<\/ol>/);
     assert.ok(ol, `${p.rel}: missing static <ol> steps`);
-    const lis = (ol[1].match(/<li>/g) || []).length;
+    const lis = (ol[1].match(/<li[\s>]/g) || []).length;
     assert.equal(lis, p.tip.steps.length, `${p.rel}: expected ${p.tip.steps.length} step items in raw HTML, found ${lis}`);
+
+    // Every step is addressable at #step-N so it can be linked directly.
+    for (let i = 1; i <= p.tip.steps.length; i++) {
+      assert.ok(ol[1].includes(`<li id="step-${i}">`), `${p.rel}: step ${i} has no #step-${i} anchor`);
+    }
   }
 });
 

@@ -48,6 +48,43 @@
     ]
   }
   </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "@id": "https://emtechbytes-cpu.github.io/emtech-media/windows/lock-down-your-home-wi-fi-properly/#article",
+  "headline": "Lock down your home Wi-Fi properly",
+  "description": "Your router's default name is a map for attackers — it tells them the make, model and which firmware bugs to try. Fifteen minutes fixes all of that.",
+  "url": "https://emtechbytes-cpu.github.io/emtech-media/windows/lock-down-your-home-wi-fi-properly/",
+  "mainEntityOfPage": "https://emtechbytes-cpu.github.io/emtech-media/windows/lock-down-your-home-wi-fi-properly/",
+  "inLanguage": "en",
+  "dateModified": "2026-08-18",
+  "author": {
+    "@type": "Organization",
+    "@id": "https://emtechbytes-cpu.github.io/emtech-media/#organization",
+    "name": "EmTech Media",
+    "url": "https://emtechbytes-cpu.github.io/emtech-media/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png"
+    }
+  },
+  "publisher": {
+    "@type": "Organization",
+    "@id": "https://emtechbytes-cpu.github.io/emtech-media/#organization",
+    "name": "EmTech Media",
+    "url": "https://emtechbytes-cpu.github.io/emtech-media/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png"
+    }
+  },
+  "image": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png",
+  "proficiencyLevel": "Intermediate",
+  "dependencies": "Any",
+  "timeRequired": "PT15M"
+}
+  </script>
 </head>
 <body>
 
@@ -121,6 +158,7 @@
             <li><span>Difficulty</span> Medium</li>
             <li><span>Estimated time</span> 15 min</li>
             <li><span>Platform</span> Any</li>
+            <li><span>Last updated</span> <time datetime="2026-08-18">Aug 18, 2026</time></li>
           </ul>
         </section>
 
@@ -133,14 +171,25 @@
           <p><strong>Medium risk.</strong> This change is reversible — you can return to the previous state without professional help or data loss.</p>
         </section>
 
+
+        <section class="fix-gotchas" aria-label="What usually goes wrong">
+          <h2>What usually goes wrong</h2>
+          <ul class="gotcha-list">
+            <li>Write the new router admin password down before you save it. Getting it wrong locks you out of your own router, and the only way back is a factory reset that undoes everything else you just did.</li>
+            <li>Renaming the network or changing the passphrase disconnects everything at once — phones, laptops, the TV, the printer, the thermostat, the doorbell, every smart plug. Budget an hour to reconnect them, and don&#39;t do it while someone&#39;s working.</li>
+            <li>Older devices don&#39;t understand WPA3. If something refuses to rejoin, set the router to mixed WPA2/WPA3 rather than dropping the whole network back to WPA2.</li>
+            <li>Plenty of smart-home gear can only see 2.4 GHz. If a device vanishes after the rename, check whether the 2.4 GHz band needs its own network name for that device to find it.</li>
+          </ul>
+        </section>
+
         <section aria-label="Steps">
           <h2>Steps</h2>
 <ol class="tip-steps fix-steps">
-      <li>Log into your router (usually 192.168.0.1 or 192.168.1.1) and change the admin password first — it&#39;s the door everything else goes through</li>
-      <li>Rename the network (SSID) to something that doesn&#39;t reveal you: no house numbers, names or &#39;SmithFamily&#39;</li>
-      <li>Set a strong Wi-Fi passphrase (12+ random characters work well) and use WPA3 if your router supports it, otherwise WPA2 — never WEP or open</li>
-      <li>Turn off WPS if you can see the setting — it&#39;s been crackable for years</li>
-      <li>Create a guest network for visitors and smart-home gear so they&#39;re walled off from your PC</li>
+      <li id="step-1">Log into your router (usually 192.168.0.1 or 192.168.1.1) and change the admin password first — it&#39;s the door everything else goes through</li>
+      <li id="step-2">Rename the network (SSID) to something that doesn&#39;t reveal you: no house numbers, names or &#39;SmithFamily&#39;</li>
+      <li id="step-3">Set a strong Wi-Fi passphrase (12+ random characters work well) and use WPA3 if your router supports it, otherwise WPA2 — never WEP or open</li>
+      <li id="step-4">Turn off WPS if you can see the setting — it&#39;s been crackable for years</li>
+      <li id="step-5">Create a guest network for visitors and smart-home gear so they&#39;re walled off from your PC</li>
 </ol>
         </section>
 
@@ -196,8 +245,9 @@
 
   <button class="to-top" id="to-top" type="button" aria-label="Back to top">↑</button>
 
-  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above is complete without it. -->
-  <script src="../../tips-data.js" defer></script>
-  <script src="../../script.js" defer></script>
+  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above
+       is complete without it. page.js carries the chrome and nothing else — a fix page
+       renders no cards from TIPS, so it loads neither tips-data.js nor script.js. -->
+  <script src="../../page.js" defer></script>
 </body>
 </html>

@@ -72,6 +72,13 @@ for (const [i, t] of TIPS.entries()) {
   if (typeof t.reversible !== "boolean") fail(`${where}: reversible must be boolean`);
   if (typeof t.verification !== "string" || !t.verification.trim()) fail(`${where}: verification missing`);
   if (typeof t.failure_conditions !== "string" || !t.failure_conditions.trim()) fail(`${where}: failure_conditions missing`);
+  // gotchas is optional, but a present one must be real content, not an empty shell.
+  if (t.gotchas !== undefined) {
+    if (!Array.isArray(t.gotchas) || !t.gotchas.length) fail(`${where}: gotchas must be a non-empty array when present`);
+    for (const g of t.gotchas) {
+      if (typeof g !== "string" || g.trim().length < 20) fail(`${where}: gotcha too short/missing — say what goes wrong AND what to do`);
+    }
+  }
 }
 
 const slugOf = (t) => tipSlug(t.title);
@@ -332,6 +339,85 @@ ${el}
   </script>`;
 }
 
+
+/* ---------- Fix page structured data ----------
+   One TechArticle node per fix: what the page is, when it was last revised,
+   who stands behind it, and what it presumes you are running. dateModified is
+   the part search actually acts on — the library carries real revision dates
+   and had no machine-readable way to say so.
+
+   NO HowTo NODE — deliberate, and enforced by test/phase5.test.mjs (RULE 15 /
+   Phase 4 spec §12): Google retired HowTo rich results in 2023, so marking up
+   the steps buys nothing there. The steps stay plain semantic HTML. If that
+   trade is ever revisited, the rule, its test and the Phase 5 audit note all
+   have to move together. */
+
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+/* "2026-08-18" -> "Aug 18, 2026". Formatted by hand rather than via
+   toLocaleDateString so the generated HTML is byte-identical whatever locale
+   the build runs under. */
+function humanDate(iso) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(iso || ""));
+  if (!m) return "";
+  return `${MONTHS[Number(m[2]) - 1]} ${Number(m[3])}, ${m[1]}`;
+}
+
+/* "15 min" -> "PT15M", "1 hr" -> "PT1H". Returns null for anything it does not
+   recognise, so totalTime is omitted rather than emitted wrong. */
+function isoDuration(time) {
+  const m = /^(\d+)\s*(min|hr)/i.exec(String(time || "").trim());
+  if (!m) return null;
+  return "PT" + Number(m[1]) + (m[2].toLowerCase() === "hr" ? "H" : "M");
+}
+
+const PROFICIENCY = { 1: "Beginner", 2: "Intermediate", 3: "Expert" };
+
+const PUBLISHER = {
+  "@type": "Organization",
+  "@id": `${BASE}/#organization`,
+  name: "EmTech Media",
+  url: `${BASE}/`,
+  logo: { "@type": "ImageObject", url: `${BASE}/og-image.png` },
+};
+
+/* JSON-LD sits inside <script>: a literal "</script>" in any string value would
+   close the block early. Escaping "<" is the standard guard. */
+function jsonLdBlock(obj) {
+  const json = JSON.stringify(obj, null, 2).replace(/</g, "\\u003C");
+  return `  <script type="application/ld+json">\n${json}\n  </script>`;
+}
+
+function fixJsonLd(t, canonical, platformLabel) {
+  const total = isoDuration(t.time);
+
+  /* tips-data.js records `updated` (last revision) and nothing else, so
+     dateModified is the only date we can state truthfully. datePublished is
+     emitted only if a tip grows a `published` field — never faked from
+     `updated`, which would claim the fix first appeared on its last edit. */
+  const dates = { dateModified: t.updated };
+  if (t.published) dates.datePublished = t.published;
+
+  const article = {
+    "@type": "TechArticle",
+    "@id": canonical + "#article",
+    headline: t.title,
+    description: t.description,
+    url: canonical,
+    mainEntityOfPage: canonical,
+    inLanguage: "en",
+    ...dates,
+    author: PUBLISHER,
+    publisher: PUBLISHER,
+    image: `${BASE}/og-image.png`,
+    proficiencyLevel: PROFICIENCY[t.difficulty],
+    dependencies: platformLabel,
+    ...(total ? { timeRequired: total } : {}),
+  };
+
+  return jsonLdBlock({ "@context": "https://schema.org", ...article });
+}
+
 /* ---------- Fix page (one canonical URL per fix) ---------- */
 function riskLabel(risk) { return { low: "Low risk", medium: "Medium risk", high: "High risk" }[risk] || ""; }
 
@@ -352,7 +438,8 @@ function fixPageHtml(a) {
     return `        <li><a href="${r(rp + rs + "/")}">${esc(rt.title)}</a> <small>${LEVELS[rt.difficulty] || ""} · ${esc(rt.time)}</small></li>`;
   }).join("\n");
 
-  const stepsHtml = t.steps.map((s) => `      <li>${esc(s)}</li>`).join("\n");
+  // id per step so a reader can link one directly ("start at step 3").
+  const stepsHtml = t.steps.map((s, i) => `      <li id="step-${i + 1}">${esc(s)}</li>`).join("\n");
 
   return `${headCommon(depth, { title: meta.title, description: meta.description, canonical })}
 ${breadcrumbJsonLd([
@@ -360,6 +447,7 @@ ${breadcrumbJsonLd([
     { name: a.platform === "mac" ? "Mac fixes" : "Windows fixes", item: `${BASE}/${hubPath}` },
     { name: t.title, item: canonical },
   ])}
+${fixJsonLd(t, canonical, platformLabel)}
 </head>
 <body>
 ${headerHtml(depth, a.platform)}
@@ -387,7 +475,8 @@ ${headerHtml(depth, a.platform)}
           <ul class="hero-meta fix-meta" aria-label="Fix facts">
             <li><span>Difficulty</span> ${LEVELS[t.difficulty] || ""}</li>
             <li><span>Estimated time</span> ${esc(t.time)}</li>
-            <li><span>Platform</span> ${esc(platformLabel)}</li>
+            <li><span>Platform</span> ${esc(platformLabel)}</li>${t.updated ? `
+            <li><span>Last updated</span> <time datetime="${esc(t.updated)}">${esc(humanDate(t.updated))}</time></li>` : ""}
           </ul>
         </section>${t.diagram ? `\n\n        <figure class="tip-diagram-scroll" role="group" aria-label="${esc(t.title)} — schematic diagram">\n          <img class="tip-diagram" src="${r("diagrams/" + t.diagram.split("/").pop())}" alt="${esc(t.title)} — schematic diagram" width="800" height="540">\n        </figure>` : ""}
 
@@ -395,6 +484,14 @@ ${headerHtml(depth, a.platform)}
           <h2>Before you start</h2>
           <p><strong>${riskLabel(t.risk_level)}.</strong> ${t.reversible ? "This change is reversible — you can return to the previous state without professional help or data loss." : "This change is not fully reversible — read every step before you begin and make sure your important work is saved."}</p>
         </section>
+
+${t.gotchas ? `
+        <section class="fix-gotchas" aria-label="What usually goes wrong">
+          <h2>What usually goes wrong</h2>
+          <ul class="gotcha-list">
+${t.gotchas.map((g) => `            <li>${esc(g)}</li>`).join("\n")}
+          </ul>
+        </section>` : ""}
 
         <section aria-label="Steps">
           <h2>Steps</h2>
@@ -434,9 +531,10 @@ ${footerHtml(depth)}
 
   <button class="to-top" id="to-top" type="button" aria-label="Back to top">↑</button>
 
-  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above is complete without it. -->
-  <script src="${r("tips-data.js")}" defer></script>
-  <script src="${r("script.js")}" defer></script>
+  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above
+       is complete without it. page.js carries the chrome and nothing else — a fix page
+       renders no cards from TIPS, so it loads neither tips-data.js nor script.js. -->
+  <script src="${r("page.js")}" defer></script>
 </body>
 </html>
 `;
@@ -613,6 +711,8 @@ ${footerHtml(depth)}
   <script src="${r("diag-engine.js")}" defer></script>
   <script src="${r("script.js")}" defer></script>
   <script src="${r("diag-feedback.js")}" defer></script>
+  <!-- Chrome last: its reveal/counter observers must see the rendered cards. -->
+  <script src="${r("page.js")}" defer></script>
 </body>
 </html>
 `;
@@ -684,6 +784,11 @@ ${popular}
   </main>
 
 ${footerHtml(depth, true)}
+
+  <button class="to-top" id="to-top" type="button" aria-label="Back to top">↑</button>
+
+  <!-- Root-anchored like every other reference on this page (see anchor()). -->
+  <script src="${r("page.js")}" defer></script>
 </body>
 </html>
 `;

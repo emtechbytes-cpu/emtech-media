@@ -818,6 +818,32 @@ figcaption {
   color: var(--muted);
 }
 
+/* "What usually goes wrong" on a fix page. Same list language as
+   .tip-steps above, but marked rather than numbered — these are things
+   to watch for, not an ordered procedure to follow. */
+.gotcha-list {
+  margin: 4px 0 0;
+  padding: 16px 0 0;
+  border-top: 1px solid var(--hairline);
+  list-style: none;
+  max-width: 72ch;
+}
+.gotcha-list li {
+  position: relative;
+  padding-left: 38px;
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+.gotcha-list li::before {
+  content: "!";
+  position: absolute;
+  left: 0; top: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
 .no-js-note {
   margin: 0;
   padding: 16px 8px;
@@ -1194,6 +1220,7 @@ figcaption {
   body.printing-single .print-target .acc-icon { display: none !important; }
 
   .tip-steps li { page-break-inside: avoid; }
+  .gotcha-list li { page-break-inside: avoid; }
 
   /* Figures print at full width — no panning on paper */
   .tip-diagram-scroll { overflow: visible; margin: 12pt 0 4pt; border: none; }

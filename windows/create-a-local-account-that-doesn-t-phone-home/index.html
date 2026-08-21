@@ -48,6 +48,43 @@
     ]
   }
   </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "TechArticle",
+  "@id": "https://emtechbytes-cpu.github.io/emtech-media/windows/create-a-local-account-that-doesn-t-phone-home/#article",
+  "headline": "Create a local account that doesn't phone home",
+  "description": "Microsoft accounts sync your activity to their servers. A local account keeps everything on the machine — ideal for shared or guest PCs.",
+  "url": "https://emtechbytes-cpu.github.io/emtech-media/windows/create-a-local-account-that-doesn-t-phone-home/",
+  "mainEntityOfPage": "https://emtechbytes-cpu.github.io/emtech-media/windows/create-a-local-account-that-doesn-t-phone-home/",
+  "inLanguage": "en",
+  "dateModified": "2026-08-18",
+  "author": {
+    "@type": "Organization",
+    "@id": "https://emtechbytes-cpu.github.io/emtech-media/#organization",
+    "name": "EmTech Media",
+    "url": "https://emtechbytes-cpu.github.io/emtech-media/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png"
+    }
+  },
+  "publisher": {
+    "@type": "Organization",
+    "@id": "https://emtechbytes-cpu.github.io/emtech-media/#organization",
+    "name": "EmTech Media",
+    "url": "https://emtechbytes-cpu.github.io/emtech-media/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png"
+    }
+  },
+  "image": "https://emtechbytes-cpu.github.io/emtech-media/og-image.png",
+  "proficiencyLevel": "Intermediate",
+  "dependencies": "Win 10 / 11",
+  "timeRequired": "PT10M"
+}
+  </script>
 </head>
 <body>
 
@@ -121,6 +158,7 @@
             <li><span>Difficulty</span> Medium</li>
             <li><span>Estimated time</span> 10 min</li>
             <li><span>Platform</span> Win 10 / 11</li>
+            <li><span>Last updated</span> <time datetime="2026-08-18">Aug 18, 2026</time></li>
           </ul>
         </section>
 
@@ -133,14 +171,16 @@
           <p><strong>Low risk.</strong> This change is reversible — you can return to the previous state without professional help or data loss.</p>
         </section>
 
+
+
         <section aria-label="Steps">
           <h2>Steps</h2>
 <ol class="tip-steps fix-steps">
-      <li>Settings → Accounts → Other users → Add account, then click &#39;I don&#39;t have this person&#39;s sign-in info&#39;</li>
-      <li>Choose &#39;Add a user without a Microsoft Account&#39; and set a username + password</li>
-      <li>Faster route from an admin prompt: net user GuestName StrongPass /add — promote with net localgroup Administrators GuestName /add if needed</li>
-      <li>Keep it a standard account by default; only grant Administrator when the person genuinely needs system-wide control</li>
-      <li>Verify: sign out, log in as the new user, and confirm its files stay isolated from your own profile</li>
+      <li id="step-1">Settings → Accounts → Other users → Add account, then click &#39;I don&#39;t have this person&#39;s sign-in info&#39;</li>
+      <li id="step-2">Choose &#39;Add a user without a Microsoft Account&#39; and set a username + password</li>
+      <li id="step-3">Faster route from an admin prompt: net user GuestName StrongPass /add — promote with net localgroup Administrators GuestName /add if needed</li>
+      <li id="step-4">Keep it a standard account by default; only grant Administrator when the person genuinely needs system-wide control</li>
+      <li id="step-5">Verify: sign out, log in as the new user, and confirm its files stay isolated from your own profile</li>
 </ol>
         </section>
 
@@ -194,8 +234,9 @@
 
   <button class="to-top" id="to-top" type="button" aria-label="Back to top">↑</button>
 
-  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above is complete without it. -->
-  <script src="../../tips-data.js" defer></script>
-  <script src="../../script.js" defer></script>
+  <!-- Progressive enhancement only: theme toggle + nav behaviour. The article above
+       is complete without it. page.js carries the chrome and nothing else — a fix page
+       renders no cards from TIPS, so it loads neither tips-data.js nor script.js. -->
+  <script src="../../page.js" defer></script>
 </body>
 </html>
