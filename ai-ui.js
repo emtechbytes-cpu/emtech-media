@@ -140,11 +140,23 @@
   }
 
   function starsHtml(session) {
+    // Restore the rating already saved for THIS session, if any.
+    let n = 0;
+    try {
+      const raw = window.localStorage.getItem(FEEDBACK_KEY);
+      if (raw) {
+        const saved = JSON.parse(raw) || null;
+        const sid = (session && session.id) || null;
+        if (saved && saved.sessionId === sid && Number(saved.stars) >= 1) {
+          n = Math.min(5, Math.floor(Number(saved.stars)));
+        }
+      }
+    } catch (err) {}
     return `
       <div class="ai-stars" role="group" aria-label="How helpful was EmTech AI?">
         <span class="ai-stars-q">How helpful was EmTech AI?</span>
-        ${[1, 2, 3, 4, 5].map((n) => `<button type="button" class="ai-star" data-stars="${n}" aria-label="${n} star${n > 1 ? "s" : ""}">★</button>`).join("")}
-        <span class="ai-stars-thanks" hidden>Thanks — saved on this device.</span>
+        ${[1, 2, 3, 4, 5].map((k) => `<button type="button" class="ai-star${k <= n ? " on" : ""}" data-stars="${k}" aria-label="${k} star${k > 1 ? "s" : ""}">★</button>`).join("")}
+        <span class="ai-stars-thanks"${n ? "" : " hidden"}>Thanks — saved on this device.</span>
       </div>`;
   }
 
@@ -594,8 +606,15 @@
         window.localStorage.setItem(FEEDBACK_KEY, JSON.stringify({ sessionId: session.id || null, stars: n, date: new Date().toISOString() }));
       } catch (err) {}
       E.trackEvent("ai_feedback_stars", { stars: n });
-      const thanks = star.closest(".ai-stars").querySelector(".ai-stars-thanks");
-      if (thanks) thanks.hidden = false;
+      const group = star.closest(".ai-stars");
+      if (group) {
+        // Fill every star up to and including the chosen one.
+        for (const b of group.querySelectorAll(".ai-star")) {
+          b.classList.toggle("on", Number(b.dataset.stars) <= n);
+        }
+        const thanks = group.querySelector(".ai-stars-thanks");
+        if (thanks) thanks.hidden = false;
+      }
     }
   });
 

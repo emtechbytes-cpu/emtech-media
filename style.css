@@ -2314,6 +2314,7 @@ a.dz-alt:hover { background: var(--paper-2); }
   transition: opacity 0.15s ease, background-color 0.15s ease, transform 0.15s ease;
 }
 .ai-star:hover { opacity: 1; background: var(--accent); color: var(--on-accent); transform: translateY(-2px); }
+.ai-star.on { opacity: 1; background: var(--accent); color: var(--on-accent); }
 .ai-stars-thanks {
   font-family: var(--font-mono);
   font-size: 0.72rem;
