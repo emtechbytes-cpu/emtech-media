@@ -551,7 +551,11 @@ test("knowledge 25: every cause fix/alt reference across ALL profiles resolves i
   const broken = [];
   for (const p of D.profiles) {
     for (const c of p.causes || []) {
-      if (!knowledge.getFixBySlug(c.fix)) broken.push(`${p.id}/${c.id} → ${c.fix}`);
+      // Phase 3.5.2 — "other"-device causes may intentionally declare NO fix
+      // (no safe platform-neutral tip exists; the engine resolves them to an
+      // honest insufficient state). The invariant this test enforces is that
+      // every DECLARED reference still resolves on the worker side.
+      if (c.fix && !knowledge.getFixBySlug(c.fix)) broken.push(`${p.id}/${c.id} → ${c.fix}`);
       for (const a of c.alt || []) if (!knowledge.getFixBySlug(a)) broken.push(`${p.id}/${c.id} alt → ${a}`);
     }
   }

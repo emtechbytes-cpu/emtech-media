@@ -430,8 +430,13 @@ test("every cause→fix reference in the diagnostic data resolves to a live page
   }
   /* Phase 3.4 (§2/§8) — the microphone branch adds two causes (mac-mic-input,
      mac-mic-perm), each reusing an EXISTING published tip: 147 (Phase 3.3
-     baseline) + 2 = 149. No new pages, no broken references. */
-  assert.equal(refs, 149, `expected the Phase 3.4 total of 149 cause→fix references (147 + 2 mic causes), got ${refs}`);
+     baseline) + 2 = 149.
+     Phase 3.5.2 (P1-2 platform safety) — seven "other"-device causes drop
+     their Windows/Mac-specific fix+alt references (no safe platform-neutral
+     tip exists for them; the engine now resolves those flows to an honest
+     insufficient state): 149 − 7 fixes − 8 alts = 134.
+     No new pages, no broken references. */
+  assert.equal(refs, 134, `expected the Phase 3.5.2 total of 134 cause→fix references (149 − 15 other-device refs), got ${refs}`);
   assert.deepEqual(broken, [], "broken engine fix references:\n" + broken.join("\n"));
 });
 

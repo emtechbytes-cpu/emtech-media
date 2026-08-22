@@ -337,6 +337,21 @@
     }
 
     const chosen = untried[0]; // highest-scoring cause whose fix hasn't been tried
+    /* Phase 3.5.2 — platform-safety invariant: a cause that declares no `fix`
+       has no safe recommendation to make (e.g. "other"-device causes, where
+       every KB fix is Windows- or Mac-specific). Never emit "success" for it;
+       resolve to the honest insufficient state instead. The keyword cap (4)
+       can exceed mediumMin (3), so this guard — not data alone — enforces it.
+       Regression: test/p352-safety.test.mjs. */
+    if (!chosen.cause.fix) {
+      return {
+        mode: "profile", status: "insufficient", confidence: null,
+        primary: top.score > 0 ? { id: top.cause.id, label: top.cause.label } : null,
+        reasons: [], recommendedFix: null,
+        alternativeFixes: untried.slice(0, 4).map((r) => r.cause.fix),
+      };
+    }
+
     /* Phase 3.4 — when the profile is grouped, an explicit alt must stay in
        the active group too (no cross-group leak into "alternative fixes"). */
     const inGroup = (slug) => !group || ranked.some((r) => r.cause.fix === slug);

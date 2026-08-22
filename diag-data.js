@@ -277,19 +277,31 @@
     },
 
     /* ============ OTHER DEVICE (merged, both platforms tagged in UI) ============ */
+    /* Phase 3.5.2 — platform-safety invariant: an "other" device user may
+       NEVER be presented with a Windows-specific or Mac-specific fix.
+       Every cause below therefore declares NO `fix`/`alt` unless the tip's
+       actual content is genuinely platform-neutral (verified against
+       tips-data.js, not slug names). The one neutral tip in the KB that fits
+       an other-device cause is slow-internet-run-the-five-minute-test
+       (speed test / wired-vs-wireless / router checks — no OS-specific UI,
+       commands or apps), kept on oth-net-speed. All other causes stay
+       rankable (keywords + question scores preserved) but resolve to the
+       honest insufficient state instead of a platform-specific verdict —
+       diag-engine.js refuses to emit a "success" for a cause with no fix.
+       Regression: test/p352-safety.test.mjs. */
     {
       id: "oth-performance", devices: ["other"], category: "performance",
       causes: [
-        { id: "oth-perf-memory", label: "Too much running at once — memory pressure", fix: "hunt-down-memory-hogs", alt: ["speed-up-a-sluggish-macbook"], keywords: ["slow", "slower", "lag", "freez"] },
-        { id: "oth-perf-startup", label: "Apps launching at boot adding up", fix: "disable-startup-bloat", alt: ["stop-apps-from-launching-at-login"], keywords: ["startup", "boot", "login"] },
-        { id: "oth-perf-disk", label: "The drive is nearly full", fix: "clean-up-temp-files-and-browser-cache-properly", alt: ["free-up-disk-space-with-storage-management"], keywords: ["storage", "space", "disk", "full"] },
+        { id: "oth-perf-memory", label: "Too much running at once — memory pressure", keywords: ["slow", "slower", "lag", "freez"] },
+        { id: "oth-perf-startup", label: "Apps launching at boot adding up", keywords: ["startup", "boot", "login"] },
+        { id: "oth-perf-disk", label: "The drive is nearly full", keywords: ["storage", "space", "disk", "full"] },
       ],
       questions: ["perf-when", "perf-scope"],
     },
     {
       id: "oth-network", devices: ["other"], category: "network",
       causes: [
-        { id: "oth-net-wifi", label: "Wi-Fi dropping or slowing down", fix: "stop-your-pc-from-sleep-glitching-your-network", alt: ["fix-slow-wi-fi-on-your-mac"], keywords: ["wifi", "wi-fi", "disconnect", "drops"] },
+        { id: "oth-net-wifi", label: "Wi-Fi dropping or slowing down", keywords: ["wifi", "wi-fi", "disconnect", "drops"] },
         { id: "oth-net-speed", label: "The connection itself is slow", fix: "slow-internet-run-the-five-minute-test", alt: [], keywords: ["slow internet", "speed", "buffering"] },
       ],
       questions: ["net-when", "net-scope"],
@@ -297,15 +309,15 @@
     {
       id: "oth-storage", devices: ["other"], category: "storage",
       causes: [
-        { id: "oth-store-temp", label: "Temp files, cache and unused apps piling up", fix: "clean-up-temp-files-and-browser-cache-properly", alt: ["free-up-disk-space-with-storage-management", "uninstall-the-apps-you-never-use"], keywords: ["full", "space", "storage"] },
+        { id: "oth-store-temp", label: "Temp files, cache and unused apps piling up", keywords: ["full", "space", "storage"] },
       ],
       questions: ["store-space"],
     },
     {
       id: "oth-crashes", devices: ["other"], category: "crashes",
       causes: [
-        { id: "oth-crash-bsod", label: "Crashes, blue screens or failed startups", fix: "fix-a-blue-screen-bsod-without-panicking", alt: ["fix-a-mac-that-won-t-start-up"], keywords: ["blue screen", "crash", "won't start"] },
-        { id: "oth-crash-corrupt", label: "Corrupted files or odd misbehaviour", fix: "repair-corrupted-system-files", alt: ["reset-nvram-when-things-misbehave"], keywords: ["glitch", "corrupt", "weird"] },
+        { id: "oth-crash-bsod", label: "Crashes, blue screens or failed startups", keywords: ["blue screen", "crash", "won't start"] },
+        { id: "oth-crash-corrupt", label: "Corrupted files or odd misbehaviour", keywords: ["glitch", "corrupt", "weird"] },
       ],
       questions: ["crash-what"],
     },
